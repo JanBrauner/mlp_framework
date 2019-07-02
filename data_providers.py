@@ -629,3 +629,421 @@ class CIFAR100(CIFAR10):
     test_list = [
         ['test', 'f0ef6b0ae62326f3e7ffdfab6717acfc'],
     ]
+
+
+class XXXHealthyDataset(data.Dataset):
+    """
+
+    """
+
+    # Handling cluster data migration to scratch folder - use this when running on cluster
+    #image_path_base = os.path.join(os.environ['DATASET_DIR'], "RSNA_working_set") # path of the data set images
+    #data_path_base = os.environ['DATASET_DIR'] # path of the required npz files
+
+# =============================================================================
+#     # Use this for your local PC
+    image_path_base = os.path.join("data", "RSNA_working_set") # path of the data set images
+    data_path_base = "data" # path of the required npz files
+# =============================================================================
+
+
+    def __init__(self, which_set, task=None,
+                 transform=False, gamma_factor=1, rot_angle=0, shear_angle=0, translate_distance=0, 
+                 scale_factor=1, debug_mode=False, patch_size=(256,256), patch_location="central", mask_size=(64,64)):
+        # This might be required on the cloud, so I better leave it in for now
+        # self.root = os.path.expanduser(root)
+
+        # check a valid which_set was provided
+        assert which_set in ['train', 'valid', 'test'], (
+            'Expected which_set to be either train, valid or test '
+            'Got {0}'.format(which_set)
+        )
+        assert task in ["regression"], "Please enter valid task"
+        
+        self.which_set = which_set  # train, valid or test set
+        self.task = task
+        
+        self.transform = transform
+        self.gamma_factor = gamma_factor
+        self.rot_angle = rot_angle
+        self.shear_angle = shear_angle
+        self.translate_distance = translate_distance
+        self.scale_factor = scale_factor
+        
+        
+        # construct path to data using os.path.join to ensure the correct path
+        # separator for the current platform / OS is used
+        # MLP_DATA_DIR environment variable should point to the data directory
+        data_path = os.path.join(
+            self.data_path_base, "RSNA_PyTorch_Provider_{0}.npz".format(which_set)) # ToDo: adjust
+        assert os.path.isfile(data_path), (
+            'Data file does not exist at expected path: ' + data_path
+        )
+# =============================================================================
+#         
+#         # load data from compressed numpy file
+#         loaded = np.load(data_path)
+#         self.patientIds = loaded["patientIds"]
+#         
+#         if self.task == '2 classes' or self.task == 'segmentation' or self.task == "multitask with 2 classes": 
+#             self.targets = loaded['targets2']
+#         elif self.task == '3 classes':
+#             self.targets = loaded['targets3']
+# =============================================================================
+            
+# =============================================================================
+#         # debugging mode sets the dataset size to 200, so we can run the whole experiment locally.
+#         if debug_mode:
+#             self.patientIds = self.patientIds[0:50]
+#             self.targets = self.targets[0:50]
+# =============================================================================
+        image_list = os.walk(data_path)# ToDo: actually use the correct command here
+
+
+    def __getitem__(self, index):
+        """
+        Args:
+            index (int): Index
+        Returns:
+            depends on task.
+            for classification: tuple: (image, target_class) where target is index of the target class.
+            for segmentation: tuple: (image, target_image)
+            for multitask: tuple: image, (target_class, target_image)
+        """
+        
+        # load image
+        # ToDo: load correctly, as recommended in tutorial
+# =============================================================================
+#         imgfile = np.load(os.path.join(self.image_path_base, "{0}.npz".format(self.patientIds[index])))
+#         image = imgfile["image"] # dimensions: (1, width, height)
+#         imgfile.close()
+# =============================================================================
+# =============================================================================
+#         image = np.transpose(image, (1,2,0))
+#         image = TF.to_pil_image(image, mode=None)
+# =============================================================================
+        
+        
+        # ToDo: apply augmentations here. Use easier, standard Pytorch syntax
+        # create patch, but they patch will be called "image" for consistency with other Dataset classes
+        if patch_location == "central":
+            image = full_image[ceil(full_image.shape[0]/2 - self.patch_size[0]/2):floor(full_image.shape[0]/2 + self.patch_size[0]/2),
+                      ceil(full_image.shape[1]/2 - self.patch_size[1]/2):floor(full_image.shape[1]/2 + self.patch_size[1]/2)] # ToDo: adapt the indexing so that it acutally works for that file format (whatever format it will end up being). It that format zoer or one based?
+        # ToDo: I don't think this actually works because the last element is excluded in python
+        if patch_location == "random":
+            top_left_corner = [np.random.randint(0,full_image.shape[0]-patch_size[0]), 
+                               np.random.randint(0,full_image.shape[1]-patch_size[1])]
+            image = full_image[top_left_corner[0]:top_left_corner[0]+patch_size[0],
+                               top_left_corner[1]:top_left_corner[1]+patch_size[1]] # ToDo: is indexing in numpy "last exclusive"? If yes, this won't work....
+        
+        # create coordinates of central region
+        cr_0low = ceil(image.shape[0]/2 - self.mask_size[0]/2)
+        cr_0high = floor(image.shape[0]/2 + self.mask_size[0]/2)
+        cr_1low = ceil(image.shape[1]/2 - self.mask_size[1]/2)
+        cr_1high = floor(image.shape[1]/2 + self.mask_size[1]/2)
+        # ToDo: use function that acutally work for ceiling and flooring
+        
+        # create target
+        target_image = image[cr_0low:cr_high, cr_1low:cr_1high] 
+        # ToDo: adapt the indexing so that it acutally works for that file format (whatever format it will end up being). It that format zoer or one based?
+        
+        # mask out central region
+        image[cr_0low:cr_high, cr_1low:cr_1high] = 0
+        
+# =============================================================================
+#         if task_with_segmentation:
+#             target_file = np.load(os.path.join(self.image_path_base, "{0}_seg.npz".format(self.patientIds[index])))
+#             target_image = target_file["image"] # dimensions: (1, width, height)
+#             target_file.close()
+#             target_image = np.transpose(target_image, (1,2,0))
+#             target_image = target_image*255
+#             target_image = TF.to_pil_image(target_image, mode=None)
+# =============================================================================
+
+# =============================================================================
+#         # data augmentation
+#         if self.transform:
+#             mask = np.random.choice(2,6).astype(bool) # boolean indicating which transforms are applied to the current image
+#             
+#             rot_angle = 0
+#             shear_angle = 0
+#             x_distance = 0
+#             y_distance = 0
+#             scale_factor = 1
+#             
+#             if task_with_segmentation:
+#                 sample = [image, target_image]
+#             else:
+#                 sample = [image]
+#             
+#             if mask[0]:
+#                 sample = [TF.hflip(x) for x in sample]
+#             if mask[1]:
+#                 factor = np.random.uniform(1/self.gamma_factor, self.gamma_factor)
+#                 sample = [TF.adjust_gamma(x, factor) for x in sample]
+#             
+#             if mask[2]:
+#                 shear_angle = np.random.uniform(-self.shear_angle, self.shear_angle)
+#                 if mask[3]:
+#                     rot_angle = np.random.uniform(-self.rot_angle, self.rot_angle)
+#             if mask[4]:
+#                 x_distance = np.random.uniform(-self.translate_distance, self.translate_distance)
+#                 y_distance = np.random.uniform(-self.translate_distance, self.translate_distance)
+#             if mask[5]:
+#                 scale_factor = np.random.uniform(1/self.scale_factor, self.scale_factor)
+#                 
+#             sample = [TF.affine(x, angle=rot_angle, translate=(x_distance,y_distance), scale=scale_factor, shear=shear_angle) for x in sample]
+#             
+#             if task_with_segmentation:
+#                 image, target_image = sample
+#             else:
+#                 image = sample[0]
+# 
+# =============================================================================
+        # transform images to tensors
+        image, target_image = TF.to_tensor(image), TF.to_tensor(target_image)  
+            
+        
+        return image, target_image
+# =============================================================================
+#         elif self.task == "segmentation":
+#             return image, target_image
+#         else:
+#             return image, target_class
+# 
+# =============================================================================
+    def __len__(self):
+        return len(self.patientIds)
+
+
+# =============================================================================
+#     def __repr__(self):
+#         fmt_str = 'Dataset ' + self.__class__.__name__ + '\n'
+#         fmt_str += '    Number of datapoints: {}\n'.format(self.__len__())
+#         tmp = self.set_name
+#         fmt_str += '    Split: {}\n'.format(tmp)
+#         fmt_str += '    Root Location: {}\n'.format(self.root)
+#         tmp = '    Transforms (if any): '
+#         fmt_str += '{0}{1}\n'.format(tmp, self.transform.__repr__().replace('\n', '\n' + ' ' * len(tmp)))
+#         tmp = '    Target Transforms (if any): '
+#         fmt_str += '{0}{1}'.format(tmp, self.target_transform.__repr__().replace('\n', '\n' + ' ' * len(tmp)))
+#         return fmt_str
+# =============================================================================
+
+# =============================================================================
+# # Callable classes for data preprocessing
+# class AddGaussianBlur(object):
+#     def __init__(self, t=10., a=4, b=-4, g=128):
+#         self.a = a
+#         self.b = b
+#         self.g = g
+#         self.t = t
+#     def __call__(self, img):
+#         """
+#         Args:
+#             img (PIL Image): Image to be augmented
+#         Returns:
+#             PIL Image: augmented image.
+#         """
+# #        bands = []
+# #        for imgb in img.split():
+# #            bands.append(ImageMath.eval('convert(a*im1 + b*im2 + g, "L")', im1=imgb, im2=imgb.filter(ImageFilter.GaussianBlur(self.t)), a=self.a, b=self.b, g=self.g))
+# #        return Image.merge('RGB', bands)
+#         out_image = ImageMath.eval('convert(a*im1 + b*im2 + g, "L")', im1=img, im2=img.filter(ImageFilter.GaussianBlur(self.t)), a=self.a, b=self.b, g=self.g)
+#         return out_image
+# 
+#     def __repr__(self):
+#         return self.__class__.__name__
+#     
+# =============================================================================
+    
+# Callable classes for data augmentation
+        
+
+class XXXPathologicalDataset(data.Dataset):
+    """
+
+    """
+
+    # Handling cluster data migration to scratch folder - use this when running on cluster
+    #image_path_base = os.path.join(os.environ['DATASET_DIR'], "RSNA_working_set") # path of the data set images
+    #data_path_base = os.environ['DATASET_DIR'] # path of the required npz files
+
+# =============================================================================
+#     # Use this for your local PC
+    image_path_base = os.path.join("data", "RSNA_working_set") # path of the data set images
+    data_path_base = "data" # path of the required npz files
+# =============================================================================
+
+
+    def __init__(self, which_set, task=None,
+                 transform=False, gamma_factor=1, rot_angle=0, shear_angle=0, translate_distance=0, 
+                 scale_factor=1, debug_mode=False, patch_size=(256,256), top_left_corner=(0,0), mask_size=(64,64)):
+        # This might be required on the cloud, so I better leave it in for now
+        # self.root = os.path.expanduser(root)
+
+        # check a valid which_set was provided
+        assert which_set in ['train', 'valid', 'test'], (
+            'Expected which_set to be either train, valid or test '
+            'Got {0}'.format(which_set)
+        )
+        assert task in ["regression"], "Please enter valid task"
+        
+        self.which_set = which_set  # train, valid or test set
+        self.task = task
+        
+        self.transform = transform
+        self.gamma_factor = gamma_factor
+        self.rot_angle = rot_angle
+        self.shear_angle = shear_angle
+        self.translate_distance = translate_distance
+        self.scale_factor = scale_factor
+        
+        
+        # construct path to data using os.path.join to ensure the correct path
+        # separator for the current platform / OS is used
+        # MLP_DATA_DIR environment variable should point to the data directory
+        data_path = os.path.join(
+            self.data_path_base, "RSNA_PyTorch_Provider_{0}.npz".format(which_set)) # ToDo: adjust
+        assert os.path.isfile(data_path), (
+            'Data file does not exist at expected path: ' + data_path
+        )
+# =============================================================================
+#         
+#         # load data from compressed numpy file
+#         loaded = np.load(data_path)
+#         self.patientIds = loaded["patientIds"]
+#         
+#         if self.task == '2 classes' or self.task == 'segmentation' or self.task == "multitask with 2 classes": 
+#             self.targets = loaded['targets2']
+#         elif self.task == '3 classes':
+#             self.targets = loaded['targets3']
+# =============================================================================
+            
+# =============================================================================
+#         # debugging mode sets the dataset size to 200, so we can run the whole experiment locally.
+#         if debug_mode:
+#             self.patientIds = self.patientIds[0:50]
+#             self.targets = self.targets[0:50]
+# =============================================================================
+        image_list = os.walk(data_path)# ToDo: actually use the correct command here
+
+
+    def __getitem__(self, index):
+        """
+        Args:
+            index (int): Index
+        Returns:
+            depends on task.
+            for classification: tuple: (image, target_class) where target is index of the target class.
+            for segmentation: tuple: (image, target_image)
+            for multitask: tuple: image, (target_class, target_image)
+        """
+        
+        # load image
+        # ToDo: load correctly, as recommended in tutorial
+# =============================================================================
+#         imgfile = np.load(os.path.join(self.image_path_base, "{0}.npz".format(self.patientIds[index])))
+#         image = imgfile["image"] # dimensions: (1, width, height)
+#         imgfile.close()
+# =============================================================================
+# =============================================================================
+#         image = np.transpose(image, (1,2,0))
+#         image = TF.to_pil_image(image, mode=None)
+# =============================================================================
+        
+        
+        # ToDo: apply augmentations here. Use easier, standard Pytorch syntax
+        # create patch, but they patch will be called "image" for consistency with other Dataset classes
+        if patch_location == "central":
+            image = full_image[ceil(full_image.shape[0]/2 - self.patch_size[0]/2):floor(full_image.shape[0]/2 + self.patch_size[0]/2),
+                      ceil(full_image.shape[1]/2 - self.patch_size[1]/2):floor(full_image.shape[1]/2 + self.patch_size[1]/2)] # ToDo: adapt the indexing so that it acutally works for that file format (whatever format it will end up being). It that format zoer or one based?
+        # ToDo: I don't think this actually works because the last element is excluded in python
+        if patch_location == "random":
+            top_left_corner = [np.random.randint(0,full_image.shape[0]-patch_size[0]), 
+                               np.random.randint(0,full_image.shape[1]-patch_size[1])]
+            image = full_image[top_left_corner[0]:top_left_corner[0]+patch_size[0],
+                               top_left_corner[1]:top_left_corner[1]+patch_size[1]] # ToDo: is indexing in numpy "last exclusive"? If yes, this won't work....
+        
+        # create coordinates of central region
+        cr_0low = ceil(image.shape[0]/2 - self.mask_size[0]/2)
+        cr_0high = floor(image.shape[0]/2 + self.mask_size[0]/2)
+        cr_1low = ceil(image.shape[1]/2 - self.mask_size[1]/2)
+        cr_1high = floor(image.shape[1]/2 + self.mask_size[1]/2)
+        # ToDo: use function that acutally work for ceiling and flooring
+        
+        # create target
+        target_image = image[cr_0low:cr_high, cr_1low:cr_1high] 
+        # ToDo: adapt the indexing so that it acutally works for that file format (whatever format it will end up being). It that format zoer or one based?
+        
+        # mask out central region
+        image[cr_0low:cr_high, cr_1low:cr_1high] = 0
+        
+# =============================================================================
+#         if task_with_segmentation:
+#             target_file = np.load(os.path.join(self.image_path_base, "{0}_seg.npz".format(self.patientIds[index])))
+#             target_image = target_file["image"] # dimensions: (1, width, height)
+#             target_file.close()
+#             target_image = np.transpose(target_image, (1,2,0))
+#             target_image = target_image*255
+#             target_image = TF.to_pil_image(target_image, mode=None)
+# =============================================================================
+
+# =============================================================================
+#         # data augmentation
+#         if self.transform:
+#             mask = np.random.choice(2,6).astype(bool) # boolean indicating which transforms are applied to the current image
+#             
+#             rot_angle = 0
+#             shear_angle = 0
+#             x_distance = 0
+#             y_distance = 0
+#             scale_factor = 1
+#             
+#             if task_with_segmentation:
+#                 sample = [image, target_image]
+#             else:
+#                 sample = [image]
+#             
+#             if mask[0]:
+#                 sample = [TF.hflip(x) for x in sample]
+#             if mask[1]:
+#                 factor = np.random.uniform(1/self.gamma_factor, self.gamma_factor)
+#                 sample = [TF.adjust_gamma(x, factor) for x in sample]
+#             
+#             if mask[2]:
+#                 shear_angle = np.random.uniform(-self.shear_angle, self.shear_angle)
+#                 if mask[3]:
+#                     rot_angle = np.random.uniform(-self.rot_angle, self.rot_angle)
+#             if mask[4]:
+#                 x_distance = np.random.uniform(-self.translate_distance, self.translate_distance)
+#                 y_distance = np.random.uniform(-self.translate_distance, self.translate_distance)
+#             if mask[5]:
+#                 scale_factor = np.random.uniform(1/self.scale_factor, self.scale_factor)
+#                 
+#             sample = [TF.affine(x, angle=rot_angle, translate=(x_distance,y_distance), scale=scale_factor, shear=shear_angle) for x in sample]
+#             
+#             if task_with_segmentation:
+#                 image, target_image = sample
+#             else:
+#                 image = sample[0]
+# 
+# =============================================================================
+        # transform images to tensors
+        image, target_image = TF.to_tensor(image), TF.to_tensor(target_image)  
+            
+        
+        return image, target_image
+# =============================================================================
+#         elif self.task == "segmentation":
+#             return image, target_image
+#         else:
+#             return image, target_class
+# 
+# =============================================================================
+    def __len__(self):
+        return len(self.patientIds)
+
+
+        
+
