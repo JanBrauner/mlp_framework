@@ -19,6 +19,7 @@ if sys.version_info[0] == 2:
     import cPickle as pickle
 else:
     import pickle
+import math
 
 import torch.utils.data as data
 from torchvision.datasets.utils import download_url, check_integrity
@@ -648,8 +649,7 @@ class XXXHealthyDataset(data.Dataset):
 
 
     def __init__(self, which_set, task=None,
-                 transform=False, gamma_factor=1, rot_angle=0, shear_angle=0, translate_distance=0, 
-                 scale_factor=1, debug_mode=False, patch_size=(256,256), patch_location="central", mask_size=(64,64)):
+                 transformer, gamma_factor=1, debug_mode=False, patch_size=(256,256), patch_location="central", mask_size=(64,64)):
         # This might be required on the cloud, so I better leave it in for now
         # self.root = os.path.expanduser(root)
 
@@ -663,41 +663,20 @@ class XXXHealthyDataset(data.Dataset):
         self.which_set = which_set  # train, valid or test set
         self.task = task
         
-        self.transform = transform
-        self.gamma_factor = gamma_factor
-        self.rot_angle = rot_angle
-        self.shear_angle = shear_angle
-        self.translate_distance = translate_distance
-        self.scale_factor = scale_factor
-        
-        
-        # construct path to data using os.path.join to ensure the correct path
-        # separator for the current platform / OS is used
-        # MLP_DATA_DIR environment variable should point to the data directory
-        data_path = os.path.join(
-            self.data_path_base, "RSNA_PyTorch_Provider_{0}.npz".format(which_set)) # ToDo: adjust
-        assert os.path.isfile(data_path), (
-            'Data file does not exist at expected path: ' + data_path
-        )
-# =============================================================================
-#         
-#         # load data from compressed numpy file
-#         loaded = np.load(data_path)
-#         self.patientIds = loaded["patientIds"]
-#         
-#         if self.task == '2 classes' or self.task == 'segmentation' or self.task == "multitask with 2 classes": 
-#             self.targets = loaded['targets2']
-#         elif self.task == '3 classes':
-#             self.targets = loaded['targets3']
-# =============================================================================
-            
-# =============================================================================
-#         # debugging mode sets the dataset size to 200, so we can run the whole experiment locally.
-#         if debug_mode:
-#             self.patientIds = self.patientIds[0:50]
-#             self.targets = self.targets[0:50]
-# =============================================================================
-        image_list = os.walk(data_path)# ToDo: actually use the correct command here
+        self.patch_size = patch_size
+        self.patch_location = patch_location
+        self.mask_size = mask_size
+        self.transformer = transformer
+#        self.gamma_factor = gamma_factor
+
+        # create list of all images in current dataset
+        self.image_path = os.path.join(self.image_base_path, which_set)
+        self.image_list = os.list_dir(self.image_path) #directory may only contain the image files, no other files or directories
+        assert len(self.image_list) > 0, "source directory doesn't contain image files"
+
+        # debugging mode sets the dataset size to 50, so we can run the whole experiment locally.
+        if debug_mode:
+            self.image_list = self.image_list[0:50]
 
 
     def __getitem__(self, index):
@@ -705,32 +684,22 @@ class XXXHealthyDataset(data.Dataset):
         Args:
             index (int): Index
         Returns:
-            depends on task.
-            for classification: tuple: (image, target_class) where target is index of the target class.
-            for segmentation: tuple: (image, target_image)
-            for multitask: tuple: image, (target_class, target_image)
         """
         
         # load image
-        # ToDo: load correctly, as recommended in tutorial
-# =============================================================================
-#         imgfile = np.load(os.path.join(self.image_path_base, "{0}.npz".format(self.patientIds[index])))
-#         image = imgfile["image"] # dimensions: (1, width, height)
-#         imgfile.close()
-# =============================================================================
-# =============================================================================
-#         image = np.transpose(image, (1,2,0))
-#         image = TF.to_pil_image(image, mode=None)
-# =============================================================================
+        full_image = Image.open(os.path.join(self.image_path, self.image_list[index]))
+
+        # transform image
+        full_image = self.transformer(full_image)
         
-        
-        # ToDo: apply augmentations here. Use easier, standard Pytorch syntax
-        # create patch, but they patch will be called "image" for consistency with other Dataset classes
-        if patch_location == "central":
-            image = full_image[ceil(full_image.shape[0]/2 - self.patch_size[0]/2):floor(full_image.shape[0]/2 + self.patch_size[0]/2),
-                      ceil(full_image.shape[1]/2 - self.patch_size[1]/2):floor(full_image.shape[1]/2 + self.patch_size[1]/2)] # ToDo: adapt the indexing so that it acutally works for that file format (whatever format it will end up being). It that format zoer or one based?
+        # create patch, but the patch will be called "image" for consistency with other Dataset classes
+        if self.patch_location == "central":
+            margins = ((full_image.size(0)-self.patch_size[0])/2, 
+                       (full_image.size(1)-self.patch_size[1])/2) # size margins in dimensions 0 and 1 (relative to the 2-D image)
+            image = full_image[math.ceil(margins[0]):math.ceil(full_image.size(0)-margins[0]), 
+                               math.ceil(margins[1]):math.ceil(full_image.size(1)-margins[1])] # the ceil operator is used to with situations where the full_image size is an odd number
         # ToDo: I don't think this actually works because the last element is excluded in python
-        if patch_location == "random":
+        if self.patch_location == "random":
             top_left_corner = [np.random.randint(0,full_image.shape[0]-patch_size[0]), 
                                np.random.randint(0,full_image.shape[1]-patch_size[1])]
             image = full_image[top_left_corner[0]:top_left_corner[0]+patch_size[0],
@@ -871,8 +840,8 @@ class XXXPathologicalDataset(data.Dataset):
 
 # =============================================================================
 #     # Use this for your local PC
-    image_path_base = os.path.join("data", "RSNA_working_set") # path of the data set images
-    data_path_base = "data" # path of the required npz files
+    image_path_base = os.path.join("data", "healthy_1") # path of the data set images
+#    data_path_base = "data" # path of the required npz files
 # =============================================================================
 
 
@@ -899,15 +868,12 @@ class XXXPathologicalDataset(data.Dataset):
         self.translate_distance = translate_distance
         self.scale_factor = scale_factor
         
-        
-        # construct path to data using os.path.join to ensure the correct path
-        # separator for the current platform / OS is used
-        # MLP_DATA_DIR environment variable should point to the data directory
-        data_path = os.path.join(
-            self.data_path_base, "RSNA_PyTorch_Provider_{0}.npz".format(which_set)) # ToDo: adjust
-        assert os.path.isfile(data_path), (
-            'Data file does not exist at expected path: ' + data_path
-        )
+       
+#        data_path = os.path.join(
+#            self.data_path_base, "RSNA_PyTorch_Provider_{0}.npz".format(which_set)) # ToDo: adjust
+#        assert os.path.isfile(data_path), (
+#            'Data file does not exist at expected path: ' + data_path
+#        )
 # =============================================================================
 #         
 #         # load data from compressed numpy file
@@ -919,34 +885,29 @@ class XXXPathologicalDataset(data.Dataset):
 #         elif self.task == '3 classes':
 #             self.targets = loaded['targets3']
 # =============================================================================
-            
-# =============================================================================
-#         # debugging mode sets the dataset size to 200, so we can run the whole experiment locally.
-#         if debug_mode:
-#             self.patientIds = self.patientIds[0:50]
-#             self.targets = self.targets[0:50]
-# =============================================================================
-        image_list = os.walk(data_path)# ToDo: actually use the correct command here
+        
+        self.image_path = os.path.join(self.image_base_path, which_set)
+        self.image_list = os.list_dir(self.image_path) #may only contain files, not subdirectories
+        assert len(self.image_list) > 0, "source directory doesn't contain image files"
 
+
+        # debugging mode sets the dataset size to 50, so we can run the whole experiment locally.
+        if debug_mode:
+            self.image_list = self.image_list[0:50]
 
     def __getitem__(self, index):
         """
         Args:
             index (int): Index
         Returns:
-            depends on task.
-            for classification: tuple: (image, target_class) where target is index of the target class.
-            for segmentation: tuple: (image, target_image)
-            for multitask: tuple: image, (target_class, target_image)
         """
         
         # load image
-        # ToDo: load correctly, as recommended in tutorial
-# =============================================================================
-#         imgfile = np.load(os.path.join(self.image_path_base, "{0}.npz".format(self.patientIds[index])))
-#         image = imgfile["image"] # dimensions: (1, width, height)
-#         imgfile.close()
-# =============================================================================
+        image = Image.open(os.path.join(self.image_path, self.image_list[index]))
+        
+        if self.transform:
+            
+
 # =============================================================================
 #         image = np.transpose(image, (1,2,0))
 #         image = TF.to_pil_image(image, mode=None)
