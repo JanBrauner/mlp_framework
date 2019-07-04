@@ -23,6 +23,7 @@ import math
 
 import torch.utils.data as data
 from torchvision.datasets.utils import download_url, check_integrity
+import torchvision.transforms as transforms
 
 class DataProvider(object):
     """Generic data provider."""
@@ -649,11 +650,9 @@ class XXXHealthyDataset(data.Dataset):
 
 
     def __init__(self, which_set, task,
-                 transformer, gamma_factor=1, 
+                 transformer,
                  debug_mode=False, 
                  patch_size=(256,256), patch_location="central", mask_size=(64,64)):
-        # This might be required on the cloud, so I better leave it in for now
-        # self.root = os.path.expanduser(root)
 
         # check a valid which_set was provided
         assert which_set in ['train', 'valid', 'test'], (
@@ -669,7 +668,6 @@ class XXXHealthyDataset(data.Dataset):
         self.patch_location = patch_location
         self.mask_size = mask_size
         self.transformer = transformer
-#        self.gamma_factor = gamma_factor
 
         # create list of all images in current dataset
         self.image_path = os.path.join(self.image_base_path, which_set)
@@ -697,15 +695,7 @@ class XXXHealthyDataset(data.Dataset):
         # create patch, but the patch will be called "image" for consistency with other Dataset classes
         if self.patch_location == "central":
             central_region_slice = self.create_central_region_slice(full_image.size(), self.patch_size)
-            image = full_image[central_region_slice]
-# =============================================================================
-#             margins_image = ((full_image.size(1)-self.patch_size[0])/2, 
-#                        (full_image.size(2)-self.patch_size[1])/2) # size of margins in dimensions 1 and 2 (relative to the 3-D tensor) between the full image borders and the patch borders
-#             image = full_image[:, 
-#                                math.ceil(margins_image[0]):math.ceil(full_image.size(1)-margins_image[0]), 
-#                                math.ceil(margins_image[1]):math.ceil(full_image.size(2)-margins_image[1])] # the ceil operator is used to with situations where the full_image size is an odd number
-# =============================================================================
-        
+            image = full_image[central_region_slice]      
         
         if self.patch_location == "random":
             top_left_corner = (np.random.randint(0,full_image.size(1)-self.patch_size[0]), 
@@ -718,55 +708,13 @@ class XXXHealthyDataset(data.Dataset):
         central_region_slice = self.create_central_region_slice(image.size(), self.mask_size)
         
         # create target image
-        target_image = image[central_region_slice]
+        target_image = image[central_region_slice].clone().detach()
         
         # mask out central region in input image
         image[central_region_slice] = 0
-# =============================================================================
-#         margins_patch = ((image.size(1)-self.mask_size[0])/2, 
-#                        (image.size(2)-self.mask_size[1])/2) # size of margins in dimensions 1 and 2 (relative to the 3-D tensor) between the borders of the patch/image and the borders of the mask
-#         target_image = image[:,
-#                              math.ceil(margins_patch[0]):math.ceil(image.size(1)-margins_patch[0]), 
-#                              math.ceil(margins_patch[1]):math.ceil(image.size(2)-margins_patch[1])] # the ceil operator is used to with situations where the full_image size is an odd number
-#                              ]
-# ============================================================================
-        
+       
         return image, target_image
-# =============================================================================
-#     
-#     def extract_central_region(self, image, size_central_region):
-#         
-#         
-# # =============================================================================
-# #         margins = ((image.size(1)-size_central_region[0])/2, 
-# #                    (image.size(2)-size_central_region[1])/2) # size of margins in dimensions 1 and 2 (relative to the 3-D tensor) between the image borders and the patch borders
-# #         
-# #         central_region_slice = np.s_[:, 
-# #                           math.ceil(margins[0]):math.ceil(image.size(1)-margins[0]), 
-# #                           math.ceil(margins[1]):math.ceil(image.size(2)-margins[1])]
-# #          if mode == "extract":
-# #             central_region = image[central_region_slice] # the ceil operator is used to with situations where the full_image size is an odd number
-# #             return central_region
-# #         
-# #         elif mode == "delete":
-# #             image[central_region_slice] = 0
-# #             return image
-# # =============================================================================
-# # =============================================================================
-# #             central_region_slice = create_central_region_slice(image.size(), size_central_region)
-# #             central_region = image[central_region_slice]
-# #             return central_region
-# # =============================================================================
-#         
-# =============================================================================
-        
-# =============================================================================
-#     def delete_central_region(self, image, size_central_region):
-#         central_region_slice = create_central_region_slice(image.size(), size_central_region)
-#         image[central_region_slice] = 0
-#         return image
-#     
-# =============================================================================
+
     def create_central_region_slice(self, image_size, size_central_region):
         margins = ((image_size[1]-size_central_region[0])/2, 
                    (image_size[2]-size_central_region[1])/2) # size of margins in dimensions 1 and 2 (relative to the 3-D tensor) between the image borders and the patch borders
@@ -778,52 +726,8 @@ class XXXHealthyDataset(data.Dataset):
 
 
     def __len__(self):
-        return len(self.patientIds)
+        return len(self.image_list)
 
-
-# =============================================================================
-#     def __repr__(self):
-#         fmt_str = 'Dataset ' + self.__class__.__name__ + '\n'
-#         fmt_str += '    Number of datapoints: {}\n'.format(self.__len__())
-#         tmp = self.set_name
-#         fmt_str += '    Split: {}\n'.format(tmp)
-#         fmt_str += '    Root Location: {}\n'.format(self.root)
-#         tmp = '    Transforms (if any): '
-#         fmt_str += '{0}{1}\n'.format(tmp, self.transform.__repr__().replace('\n', '\n' + ' ' * len(tmp)))
-#         tmp = '    Target Transforms (if any): '
-#         fmt_str += '{0}{1}'.format(tmp, self.target_transform.__repr__().replace('\n', '\n' + ' ' * len(tmp)))
-#         return fmt_str
-# =============================================================================
-
-# =============================================================================
-# # Callable classes for data preprocessing
-# class AddGaussianBlur(object):
-#     def __init__(self, t=10., a=4, b=-4, g=128):
-#         self.a = a
-#         self.b = b
-#         self.g = g
-#         self.t = t
-#     def __call__(self, img):
-#         """
-#         Args:
-#             img (PIL Image): Image to be augmented
-#         Returns:
-#             PIL Image: augmented image.
-#         """
-# #        bands = []
-# #        for imgb in img.split():
-# #            bands.append(ImageMath.eval('convert(a*im1 + b*im2 + g, "L")', im1=imgb, im2=imgb.filter(ImageFilter.GaussianBlur(self.t)), a=self.a, b=self.b, g=self.g))
-# #        return Image.merge('RGB', bands)
-#         out_image = ImageMath.eval('convert(a*im1 + b*im2 + g, "L")', im1=img, im2=img.filter(ImageFilter.GaussianBlur(self.t)), a=self.a, b=self.b, g=self.g)
-#         return out_image
-# 
-#     def __repr__(self):
-#         return self.__class__.__name__
-#     
-# =============================================================================
-    
-# Callable classes for data augmentation
-        
 
 class XXXPathologicalDataset(data.Dataset):
     """
@@ -836,164 +740,106 @@ class XXXPathologicalDataset(data.Dataset):
 
 # =============================================================================
 #     # Use this for your local PC
-    image_path_base = os.path.join("data", "healthy_1") # path of the data set images
-#    data_path_base = "data" # path of the required npz files
+    image_base_path = os.path.join("data", "pathological_1") # path of the data set images
+    data_path_base = "data" # path of the required npz files
 # =============================================================================
 
 
-    def __init__(self, which_set, task=None,
-                 transform=False, gamma_factor=1, rot_angle=0, shear_angle=0, translate_distance=0, 
-                 scale_factor=1, debug_mode=False, patch_size=(256,256), top_left_corner=(0,0), mask_size=(64,64)):
-        # This might be required on the cloud, so I better leave it in for now
-        # self.root = os.path.expanduser(root)
+    def __init__(self, which_set, # task,
+                 transformer,
+                 debug_mode=False, 
+                 patch_size=(256,256), mask_size=(64,64)):
 
         # check a valid which_set was provided
         assert which_set in ['train', 'valid', 'test'], (
             'Expected which_set to be either train, valid or test '
             'Got {0}'.format(which_set)
         )
-        assert task in ["regression"], "Please enter valid task"
+#        assert task in ["regression"], "Please enter valid task"
         
         self.which_set = which_set  # train, valid or test set
-        self.task = task
+#        self.task = task
         
-        self.transform = transform
-        self.gamma_factor = gamma_factor
-        self.rot_angle = rot_angle
-        self.shear_angle = shear_angle
-        self.translate_distance = translate_distance
-        self.scale_factor = scale_factor
+        self.patch_size = patch_size
+        self.mask_size = mask_size
+        self.transformer = transformer
+
+        # create list of all images in current dataset
+        self.image_path = os.path.join(self.image_base_path, which_set, "images")
+        self.target_image_path = os.path.join(self.image_base_path, which_set, "target_images")
+        self.image_list = os.listdir(self.image_path).sort() #directory may only contain the image files, no other files or directories
+        self.target_image_list = os.listdir(self.target_image_path).sort() #directory may only contain the image files, no other files or directories
         
-       
-#        data_path = os.path.join(
-#            self.data_path_base, "RSNA_PyTorch_Provider_{0}.npz".format(which_set)) # ToDo: adjust
-#        assert os.path.isfile(data_path), (
-#            'Data file does not exist at expected path: ' + data_path
-#        )
-# =============================================================================
-#         
-#         # load data from compressed numpy file
-#         loaded = np.load(data_path)
-#         self.patientIds = loaded["patientIds"]
-#         
-#         if self.task == '2 classes' or self.task == 'segmentation' or self.task == "multitask with 2 classes": 
-#             self.targets = loaded['targets2']
-#         elif self.task == '3 classes':
-#             self.targets = loaded['targets3']
-# =============================================================================
-        
-        self.image_path = os.path.join(self.image_base_path, which_set)
-        self.image_list = os.list_dir(self.image_path) #may only contain files, not subdirectories
         assert len(self.image_list) > 0, "source directory doesn't contain image files"
+        assert len(self.image_list) == len(self.target_image_list)
+        for i,t in zip(self.image_list, self.target_image_list):
+            assert i[-6:-1] == t[-6:-1] # check that the last few symbols of the filenames are equal
 
 
         # debugging mode sets the dataset size to 50, so we can run the whole experiment locally.
         if debug_mode:
             self.image_list = self.image_list[0:50]
+            self.target_image_list = self.target_image_list[0:50]
 
-    def __getitem__(self, index):
+
+    def get_input_patch(self, index, patch_location="central"):
         """
         Args:
             index (int): Index
+            patch_location: can be the string "central" or a tupel of 2-D coordinates of the top-left corner
         Returns:
         """
         
         # load image
         full_image = Image.open(os.path.join(self.image_path, self.image_list[index]))
-        
-        # transform image
-        full_image = transform(image) # output is a tensor (C, W ,H)
-        
-        # ToDo: apply augmentations here. Use easier, standard Pytorch syntax
-        # create patch, but they patch will be called "image" for consistency with other Dataset classes
-        if patch_location == "central":
-            image = full_image[ceil(full_image.shape[0]/2 - self.patch_size[0]/2):floor(full_image.shape[0]/2 + self.patch_size[0]/2),
-                      ceil(full_image.shape[1]/2 - self.patch_size[1]/2):floor(full_image.shape[1]/2 + self.patch_size[1]/2)] # ToDo: adapt the indexing so that it acutally works for that file format (whatever format it will end up being). It that format zoer or one based?
-        # ToDo: I don't think this actually works because the last element is excluded in python
-        if patch_location == "random":
-            top_left_corner = [np.random.randint(0,full_image.shape[0]-patch_size[0]), 
-                               np.random.randint(0,full_image.shape[1]-patch_size[1])]
-            image = full_image[top_left_corner[0]:top_left_corner[0]+patch_size[0],
-                               top_left_corner[1]:top_left_corner[1]+patch_size[1]] # ToDo: is indexing in numpy "last exclusive"? If yes, this won't work....
-        
-        # create coordinates of central region
-        cr_0low = ceil(image.shape[0]/2 - self.mask_size[0]/2)
-        cr_0high = floor(image.shape[0]/2 + self.mask_size[0]/2)
-        cr_1low = ceil(image.shape[1]/2 - self.mask_size[1]/2)
-        cr_1high = floor(image.shape[1]/2 + self.mask_size[1]/2)
-        # ToDo: use function that acutally work for ceiling and flooring
-        
-        # create target
-        target_image = image[cr_0low:cr_high, cr_1low:cr_1high] 
-        # ToDo: adapt the indexing so that it acutally works for that file format (whatever format it will end up being). It that format zoer or one based?
-        
-        # mask out central region
-        image[cr_0low:cr_high, cr_1low:cr_1high] = 0
-        
-# =============================================================================
-#         if task_with_segmentation:
-#             target_file = np.load(os.path.join(self.image_path_base, "{0}_seg.npz".format(self.patientIds[index])))
-#             target_image = target_file["image"] # dimensions: (1, width, height)
-#             target_file.close()
-#             target_image = np.transpose(target_image, (1,2,0))
-#             target_image = target_image*255
-#             target_image = TF.to_pil_image(target_image, mode=None)
-# =============================================================================
+#        full_target_image = Image.open(os.path.join(self.target_image_path, self.target_image_list[index]))
 
-# =============================================================================
-#         # data augmentation
-#         if self.transform:
-#             mask = np.random.choice(2,6).astype(bool) # boolean indicating which transforms are applied to the current image
-#             
-#             rot_angle = 0
-#             shear_angle = 0
-#             x_distance = 0
-#             y_distance = 0
-#             scale_factor = 1
-#             
-#             if task_with_segmentation:
-#                 sample = [image, target_image]
-#             else:
-#                 sample = [image]
-#             
-#             if mask[0]:
-#                 sample = [TF.hflip(x) for x in sample]
-#             if mask[1]:
-#                 factor = np.random.uniform(1/self.gamma_factor, self.gamma_factor)
-#                 sample = [TF.adjust_gamma(x, factor) for x in sample]
-#             
-#             if mask[2]:
-#                 shear_angle = np.random.uniform(-self.shear_angle, self.shear_angle)
-#                 if mask[3]:
-#                     rot_angle = np.random.uniform(-self.rot_angle, self.rot_angle)
-#             if mask[4]:
-#                 x_distance = np.random.uniform(-self.translate_distance, self.translate_distance)
-#                 y_distance = np.random.uniform(-self.translate_distance, self.translate_distance)
-#             if mask[5]:
-#                 scale_factor = np.random.uniform(1/self.scale_factor, self.scale_factor)
-#                 
-#             sample = [TF.affine(x, angle=rot_angle, translate=(x_distance,y_distance), scale=scale_factor, shear=shear_angle) for x in sample]
-#             
-#             if task_with_segmentation:
-#                 image, target_image = sample
-#             else:
-#                 image = sample[0]
-# 
-# =============================================================================
-        # transform images to tensors
-        image, target_image = TF.to_tensor(image), TF.to_tensor(target_image)  
-            
+        # transform image
+        full_image = self.transformer(full_image)
+#        full_target_image = self.transformer(full_target_image)
         
-        return image, target_image
-# =============================================================================
-#         elif self.task == "segmentation":
-#             return image, target_image
-#         else:
-#             return image, target_class
-# 
-# =============================================================================
+        # create patch, but the patch will be called "image" for consistency with other Dataset classes
+        if self.patch_location == "central":
+            central_region_slice = self.create_central_region_slice(full_image.size(), self.patch_size)
+            image = full_image[central_region_slice]      
+        
+        else:
+            top_left_corner = patch_location
+            image = full_image[:,
+                               top_left_corner[0]:top_left_corner[0]+self.patch_size[0],
+                               top_left_corner[1]:top_left_corner[1]+self.patch_size[1]]
+        
+        # create coordinates of central region of the image, to be masked out
+        central_region_slice = self.create_central_region_slice(image.size(), self.mask_size)
+        
+#        # create target image
+#        target_image = image[central_region_slice].clone().detach()
+#        
+        # mask out central region in input image
+        image[central_region_slice] = 0
+       
+        return image # , target_image
+    
+    def get_target(self, index):
+        '''
+        Get target segmentation oof full image
+        '''
+        full_target_image = Image.open(os.path.join(self.target_image_path, self.target_image_list[index]))
+        full_target_image = self.transformer(full_target_image)
+        return full_target_image
+
+    def create_central_region_slice(self, image_size, size_central_region):
+        margins = ((image_size[1]-size_central_region[0])/2, 
+                   (image_size[2]-size_central_region[1])/2) # size of margins in dimensions 1 and 2 (relative to the 3-D tensor) between the image borders and the patch borders
+        
+        central_region_slice = np.s_[:, 
+                          math.ceil(margins[0]):math.ceil(image_size[1]-margins[0]), 
+                          math.ceil(margins[1]):math.ceil(image_size[2]-margins[1])]
+        return central_region_slice
+
+
     def __len__(self):
-        return len(self.patientIds)
+        return len(self.image_list)
 
 
         

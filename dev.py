@@ -4,25 +4,26 @@ Created on Wed Jul  3 19:40:19 2019
 
 @author: MC JB
 """
-
+#%% Testing the XXXHealthyDataset
 from data_providers import XXXHealthyDataset
 import torch
 import torchvision.transforms as transforms
 import numpy as np
+import math
 
 task = "regression"
 debug_mode=False 
-patch_size=(256,256)
+patch_size=(1024,1024)
 patch_location="central"
 mask_size=(64,64)
 
 
-transform = False
+transform = True
 gamma_factor=1
-rot_angle=0
-shear_angle=0
-translate_distance=(0,0)
-scale_factor=1
+rot_angle=30
+shear_angle=30
+translate_distance=(0.2,0.2)
+scale_factor=1.5
 
 # =============================================================================
 # standard_transforms = [transforms.ToTensor(),
@@ -40,7 +41,7 @@ else:
     transformer_train = transforms.Compose(standard_transforms)
     
 trainset = XXXHealthyDataset(which_set="train", task=task,
-                 transformer=transformer_train, gamma_factor=gamma_factor, 
+                 transformer=transformer_train,
                  debug_mode=debug_mode, 
                  patch_size=patch_size, patch_location=patch_location, mask_size=mask_size)
 
@@ -65,11 +66,15 @@ assert data[0].size() == (1,) + patch_size
 assert data[1].size() == (1,) + mask_size
 
 central_region_slice = create_central_region_slice(data[0].size(), mask_size)
-assert torch.all(torch.eq(data[0][central_region_slice], data[1]))
+assert torch.all(torch.eq(data[0][central_region_slice], 0))# torch.all(torch.eq(data[0][central_region_slice], data[1]))
 
 # visualisation
+composed = data[0].clone()
+composed[central_region_slice] = data[1]
 simple_back_transformer = transforms.ToPILImage()
 image = simple_back_transformer(data[0])
 target = simple_back_transformer(data[1])
+composed = simple_back_transformer(composed)
 image.show()
 target.show()
+composed.show()
