@@ -10,8 +10,8 @@ import time
 from storage_utils import save_statistics
 
 class ExperimentBuilder(nn.Module):
-    def __init__(self, network_model, experiment_name, num_epochs, train_data, val_data,
-                 test_data, weight_decay_coefficient, device, continue_from_epoch=-1, task):
+    def __init__(self, network_model, train_data, val_data,
+                 test_data, device, args):
         """
         Initializes an ExperimentBuilder object. Such an object takes care of running training and evaluation of a deep net
         on a given dataset. It also takes care of saving per epoch models and automatically inferring the best val model
@@ -28,7 +28,7 @@ class ExperimentBuilder(nn.Module):
         """
         super(ExperimentBuilder, self).__init__()
 
-        self.experiment_name = experiment_name
+        self.experiment_name = args.experiment_name
         self.model = network_model
         self.model.reset_parameters()
         self.device = device
@@ -42,11 +42,12 @@ class ExperimentBuilder(nn.Module):
         self.train_data = train_data
         self.val_data = val_data
         self.test_data = test_data
-        self.optimizer = optim.Adam(self.parameters(), amsgrad=False,
-                                    weight_decay=weight_decay_coefficient)
-        self.task = task
+        self.optimizer = optim.Adam(self.parameters(), amsgrad=False, lr=args.learning_rate, betas=args.betas,
+                                    weight_decay=args.weight_decay_coefficient)
+        self.task = args.task
+        self.loss = args.loss
         # Generate the directory names
-        self.experiment_folder = os.path.abspath(experiment_name)
+        self.experiment_folder = os.path.abspath(self.experiment_name)
         self.experiment_logs = os.path.abspath(os.path.join(self.experiment_folder, "result_outputs"))
         self.experiment_saved_models = os.path.abspath(os.path.join(self.experiment_folder, "saved_models"))
         print(self.experiment_folder, self.experiment_logs)
@@ -67,9 +68,12 @@ class ExperimentBuilder(nn.Module):
         if not os.path.exists(self.experiment_saved_models):
             os.mkdir(self.experiment_saved_models)  # create the experiment saved models directory
 
-        self.num_epochs = num_epochs
-        self.criterion = nn.CrossEntropyLoss().to(self.device)  # send the loss computation to the GPU
-        if continue_from_epoch == -2:
+        self.num_epochs = args.num_epochs
+
+#        # Antreas had this but I think it isn't needed if we use a functional loss anyway
+#        self.criterion = nn.CrossEntropyLoss().to(self.device)  # send the loss computation to the GPU
+        
+        if args.continue_from_epoch == -2:
             try:
                 self.best_val_model_idx, self.best_val_model_measure, self.state = self.load_model(
                     model_save_dir=self.experiment_saved_models, model_save_name="train_model",
@@ -81,7 +85,7 @@ class ExperimentBuilder(nn.Module):
                 self.starting_epoch = 0
                 self.state = dict()
 
-        elif continue_from_epoch != -1:  # if continue from epoch is not -1 then
+        elif args.continue_from_epoch != -1:  # if continue from epoch is not -1 then
             self.best_val_model_idx, self.best_val_model_measure, self.state = self.load_model(
                 model_save_dir=self.experiment_saved_models, model_save_name="train_model",
                 model_idx=continue_from_epoch)  # reload existing model from epoch and return best val model index
@@ -160,9 +164,11 @@ class ExperimentBuilder(nn.Module):
         out = self.model.forward(x)  # forward the data in the model
         
         if self.task == "classification":
-            loss = F.cross_entropy(out, y)  # compute loss
+            if self.loss == "cross-entropy":
+                loss = F.cross_entropy(out, y)  # compute loss
         elif self.task == "regression":
-#            !! TODO add L1 or L2 loss here
+            if self.loss == "L2":
+                loss = F.mse_loss(out, y)
         
         
         return out, loss
@@ -234,12 +240,12 @@ class ExperimentBuilder(nn.Module):
                 for x, y in self.val_data:  # get data batches
                     if self.task == "classification":
                         loss, accuracy = self.run_evaluation_iter(x=x, y=y)  # run a validation iter
-                        update_current_epoch_stats(current_epoch_losses, current_dataset="valid", loss=loss,acc=acc)
+                        update_current_epoch_stats(current_epoch_losses, current_dataset="val", loss=loss,acc=acc)
                         pbar_val.update(1)  # add 1 step to the progress bar
                         pbar_train.set_description("loss: {:.4f}, accuracy: {:.4f}".format(loss, accuracy))
                     elif self.task == "regression":
                         loss = self.run_evaluation_iter(x=x, y=y)  # run a validation iter
-                        update_current_epoch_stats(current_epoch_losses, current_dataset="valid", loss=loss)
+                        update_current_epoch_stats(current_epoch_losses, current_dataset="val", loss=loss)
                         pbar_val.update(1)  # add 1 step to the progress bar
                         pbar_val.set_description("loss: {:.4f}".format(loss))
             

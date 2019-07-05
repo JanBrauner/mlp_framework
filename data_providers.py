@@ -154,7 +154,7 @@ class MNISTDataProvider(DataProvider):
         """Create a new MNIST data provider object.
 
         Args:
-            which_set: One of 'train', 'valid' or 'eval'. Determines which
+            which_set: One of 'train', 'val' or 'eval'. Determines which
                 portion of the MNIST data this object should provide.
             batch_size (int): Number of data points to include in each batch.
             max_num_batches (int): Maximum number of batches to iterate over
@@ -166,8 +166,8 @@ class MNISTDataProvider(DataProvider):
             rng (RandomState): A seeded random number generator.
         """
         # check a valid which_set was provided
-        assert which_set in ['train', 'valid', 'test'], (
-            'Expected which_set to be either train, valid or eval. '
+        assert which_set in ['train', 'val', 'test'], (
+            'Expected which_set to be either train, val or eval. '
             'Got {0}'.format(which_set)
         )
         self.which_set = which_set
@@ -220,7 +220,7 @@ class EMNISTDataProvider(DataProvider):
         """Create a new EMNIST data provider object.
 
         Args:
-            which_set: One of 'train', 'valid' or 'eval'. Determines which
+            which_set: One of 'train', 'val' or 'eval'. Determines which
                 portion of the EMNIST data this object should provide.
             batch_size (int): Number of data points to include in each batch.
             max_num_batches (int): Maximum number of batches to iterate over
@@ -232,8 +232,8 @@ class EMNISTDataProvider(DataProvider):
             rng (RandomState): A seeded random number generator.
         """
         # check a valid which_set was provided
-        assert which_set in ['train', 'valid', 'test'], (
-            'Expected which_set to be either train, valid or eval. '
+        assert which_set in ['train', 'val', 'test'], (
+            'Expected which_set to be either train, val or eval. '
             'Got {0}'.format(which_set)
         )
         self.which_set = which_set
@@ -342,7 +342,7 @@ class CCPPDataProvider(DataProvider):
         """Create a new Combined Cycle Power Plant data provider object.
 
         Args:
-            which_set: One of 'train' or 'valid'. Determines which portion of
+            which_set: One of 'train' or 'val'. Determines which portion of
                 data this object should provide.
             input_dims: Which of the four input dimension to use. If `None` all
                 are used. If an iterable of integers are provided (consisting
@@ -363,8 +363,8 @@ class CCPPDataProvider(DataProvider):
             'Data file does not exist at expected path: ' + data_path
         )
         # check a valid which_set was provided
-        assert which_set in ['train', 'valid'], (
-            'Expected which_set to be either train or valid '
+        assert which_set in ['train', 'val'], (
+            'Expected which_set to be either train or val '
             'Got {0}'.format(which_set)
         )
         # check input_dims are valid
@@ -390,7 +390,7 @@ class AugmentedMNISTDataProvider(MNISTDataProvider):
         """Create a new augmented MNIST data provider object.
 
         Args:
-            which_set: One of 'train', 'valid' or 'test'. Determines which
+            which_set: One of 'train', 'val' or 'test'. Determines which
                 portion of the MNIST data this object should provide.
             batch_size (int): Number of data points to include in each batch.
             max_num_batches (int): Maximum number of batches to iterate over
@@ -455,13 +455,13 @@ class CIFAR10(data.Dataset):
         ['test_batch', '40351d587109b95175f43aff81a1287e'],
     ]
 
-    def __init__(self, root, set_name,
+    def __init__(self, root, which_set,
                  transform=None, target_transform=None,
                  download=False):
         self.root = os.path.expanduser(root)
         self.transform = transform
         self.target_transform = target_transform
-        self.set_name = set_name  # training set or test set
+        self.which_set = which_set  # training set or test set
 
         if download:
             self.download()
@@ -476,7 +476,7 @@ class CIFAR10(data.Dataset):
         train_sample_idx = rng.choice(a=[i for i in range(50000)], size=47500, replace=False)
         val_sample_idx = [i for i in range(50000) if i not in train_sample_idx]
 
-        if self.set_name is 'train':
+        if self.which_set is 'train':
             self.data = []
             self.labels = []
             for fentry in self.train_list:
@@ -500,10 +500,10 @@ class CIFAR10(data.Dataset):
             self.data = self.data.transpose((0, 2, 3, 1))  # convert to HWC
             self.data = self.data[train_sample_idx]
             self.labels = np.array(self.labels)[train_sample_idx]
-            print(set_name, self.data.shape)
-            print(set_name, self.labels.shape)
+            print(which_set, self.data.shape)
+            print(which_set, self.labels.shape)
 
-        elif self.set_name is 'val':
+        elif self.which_set is 'val':
             self.data = []
             self.labels = []
             for fentry in self.train_list:
@@ -526,8 +526,8 @@ class CIFAR10(data.Dataset):
             self.data = self.data.transpose((0, 2, 3, 1))  # convert to HWC
             self.data = self.data[val_sample_idx]
             self.labels = np.array(self.labels)[val_sample_idx]
-            print(set_name, self.data.shape)
-            print(set_name, self.labels.shape)
+            print(which_set, self.data.shape)
+            print(which_set, self.labels.shape)
 
         else:
             f = self.test_list[0][0]
@@ -546,8 +546,8 @@ class CIFAR10(data.Dataset):
             self.data = self.data.reshape((10000, 3, 32, 32))
             self.data = self.data.transpose((0, 2, 3, 1))  # convert to HWC
             self.labels = np.array(self.labels)
-            print(set_name, self.data.shape)
-            print(set_name, self.labels.shape)
+            print(which_set, self.data.shape)
+            print(which_set, self.labels.shape)
 
     def __getitem__(self, index):
         """
@@ -605,7 +605,7 @@ class CIFAR10(data.Dataset):
     def __repr__(self):
         fmt_str = 'Dataset ' + self.__class__.__name__ + '\n'
         fmt_str += '    Number of datapoints: {}\n'.format(self.__len__())
-        tmp = self.set_name
+        tmp = self.which_set
         fmt_str += '    Split: {}\n'.format(tmp)
         fmt_str += '    Root Location: {}\n'.format(self.root)
         tmp = '    Transforms (if any): '
@@ -633,7 +633,7 @@ class CIFAR100(CIFAR10):
     ]
 
 
-class XXXHealthyDataset(data.Dataset):
+class MiasHealthy(data.Dataset):
     """
 
     """
@@ -644,7 +644,7 @@ class XXXHealthyDataset(data.Dataset):
 
 # =============================================================================
 #     # Use this for your local PC
-    image_base_path = os.path.join("data", "healthy_1") # path of the data set images
+    image_base_path = os.path.join("data", "MiasHealthy") # path of the data set images
     data_path_base = "data" # path of the required npz files
 # =============================================================================
 
@@ -655,13 +655,13 @@ class XXXHealthyDataset(data.Dataset):
                  patch_size=(256,256), patch_location="central", mask_size=(64,64)):
 
         # check a valid which_set was provided
-        assert which_set in ['train', 'valid', 'test'], (
-            'Expected which_set to be either train, valid or test '
+        assert which_set in ['train', 'val', 'test'], (
+            'Expected which_set to be either train, val or test '
             'Got {0}'.format(which_set)
         )
         assert task in ["regression"], "Please enter valid task"
         
-        self.which_set = which_set  # train, valid or test set
+        self.which_set = which_set  # train, val or test set
         self.task = task
         
         self.patch_size = patch_size
@@ -729,7 +729,7 @@ class XXXHealthyDataset(data.Dataset):
         return len(self.image_list)
 
 
-class XXXPathologicalDataset(data.Dataset):
+class MiasPathological(data.Dataset):
     """
 
     """
@@ -751,13 +751,13 @@ class XXXPathologicalDataset(data.Dataset):
                  patch_size=(256,256), mask_size=(64,64)):
 
         # check a valid which_set was provided
-        assert which_set in ['train', 'valid', 'test'], (
-            'Expected which_set to be either train, valid or test '
+        assert which_set in ['train', 'val', 'test'], (
+            'Expected which_set to be either train, val or test '
             'Got {0}'.format(which_set)
         )
 #        assert task in ["regression"], "Please enter valid task"
         
-        self.which_set = which_set  # train, valid or test set
+        self.which_set = which_set  # train, val or test set
 #        self.task = task
         
         self.patch_size = patch_size
@@ -844,3 +844,94 @@ class XXXPathologicalDataset(data.Dataset):
 
         
 
+def create_dataset(args, augmentations):
+    if args.set_name == 'emnist':
+        train_data = data_providers.EMNISTDataProvider('train', batch_size=args.batch_size,
+                                                       rng=rng, flatten=False)  # initialize our rngs using the argument set seed
+        val_data = data_providers.EMNISTDataProvider('val', batch_size=args.batch_size,
+                                                     rng=rng, flatten=False)  # initialize our rngs using the argument set seed
+        test_data = data_providers.EMNISTDataProvider('test', batch_size=args.batch_size,
+                                                      rng=rng, flatten=False)  # initialize our rngs using the argument set seed
+        num_output_classes = train_data.num_classes
+    
+        num_output_classes = 666
+    
+        return train_data, val_data, test_data, num_output_classes
+
+    elif args.set_name == 'cifar10':
+        standard_transforms = [transforms.ToTensor(),
+                transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010))]
+        
+        if augmentations is not None:
+            transform_train = transforms.Compose(augmentations + standard_transforms)
+        else:
+            transform_train = transforms.Compose(standard_transforms)
+    
+        transform_test = standard_transforms
+    
+        trainset = data_providers.CIFAR10(root='data', which_set='train', download=True, transform=transform_train)
+        train_data = torch.utils.data.DataLoader(trainset, batch_size=args.batch_size, shuffle=True, num_workers=args.num_workers)
+    
+        valset = data_providers.CIFAR10(root='data', which_set='val', download=True, transform=transform_test)
+        val_data = torch.utils.data.DataLoader(valset, batch_size=args.batch_size, shuffle=False, num_workers=args.num_workers)
+    
+        testset = data_providers.CIFAR10(root='data', which_set='test', download=True, transform=transform_test)
+        test_data = torch.utils.data.DataLoader(testset, batch_size=args.batch_size, shuffle=False, num_workers=args.num_workers)
+    
+        classes = ('plane', 'car', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
+        num_output_classes = 10
+        
+        return train_data, val_data, test_data, num_output_classes
+    
+    elif args.set_name == 'cifar100':
+        standard_transforms = [transforms.ToTensor(),
+                transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010))]
+        
+        if augmentations is not None:
+            transform_train = transforms.Compose(augmentations + standard_transforms)
+        else:
+            transform_train = transforms.Compose(standard_transforms)
+    
+        transform_test = standard_transforms
+        
+        trainset = data_providers.CIFAR100(root='data', which_set='train', download=True, transform=transform_train)
+        train_data = torch.utils.data.DataLoader(trainset, batch_size=args.batch_size, shuffle=True, num_workers=args.num_workers)
+    
+        valset = data_providers.CIFAR100(root='data', which_set='val', download=True, transform=transform_test)
+        val_data = torch.utils.data.DataLoader(valset, batch_size=args.batch_size, shuffle=False, num_workers=args.num_workers)
+    
+        testset = data_providers.CIFAR100(root='data', which_set='test', download=True, transform=transform_test)
+        test_data = torch.utils.data.DataLoader(testset, batch_size=args.batch_size, shuffle=False, num_workers=args.num_workers)
+    
+    
+        num_output_classes = 100
+        
+        return train_data, val_data, test_data, num_output_classes
+    
+    
+    elif args.set_name == 'MiasHealthy':
+        standard_transforms = [transforms.ToTensor(),
+                transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010))]
+        
+        if augmentations is not None:
+            transform_train = transforms.Compose(augmentations + standard_transforms)
+        else:
+            transform_train = transforms.Compose(standard_transforms)
+    
+        transform_test = standard_transforms
+        
+        trainset = data_providers.MiasHealthy(which_set='train', task=args.task, transformer=transform_train, patch_size=args.patch_size,
+                                              patch_location=args.patch_location, mask_size=args.mask_size)
+        train_data = torch.utils.data.DataLoader(trainset, batch_size=args.batch_size, shuffle=True, num_workers=args.num_workers)
+    
+        valset = data_providers.MiasHealthy(root='data', which_set='val', task=args.task, transformer=transform_test, patch_size=args.patch_size, 
+                                            patch_location=args.patch_location, mask_size=args.mask_size)
+        val_data = torch.utils.data.DataLoader(valset, batch_size=args.batch_size, shuffle=False, num_workers=args.num_workers)
+    
+        testset = data_providers.MiasHealthy(root='data', which_set='test', task=args.task, transformer=transform_test, patch_size=args.patch_size, 
+                                             patch_location=args.patch_location, mask_size=args.mask_size)
+        test_data = torch.utils.data.DataLoader(testset, batch_size=args.batch_size, shuffle=False, num_workers=args.num_workers)
+    
+        num_output_classes = 666
+        
+        return train_data, val_data, test_data, num_output_classes
