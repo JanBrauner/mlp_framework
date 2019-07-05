@@ -11,60 +11,87 @@ from experiment_builder import ExperimentBuilder
 
 
 # =============================================================================
-# defaults: gamma_factor=1, rot_angle=0, shear_angle=0, translate_distance=0, 
-#                  scale_factor=1,
+# 
+# # =============================================================================
+# ### experiment settings
+# args.experiment_name
+# args.continue_from_epoch
+# 
+# # =============================================================================
+# ### misc parameters
+# args.seed
+# args.task
+# 
+# # =============================================================================
+# ### GPU settings
+# args.use_gpu
+# args.gpu_id
+# 
+# # =============================================================================
+# ### model parameters
+# args.model_name
+# 
+# # model parameters: convolutions
+# args.kernel_size
+# 
+# # model parameters: encoder
+# args.num_layers_enc
+# args.num_channels_enc
+# args.num_channels_progression_enc
+# args.num_channels_bottleneck
+# 
+# # model parameters: decoder
+# args.num_layers_dec
+# args.num_channels_dec
+# args.num_channels_progression_dec
+# 
+# # =============================================================================
+# ### data parameters
+# # data parameters: dataset
+# args.dataset_name
+# args.num_image_channels
+# args.image_height
+# args.image_width
+# 
+# # data parameters: misc
+# args.debug_mode
+# args.num_workers
+# 
+# # data parameters: augmentations
+# args.augment = False
+# args.gamma_factor
+# args.rot_angle
+# args.translate_factor
+# args.scale_factor
+# args.shear_angle
+# 
+# # data parameters: image patches
+# args.patch_size
+# args.patch_location_during_training
+# 
+# # data parameters: masking
+# args.mask_size
+# 
+# # =============================================================================
+# ### training parameters
+# # training parameters: general
+# args.batch_size
+# args.loss
+# args.num_epochs
+# 
+# # training parameters: optimiser
+# args.learning_rate
+# args.betas
+# args.weight_decay_coefficient
+# 
+# # =============================================================================
+# 
+# 
 # =============================================================================
 
 
-# hparams for model
-args.model_name
-
-args.batch_size, 
-args.num_image_channels, 
-args.image_height, 
-args.image_width
-
-args.num_layers_enc
-args.num_channels_enc
-args.num_channels_progression_enc
-args.kernel_size
-args.num_channels_bottleneck
-
-args.num_layers_dec
-args.num_channels_dec
-args.num_channels_progression_dec
 
 
-# hparams for data_providers
-args.dataset_name
-args.num_workers
-args.patch_size,
-args.patch_location
-args.mask_size
-
-
-# hparams for experiment builder
-args.experiment_name
-args.learning_rate
-args.betas
-args.weight_decay_coefficient
-args.task
-args.loss
-args.num_epochs
-
-
-# hparams for main
-args.augment = False
-args.seed
-args.rot_angle
-args.translate_factor
-args.scale_factor
-args.shear_angle
-
-# hparams from old
-args.debug_mode = True 
-args.use_gpu
-args.continue_from_epoch
 
 # =============================================================================
 # 
@@ -75,7 +102,7 @@ args.continue_from_epoch
 # defaults in CE implementation: 
 # args.learning_rate: 0.0002
 # beta1=0.5
-# num_channels_progression = [1,1,2,4,8]
+
 # 
 #     
 # change name: 

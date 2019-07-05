@@ -923,17 +923,17 @@ def create_dataset(args, augmentations, rng):
         
         trainset = MiasHealthy(which_set='train', task=args.task, transformer=transform_train, 
                               debug_mode=args.debug_mode, patch_size=args.patch_size,
-                              patch_location=args.patch_location, mask_size=args.mask_size)
+                              patch_location=args.args.patch_location_during_training, mask_size=args.mask_size)
         train_data = torch.utils.data.DataLoader(trainset, batch_size=args.batch_size, shuffle=True, num_workers=args.num_workers)
     
         valset = MiasHealthy(which_set='val', task=args.task, transformer=transform_test,
                             debug_mode=args.debug_mode, patch_size=args.patch_size, 
-                            patch_location=args.patch_location, mask_size=args.mask_size)
+                            patch_location=args.args.patch_location_during_training, mask_size=args.mask_size)
         val_data = torch.utils.data.DataLoader(valset, batch_size=args.batch_size, shuffle=False, num_workers=args.num_workers)
     
         testset = MiasHealthy(which_set='test', task=args.task, transformer=transform_test,
                              debug_mode=args.debug_mode, patch_size=args.patch_size, 
-                             patch_location=args.patch_location, mask_size=args.mask_size)
+                             patch_location=args.args.patch_location_during_training, mask_size=args.mask_size)
         test_data = torch.utils.data.DataLoader(testset, batch_size=args.batch_size, shuffle=False, num_workers=args.num_workers)
     
         num_output_classes = 666

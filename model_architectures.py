@@ -259,8 +259,13 @@ class CE_netG(nn.Module): # generator of a context encoder
         num_layers_total = self.num_layers_enc+self.num_layers_dec
         for i in range(self.num_layers_enc, num_layers_total):
             # deconvolution layer
-            self.layer_dict["conv_t_{}".format(i)] = nn.ConvTranspose2d(in_channels=out.shape[1], 
+            if i < num_layers_total - 1: 
+                self.layer_dict["conv_t_{}".format(i)] = nn.ConvTranspose2d(in_channels=out.shape[1], 
                             out_channels = self.num_channels_dec*self.num_channels_progression_dec[i],
+                            kernel_size=self.kernel_size, stride=1, padding=0, bias=False)
+            else: #last layer needs to go back to same number of channels as input
+                self.layer_dict["conv_t_{}".format(i)] = nn.ConvTranspose2d(in_channels=out.shape[1], 
+                            out_channels = self.input_shape[1],
                             kernel_size=self.kernel_size, stride=1, padding=0, bias=False)
             out = layer_dict["conv_t_{}".format(i)](out)
             
@@ -310,6 +315,7 @@ class CE_netG(nn.Module): # generator of a context encoder
 #             # state size: (nBottleneck) x 1 x 1
 #             nn.BatchNorm2d(nBottleneck),
 #             nn.LeakyReLU(0.2, inplace=True),
+        
 #             # input is Bottleneck, going into a convolution
 #             nn.ConvTranspose2d(nBottleneck, ngf * 8, 4, 1, 0, bias=False),
 #             nn.BatchNorm2d(ngf * 8),

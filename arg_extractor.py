@@ -18,14 +18,12 @@ def get_args():
     Returns a namedtuple with arguments extracted from the command line.
     :return: A namedtuple with arguments
     """
-    parser = argparse.ArgumentParser(
-        description='Welcome to the MLP course\'s Pytorch training and inference helper script')
-
 # =============================================================================
+     parser = argparse.ArgumentParser(
+         description='Welcome')
+# 
 #     parser.add_argument('--batch_size', nargs="?", type=int, default=100, help='Batch_size for experiment')
-# =============================================================================
-    parser.add_argument('--continue_from_epoch', nargs="?", type=int, default=-1, help='Batch_size for experiment')
-# =============================================================================
+#     parser.add_argument('--continue_from_epoch', nargs="?", type=int, default=-1, help='Batch_size for experiment')
 #     parser.add_argument('--dataset_name', type=str, help='Dataset on which the system will train/eval our model')
 #     parser.add_argument('--seed', nargs="?", type=int, default=7112018,
 #                         help='Seed to use for random number generator for experiment')
@@ -42,10 +40,8 @@ def get_args():
 #                         help='Number of convolutional filters per convolutional layer in the network (excluding '
 #                              'dimensionality reduction layers)')
 #     parser.add_argument('--num_epochs', nargs="?", type=int, default=100, help='The experiment\'s epoch budget')
-# =============================================================================
-    parser.add_argument('--experiment_name', nargs="?", type=str, default="exp_1",
-                        help='Experiment name - to be used for building the experiment folder')
-# =============================================================================
+     parser.add_argument('--experiment_name', nargs="?", type=str, default="exp_1",
+                         help='Experiment name - to be used for building the experiment folder and access config file')
 #     parser.add_argument('--use_gpu', nargs="?", type=str2bool, default=False,
 #                         help='A flag indicating whether we will use GPU acceleration or not')
 #     parser.add_argument('--gpu_id', type=str, default="None", help="A string indicating the gpu to use")
@@ -54,66 +50,67 @@ def get_args():
 #     parser.add_argument('--filepath_to_arguments_json_file', nargs="?", type=str, default=None,
 #                         help='')
 # =============================================================================
-
     args = parser.parse_args()
-    json_file_path = args.experiment_name
-    # I need to figure out how to get the correct path here. How do paths work in general?
-    # after that, I need to figure out if there is a convenient way to have my experiment config scripts be structured in subfolders
-    args = extract_args_from_json(json_file_path=args.filepath_to_arguments_json_file, existing_args_dict=args)
 
+    configs_path = os.path.join("configs")
+    json_file_path = os.path.join(configs_path, args.experiment_name)
+    
+    args = extract_args_from_json(json_file_path=json_file_path, existing_args_dict=args)
 
-    gpu_id = str(args.gpu_id)
+    return args
 
-    if gpu_id != "None":
-        args.gpu_id = gpu_id
-
-    arg_str = [(str(key), str(value)) for (key, value) in vars(args).items()]
-    print(arg_str)
-
-    if args.use_gpu == True:
-        num_requested_gpus = len(args.gpu_id.split(","))
-        num_received_gpus = len(GPUtil.getAvailable(order='first', limit=8, maxLoad=0.1,
-                                             maxMemory=0.1, includeNan=False,
-                                             excludeID=[], excludeUUID=[]))
-
-        if num_requested_gpus == 1 and num_received_gpus > 1:
-            print("Detected Slurm problem with GPUs, attempting automated fix")
-            gpu_to_use = GPUtil.getAvailable(order='first', limit=num_received_gpus, maxLoad=0.1,
-                                             maxMemory=0.1, includeNan=False,
-                                             excludeID=[], excludeUUID=[])
-            if len(gpu_to_use) > 0:
-                os.environ["CUDA_VISIBLE_DEVICES"] = str(gpu_to_use[0])
-                print("Using GPU with ID", gpu_to_use[0])
-            else:
-                print("Not enough GPUs available, please try on another node now, or retry on this node later")
-                sys.exit()
-
-        elif num_requested_gpus > 1 and num_received_gpus > num_requested_gpus:
-            print("Detected Slurm problem with GPUs, attempting automated fix")
-            gpu_to_use = GPUtil.getAvailable(order='first', limit=num_received_gpus,
-                                             maxLoad=0.1,
-                                             maxMemory=0.1, includeNan=False,
-                                             excludeID=[], excludeUUID=[])
-
-            if len(gpu_to_use) >= num_requested_gpus:
-                os.environ["CUDA_VISIBLE_DEVICES"] = ",".join(str(gpu_idx) for gpu_idx in gpu_to_use[:num_requested_gpus])
-                print("Using GPU with ID", gpu_to_use[:num_requested_gpus])
-            else:
-                print("Not enough GPUs available, please try on another node now, or retry on this node later")
-                sys.exit()
-
-
-    import torch
-    args.use_cuda = torch.cuda.is_available()
-
-    if torch.cuda.is_available():  # checks whether a cuda gpu is available and whether the gpu flag is True
-        device = torch.cuda.current_device()
-        print("use {} GPU(s)".format(torch.cuda.device_count()), file=sys.stderr)
-    else:
-        print("use CPU", file=sys.stderr)
-        device = torch.device('cpu')  # sets the device to be CPU
-
-    return args, device
+#    gpu_id = str(args.gpu_id)
+#
+#    if gpu_id != "None":
+#        args.gpu_id = gpu_id
+#
+#    arg_str = [(str(key), str(value)) for (key, value) in vars(args).items()]
+#    print(arg_str)
+#
+#    if args.use_gpu == True:
+#        num_requested_gpus = len(args.gpu_id.split(","))
+#        num_received_gpus = len(GPUtil.getAvailable(order='first', limit=8, maxLoad=0.1,
+#                                             maxMemory=0.1, includeNan=False,
+#                                             excludeID=[], excludeUUID=[]))
+#
+#        if num_requested_gpus == 1 and num_received_gpus > 1:
+#            print("Detected Slurm problem with GPUs, attempting automated fix")
+#            gpu_to_use = GPUtil.getAvailable(order='first', limit=num_received_gpus, maxLoad=0.1,
+#                                             maxMemory=0.1, includeNan=False,
+#                                             excludeID=[], excludeUUID=[])
+#            if len(gpu_to_use) > 0:
+#                os.environ["CUDA_VISIBLE_DEVICES"] = str(gpu_to_use[0])
+#                print("Using GPU with ID", gpu_to_use[0])
+#            else:
+#                print("Not enough GPUs available, please try on another node now, or retry on this node later")
+#                sys.exit()
+#
+#        elif num_requested_gpus > 1 and num_received_gpus > num_requested_gpus:
+#            print("Detected Slurm problem with GPUs, attempting automated fix")
+#            gpu_to_use = GPUtil.getAvailable(order='first', limit=num_received_gpus,
+#                                             maxLoad=0.1,
+#                                             maxMemory=0.1, includeNan=False,
+#                                             excludeID=[], excludeUUID=[])
+#
+#            if len(gpu_to_use) >= num_requested_gpus:
+#                os.environ["CUDA_VISIBLE_DEVICES"] = ",".join(str(gpu_idx) for gpu_idx in gpu_to_use[:num_requested_gpus])
+#                print("Using GPU with ID", gpu_to_use[:num_requested_gpus])
+#            else:
+#                print("Not enough GPUs available, please try on another node now, or retry on this node later")
+#                sys.exit()
+#
+#
+#    import torch
+#    args.use_cuda = torch.cuda.is_available()
+#
+#    if torch.cuda.is_available():  # checks whether a cuda gpu is available and whether the gpu flag is True
+#        device = torch.cuda.current_device()
+#        print("use {} GPU(s)".format(torch.cuda.device_count()), file=sys.stderr)
+#    else:
+#        print("use CPU", file=sys.stderr)
+#        device = torch.device('cpu')  # sets the device to be CPU
+#
+#    return args, device
 
 
 class AttributeAccessibleDict(object):
@@ -122,7 +119,7 @@ class AttributeAccessibleDict(object):
 
 
 def extract_args_from_json(json_file_path, existing_args_dict=None):
-
+    
     summary_filename = json_file_path
     with open(summary_filename) as f:
         arguments_dict = json.load(fp=f)
