@@ -21,6 +21,7 @@ else:
     import pickle
 import math
 
+import torch
 import torch.utils.data as data
 from torchvision.datasets.utils import download_url, check_integrity
 import torchvision.transforms as transforms
@@ -844,13 +845,13 @@ class MiasPathological(data.Dataset):
 
         
 
-def create_dataset(args, augmentations):
-    if args.set_name == 'emnist':
-        train_data = data_providers.EMNISTDataProvider('train', batch_size=args.batch_size,
+def create_dataset(args, augmentations, rng):
+    if args.dataset_name == 'emnist':
+        train_data = EMNISTDataProvider('train', batch_size=args.batch_size,
                                                        rng=rng, flatten=False)  # initialize our rngs using the argument set seed
-        val_data = data_providers.EMNISTDataProvider('val', batch_size=args.batch_size,
+        val_data = EMNISTDataProvider('val', batch_size=args.batch_size,
                                                      rng=rng, flatten=False)  # initialize our rngs using the argument set seed
-        test_data = data_providers.EMNISTDataProvider('test', batch_size=args.batch_size,
+        test_data = EMNISTDataProvider('test', batch_size=args.batch_size,
                                                       rng=rng, flatten=False)  # initialize our rngs using the argument set seed
         num_output_classes = train_data.num_classes
     
@@ -858,7 +859,7 @@ def create_dataset(args, augmentations):
     
         return train_data, val_data, test_data, num_output_classes
 
-    elif args.set_name == 'cifar10':
+    elif args.dataset_name == 'cifar10':
         standard_transforms = [transforms.ToTensor(),
                 transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010))]
         
@@ -869,13 +870,13 @@ def create_dataset(args, augmentations):
     
         transform_test = standard_transforms
     
-        trainset = data_providers.CIFAR10(root='data', which_set='train', download=True, transform=transform_train)
+        trainset = CIFAR10(root='data', which_set='train', download=True, transform=transform_train)
         train_data = torch.utils.data.DataLoader(trainset, batch_size=args.batch_size, shuffle=True, num_workers=args.num_workers)
     
-        valset = data_providers.CIFAR10(root='data', which_set='val', download=True, transform=transform_test)
+        valset = CIFAR10(root='data', which_set='val', download=True, transform=transform_test)
         val_data = torch.utils.data.DataLoader(valset, batch_size=args.batch_size, shuffle=False, num_workers=args.num_workers)
     
-        testset = data_providers.CIFAR10(root='data', which_set='test', download=True, transform=transform_test)
+        testset = CIFAR10(root='data', which_set='test', download=True, transform=transform_test)
         test_data = torch.utils.data.DataLoader(testset, batch_size=args.batch_size, shuffle=False, num_workers=args.num_workers)
     
         classes = ('plane', 'car', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
@@ -883,7 +884,7 @@ def create_dataset(args, augmentations):
         
         return train_data, val_data, test_data, num_output_classes
     
-    elif args.set_name == 'cifar100':
+    elif args.dataset_name == 'cifar100':
         standard_transforms = [transforms.ToTensor(),
                 transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010))]
         
@@ -894,13 +895,13 @@ def create_dataset(args, augmentations):
     
         transform_test = standard_transforms
         
-        trainset = data_providers.CIFAR100(root='data', which_set='train', download=True, transform=transform_train)
+        trainset = CIFAR100(root='data', which_set='train', download=True, transform=transform_train)
         train_data = torch.utils.data.DataLoader(trainset, batch_size=args.batch_size, shuffle=True, num_workers=args.num_workers)
     
-        valset = data_providers.CIFAR100(root='data', which_set='val', download=True, transform=transform_test)
+        valset = CIFAR100(root='data', which_set='val', download=True, transform=transform_test)
         val_data = torch.utils.data.DataLoader(valset, batch_size=args.batch_size, shuffle=False, num_workers=args.num_workers)
     
-        testset = data_providers.CIFAR100(root='data', which_set='test', download=True, transform=transform_test)
+        testset = CIFAR100(root='data', which_set='test', download=True, transform=transform_test)
         test_data = torch.utils.data.DataLoader(testset, batch_size=args.batch_size, shuffle=False, num_workers=args.num_workers)
     
     
@@ -909,7 +910,7 @@ def create_dataset(args, augmentations):
         return train_data, val_data, test_data, num_output_classes
     
     
-    elif args.set_name == 'MiasHealthy':
+    elif args.dataset_name == 'MiasHealthy':
         standard_transforms = [transforms.ToTensor(),
                 transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010))]
         
@@ -920,16 +921,19 @@ def create_dataset(args, augmentations):
     
         transform_test = standard_transforms
         
-        trainset = data_providers.MiasHealthy(which_set='train', task=args.task, transformer=transform_train, patch_size=args.patch_size,
-                                              patch_location=args.patch_location, mask_size=args.mask_size)
+        trainset = MiasHealthy(which_set='train', task=args.task, transformer=transform_train, 
+                              debug_mode=args.debug_mode, patch_size=args.patch_size,
+                              patch_location=args.patch_location, mask_size=args.mask_size)
         train_data = torch.utils.data.DataLoader(trainset, batch_size=args.batch_size, shuffle=True, num_workers=args.num_workers)
     
-        valset = data_providers.MiasHealthy(root='data', which_set='val', task=args.task, transformer=transform_test, patch_size=args.patch_size, 
-                                            patch_location=args.patch_location, mask_size=args.mask_size)
+        valset = MiasHealthy(which_set='val', task=args.task, transformer=transform_test,
+                            debug_mode=args.debug_mode, patch_size=args.patch_size, 
+                            patch_location=args.patch_location, mask_size=args.mask_size)
         val_data = torch.utils.data.DataLoader(valset, batch_size=args.batch_size, shuffle=False, num_workers=args.num_workers)
     
-        testset = data_providers.MiasHealthy(root='data', which_set='test', task=args.task, transformer=transform_test, patch_size=args.patch_size, 
-                                             patch_location=args.patch_location, mask_size=args.mask_size)
+        testset = MiasHealthy(which_set='test', task=args.task, transformer=transform_test,
+                             debug_mode=args.debug_mode, patch_size=args.patch_size, 
+                             patch_location=args.patch_location, mask_size=args.mask_size)
         test_data = torch.utils.data.DataLoader(testset, batch_size=args.batch_size, shuffle=False, num_workers=args.num_workers)
     
         num_output_classes = 666

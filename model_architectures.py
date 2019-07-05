@@ -208,71 +208,132 @@ class ConvolutionalNetwork(nn.Module):
         self.logit_linear_layer.reset_parameters()
 
 class CE_netG(nn.Module): # generator of a context encoder
-    def __init__(self, nc, nef, nBottleneck, ngf):
+    def __init__(self, args):
         super(_netG, self).__init__()
         self.layer_dict = nn.ModuleDict()
+        
+        self.input_shape = (args.batch_size, args.num_image_channels, args.image_height, args.image_width)
+        
+        # hyperparameters for both encoder and decoder
+        self.kernel_size = args.kernel_size
+        
+        # encoder hyperparameters
+        self.num_layers_enc = args.num_layers_enc
+        self.num_channels_enc = args.num_channels_enc
+        self.num_channels_progression_enc = args.num_channels_progression_enc
+        self.num_channels_bottleneck = args.num_channels_bottleneck
+        
+        # decoder hyperparameters
+        self.num_layers_dec = args.num_layers_dec
+        self.num_channels_dec = args.num_channels_dec
+        self.num_channels_progression_dec = args.num_channels_progression_dec
         
     def build_module(self):
         x = torch.zeros(self.input_shape) # dummy input
         out = x
         
-        for i in range(self.num_encoding_layers):
-            self.layer_dict["conv_{}".format(i)] = nn.Conv2d(in_channels=out.shape[1],out_channels=self.num_channels,kernel_size=self.kernel_size,
-                            stride=2, padding=1, bias=False)
-            out = self.layer_dict #### continue here!!!!
-        
-        self.main = nn.Sequential(
-            # input is (nc) x 128 x 128
-            nn.Conv2d(in_channels=nc,out_channels=nef,kernel_size=4,stride=2,padding=1, bias=False),
-            nn.LeakyReLU(0.2, inplace=True),
-            # state size: (nef) x 64 x 64
-            nn.Conv2d(nef,nef,4,2,1, bias=False),
-            nn.BatchNorm2d(nef),
-            nn.LeakyReLU(0.2, inplace=True),
-            # state size: (nef) x 32 x 32
-            nn.Conv2d(nef,nef*2,4,2,1, bias=False),
-            nn.BatchNorm2d(nef*2),
-            nn.LeakyReLU(0.2, inplace=True),
-            # state size: (nef*2) x 16 x 16
-            nn.Conv2d(nef*2,nef*4,4,2,1, bias=False),
-            nn.BatchNorm2d(nef*4),
-            nn.LeakyReLU(0.2, inplace=True),
-            # state size: (nef*4) x 8 x 8
-            nn.Conv2d(nef*4,nef*8,4,2,1, bias=False),
-            nn.BatchNorm2d(nef*8),
-            nn.LeakyReLU(0.2, inplace=True),
-            # state size: (nef*8) x 4 x 4
-            nn.Conv2d(nef*8,nBottleneck,4, bias=False),
-            # state size: (nBottleneck) x 1 x 1
-            nn.BatchNorm2d(nBottleneck),
-            nn.LeakyReLU(0.2, inplace=True),
-            # input is Bottleneck, going into a convolution
-            nn.ConvTranspose2d(nBottleneck, ngf * 8, 4, 1, 0, bias=False),
-            nn.BatchNorm2d(ngf * 8),
-            nn.ReLU(True),
-            # state size. (ngf*8) x 4 x 4
-            nn.ConvTranspose2d(ngf * 8, ngf * 4, 4, 2, 1, bias=False),
-            nn.BatchNorm2d(ngf * 4),
-            nn.ReLU(True),
-            # state size. (ngf*4) x 8 x 8
-            nn.ConvTranspose2d(ngf * 4, ngf * 2, 4, 2, 1, bias=False),
-            nn.BatchNorm2d(ngf * 2),
-            nn.ReLU(True),
-            # state size. (ngf*2) x 16 x 16
-            nn.ConvTranspose2d(ngf * 2, ngf, 4, 2, 1, bias=False),
-            nn.BatchNorm2d(ngf),
-            nn.ReLU(True),
-            # state size. (ngf) x 32 x 32
-            nn.ConvTranspose2d(ngf, nc, 4, 2, 1, bias=False),
-            nn.Tanh()
-            # state size. (nc) x 64 x 64
-        )
+        # encoder
+        for i in range(self.num_layers_enc):
+            
+            # conv layer
+            if i < self.num_layers_enc-1: # the non-final layers of the encoder
+                self.layer_dict["conv_{}".format(i)] = nn.Conv2d(in_channels=out.shape[1],
+                                out_channels=self.num_channels_enc*self.num_channels_progression_enc[i],
+                                kernel_size=self.kernel_size, stride=2, padding=1, bias=False)
+            else: # in final layer, use adaptive kernel size to reduce feature maps to 1x1, and num_bottleneck channels:
+                self.layer_dict["conv_{}".format(i)] = nn.Conv2d(in_channels=out.shape[1],
+                                out_channels=self.num_channels_bottleneck,
+                                kernel_size=out.shape[2], stride=1, padding=0, bias=False)
+            out = self.layer_dict["conv_{}".format(i)](out)
+            
+            # batch norm layer
+            if i > 0: # first layer doesn't have batch_norm:
+                self.layer_dict["batch_norm_enc{}".format(i)] = nn.BatchNorm2d(out.shape[1])
+                out = self.layer_dict["batch_norm_enc{}".format(i)](out)
+            
+            # leaky ReLU layer
+            self.layer_dict["lReLU_{}".format(i)] = nn.LeakyReLU(0.2, inplace=True)
+            out = self.layer_dict["lReLU_{}".format(i)](out)
+            
+        # decoder
+        num_layers_total = self.num_layers_enc+self.num_layers_dec
+        for i in range(self.num_layers_enc, num_layers_total):
+            # deconvolution layer
+            self.layer_dict["conv_t_{}".format(i)] = nn.ConvTranspose2d(in_channels=out.shape[1], 
+                            out_channels = self.num_channels_dec*self.num_channels_progression_dec[i],
+                            kernel_size=self.kernel_size, stride=1, padding=0, bias=False)
+            out = layer_dict["conv_t_{}".format(i)](out)
+            
+            # batch norm layer
+            if i < num_layers_total - 1: # last layer doesn't have batch norm:
+                self.layer_dict["batch_norm_dec_{}".format(i)] = nn.BatchNorm2d(out.shape[1])
+                out =  self.layer_dict["batch_norm_dec_{}".format(i)](out)
+                
+            if i < num_layers_total - 1: # non-final layers have ReLU:
+                self.layer_dict["ReLU_{}".format(i)] = nn.ReLU(inplace=True)
+                out = self.layer_dict["ReLU_{}".format(i)](out)
+            else:
+                self.layer_dict["tanh_{}".format(i)] = nn.Tanh()
+                out = self.layer_dict["tanh_{}".format(i)](out)
 
-    def forward(self, input):
-
-        output = self.main(input)
-        return output
+    def forward(self, x):
+        for layer in self.layer_dict.values():
+            x = layer(x)
+        return x
     
+                
+
+# =============================================================================
+# 
+#         self.main = nn.Sequential(
+#             # input is (nc) x 128 x 128
+#             nn.Conv2d(in_channels=nc,out_channels=nef,kernel_size=4,stride=2,padding=1, bias=False),
+#             nn.LeakyReLU(0.2, inplace=True),
+#             # state size: (nef) x 64 x 64
+#             nn.Conv2d(nef,nef,4,2,1, bias=False),
+#             nn.BatchNorm2d(nef),
+#             nn.LeakyReLU(0.2, inplace=True),
+#             # state size: (nef) x 32 x 32
+#             nn.Conv2d(nef,nef*2,4,2,1, bias=False),
+#             nn.BatchNorm2d(nef*2),
+#             nn.LeakyReLU(0.2, inplace=True),
+#             # state size: (nef*2) x 16 x 16
+#             nn.Conv2d(nef*2,nef*4,4,2,1, bias=False),
+#             nn.BatchNorm2d(nef*4),
+#             nn.LeakyReLU(0.2, inplace=True),
+#             # state size: (nef*4) x 8 x 8
+#             nn.Conv2d(nef*4,nef*8,4,2,1, bias=False),
+#             nn.BatchNorm2d(nef*8),
+#             nn.LeakyReLU(0.2, inplace=True),
+#             # state size: (nef*8) x 4 x 4
+#             nn.Conv2d(nef*8,nBottleneck,4, bias=False),
+#             # state size: (nBottleneck) x 1 x 1
+#             nn.BatchNorm2d(nBottleneck),
+#             nn.LeakyReLU(0.2, inplace=True),
+#             # input is Bottleneck, going into a convolution
+#             nn.ConvTranspose2d(nBottleneck, ngf * 8, 4, 1, 0, bias=False),
+#             nn.BatchNorm2d(ngf * 8),
+#             nn.ReLU(True),
+#             # state size. (ngf*8) x 4 x 4
+#             nn.ConvTranspose2d(ngf * 8, ngf * 4, 4, 2, 1, bias=False),
+#             nn.BatchNorm2d(ngf * 4),
+#             nn.ReLU(True),
+#             # state size. (ngf*4) x 8 x 8
+#             nn.ConvTranspose2d(ngf * 4, ngf * 2, 4, 2, 1, bias=False),
+#             nn.BatchNorm2d(ngf * 2),
+#             nn.ReLU(True),
+#             # state size. (ngf*2) x 16 x 16
+#             nn.ConvTranspose2d(ngf * 2, ngf, 4, 2, 1, bias=False),
+#             nn.BatchNorm2d(ngf),
+#             nn.ReLU(True),
+#             # state size. (ngf) x 32 x 32
+#             nn.ConvTranspose2d(ngf, nc, 4, 2, 1, bias=False),
+#             nn.Tanh()
+#             # state size. (nc) x 64 x 64
+#         )
+# 
+# =============================================================================
+
     
     def reset_parameters(self):
         # custom weights initialization called on netG and netD
@@ -330,12 +391,12 @@ class CE_netlocalD(nn.Module): # context encoder discriminator network
 def create_model(args):
     if args.model_name == "custom_conv_net":
         model = ConvolutionalNetwork(
-                    input_shape=(args.batch_size, args.image_num_channels, args.image_height, args.image_height),
+                    input_shape=(args.batch_size, args.num_image_channels, args.image_height, args.image_width),
                     dim_reduction_type=args.dim_reduction_type, num_filters=args.num_filters, num_layers=args.num_layers, use_bias=False,
                     num_output_classes=args.num_output_classes)
     elif args.model_name == "context_encoder":
-        model = CE_netG()
-
-self, nc, nef, nBottleneck, ngf
+        model = CE_netG(args)
 
     return model
+
+
