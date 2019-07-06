@@ -47,7 +47,7 @@ class ExperimentBuilder(nn.Module):
         self.task = args.task
         self.loss = args.loss
         # Generate the directory names
-        self.experiment_folder = os.path.abspath(self.experiment_name)
+        self.experiment_folder = os.path.abspath(os.path.join("results", self.experiment_name))
         self.experiment_logs = os.path.abspath(os.path.join(self.experiment_folder, "result_outputs"))
         self.experiment_saved_models = os.path.abspath(os.path.join(self.experiment_folder, "saved_models"))
         print(self.experiment_folder, self.experiment_logs)

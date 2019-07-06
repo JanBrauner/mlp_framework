@@ -9,7 +9,7 @@ from experiment_builder import ExperimentBuilder
 
 
 #args, device = get_args()  # get arguments from command line
-args, device = get_args("CE_test")
+args, device = get_args("CE_test") # for loca debugging
 
 if args.augment:
     augmentations = [transforms.RandomAffine(degrees=args.rot_angle, translate=args.translate_factor, 
