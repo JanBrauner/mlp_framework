@@ -209,7 +209,7 @@ class ConvolutionalNetwork(nn.Module):
 
 class CE_netG(nn.Module): # generator of a context encoder
     def __init__(self, args):
-        super(_netG, self).__init__()
+        super(CE_netG, self).__init__()
         self.layer_dict = nn.ModuleDict()
         
         self.input_shape = (args.batch_size, args.num_image_channels, args.image_height, args.image_width)
@@ -227,6 +227,8 @@ class CE_netG(nn.Module): # generator of a context encoder
         self.num_layers_dec = args.num_layers_dec
         self.num_channels_dec = args.num_channels_dec
         self.num_channels_progression_dec = args.num_channels_progression_dec
+        
+        self.build_module()
         
     def build_module(self):
         x = torch.zeros(self.input_shape) # dummy input
@@ -257,17 +259,24 @@ class CE_netG(nn.Module): # generator of a context encoder
             
         # decoder
         num_layers_total = self.num_layers_enc+self.num_layers_dec
+        ind_dec = -1 # index relative to decoder
         for i in range(self.num_layers_enc, num_layers_total):
+            ind_dec += 1
+            
             # deconvolution layer
-            if i < num_layers_total - 1: 
+            if i == self.num_layers_enc: # first deconv layers
                 self.layer_dict["conv_t_{}".format(i)] = nn.ConvTranspose2d(in_channels=out.shape[1], 
-                            out_channels = self.num_channels_dec*self.num_channels_progression_dec[i],
+                            out_channels = self.num_channels_dec*self.num_channels_progression_dec[ind_dec],
                             kernel_size=self.kernel_size, stride=1, padding=0, bias=False)
+            elif i < num_layers_total - 1: # all deconv layers that aren't the first or the last 
+                self.layer_dict["conv_t_{}".format(i)] = nn.ConvTranspose2d(in_channels=out.shape[1], 
+                            out_channels = self.num_channels_dec*self.num_channels_progression_dec[ind_dec],
+                            kernel_size=self.kernel_size, stride=2, padding=1, bias=False)
             else: #last layer needs to go back to same number of channels as input
                 self.layer_dict["conv_t_{}".format(i)] = nn.ConvTranspose2d(in_channels=out.shape[1], 
                             out_channels = self.input_shape[1],
-                            kernel_size=self.kernel_size, stride=1, padding=0, bias=False)
-            out = layer_dict["conv_t_{}".format(i)](out)
+                            kernel_size=self.kernel_size, stride=2, padding=1, bias=False)
+            out = self.layer_dict["conv_t_{}".format(i)](out)
             
             # batch norm layer
             if i < num_layers_total - 1: # last layer doesn't have batch norm:
@@ -343,7 +352,7 @@ class CE_netG(nn.Module): # generator of a context encoder
     
     def reset_parameters(self):
         # custom weights initialization called on netG and netD
-        for m in self.main:
+        for m in self.layer_dict.children():
             classname = m.__class__.__name__
             if classname.find('Conv') != -1: # if name contains "Conv"
                 m.weight.data.normal_(0.0, 0.02)

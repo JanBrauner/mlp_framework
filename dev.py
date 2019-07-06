@@ -4,8 +4,8 @@ Created on Wed Jul  3 19:40:19 2019
 
 @author: MC JB
 """
-#%% Testing the XXXHealthyDataset
-from data_providers import XXXHealthyDataset
+#%% Testing the MiasHealthy
+from data_providers import MiasHealthy
 import torch
 import torchvision.transforms as transforms
 import numpy as np
@@ -40,7 +40,7 @@ if transform:
 else:
     transformer_train = transforms.Compose(standard_transforms)
     
-trainset = XXXHealthyDataset(which_set="train", task=task,
+trainset = MiasHealthy(which_set="train", task=task,
                  transformer=transformer_train,
                  debug_mode=debug_mode, 
                  patch_size=patch_size, patch_location=patch_location, mask_size=mask_size)
@@ -78,3 +78,8 @@ composed = simple_back_transformer(composed)
 image.show()
 target.show()
 composed.show()
+
+
+#%%
+from data_providers import MiasHealthy
+

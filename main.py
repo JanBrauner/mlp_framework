@@ -8,9 +8,44 @@ from arg_extractor import get_args
 from experiment_builder import ExperimentBuilder
 
 
+#args, device = get_args()  # get arguments from command line
+args, device = get_args("CE_test")
+
+if args.augment:
+    augmentations = [transforms.RandomAffine(degrees=args.rot_angle, translate=args.translate_factor, 
+                                        scale=(1/args.scale_factor, args.scale_factor),
+                                        shear=args.shear_angle)]
+    # these augmentations are often used apparently:
+#                transforms.RandomCrop(32, padding=4),
+#                transforms.RandomHorizontalFlip(),
+    
+else:
+    augmentations = None
+
+# set random seeds
+rng = np.random.RandomState(seed=args.seed)
+torch.manual_seed(seed=args.seed)
+
+# create datasets
+train_data, val_data, test_data, num_output_classes = data_providers.create_dataset(args, augmentations, rng)
+
+# create model
+model = model_architectures.create_model(args)
+
+# build experiment
+experiment = ExperimentBuilder(network_model=model,
+                                    train_data=train_data, val_data=val_data,
+                                    test_data=test_data, device=device, args = args)
+
+# run experiment and return experiment metrics
+experiment_metrics, test_metrics = experiment.run_experiment()  
+
+
+
 
 
 # =============================================================================
+# 
 # 
 # # =============================================================================
 # ### experiment settings
@@ -85,61 +120,4 @@ from experiment_builder import ExperimentBuilder
 # args.weight_decay_coefficient
 # 
 # # =============================================================================
-# 
-# 
 # =============================================================================
-
-
-
-
-
-# =============================================================================
-# 
-# ###### defaults
-# default kernel size for CE is 4. Lets see how stuff like this can be implemented nicely (variable kernel size)
-# -- maybe dont use defaults at all, so that everything always throws an error if it wasnt provided explicitly?
-# 
-# defaults in CE implementation: 
-# args.learning_rate: 0.0002
-# beta1=0.5
-
-# 
-#     
-# change name: 
-#     translate distance -> translate factor
-# 
-# 
-# =============================================================================
-
-
-args, device = get_args()  # get arguments from command line
-
-if args.augment:
-    augmentations = [transforms.RandomAffine(degrees=args.rot_angle, translate=args.translate_factor, 
-                                        scale=(1/args.scale_factor, args.scale_factor),
-                                        shear=args.shear_angle)]
-    # these augmentations are often used apparently:
-#                transforms.RandomCrop(32, padding=4),
-#                transforms.RandomHorizontalFlip(),
-    
-else:
-    augmentations = None
-
-# set random seeds
-rng = np.random.RandomState(seed=args.seed)
-torch.manual_seed(seed=args.seed)
-
-# create datasets
-train_data, val_data, test_data, num_output_classes = data_providers.create_dataset(args)
-
-# create model
-model = model_architectures.create_model(args)
-
-# build experiment
-experiment = ExperimentBuilder(network_model=model,
-                                    train_data=train_data, val_data=val_data,
-                                    test_data=test_data, device=device, args = args)
-
-# run experiment and return experiment metrics
-experiment_metrics, test_metrics = experiment.run_experiment()  
-

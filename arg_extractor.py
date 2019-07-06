@@ -13,104 +13,112 @@ def str2bool(v):
         raise argparse.ArgumentTypeError('Boolean value expected.')
 
 
-def get_args():
+def get_args(experiment_name=None):
     """
     Returns a namedtuple with arguments extracted from the command line.
-    :return: A namedtuple with arguments
+    Also defines device.
+    :return: A namedtuple with arguments and device
     """
-# =============================================================================
-     parser = argparse.ArgumentParser(
-         description='Welcome')
-# 
-#     parser.add_argument('--batch_size', nargs="?", type=int, default=100, help='Batch_size for experiment')
-#     parser.add_argument('--continue_from_epoch', nargs="?", type=int, default=-1, help='Batch_size for experiment')
-#     parser.add_argument('--dataset_name', type=str, help='Dataset on which the system will train/eval our model')
-#     parser.add_argument('--seed', nargs="?", type=int, default=7112018,
-#                         help='Seed to use for random number generator for experiment')
-#     parser.add_argument('--image_num_channels', nargs="?", type=int, default=1,
-#                         help='The channel dimensionality of our image-data')
-#     parser.add_argument('--image_height', nargs="?", type=int, default=28, help='Height of image data')
-#     parser.add_argument('--image_width', nargs="?", type=int, default=28, help='Width of image data')
-#     parser.add_argument('--dim_reduction_type', nargs="?", type=str, default='strided_convolution',
-#                         help='One of [strided_convolution, dilated_convolution, max_pooling, avg_pooling]')
-#     parser.add_argument('--num_layers', nargs="?", type=int, default=4,
-#                         help='Number of convolutional layers in the network (excluding '
-#                              'dimensionality reduction layers)')
-#     parser.add_argument('--num_filters', nargs="?", type=int, default=64,
-#                         help='Number of convolutional filters per convolutional layer in the network (excluding '
-#                              'dimensionality reduction layers)')
-#     parser.add_argument('--num_epochs', nargs="?", type=int, default=100, help='The experiment\'s epoch budget')
-     parser.add_argument('--experiment_name', nargs="?", type=str, default="exp_1",
-                         help='Experiment name - to be used for building the experiment folder and access config file')
-#     parser.add_argument('--use_gpu', nargs="?", type=str2bool, default=False,
-#                         help='A flag indicating whether we will use GPU acceleration or not')
-#     parser.add_argument('--gpu_id', type=str, default="None", help="A string indicating the gpu to use")
-#     parser.add_argument('--weight_decay_coefficient', nargs="?", type=float, default=1e-05,
-#                         help='Weight decay to use for Adam')
-#     parser.add_argument('--filepath_to_arguments_json_file', nargs="?", type=str, default=None,
-#                         help='')
-# =============================================================================
-    args = parser.parse_args()
+    #%% extract args
+    if experiment_name == None:
+        parser = argparse.ArgumentParser(description='Welcome')
+        parser.add_argument('--experiment_name', nargs="?", type=str, default="exp_1",
+                             help='Experiment name - to be used for building the experiment folder and access config file')
+     
+    # =============================================================================
+    #      parser.add_argument('--batch_size', nargs="?", type=int, default=100, help='Batch_size for experiment')
+    #      parser.add_argument('--continue_from_epoch', nargs="?", type=int, default=-1, help='Batch_size for experiment')
+    #      parser.add_argument('--dataset_name', type=str, help='Dataset on which the system will train/eval our model')
+    #      parser.add_argument('--seed', nargs="?", type=int, default=7112018,
+    #                          help='Seed to use for random number generator for experiment')
+    #      parser.add_argument('--image_num_channels', nargs="?", type=int, default=1,
+    #                          help='The channel dimensionality of our image-data')
+    #      parser.add_argument('--image_height', nargs="?", type=int, default=28, help='Height of image data')
+    #      parser.add_argument('--image_width', nargs="?", type=int, default=28, help='Width of image data')
+    #      parser.add_argument('--dim_reduction_type', nargs="?", type=str, default='strided_convolution',
+    #                          help='One of [strided_convolution, dilated_convolution, max_pooling, avg_pooling]')
+    #      parser.add_argument('--num_layers', nargs="?", type=int, default=4,
+    #                          help='Number of convolutional layers in the network (excluding '
+    #                               'dimensionality reduction layers)')
+    #      parser.add_argument('--num_filters', nargs="?", type=int, default=64,
+    #                          help='Number of convolutional filters per convolutional layer in the network (excluding '
+    #                               'dimensionality reduction layers)')
+    #      parser.add_argument('--num_epochs', nargs="?", type=int, default=100, help='The experiment\'s epoch budget')
+    #     
+    #      parser.add_argument('--use_gpu', nargs="?", type=str2bool, default=False,
+    #                          help='A flag indicating whether we will use GPU acceleration or not')
+    #      parser.add_argument('--gpu_id', type=str, default="None", help="A string indicating the gpu to use")
+    #      parser.add_argument('--weight_decay_coefficient', nargs="?", type=float, default=1e-05,
+    #                          help='Weight decay to use for Adam')
+    #      parser.add_argument('--filepath_to_arguments_json_file', nargs="?", type=str, default=None,
+    #                          help='')
+    # =============================================================================
+    
+        args = parser.parse_args()
+    else: # for local debugging in IDE, without using command line
+        args = AttributeAccessibleDict({"experiment_name": experiment_name})
 
     configs_path = os.path.join("configs")
-    json_file_path = os.path.join(configs_path, args.experiment_name)
+    json_file_path = os.path.join(configs_path, args.experiment_name + ".json")
     
     args = extract_args_from_json(json_file_path=json_file_path, existing_args_dict=args)
 
-    return args
+    # print arguments
+    arg_str = [(str(key), str(value)) for (key, value) in vars(args).items()]
+    print(arg_str)
 
-#    gpu_id = str(args.gpu_id)
-#
-#    if gpu_id != "None":
-#        args.gpu_id = gpu_id
-#
-#    arg_str = [(str(key), str(value)) for (key, value) in vars(args).items()]
-#    print(arg_str)
-#
-#    if args.use_gpu == True:
-#        num_requested_gpus = len(args.gpu_id.split(","))
-#        num_received_gpus = len(GPUtil.getAvailable(order='first', limit=8, maxLoad=0.1,
-#                                             maxMemory=0.1, includeNan=False,
-#                                             excludeID=[], excludeUUID=[]))
-#
-#        if num_requested_gpus == 1 and num_received_gpus > 1:
-#            print("Detected Slurm problem with GPUs, attempting automated fix")
-#            gpu_to_use = GPUtil.getAvailable(order='first', limit=num_received_gpus, maxLoad=0.1,
-#                                             maxMemory=0.1, includeNan=False,
-#                                             excludeID=[], excludeUUID=[])
-#            if len(gpu_to_use) > 0:
-#                os.environ["CUDA_VISIBLE_DEVICES"] = str(gpu_to_use[0])
-#                print("Using GPU with ID", gpu_to_use[0])
-#            else:
-#                print("Not enough GPUs available, please try on another node now, or retry on this node later")
-#                sys.exit()
-#
-#        elif num_requested_gpus > 1 and num_received_gpus > num_requested_gpus:
-#            print("Detected Slurm problem with GPUs, attempting automated fix")
-#            gpu_to_use = GPUtil.getAvailable(order='first', limit=num_received_gpus,
-#                                             maxLoad=0.1,
-#                                             maxMemory=0.1, includeNan=False,
-#                                             excludeID=[], excludeUUID=[])
-#
-#            if len(gpu_to_use) >= num_requested_gpus:
-#                os.environ["CUDA_VISIBLE_DEVICES"] = ",".join(str(gpu_idx) for gpu_idx in gpu_to_use[:num_requested_gpus])
-#                print("Using GPU with ID", gpu_to_use[:num_requested_gpus])
-#            else:
-#                print("Not enough GPUs available, please try on another node now, or retry on this node later")
-#                sys.exit()
-#
-#
-#    import torch
-#    args.use_cuda = torch.cuda.is_available()
-#
-#    if torch.cuda.is_available():  # checks whether a cuda gpu is available and whether the gpu flag is True
-#        device = torch.cuda.current_device()
-#        print("use {} GPU(s)".format(torch.cuda.device_count()), file=sys.stderr)
-#    else:
-#        print("use CPU", file=sys.stderr)
-#        device = torch.device('cpu')  # sets the device to be CPU
-#
-#    return args, device
+    #%% define device
+    # convert gpu IDs to string
+    gpu_id = str(args.gpu_id)
+
+    if gpu_id != "None":
+        args.gpu_id = gpu_id
+        
+    # This if-block fixes some slurm issue, I don't currently understand it
+    if args.use_gpu == True:
+        num_requested_gpus = len(args.gpu_id.split(","))
+        num_received_gpus = len(GPUtil.getAvailable(order='first', limit=8, maxLoad=0.1,
+                                             maxMemory=0.1, includeNan=False,
+                                             excludeID=[], excludeUUID=[]))
+        
+        if num_requested_gpus == 1 and num_received_gpus > 1:
+            print("Detected Slurm problem with GPUs, attempting automated fix")
+            gpu_to_use = GPUtil.getAvailable(order='first', limit=num_received_gpus, maxLoad=0.1,
+                                             maxMemory=0.1, includeNan=False,
+                                             excludeID=[], excludeUUID=[])
+            if len(gpu_to_use) > 0:
+                os.environ["CUDA_VISIBLE_DEVICES"] = str(gpu_to_use[0])
+                print("Using GPU with ID", gpu_to_use[0])
+            else:
+                print("Not enough GPUs available, please try on another node now, or retry on this node later")
+                sys.exit()
+
+        elif num_requested_gpus > 1 and num_received_gpus > num_requested_gpus:
+            print("Detected Slurm problem with GPUs, attempting automated fix")
+            gpu_to_use = GPUtil.getAvailable(order='first', limit=num_received_gpus,
+                                             maxLoad=0.1,
+                                             maxMemory=0.1, includeNan=False,
+                                             excludeID=[], excludeUUID=[])
+
+            if len(gpu_to_use) >= num_requested_gpus:
+                os.environ["CUDA_VISIBLE_DEVICES"] = ",".join(str(gpu_idx) for gpu_idx in gpu_to_use[:num_requested_gpus])
+                print("Using GPU with ID", gpu_to_use[:num_requested_gpus])
+            else:
+                print("Not enough GPUs available, please try on another node now, or retry on this node later")
+                sys.exit()
+
+
+    import torch
+    args.use_cuda = torch.cuda.is_available()
+
+    if torch.cuda.is_available():  # checks whether a cuda gpu is available and whether the gpu flag is True
+        device = torch.cuda.current_device()
+        print("use {} GPU(s)".format(torch.cuda.device_count()), file=sys.stderr)
+    else:
+        print("use CPU", file=sys.stderr)
+        device = torch.device('cpu')  # sets the device to be CPU
+
+    return args, device
 
 
 class AttributeAccessibleDict(object):

@@ -78,7 +78,7 @@ class ExperimentBuilder(nn.Module):
                 self.best_val_model_idx, self.best_val_model_measure, self.state = self.load_model(
                     model_save_dir=self.experiment_saved_models, model_save_name="train_model",
                     model_idx='latest')  # reload existing model from epoch and return best val model index
-                # and the best val acc of that model
+                # and the best val accuracy of that model
                 self.starting_epoch = self.state['current_epoch_idx']
             except:
                 print("Model objects cannot be found, initializing a new model and starting from scratch")
@@ -88,8 +88,8 @@ class ExperimentBuilder(nn.Module):
         elif args.continue_from_epoch != -1:  # if continue from epoch is not -1 then
             self.best_val_model_idx, self.best_val_model_measure, self.state = self.load_model(
                 model_save_dir=self.experiment_saved_models, model_save_name="train_model",
-                model_idx=continue_from_epoch)  # reload existing model from epoch and return best val model index
-            # and the best val acc of that model
+                model_idx=args.continue_from_epoch)  # reload existing model from epoch and return best val model index
+            # and the best val accuracy of that model
             self.starting_epoch = self.state['current_epoch_idx']
         else:
             self.starting_epoch = 0
@@ -111,7 +111,7 @@ class ExperimentBuilder(nn.Module):
         """
         self.train()  # sets model to training mode (in case batch normalization or other methods have different procedures for training and evaluation)
 
-        out, loss = forward_prop_and_loss(x,y)
+        out, loss = self.forward_prop_and_loss(x,y)
 
         # update parameters
         self.optimizer.zero_grad()  # set all weight grads from previous training iters to 0
@@ -135,7 +135,7 @@ class ExperimentBuilder(nn.Module):
         """
         self.eval()  # sets the system to validation mode
 
-        out, loss = forward_prop_and_loss(x,y)
+        out, loss = self.forward_prop_and_loss(x,y)
 
         # return metrics        
         if self.task == "classification":
@@ -181,7 +181,7 @@ class ExperimentBuilder(nn.Module):
         :param model_save_name: Name to use to save model without the epoch index
         :param model_idx: The index to save the model with.
         :param best_validation_model_idx: The index of the best validation model to be stored for future use.
-        :param best_validation_model_acc: The best validation accuracy to be stored for use at test time.
+        :param best_validation_model_accuracy: The best validation accuracy to be stored for use at test time.
         :param model_save_dir: The directory to store the state at.
         :param state: The dictionary containing the system state.
 
@@ -192,11 +192,11 @@ class ExperimentBuilder(nn.Module):
 
     def load_model(self, model_save_dir, model_save_name, model_idx):
         """
-        Load the network parameter state and the best val model idx and best val acc to be compared with the future val accuracies, in order to choose the best val model
+        Load the network parameter state and the best val model idx and best val accuracy to be compared with the future val accuracyuracies, in order to choose the best val model
         :param model_save_dir: The directory to store the state at.
         :param model_save_name: Name to use to save model without the epoch index
         :param model_idx: The index to save the model with.
-        :return: best val idx and best val model acc, also it loads the network state into the system state without returning it
+        :return: best val idx and best val model accuracy, also it loads the network state into the system state without returning it
         """
         state = torch.load(f=os.path.join(model_save_dir, "{}_{}".format(model_save_name, str(model_idx))))
         self.load_state_dict(state_dict=state['network'])
@@ -209,8 +209,8 @@ class ExperimentBuilder(nn.Module):
         """
         # initialize a dict to keep the per-epoch metrics
         if self.task == "classification":
-        total_losses = {"train_acc": [], "train_loss": [], "val_acc": [],
-                        "val_loss": [], "curr_epoch": []}
+            total_losses = {"train_accuracy": [], "train_loss": [], "val_accuracy": [],
+                            "val_loss": [], "curr_epoch": []}
         elif self.task == "regression":
             total_losses = {"train_loss": [],
                         "val_loss": [], "curr_epoch": []}
@@ -219,7 +219,7 @@ class ExperimentBuilder(nn.Module):
             epoch_start_time = time.time()
             
             if self.task == "classification":
-                current_epoch_losses = {"train_acc": [], "train_loss": [], "val_acc": [], "val_loss": []}
+                current_epoch_losses = {"train_accuracy": [], "train_loss": [], "val_accuracy": [], "val_loss": []}
             elif self.task == "regression":
                 current_epoch_losses = {"train_loss": [], "val_loss": []}
 
@@ -227,12 +227,12 @@ class ExperimentBuilder(nn.Module):
                 for idx, (x, y) in enumerate(self.train_data):  # get data batches
                     if self.task == "classification":
                         loss, accuracy = self.run_train_iter(x=x, y=y)  # take a training iter step
-                        update_current_epoch_stats(current_epoch_losses, current_dataset="train", loss=loss,acc=acc)
+                        self.update_current_epoch_stats(current_epoch_losses, current_dataset="train", loss=loss,accuracy=accuracy)
                         pbar_train.update(1)
                         pbar_train.set_description("loss: {:.4f}, accuracy: {:.4f}".format(loss, accuracy))
                     elif self.task == "regression":
                         loss = self.run_train_iter(x=x, y=y)  # take a training iter step
-                        update_current_epoch_stats(current_epoch_losses, current_dataset="train", loss=loss)
+                        self.update_current_epoch_stats(current_epoch_losses, current_dataset="train", loss=loss)
                         pbar_train.update(1)
                         pbar_train.set_description("loss: {:.4f}".format(loss))
 
@@ -240,16 +240,16 @@ class ExperimentBuilder(nn.Module):
                 for x, y in self.val_data:  # get data batches
                     if self.task == "classification":
                         loss, accuracy = self.run_evaluation_iter(x=x, y=y)  # run a validation iter
-                        update_current_epoch_stats(current_epoch_losses, current_dataset="val", loss=loss,acc=acc)
+                        self.update_current_epoch_stats(current_epoch_losses, current_dataset="val", loss=loss,accuracy=accuracy)
                         pbar_val.update(1)  # add 1 step to the progress bar
                         pbar_train.set_description("loss: {:.4f}, accuracy: {:.4f}".format(loss, accuracy))
                     elif self.task == "regression":
                         loss = self.run_evaluation_iter(x=x, y=y)  # run a validation iter
-                        update_current_epoch_stats(current_epoch_losses, current_dataset="val", loss=loss)
+                        self.update_current_epoch_stats(current_epoch_losses, current_dataset="val", loss=loss)
                         pbar_val.update(1)  # add 1 step to the progress bar
                         pbar_val.set_description("loss: {:.4f}".format(loss))
             
-            update_best_epoch_measure(current_epoch_losses)
+            self.update_best_epoch_measure(current_epoch_losses, epoch_idx)
             
             for key, value in current_epoch_losses.items():
                 total_losses[key].append(np.mean(
@@ -272,10 +272,10 @@ class ExperimentBuilder(nn.Module):
             self.state['best_val_model_measure'] = self.best_val_model_measure
             self.state['best_val_model_idx'] = self.best_val_model_idx
             self.save_model(model_save_dir=self.experiment_saved_models,
-                            # save model and best val idx and best val acc, using the model dir, model name and model idx
+                            # save model and best val idx and best val accuracy, using the model dir, model name and model idx
                             model_save_name="train_model", model_idx=epoch_idx, state=self.state)
             self.save_model(model_save_dir=self.experiment_saved_models,
-                            # save model and best val idx and best val acc, using the model dir, model name and model idx
+                            # save model and best val idx and best val accuracy, using the model dir, model name and model idx
                             model_save_name="train_model", model_idx='latest', state=self.state)
 
         print("Generating test set evaluation metrics")
@@ -284,22 +284,22 @@ class ExperimentBuilder(nn.Module):
                         model_save_name="train_model")
         
         if self.task == "classification":
-            current_epoch_losses = {"test_acc": [], "test_loss": []}  # initialize a statistics dict
-        elif self.task == "regressoin":
+            current_epoch_losses = {"test_accuracy": [], "test_loss": []}  # initialize a statistics dict
+        elif self.task == "regression":
             current_epoch_losses = {"test_loss": []}  # initialize a statistics dict
 
         with tqdm.tqdm(total=len(self.test_data)) as pbar_test:  # ini a progress bar
             for x, y in self.test_data:  # sample batch
                 if self.task == "classification":
                     loss, accuracy = self.run_evaluation_iter(x=x, y=y)  # run a validation iter
-                    update_current_epoch_stats(current_epoch_losses, current_dataset="test", loss=loss,acc=acc)
-                    pbar_val.update(1)  # add 1 step to the progress bar
-                    pbar_train.set_description("loss: {:.4f}, accuracy: {:.4f}".format(loss, accuracy))
+                    self.update_current_epoch_stats(current_epoch_losses, current_dataset="test", loss=loss,accuracy=accuracy)
+                    pbar_test.update(1)  # add 1 step to the progress bar
+                    pbar_test.set_description("loss: {:.4f}, accuracy: {:.4f}".format(loss, accuracy))
                 elif self.task == "regression":
                     loss = self.run_evaluation_iter(x=x, y=y)  # run a validation iter
-                    update_current_epoch_stats(current_epoch_losses, current_dataset="test", loss=loss)
-                    pbar_val.update(1)  # add 1 step to the progress bar
-                    pbar_val.set_description("loss: {:.4f}".format(loss))
+                    self.update_current_epoch_stats(current_epoch_losses, current_dataset="test", loss=loss)
+                    pbar_test.update(1)  # add 1 step to the progress bar
+                    pbar_test.set_description("loss: {:.4f}".format(loss))
 
 
         test_losses = {key: [np.mean(value)] for key, value in
@@ -311,24 +311,24 @@ class ExperimentBuilder(nn.Module):
         return total_losses, test_losses
     
     
-    def update_current_epoch_stats(self, current_epoch_losses, current_dataset, loss=[], acc = []):
+    def update_current_epoch_stats(self, current_epoch_losses, current_dataset, loss=[], accuracy = []):
         if self.task == "classification":
             current_epoch_losses["{}_loss".format(current_dataset)].append(loss)  # add current iter loss to the train loss list
-            current_epoch_losses["{}_acc".format(current_dataset)].append(accuracy)  # add current iter acc to the train acc list
+            current_epoch_losses["{}_accuracy".format(current_dataset)].append(accuracy)  # add current iter accuracy to the train accuracy list
         elif self.task == "regression":
             current_epoch_losses["{}_loss".format(current_dataset)].append(loss)  # add current iter loss to the train loss list
 
 
-    def update_best_epoch_measure(self, current_epoch_losses):    
+    def update_best_epoch_measure(self, current_epoch_losses, epoch_idx):    
         if self.task == "classification":
-            val_mean_performance_measure = np.mean(current_epoch_losses['val_acc']) # measure that determines which is the best epoch. For classification: accuracy                    
+            val_mean_performance_measure = np.mean(current_epoch_losses['val_accuracy']) # measure that determines which is the best epoch. For classification: accuracy                    
             if val_mean_performance_measure > self.best_val_model_measure:  # if current epoch's mean performance measure is better than the saved best one then
-                self.best_val_model_measure = val_mean_performance_measure  # set the best val model acc to be current epoch's val accuracy
+                self.best_val_model_measure = val_mean_performance_measure  # set the best val model accuracy to be current epoch's val accuracy
                 self.best_val_model_idx = epoch_idx  # set the experiment-wise best val idx to be the current epoch's idx
 
         elif self.task == "regression":
             val_mean_performance_measure = np.mean(current_epoch_losses['val_loss']) # measure that determines which is the best epoch. For regression: loss                    
-                if val_mean_performance_measure < self.best_val_model_measure:  # if current epoch's mean performance measure is better than the saved best one then
-                    self.best_val_model_measure = val_mean_performance_measure  # set the best val model acc to be current epoch's val accuracy
-                    self.best_val_model_idx = epoch_idx  # set the experiment-wise best val idx to be the current epoch's idx
+            if val_mean_performance_measure < self.best_val_model_measure:  # if current epoch's mean performance measure is better than the saved best one then
+                self.best_val_model_measure = val_mean_performance_measure  # set the best val model accuracy to be current epoch's val accuracy
+                self.best_val_model_idx = epoch_idx  # set the experiment-wise best val idx to be the current epoch's idx
         
