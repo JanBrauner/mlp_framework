@@ -1,3 +1,7 @@
+# models
+results/*/saved_models
+exp1/*/saved_models
+
 #dropbox stuff
 *.dropbox*
 
