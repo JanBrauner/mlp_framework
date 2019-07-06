@@ -11,7 +11,7 @@
 "gpu_id": "0",
 
 
-"model_name": "context-encoder",
+"model_name": "context_encoder",
 
 "kernel_size": 4,
 
@@ -30,8 +30,8 @@
 "image_height": 128,
 "image_width": 128,
 
-"debug_mode": false,
-"num_workers": 4,
+"debug_mode": true,
+"num_workers": 0,
 
 "augment": false,
 "gamma_factor": 1,
@@ -46,9 +46,9 @@
 "mask_size": [64, 64],
 
 
-"batch_size": 50,
-"loss": "L1",
-"num_epochs": 100,
+"batch_size": 5,
+"loss": "L2",
+"num_epochs": 2,
 
 "learning_rate": 0.0002,
 "betas": [0.5, 0.999],
