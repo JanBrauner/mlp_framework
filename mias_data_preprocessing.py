@@ -9,7 +9,11 @@ from PIL import Image
 import pandas as pd
 import os
 import random
+import torchvision.transforms as transforms
 from shutil import copy2
+import math
+
+
 
 # parameters
 healthy_split = [0.7, 0.3, 0.0]
@@ -77,6 +81,41 @@ for file_name in file_names_healthy_train_set:
 
 for file_name in file_names_healthy_val_set:
     copy2(os.path.join(raw_path, file_name + ".pgm"), os.path.join(base_path_healthy, "val"))
+
+#%% calculate mean and SD values for normalisation:
+train_images_healthy = os.listdir(os.path.join(base_path_healthy, "train"))
+
+image_stack = np.empty((num_healthy, 1024, 1024)) # this approach only works because the set is small
+transform = transforms.ToTensor() # same transforms used in training
+
+# sequentially load all images and add pixel values to image_stack as np.arrays
+for i,file_name in enumerate(train_images_healthy):
+    image = Image.open(os.path.join(base_path_healthy, "train", file_name))
+    tensor = transform(image)
+    image_stack[i,:,:] = tensor.numpy()
+
+# calculate overall image stats
+mn = np.mean(image_stack)   
+sd = np.std(image_stack)
+
+print("Mean and SD of all healthy training images (full image): ", mn, sd)
+
+# calculate overall image for central region only
+def create_central_region_slice(image_size, size_central_region):
+    margins = ((image_size[1]-size_central_region[0])/2, 
+               (image_size[2]-size_central_region[1])/2) # size of margins in dimensions 1 and 2 (relative to the 3-D tensor) between the image borders and the patch borders
+    
+    central_region_slice = np.s_[:, 
+                      math.ceil(margins[0]):math.ceil(image_size[1]-margins[0]), 
+                      math.ceil(margins[1]):math.ceil(image_size[2]-margins[1])]
+    return central_region_slice
+
+central_region_slice = create_central_region_slice((1,1024,1024), (256,256))
+
+mn_central = np.mean(image_stack[central_region_slice]) 
+sd_central = np.std(image_stack[central_region_slice])
+print("Mean and SD of all healthy training images (central region only): ", mn_central, sd_central)
+
 
 #%% prepare pathological folder
 # select pathological images only

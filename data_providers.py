@@ -678,7 +678,10 @@ class MiasHealthy(data.Dataset):
         # debugging mode sets the dataset size to 50, so we can run the whole experiment locally.
         if debug_mode:
             self.image_list = self.image_list[0:50]
-
+            
+        # calculate central regions slices
+        self.patch_slice = self.create_central_region_slice((1,1024,1024), self.patch_size)
+        self.mask_slice = self.create_central_region_slice((1,)+tuple(self.patch_size), self.mask_size)
 
     def __getitem__(self, index):
         """
@@ -695,8 +698,12 @@ class MiasHealthy(data.Dataset):
         
         # create patch, but the patch will be called "image" for consistency with other Dataset classes
         if self.patch_location == "central":
-            central_region_slice = self.create_central_region_slice(full_image.size(), self.patch_size)
-            image = full_image[central_region_slice]      
+            image = full_image[self.patch_slice]   
+# =============================================================================
+#             ### This is the version to calculate a new cetnral_region_slice for every image. This becomes necessary if input images vary in shape
+#             central_region_slice = self.create_central_region_slice(full_image.size(), self.patch_size)
+#             image = full_image[central_region_slice]      
+# =============================================================================
         
         if self.patch_location == "random":
             top_left_corner = (np.random.randint(0,full_image.size(1)-self.patch_size[0]), 
@@ -705,14 +712,11 @@ class MiasHealthy(data.Dataset):
                                top_left_corner[0]:top_left_corner[0]+self.patch_size[0],
                                top_left_corner[1]:top_left_corner[1]+self.patch_size[1]]
         
-        # create coordinates of central region
-        central_region_slice = self.create_central_region_slice(image.size(), self.mask_size)
-        
         # create target image
-        target_image = image[central_region_slice].clone().detach()
+        target_image = image[self.mask_slice].clone().detach()
         
         # mask out central region in input image
-        image[central_region_slice] = 0
+        image[self.mask_slice] = 0 # note that zero is the dataset-wide mean value as images are centered
        
         return image, target_image
 
@@ -911,9 +915,14 @@ def create_dataset(args, augmentations, rng):
     
     
     elif args.dataset_name == 'MiasHealthy':
-        standard_transforms = [transforms.ToTensor(),
-                transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010))]
-        
+        if args.patch_location_during_training == "random":
+            standard_transforms = [transforms.ToTensor(),
+                    transforms.Normalize((0.14581,), (0.25929,))] # calculated offline: mean and SD for all training images (whole images)
+        elif args.patch_location_during_training == "central":
+            standard_transforms = [transforms.ToTensor(),
+                    transforms.Normalize((0.39865,), (0.30890,))] # calculated offline: mean and SD for all training images (central 256x256 patch)
+            
+         
         if augmentations is not None:
             transform_train = transforms.Compose(augmentations + standard_transforms)
         else:

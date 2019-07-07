@@ -7,7 +7,7 @@
 "task": "regression",
 
 
-"use_gpu": true,
+"use_gpu": false,
 "gpu_id": "0",
 
 
@@ -33,12 +33,12 @@
 "debug_mode": true,
 "num_workers": 0,
 
-"augment": false,
+"augment": true,
 "gamma_factor": 1,
-"rot_angle": 0,
-"translate_factor": [0,0],
-"scale_factor": 1,
-"shear_angle": 0,
+"rot_angle": 10,
+"translate_factor": [0.1,0.1],
+"scale_factor": 1.2,
+"shear_angle": 10,
 
 "patch_size": [128, 128],
 "patch_location_during_training": "central",
