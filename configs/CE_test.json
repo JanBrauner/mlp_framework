@@ -40,7 +40,6 @@
 "scale_factor": 1.2,
 "shear_angle": 10,
 
-"patch_size": [128, 128],
 "patch_location_during_training": "central",
 
 "mask_size": [64, 64],

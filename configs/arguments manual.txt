@@ -13,7 +13,7 @@ args.task: default="regression"; "Choose training task from "regression", "class
 # =============================================================================
 ### GPU settings
 args.use_gpu: default=False; 'A flag indicating whether we will use GPU acceleration or not'
-args.gpu_id: default="None"; "A string indicating the gpu to use"
+args.gpu_id: default="None"; "A string indicating the gpu to use, ids separated by ','"
 
 # =============================================================================
 ### model parameters
@@ -38,8 +38,8 @@ args.num_channels_progression_dec: default=
 # data parameters: dataset
 args.dataset_name: default=
 args.num_image_channels: default=
-args.image_height: default=
-args.image_width: default=
+args.image_height: default=; "Height of input images. If patches are used as input, this should be set to the patch height, not the full image height (same as patch_size[0]"
+args.image_width: default=; "Width of input images. If patches are used as input, this should be set to the patch width, not the full image width (same as patch_size[0]"
 
 # data parameters: misc
 args.debug_mode: default=
