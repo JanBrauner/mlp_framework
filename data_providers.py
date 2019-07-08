@@ -640,7 +640,7 @@ class MiasHealthy(data.Dataset):
     """
 
     # Handling cluster data migration to scratch folder - use this when running on cluster
-    image_path_base = os.path.join(os.environ['DATASET_DIR'], "MiasHealthy") # path of the data set images
+    image_base_path = os.path.join(os.environ['DATASET_DIR'], "MiasHealthy") # path of the data set images
 
 
 # =============================================================================
