@@ -38,4 +38,4 @@ mkdir /disk/scratch/${STUDENT_ID}/data/
 rsync -ua --progress /home/${STUDENT_ID}/mlp_framework/data/ /disk/scratch/${STUDENT_ID}/data/
 export DATASET_DIR=/disk/scratch/s0452529/data/
 
-python main.py --experiment_name
+python main.py --experiment_name "CE_test_cluster_copy_over"
