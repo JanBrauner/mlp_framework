@@ -1,5 +1,4 @@
 {
-"experiment_name": "exp1",
 "continue_from_epoch": -1,
 
 
@@ -8,7 +7,7 @@
 
 
 "use_gpu": true,
-"gpu_id": "0",
+"gpu_id": "0,1,2,3",
 
 
 "model_name": "context_encoder",
@@ -31,7 +30,7 @@
 "image_width": 128,
 
 "debug_mode": false,
-"num_workers": 2,
+"num_workers": 8,
 
 "augment": false,
 "gamma_factor": 1,
