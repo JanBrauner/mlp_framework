@@ -8,7 +8,7 @@ from arg_extractor import get_args
 from experiment_builder import ExperimentBuilder
 
 
-args, device = get_args()  # get arguments from command line
+args, device = get_args()  # get arguments from command line. Run local debugging with settings as specified in CE_test
 #args, device = get_args("CE_test") # for local debugging
 
 if args.augment:
