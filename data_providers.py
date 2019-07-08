@@ -639,16 +639,16 @@ class MiasHealthy(data.Dataset):
 
     """
 
-# =============================================================================
-#     # Handling cluster data migration to scratch folder - use this when running on cluster
-#     image_path_base = os.path.join(os.environ['DATASET_DIR'], "RSNA_working_set") # path of the data set images
-#     data_path_base = os.environ['DATASET_DIR'] # path of the required npz files
-# =============================================================================
+    # Handling cluster data migration to scratch folder - use this when running on cluster
+    image_path_base = os.path.join(os.environ['DATASET_DIR'], "MiasHealthy") # path of the data set images
+
 
 # =============================================================================
-#   # Use this for your local PC
-    image_base_path = os.path.join("data", "MiasHealthy") # path of the data set images
-    data_path_base = "data" # path of the required npz files
+# =============================================================================
+# #   # Use this for your local PC
+#     image_base_path = os.path.join("data", "MiasHealthy") # path of the data set images
+
+# =============================================================================
 # =============================================================================
 
 
@@ -743,12 +743,11 @@ class MiasPathological(data.Dataset):
 
     # Handling cluster data migration to scratch folder - use this when running on cluster
     #image_path_base = os.path.join(os.environ['DATASET_DIR'], "RSNA_working_set") # path of the data set images
-    #data_path_base = os.environ['DATASET_DIR'] # path of the required npz files
 
 # =============================================================================
 #     # Use this for your local PC
     image_base_path = os.path.join("data", "pathological_1") # path of the data set images
-    data_path_base = "data" # path of the required npz files
+
 # =============================================================================
 
 
