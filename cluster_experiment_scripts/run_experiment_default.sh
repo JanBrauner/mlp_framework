@@ -31,8 +31,11 @@ export TMP=/disk/scratch/${STUDENT_ID}/
 mkdir -p ${TMP}/datasets/
 export DATASET_DIR=${TMP}/datasets/
 # Activate the relevant virtual environment:
-
-
 source /home/${STUDENT_ID}/miniconda3/bin/activate mlp
 cd ..
-python main.py --experiment_name 'CE_test_cluster'
+
+mkdir /disk/scratch/${STUDENT_ID}/data/
+rsync -ua --progress /home/${STUDENT_ID}/mlp_framework/data/ /disk/scratch/${STUDENT_ID}/data/
+export DATASET_DIR=/disk/scratch/s0452529/data/
+
+python main.py --experiment_name "CE_test_cluster_copy_over
