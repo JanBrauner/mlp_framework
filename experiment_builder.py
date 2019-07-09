@@ -192,7 +192,7 @@ class ExperimentBuilder(nn.Module):
 
     def load_model(self, model_save_dir, model_save_name, model_idx):
         """
-        Load the network parameter state and the best val model idx and best val accuracy to be compared with the future val accuracyuracies, in order to choose the best val model
+        Load the network parameter state OF THE LATEST EPOCH and the best val model idx and best val accuracy to be compared with the future val accuracies, in order to choose the best val model
         :param model_save_dir: The directory to store the state at.
         :param model_save_name: Name to use to save model without the epoch index
         :param model_idx: The index to save the model with.
@@ -223,6 +223,7 @@ class ExperimentBuilder(nn.Module):
             elif self.task == "regression":
                 current_epoch_losses = {"train_loss": [], "val_loss": []}
 
+            ### training set
             with tqdm.tqdm(total=len(self.train_data)) as pbar_train:  # create a progress bar for training
                 for idx, (x, y) in enumerate(self.train_data):  # get data batches
                     if self.task == "classification":
@@ -251,6 +252,7 @@ class ExperimentBuilder(nn.Module):
             
             self.update_best_epoch_measure(current_epoch_losses, epoch_idx)
             
+            ### validation set
             for key, value in current_epoch_losses.items():
                 total_losses[key].append(np.mean(
                     value))  # get mean of all metrics of current epoch metrics dict, to get them ready for storage and output on the terminal.
@@ -277,7 +279,7 @@ class ExperimentBuilder(nn.Module):
             self.save_model(model_save_dir=self.experiment_saved_models,
                             # save model and best val idx and best val accuracy, using the model dir, model name and model idx
                             model_save_name="train_model", model_idx='latest', state=self.state)
-
+        ### test set
         print("Generating test set evaluation metrics")
         self.load_model(model_save_dir=self.experiment_saved_models, model_idx=self.best_val_model_idx,
                         # load best validation model
@@ -287,6 +289,7 @@ class ExperimentBuilder(nn.Module):
             current_epoch_losses = {"test_accuracy": [], "test_loss": []}  # initialize a statistics dict
         elif self.task == "regression":
             current_epoch_losses = {"test_loss": []}  # initialize a statistics dict
+
 
         with tqdm.tqdm(total=len(self.test_data)) as pbar_test:  # ini a progress bar
             for x, y in self.test_data:  # sample batch
@@ -307,7 +310,11 @@ class ExperimentBuilder(nn.Module):
         save_statistics(experiment_log_dir=self.experiment_logs, filename='test_summary.csv',
                         # save test set metrics on disk in .csv format
                         stats_dict=test_losses, current_epoch=0, continue_from_mode=False)
-
+        
+        # rename best validation model file for easy access
+        path_best = os.path.join(self.experiment_saved_models, "{}_{}".format("train_model", str(self.best_val_model_idx)))
+        os.rename(path_best, path_best + "_best")
+        
         return total_losses, test_losses
     
     
@@ -320,11 +327,15 @@ class ExperimentBuilder(nn.Module):
 
 
     def update_best_epoch_measure(self, current_epoch_losses, epoch_idx):    
+        """
+        Updates statistics for best epoch, if the current epoch is the best epoch so far
+        """
         if self.task == "classification":
             val_mean_performance_measure = np.mean(current_epoch_losses['val_accuracy']) # measure that determines which is the best epoch. For classification: accuracy                    
             if val_mean_performance_measure > self.best_val_model_measure:  # if current epoch's mean performance measure is better than the saved best one then
                 self.best_val_model_measure = val_mean_performance_measure  # set the best val model accuracy to be current epoch's val accuracy
                 self.best_val_model_idx = epoch_idx  # set the experiment-wise best val idx to be the current epoch's idx
+                
 
         elif self.task == "regression":
             val_mean_performance_measure = np.mean(current_epoch_losses['val_loss']) # measure that determines which is the best epoch. For regression: loss                    

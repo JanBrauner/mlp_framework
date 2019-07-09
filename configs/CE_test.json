@@ -46,7 +46,7 @@
 
 "batch_size": 5,
 "loss": "L2",
-"num_epochs": 2,
+"num_epochs": 6,
 
 "learning_rate": 0.0002,
 "betas": [0.5, 0.999],
