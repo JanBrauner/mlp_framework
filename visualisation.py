@@ -15,9 +15,9 @@ from experiment_builder import ExperimentBuilder
 
 
 # parameters:
-experiment_name = "CE_test_cluster"
+experiment_name = "CE_cpu_dev"
 batch_size = 5
-seed= 0
+image_batch_idx = 2 # use different number to see different images
 set_to_visualise = "val"
 
 def create_central_region_slice(image_size, size_central_region):
@@ -42,7 +42,6 @@ args, device = get_args(experiment_name)
 args.batch_size = batch_size
 args.use_gpu = False
 args.num_workers = 0
-args.seed = seed
 
 model_dir = os.path.join("results", experiment_name, "saved_models")
 model_list = os.listdir(model_dir)
@@ -90,10 +89,35 @@ model.load_state_dict(state_dict=state_dict["network"])
 model.eval()
 
 if set_to_visualise == "train":
-    inputs, targets = next(iter(train_data))
+    iterator = iter(train_data)
 elif set_to_visualise == "val":
-    inputs, targets = next(iter(val_data))
+    iterator = iter(val_data)
+
+for i in range(image_batch_idx): # show the n-th batch
+    inputs, targets = next(iterator)
+
 outputs = model.forward(inputs)
+
+# inverse normalization
+if args.normalisation == "mn0sd1":
+    if args.patch_location_during_training == "central" and args.dataset_name == "MiasHealthy":
+        mn = 0.39865 
+        SD = 0.30890
+    elif args.patch_location_during_training == "random" and args.dataset_name == "MiasHealthy":
+        mn = 0.14581
+        SD = 0.25929
+elif args.normalisation == "range-11":
+    mn = 0.5
+    SD = 0.5
+
+inv_normalize = transforms.Normalize((-mn/SD,), (1./SD,))
+
+for images in [inputs,targets,outputs]:
+    for idx,image in enumerate(images): # since these are a batch of images, but transforms work on indivdual images
+        images[idx,:,:,:] = inv_normalize(image)
+
+
+
 
 central_region_slice = create_central_region_slice(inputs.shape, args.mask_size)
 
