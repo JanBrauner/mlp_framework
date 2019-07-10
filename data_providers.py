@@ -915,13 +915,18 @@ def create_dataset(args, augmentations, rng):
     
     
     elif args.dataset_name == 'MiasHealthy':
-        if args.patch_location_during_training == "random":
-            standard_transforms = [transforms.ToTensor(),
-                    transforms.Normalize((0.14581,), (0.25929,))] # calculated offline: mean and SD for all training images (whole images)
-        elif args.patch_location_during_training == "central":
-            standard_transforms = [transforms.ToTensor(),
-                    transforms.Normalize((0.39865,), (0.30890,))] # calculated offline: mean and SD for all training images (central 256x256 patch)
-            
+        if args.normalisation == "mn0sd1":
+            if args.patch_location_during_training == "random": # calculated offline: mean and SD for all training images (whole images)
+                mn = 0.14581
+                sd = 0.25929
+            elif args.patch_location_during_training == "central": # calculated offline: mean and SD for all training images (central 256x256 patch)
+                mn = 0.39865
+                sd = 0.30890
+        elif args.normalisation == "range-11":
+            mn = 0.5
+            sd = 0.5
+        standard_transforms = [transforms.ToTensor(),
+                    transforms.Normalize((mn,), (sd,))] 
          
         if augmentations is not None:
             transform_train = transforms.Compose(augmentations + standard_transforms)
