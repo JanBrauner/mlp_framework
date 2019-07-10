@@ -22,7 +22,7 @@ def get_args(experiment_name=None):
     #%% extract args
     if experiment_name == None:
         parser = argparse.ArgumentParser(description='Welcome')
-        parser.add_argument('--experiment_name', nargs="?", type=str, default="CE_test",
+        parser.add_argument('--experiment_name', nargs="?", type=str, default="CE_cpu_dev",
                              help='Experiment name - to be used for building the experiment folder and access config file')
      
     # =============================================================================
