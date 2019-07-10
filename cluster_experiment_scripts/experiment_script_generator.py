@@ -67,7 +67,7 @@ default_args = {
 # data parameters: image patches
 "patch_size": [128, 128],
 "patch_location_during_training": "central", # Can be "central" or "random"
-"patch_rejection_threshold": 10, # threshold, on a 8-bit scale. Patches sampled from the data loader with a mean below this threshold get rejected because they show only background
+"patch_rejection_threshold": 10, # CURRENTLY NOT USED!.threshold, on a 8-bit scale. Patches sampled from the data loader with a mean below this threshold get rejected because they show only background
 
 # data parameters: masking
 "mask_size": [64, 64],
@@ -157,15 +157,15 @@ shell_script_path = os.path.abspath(os.path.join(os.path.dirname(__file__), os.p
 
 
 #%% A list of independent experiment 
-experiment_names = ["CE_1_bug_capped_fixed", "CE_random_patch_location_test_1"]
+experiment_names = ["CE_random_patch_2_preprocessed"]
 cpu = False
 partition = "Standard"
 time = None
 
 
 # arguments to update from default, each inner list has the keys for one experiment:
-keys_to_update = [[],["patch_location_during_training"]]
-values_to_update = [[],["random"]]
+keys_to_update = [["patch_location_during_training"]]
+values_to_update = [["random"]]
 
 # for each experiment
 for idx, experiment_name in enumerate(experiment_names):

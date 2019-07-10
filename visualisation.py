@@ -17,7 +17,7 @@ from experiment_builder import ExperimentBuilder
 # parameters:
 experiment_name = "CE_random_patch_location_test_1"
 batch_size = 5
-image_batch_idx = 3 # use different number to see different images
+image_batch_idx = 2 # use different number to see different images
 set_to_visualise = "train"
 
 def create_central_region_slice(image_size, size_central_region):
