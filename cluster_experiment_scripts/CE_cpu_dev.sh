@@ -1,10 +1,10 @@
 #!/bin/sh
 #SBATCH -N 1	  # nodes requested
 #SBATCH -n 1	  # tasks requested
-#SBATCH --partition=Standard
+#SBATCH --partition=Interactive
 #SBATCH --gres=gpu:1
 #SBATCH --mem=12000  # memory in Mb
-#SBATCH --time=0-08:00:00
+#SBATCH --time=0-02:00:00
 
 export CUDA_HOME=/opt/cuda-9.0.176.1/
 
@@ -31,13 +31,11 @@ export TMP=/disk/scratch/${STUDENT_ID}/
 mkdir -p ${TMP}/datasets/
 export DATASET_DIR=${TMP}/datasets/
 # Activate the relevant virtual environment:
-
-
 source /home/${STUDENT_ID}/miniconda3/bin/activate mlp
 cd ..
-python train_evaluate_emnist_classification_system.py --batch_size 100 --continue_from_epoch -1 --seed 0 \
-                                                      --image_num_channels 3 --image_height 32 --image_width 32 \
-                                                      --dim_reduction_type "strided" --num_layers 4 --num_filters 64 \
-                                                      --num_epochs 100 --experiment_name 'cifar100_test_exp' \
-                                                      --use_gpu "True" --gpu_id "0" --weight_decay_coefficient 0. \
-                                                      --dataset_name "cifar100"
+
+mkdir /disk/scratch/${STUDENT_ID}/data/
+rsync -ua --progress /home/${STUDENT_ID}/mlp_framework/data/ /disk/scratch/${STUDENT_ID}/data/
+export DATASET_DIR=/disk/scratch/${STUDENT_ID}/data/
+
+python main.py --experiment_name CE_cpu_dev

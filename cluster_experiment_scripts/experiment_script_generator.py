@@ -50,6 +50,7 @@ default_args = {
 "num_image_channels": 1,
 "image_height": 128,# "Height of input images. If patches are used as input, this is the patch height, not the full image height."
 "image_width": 128, #"Width of input images. If patches are used as input, this is the patch width, not the full image width."
+"normalisation": "range-11", # "mn0sd1" normalises to mean=0, std=1. "range-11" normalises to range [-1,1] 
 
 # data parameters: misc
 "debug_mode": False,
@@ -65,7 +66,7 @@ default_args = {
 
 # data parameters: image patches
 "patch_size": [128, 128],
-"patch_location_during_training": "central",
+"patch_location_during_training": "central", # Can be "central" or "random"
 
 # data parameters: masking
 "mask_size": [64, 64],
@@ -129,10 +130,6 @@ export DATASET_DIR=/disk/scratch/${{STUDENT_ID}}/data/
 python main.py --experiment_name {3}
 """
 
-### Paths 
-config_path = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, "configs"))
-shell_script_path = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, "cluster_experiment_scripts"))
-
 ### functions
 def create_config_file(experiment_path, args):
     with open('{}.json'.format(experiment_path), 'w') as f:
@@ -152,55 +149,78 @@ def create_shell_script(experiment_name, experiment_path, partition, args, time=
     with open("{}.sh".format(experiment_name), "w") as f:
         f.write(script_str)
         
-    
+
+### Paths 
+config_path = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, "configs"))
+shell_script_path = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, "cluster_experiment_scripts"))
+
 
 #%% A list of independent experiment 
-experiment_names = ["test_script_generator"]
-partition = "Interactive"
+experiment_names = ["CE_1_bug_capped_fixed", "CE_random_patch_location_test_1"]
+cpu = False
+partition = "Standard"
 time = None
 
-# arguments to update from default, each inner list has the keys for one experiment:
-keys_to_update = [["num_epochs", "loss"]]
-values_to_update = [[50, "L2"]]
 
-# update args
+# arguments to update from default, each inner list has the keys for one experiment:
+keys_to_update = [[],["patch_location_during_training"]]
+values_to_update = [[],["random"]]
+
+# for each experiment
 for idx, experiment_name in enumerate(experiment_names):
+    # update args
     args = default_args
+    if cpu:
+        args["use_gpu"] = False
+        args["num_workers"] = 0
+        args["debug_mode"] = True
+        args["batch_size"] = 5
+        args["num_epochs"] = 5
     for key,value in zip(keys_to_update[idx], values_to_update[idx]):
         assert key in args.keys(), "wrong parameters name"
         args[key] = value
-        
+
+
+    # create files        
     create_config_file(os.path.join(config_path, experiment_name), args)
     create_shell_script(experiment_name=experiment_name,
                         experiment_path=os.path.join(shell_script_path, experiment_name), 
                                          partition=partition, args=args, time=time)
-#%% one parameter over a range
-experiment_base_name = "test_script_generator_range_{}" # needs to include {}
-key_to_vary = "num_epochs"
-values = [10,30,70]
-partition = "Interactive"
-args = default_args
-time = None
-
-# other non-default parameters
-keys_to_update = ["num_epochs", "loss"]
-values_to_update = [50, "L2"]
-
-# update other non-default parameters
-for key,value in zip(keys_to_update, values_to_update):
-    assert key in args.keys(), "wrong parameters name"
-    args[key] = value
-
-# iterate over parameter range:
-for value in values:
-    experiment_name = experiment_base_name.format(value)
-    args[key_to_vary] = value
-    create_config_file(os.path.join(config_path, experiment_name), args)
-    create_shell_script(experiment_name=experiment_name,
-                    experiment_path=os.path.join(shell_script_path, experiment_name), 
-                                     partition=partition, args=args, time=time)
-    
-    
+# =============================================================================
+# #%% one parameter over a range
+# experiment_base_name = "test_script_generator_range_{}" # needs to include {}
+# cpu = False
+# key_to_vary = "num_epochs"
+# values = [10,30,70]
+# partition = "Interactive"
+# args = default_args
+# time = None
+# 
+# # other non-default parameters
+# keys_to_update = ["num_epochs", "loss"]
+# values_to_update = [50, "L2"]
+# 
+# # update other non-default parameters
+# for key,value in zip(keys_to_update, values_to_update):
+#     assert key in args.keys(), "wrong parameters name"
+#     args[key] = value
+# 
+# # update for cpu
+# if cpu:
+#     args.use_gpu = False
+#     args.num_workers = 0
+# 
+# # iterate over parameter range:
+# for value in values:
+#     experiment_name = experiment_base_name.format(value)
+#     args[key_to_vary] = value
+#     create_config_file(os.path.join(config_path, experiment_name), args)
+#     create_shell_script(experiment_name=experiment_name,
+#                     experiment_path=os.path.join(shell_script_path, experiment_name), 
+#                                      partition=partition, args=args, time=time)
+#     
+#     
+# =============================================================================
 
 # =============================================================================
 # #%% Two-parameter grid

@@ -36,6 +36,6 @@ cd ..
 
 mkdir /disk/scratch/${STUDENT_ID}/data/
 rsync -ua --progress /home/${STUDENT_ID}/mlp_framework/data/ /disk/scratch/${STUDENT_ID}/data/
-export DATASET_DIR=/disk/scratch/s0452529/data/
+export DATASET_DIR=/disk/scratch/${STUDENT_ID}/data/
 
-python main.py --experiment_name test_script_generator_range_10.json
+python main.py --experiment_name CE_cpu_default
