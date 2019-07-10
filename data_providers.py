@@ -946,8 +946,8 @@ def create_dataset(args, augmentations, rng):
     
         transform_test = transforms.Compose(standard_transforms)
         
-        # patches with mean value below this get rejected (so we don't sample too many black images)
-        patch_rejection_threshold = (args.patch_rejection_treshold/255 - mn)/sd
+#        # patches with mean value below this get rejected (so we don't sample too many black images)
+#        patch_rejection_threshold = (args.patch_rejection_treshold/255 - mn)/sd
         
         trainset = MiasHealthy(which_set='train', task=args.task, transformer=transform_train, 
                               debug_mode=args.debug_mode, patch_size=(args.image_height, args.image_width),
