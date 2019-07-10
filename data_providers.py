@@ -654,7 +654,7 @@ class MiasHealthy(data.Dataset):
     def __init__(self, which_set, task,
                  transformer,
                  debug_mode=False, 
-                 patch_size=(256,256), patch_location="central", mask_size=(64,64)):
+                 patch_size=(256,256), patch_location="central", mask_size=(64,64)): #, patch_rejection_threshold):
 
         # check a valid which_set was provided
         assert which_set in ['train', 'val', 'test'], (
@@ -670,6 +670,7 @@ class MiasHealthy(data.Dataset):
         self.patch_location = patch_location
         self.mask_size = mask_size
         self.transformer = transformer
+#        self.patch_rejection_threshold = patch_rejection_threshold
 
         # create list of all images in current dataset
         self.image_path = os.path.join(self.image_base_path, which_set)
@@ -683,6 +684,8 @@ class MiasHealthy(data.Dataset):
         # calculate central regions slices
         self.patch_slice = self.create_central_region_slice((1,1024,1024), self.patch_size)
         self.mask_slice = self.create_central_region_slice((1,)+tuple(self.patch_size), self.mask_size)
+
+
 
     def __getitem__(self, index):
         """
@@ -699,20 +702,26 @@ class MiasHealthy(data.Dataset):
         
         # create patch, but the patch will be called "image" for consistency with other Dataset classes
         if self.patch_location == "central":
-            image = full_image[self.patch_slice]   
+                image = full_image[self.patch_slice]
+                
 # =============================================================================
 #             ### This is the version to calculate a new cetnral_region_slice for every image. This becomes necessary if input images vary in shape
 #             central_region_slice = self.create_central_region_slice(full_image.size(), self.patch_size)
 #             image = full_image[central_region_slice]      
 # =============================================================================
+            
         
         if self.patch_location == "random":
-            top_left_corner = (np.random.randint(0,full_image.size(1)-self.patch_size[0]), 
-                               np.random.randint(0,full_image.size(2)-self.patch_size[1])) # location of top-left corner of patch in dimensions 1 and 2 of the input tensor
-            image = full_image[:,
-                               top_left_corner[0]:top_left_corner[0]+self.patch_size[0],
-                               top_left_corner[1]:top_left_corner[1]+self.patch_size[1]]
-        
+#            comment these things back in if rejection of dark patches is still desired
+#            image_mean = -100000
+#            while image_mean <= patch_rejection_threshold:
+                top_left_corner = (np.random.randint(0,full_image.size(1)-self.patch_size[0]), 
+                                   np.random.randint(0,full_image.size(2)-self.patch_size[1])) # location of top-left corner of patch in dimensions 1 and 2 of the input tensor
+                image = full_image[:,
+                                   top_left_corner[0]:top_left_corner[0]+self.patch_size[0],
+                                   top_left_corner[1]:top_left_corner[1]+self.patch_size[1]]
+#                image_mean = torch.mean(image)
+            
         # create target image
         target_image = image[self.mask_slice].clone().detach()
         
@@ -925,6 +934,8 @@ def create_dataset(args, augmentations, rng):
         elif args.normalisation == "range-11":
             mn = 0.5
             sd = 0.5
+        
+        # transformations and augmentations
         standard_transforms = [transforms.ToTensor(),
                     transforms.Normalize((mn,), (sd,))] 
          
@@ -935,19 +946,22 @@ def create_dataset(args, augmentations, rng):
     
         transform_test = transforms.Compose(standard_transforms)
         
+        # patches with mean value below this get rejected (so we don't sample too many black images)
+        patch_rejection_threshold = (args.patch_rejection_treshold/255 - mn)/sd
+        
         trainset = MiasHealthy(which_set='train', task=args.task, transformer=transform_train, 
                               debug_mode=args.debug_mode, patch_size=(args.image_height, args.image_width),
-                              patch_location=args.patch_location_during_training, mask_size=args.mask_size)
+                              patch_location=args.patch_location_during_training, mask_size=args.mask_size)#, patch_rejection_threshold=patch_rejection_threshold)
         train_data = torch.utils.data.DataLoader(trainset, batch_size=args.batch_size, shuffle=True, num_workers=args.num_workers)
     
         valset = MiasHealthy(which_set='val', task=args.task, transformer=transform_test,
                             debug_mode=args.debug_mode, patch_size=(args.image_height, args.image_width), 
-                            patch_location=args.patch_location_during_training, mask_size=args.mask_size)
-        val_data = torch.utils.data.DataLoader(valset, batch_size=args.batch_size, shuffle=False, num_workers=args.num_workers)
+                            patch_location=args.patch_location_during_training, mask_size=args.mask_size) #, patch_rejection_threshold=patch_rejection_threshold)
     
+        val_data = torch.utils.data.DataLoader(valset, batch_size=args.batch_size, shuffle=False, num_workers=args.num_workers)
         testset = MiasHealthy(which_set='test', task=args.task, transformer=transform_test,
                              debug_mode=args.debug_mode, patch_size=(args.image_height, args.image_width), 
-                             patch_location=args.patch_location_during_training, mask_size=args.mask_size)
+                             patch_location=args.patch_location_during_training, mask_size=args.mask_size)#, patch_rejection_threshold=patch_rejection_threshold)
         test_data = torch.utils.data.DataLoader(testset, batch_size=args.batch_size, shuffle=False, num_workers=args.num_workers)
     
         num_output_classes = 666
