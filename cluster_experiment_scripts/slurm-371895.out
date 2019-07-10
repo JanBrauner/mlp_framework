@@ -1,0 +1,1539 @@
+sending incremental file list
+./
+emnist-test.npz
+         32,768   0%    0.00kB/s    0:00:00       12,403,376 100%   54.12MB/s    0:00:00 (xfr#1, to-chk=771/773)
+emnist-train.npz
+         32,768   0%  129.03kB/s    0:10:08       44,335,104  56%   41.99MB/s    0:00:00       78,500,392 100%   45.37MB/s    0:00:01 (xfr#2, to-chk=770/773)
+emnist-valid.npz
+         32,768   0%   47.76kB/s    0:04:19       12,403,376 100%   13.01MB/s    0:00:00 (xfr#3, to-chk=769/773)
+MiasHealthy/
+MiasHealthy/test/
+MiasHealthy/test/mdb004.pgm
+         32,768   3%   34.48kB/s    0:00:29        1,048,593 100%    1.06MB/s    0:00:00 (xfr#4, to-chk=762/773)
+MiasHealthy/train/
+MiasHealthy/train/mdb004.pgm
+         32,768   3%   32.96kB/s    0:00:30        1,048,593 100%    1.01MB/s    0:00:00 (xfr#5, to-chk=761/773)
+MiasHealthy/train/mdb006.pgm
+         32,768   3%   31.78kB/s    0:00:31           65,536   6%   63.56kB/s    0:00:15        1,048,593 100% 1000.99kB/s    0:00:01 (xfr#6, to-chk=760/773)
+MiasHealthy/train/mdb008.pgm
+         32,768   3%  800.00kB/s    0:00:01        1,048,593 100%   18.18MB/s    0:00:00 (xfr#7, to-chk=759/773)
+MiasHealthy/train/mdb009.pgm
+         32,768   3%  410.26kB/s    0:00:02        1,048,593 100%   10.75MB/s    0:00:00 (xfr#8, to-chk=758/773)
+MiasHealthy/train/mdb011.pgm
+         32,768   3%  283.19kB/s    0:00:03        1,048,593 100%    7.87MB/s    0:00:00 (xfr#9, to-chk=757/773)
+MiasHealthy/train/mdb014.pgm
+         32,768   3%  248.06kB/s    0:00:04        1,048,593 100%    7.19MB/s    0:00:00 (xfr#10, to-chk=756/773)
+MiasHealthy/train/mdb016.pgm
+         32,768   3%   34.01kB/s    0:00:29          294,912  28%  151.66kB/s    0:00:04        1,048,593 100%  455.93kB/s    0:00:02 (xfr#11, to-chk=755/773)
+MiasHealthy/train/mdb018.pgm
+         32,768   3%   90.40kB/s    0:00:11        1,048,593 100%    2.72MB/s    0:00:00 (xfr#12, to-chk=754/773)
+MiasHealthy/train/mdb022.pgm
+         32,768   3%   81.42kB/s    0:00:12        1,048,593 100%    2.43MB/s    0:00:00 (xfr#13, to-chk=753/773)
+MiasHealthy/train/mdb024.pgm
+         32,768   3%   72.23kB/s    0:00:14        1,048,593 100%    2.16MB/s    0:00:00 (xfr#14, to-chk=752/773)
+MiasHealthy/train/mdb026.pgm
+         32,768   3%   68.97kB/s    0:00:14        1,048,593 100%    2.10MB/s    0:00:00 (xfr#15, to-chk=751/773)
+MiasHealthy/train/mdb027.pgm
+         32,768   3%   66.95kB/s    0:00:15        1,048,593 100%    2.05MB/s    0:00:00 (xfr#16, to-chk=750/773)
+MiasHealthy/train/mdb033.pgm
+         32,768   3%   65.17kB/s    0:00:15        1,048,593 100%    2.00MB/s    0:00:00 (xfr#17, to-chk=749/773)
+MiasHealthy/train/mdb035.pgm
+         32,768   3%   60.84kB/s    0:00:16        1,048,593 100%    1.85MB/s    0:00:00 (xfr#18, to-chk=748/773)
+MiasHealthy/train/mdb036.pgm
+         32,768   3%   57.25kB/s    0:00:17        1,048,593 100%    1.71MB/s    0:00:00 (xfr#19, to-chk=747/773)
+MiasHealthy/train/mdb037.pgm
+         32,768   3%   54.61kB/s    0:00:18        1,048,593 100%    1.68MB/s    0:00:00 (xfr#20, to-chk=746/773)
+MiasHealthy/train/mdb038.pgm
+         32,768   3%   30.45kB/s    0:00:33           65,536   6%   60.89kB/s    0:00:16        1,048,593 100%  933.47kB/s    0:00:01 (xfr#21, to-chk=745/773)
+MiasHealthy/train/mdb042.pgm
+         32,768   3%  500.00kB/s    0:00:02        1,048,593 100%   12.35MB/s    0:00:00 (xfr#22, to-chk=744/773)
+MiasHealthy/train/mdb043.pgm
+         32,768   3%  372.09kB/s    0:00:02        1,048,593 100%    9.80MB/s    0:00:00 (xfr#23, to-chk=743/773)
+MiasHealthy/train/mdb044.pgm
+         32,768   3%  260.16kB/s    0:00:03        1,048,593 100%    6.76MB/s    0:00:00 (xfr#24, to-chk=742/773)
+MiasHealthy/train/mdb045.pgm
+         32,768   3%  200.00kB/s    0:00:05        1,048,593 100%    5.71MB/s    0:00:00 (xfr#25, to-chk=741/773)
+MiasHealthy/train/mdb046.pgm
+         32,768   3%  158.42kB/s    0:00:06        1,048,593 100%    4.42MB/s    0:00:00 (xfr#26, to-chk=740/773)
+MiasHealthy/train/mdb047.pgm
+         32,768   3%  140.35kB/s    0:00:07        1,048,593 100%    4.20MB/s    0:00:00 (xfr#27, to-chk=739/773)
+MiasHealthy/train/mdb048.pgm
+         32,768   3%  126.98kB/s    0:00:07        1,048,593 100%    3.73MB/s    0:00:00 (xfr#28, to-chk=738/773)
+MiasHealthy/train/mdb049.pgm
+         32,768   3%  118.52kB/s    0:00:08        1,048,593 100%    3.57MB/s    0:00:00 (xfr#29, to-chk=737/773)
+MiasHealthy/train/mdb050.pgm
+         32,768   3%  108.47kB/s    0:00:09        1,048,593 100%    2.96MB/s    0:00:00 (xfr#30, to-chk=736/773)
+MiasHealthy/train/mdb054.pgm
+         32,768   3%   91.43kB/s    0:00:11        1,048,593 100%    2.72MB/s    0:00:00 (xfr#31, to-chk=735/773)
+MiasHealthy/train/mdb055.pgm
+         32,768   3%   83.77kB/s    0:00:12        1,048,593 100%    2.51MB/s    0:00:00 (xfr#32, to-chk=734/773)
+MiasHealthy/train/mdb056.pgm
+         32,768   3%   80.00kB/s    0:00:12        1,048,593 100%    2.43MB/s    0:00:00 (xfr#33, to-chk=733/773)
+MiasHealthy/train/mdb057.pgm
+         32,768   3%   77.48kB/s    0:00:13        1,048,593 100%    2.36MB/s    0:00:00 (xfr#34, to-chk=732/773)
+MiasHealthy/train/mdb060.pgm
+         32,768   3%   73.90kB/s    0:00:13        1,048,593 100%    2.23MB/s    0:00:00 (xfr#35, to-chk=731/773)
+MiasHealthy/train/mdb061.pgm
+         32,768   3%   69.41kB/s    0:00:14        1,048,593 100%    2.05MB/s    0:00:00 (xfr#36, to-chk=730/773)
+MiasHealthy/train/mdb062.pgm
+         32,768   3%   37.74kB/s    0:00:26        1,048,593 100%    1.12MB/s    0:00:00 (xfr#37, to-chk=729/773)
+MiasHealthy/train/mdb064.pgm
+         32,768   3%   35.13kB/s    0:00:28        1,048,593 100%    1.07MB/s    0:00:00 (xfr#38, to-chk=728/773)
+MiasHealthy/train/mdb065.pgm
+         32,768   3%   33.68kB/s    0:00:30        1,048,593 100%    1.03MB/s    0:00:00 (xfr#39, to-chk=727/773)
+MiasHealthy/train/mdb066.pgm
+         32,768   3%   32.99kB/s    0:00:30        1,048,593 100%    1.02MB/s    0:00:00 (xfr#40, to-chk=726/773)
+MiasHealthy/train/mdb068.pgm
+         32,768   3%   32.19kB/s    0:00:31          393,216  37%  384.00kB/s    0:00:01        1,048,593 100% 1009.88kB/s    0:00:01 (xfr#41, to-chk=725/773)
+MiasHealthy/train/mdb070.pgm
+         32,768   3%  864.86kB/s    0:00:01        1,048,593 100%   12.05MB/s    0:00:00 (xfr#42, to-chk=724/773)
+MiasHealthy/train/mdb071.pgm
+         32,768   3%  296.30kB/s    0:00:03        1,048,593 100%    8.13MB/s    0:00:00 (xfr#43, to-chk=723/773)
+MiasHealthy/train/mdb074.pgm
+         32,768   3%  256.00kB/s    0:00:03        1,048,593 100%    7.35MB/s    0:00:00 (xfr#44, to-chk=722/773)
+MiasHealthy/train/mdb076.pgm
+         32,768   3%  231.88kB/s    0:00:04        1,048,593 100%    6.71MB/s    0:00:00 (xfr#45, to-chk=721/773)
+MiasHealthy/train/mdb079.pgm
+         32,768   3%  187.13kB/s    0:00:05        1,048,593 100%    5.35MB/s    0:00:00 (xfr#46, to-chk=720/773)
+MiasHealthy/train/mdb082.pgm
+         32,768   3%  160.80kB/s    0:00:06        1,048,593 100%    4.67MB/s    0:00:00 (xfr#47, to-chk=719/773)
+MiasHealthy/train/mdb084.pgm
+         32,768   3%  139.74kB/s    0:00:07        1,048,593 100%    4.08MB/s    0:00:00 (xfr#48, to-chk=718/773)
+MiasHealthy/train/mdb085.pgm
+         32,768   3%  117.22kB/s    0:00:08        1,048,593 100%    3.46MB/s    0:00:00 (xfr#49, to-chk=717/773)
+MiasHealthy/train/mdb088.pgm
+         32,768   3%  108.84kB/s    0:00:09        1,048,593 100%    3.24MB/s    0:00:00 (xfr#50, to-chk=716/773)
+MiasHealthy/train/mdb093.pgm
+         32,768   3%  101.59kB/s    0:00:09        1,048,593 100%    3.03MB/s    0:00:00 (xfr#51, to-chk=715/773)
+MiasHealthy/train/mdb096.pgm
+         32,768   3%   96.39kB/s    0:00:10        1,048,593 100%    2.92MB/s    0:00:00 (xfr#52, to-chk=714/773)
+MiasHealthy/train/mdb098.pgm
+         32,768   3%   91.69kB/s    0:00:11        1,048,593 100%    2.67MB/s    0:00:00 (xfr#53, to-chk=713/773)
+MiasHealthy/train/mdb100.pgm
+         32,768   3%   81.01kB/s    0:00:12        1,048,593 100%    2.43MB/s    0:00:00 (xfr#54, to-chk=712/773)
+MiasHealthy/train/mdb101.pgm
+         32,768   3%   77.48kB/s    0:00:13        1,048,593 100%    2.36MB/s    0:00:00 (xfr#55, to-chk=711/773)
+MiasHealthy/train/mdb103.pgm
+         32,768   3%   73.06kB/s    0:00:13        1,048,593 100%    2.20MB/s    0:00:00 (xfr#56, to-chk=710/773)
+MiasHealthy/train/mdb108.pgm
+         32,768   3%   70.18kB/s    0:00:14        1,048,593 100%    2.15MB/s    0:00:00 (xfr#57, to-chk=709/773)
+MiasHealthy/train/mdb109.pgm
+         32,768   3%   66.25kB/s    0:00:15        1,048,593 100%    2.01MB/s    0:00:00 (xfr#58, to-chk=708/773)
+MiasHealthy/train/mdb112.pgm
+         32,768   3%   60.95kB/s    0:00:16        1,048,593 100%    1.85MB/s    0:00:00 (xfr#59, to-chk=707/773)
+MiasHealthy/train/mdb113.pgm
+         32,768   3%   57.04kB/s    0:00:17        1,048,593 100%    1.68MB/s    0:00:00 (xfr#60, to-chk=706/773)
+MiasHealthy/train/mdb116.pgm
+         32,768   3%   51.86kB/s    0:00:19        1,048,593 100%    1.58MB/s    0:00:00 (xfr#61, to-chk=705/773)
+MiasHealthy/train/mdb122.pgm
+         32,768   3%   49.23kB/s    0:00:20        1,048,593 100%    1.50MB/s    0:00:00 (xfr#62, to-chk=704/773)
+MiasHealthy/train/mdb123.pgm
+         32,768   3%   47.69kB/s    0:00:21        1,048,593 100%    1.45MB/s    0:00:00 (xfr#63, to-chk=703/773)
+MiasHealthy/train/mdb133.pgm
+         32,768   3%   45.58kB/s    0:00:22        1,048,593 100%    1.39MB/s    0:00:00 (xfr#64, to-chk=702/773)
+MiasHealthy/train/mdb135.pgm
+         32,768   3%   43.36kB/s    0:00:23        1,048,593 100%    1.33MB/s    0:00:00 (xfr#65, to-chk=701/773)
+MiasHealthy/train/mdb136.pgm
+         32,768   3%   42.38kB/s    0:00:23        1,048,593 100%    1.31MB/s    0:00:00 (xfr#66, to-chk=700/773)
+MiasHealthy/train/mdb137.pgm
+         32,768   3%   41.72kB/s    0:00:24        1,048,593 100%    1.29MB/s    0:00:00 (xfr#67, to-chk=699/773)
+MiasHealthy/train/mdb140.pgm
+         32,768   3%   41.13kB/s    0:00:24        1,048,593 100%    1.27MB/s    0:00:00 (xfr#68, to-chk=698/773)
+MiasHealthy/train/mdb143.pgm
+         32,768   3%   40.51kB/s    0:00:25        1,048,593 100%    1.25MB/s    0:00:00 (xfr#69, to-chk=697/773)
+MiasHealthy/train/mdb146.pgm
+         32,768   3%   39.95kB/s    0:00:25        1,048,593 100%    1.23MB/s    0:00:00 (xfr#70, to-chk=696/773)
+MiasHealthy/train/mdb147.pgm
+         32,768   3%   39.36kB/s    0:00:25        1,048,593 100%    1.22MB/s    0:00:00 (xfr#71, to-chk=695/773)
+MiasHealthy/train/mdb149.pgm
+         32,768   3%   38.79kB/s    0:00:26        1,048,593 100%    1.20MB/s    0:00:00 (xfr#72, to-chk=694/773)
+MiasHealthy/train/mdb151.pgm
+         32,768   3%   38.28kB/s    0:00:26        1,048,593 100%    1.18MB/s    0:00:00 (xfr#73, to-chk=693/773)
+MiasHealthy/train/mdb154.pgm
+         32,768   3%   37.74kB/s    0:00:26        1,048,593 100%    1.17MB/s    0:00:00 (xfr#74, to-chk=692/773)
+MiasHealthy/train/mdb156.pgm
+         32,768   3%   36.74kB/s    0:00:27        1,048,593 100%    1.13MB/s    0:00:00 (xfr#75, to-chk=691/773)
+MiasHealthy/train/mdb157.pgm
+         32,768   3%   35.32kB/s    0:00:28        1,048,593 100%    1.09MB/s    0:00:00 (xfr#76, to-chk=690/773)
+MiasHealthy/train/mdb162.pgm
+         32,768   3%   33.61kB/s    0:00:30        1,048,593 100%    1.03MB/s    0:00:00 (xfr#77, to-chk=689/773)
+MiasHealthy/train/mdb164.pgm
+         32,768   3%   32.59kB/s    0:00:31        1,048,593 100%    1.00MB/s    0:00:00 (xfr#78, to-chk=688/773)
+MiasHealthy/train/mdb166.pgm
+         32,768   3%   32.00kB/s    0:00:31           65,536   6%   64.00kB/s    0:00:15        1,048,593 100% 1013.88kB/s    0:00:01 (xfr#79, to-chk=687/773)
+MiasHealthy/train/mdb169.pgm
+         32,768   3%    2.84MB/s    0:00:00        1,048,593 100%   45.46MB/s    0:00:00 (xfr#80, to-chk=686/773)
+MiasHealthy/train/mdb172.pgm
+         32,768   3%    1.04MB/s    0:00:00        1,048,593 100%   22.73MB/s    0:00:00 (xfr#81, to-chk=685/773)
+MiasHealthy/train/mdb173.pgm
+         32,768   3%  695.65kB/s    0:00:01        1,048,593 100%   17.86MB/s    0:00:00 (xfr#82, to-chk=684/773)
+MiasHealthy/train/mdb176.pgm
+         32,768   3%  484.85kB/s    0:00:02        1,048,593 100%   10.75MB/s    0:00:00 (xfr#83, to-chk=683/773)
+MiasHealthy/train/mdb182.pgm
+         32,768   3%  336.84kB/s    0:00:03        1,048,593 100%    9.62MB/s    0:00:00 (xfr#84, to-chk=682/773)
+MiasHealthy/train/mdb183.pgm
+         32,768   3%  258.06kB/s    0:00:03        1,048,593 100%    7.09MB/s    0:00:00 (xfr#85, to-chk=681/773)
+MiasHealthy/train/mdb185.pgm
+         32,768   3%  223.78kB/s    0:00:04        1,048,593 100%    6.58MB/s    0:00:00 (xfr#86, to-chk=680/773)
+MiasHealthy/train/mdb187.pgm
+         32,768   3%  202.53kB/s    0:00:05        1,048,593 100%    5.46MB/s    0:00:00 (xfr#87, to-chk=679/773)
+MiasHealthy/train/mdb189.pgm
+         32,768   3%  170.21kB/s    0:00:05        1,048,593 100%    4.93MB/s    0:00:00 (xfr#88, to-chk=678/773)
+MiasHealthy/train/mdb194.pgm
+         32,768   3%  147.47kB/s    0:00:06        1,048,593 100%    4.20MB/s    0:00:00 (xfr#89, to-chk=677/773)
+MiasHealthy/train/mdb197.pgm
+         32,768   3%  133.33kB/s    0:00:07        1,048,593 100%    3.98MB/s    0:00:00 (xfr#90, to-chk=676/773)
+MiasHealthy/train/mdb201.pgm
+         32,768   3%  115.94kB/s    0:00:08        1,048,593 100%    3.44MB/s    0:00:00 (xfr#91, to-chk=675/773)
+MiasHealthy/train/mdb205.pgm
+         32,768   3%  109.22kB/s    0:00:09        1,048,593 100%    3.30MB/s    0:00:00 (xfr#92, to-chk=674/773)
+MiasHealthy/train/mdb208.pgm
+         32,768   3%  104.92kB/s    0:00:09        1,048,593 100%    3.17MB/s    0:00:00 (xfr#93, to-chk=673/773)
+MiasHealthy/train/mdb217.pgm
+         32,768   3%   98.16kB/s    0:00:10        1,048,593 100%    2.93MB/s    0:00:00 (xfr#94, to-chk=672/773)
+MiasHealthy/train/mdb220.pgm
+         32,768   3%   91.17kB/s    0:00:11        1,048,593 100%    2.73MB/s    0:00:00 (xfr#95, to-chk=671/773)
+MiasHealthy/train/mdb224.pgm
+         32,768   3%   82.69kB/s    0:00:12        1,048,593 100%    2.49MB/s    0:00:00 (xfr#96, to-chk=670/773)
+MiasHealthy/train/mdb225.pgm
+         32,768   3%   79.21kB/s    0:00:12        1,048,593 100%    2.42MB/s    0:00:00 (xfr#97, to-chk=669/773)
+MiasHealthy/train/mdb229.pgm
+         32,768   3%   77.11kB/s    0:00:13        1,048,593 100%    2.35MB/s    0:00:00 (xfr#98, to-chk=668/773)
+MiasHealthy/train/mdb230.pgm
+         32,768   3%   74.07kB/s    0:00:13        1,048,593 100%    2.24MB/s    0:00:00 (xfr#99, to-chk=667/773)
+MiasHealthy/train/mdb237.pgm
+         32,768   3%   71.43kB/s    0:00:14        1,048,593 100%    2.18MB/s    0:00:00 (xfr#100, to-chk=666/773)
+MiasHealthy/train/mdb243.pgm
+         32,768   3%   69.72kB/s    0:00:14        1,048,593 100%    2.13MB/s    0:00:00 (xfr#101, to-chk=665/773)
+MiasHealthy/train/mdb247.pgm
+         32,768   3%   66.81kB/s    0:00:15        1,048,593 100%    2.02MB/s    0:00:00 (xfr#102, to-chk=664/773)
+MiasHealthy/train/mdb250.pgm
+         32,768   3%   62.38kB/s    0:00:16        1,048,593 100%    1.83MB/s    0:00:00 (xfr#103, to-chk=663/773)
+MiasHealthy/train/mdb251.pgm
+         32,768   3%   56.54kB/s    0:00:17        1,048,593 100%    1.68MB/s    0:00:00 (xfr#104, to-chk=662/773)
+MiasHealthy/train/mdb255.pgm
+         32,768   3%   53.51kB/s    0:00:18        1,048,593 100%    1.64MB/s    0:00:00 (xfr#105, to-chk=661/773)
+MiasHealthy/train/mdb257.pgm
+         32,768   3%   50.87kB/s    0:00:19        1,048,593 100%    1.55MB/s    0:00:00 (xfr#106, to-chk=660/773)
+MiasHealthy/train/mdb258.pgm
+         32,768   3%   48.19kB/s    0:00:21        1,048,593 100%    1.47MB/s    0:00:00 (xfr#107, to-chk=659/773)
+MiasHealthy/train/mdb259.pgm
+         32,768   3%   46.99kB/s    0:00:21        1,048,593 100%    1.45MB/s    0:00:00 (xfr#108, to-chk=658/773)
+MiasHealthy/train/mdb261.pgm
+         32,768   3%   45.91kB/s    0:00:22        1,048,593 100%    1.39MB/s    0:00:00 (xfr#109, to-chk=657/773)
+MiasHealthy/train/mdb263.pgm
+         32,768   3%   44.32kB/s    0:00:22        1,048,593 100%    1.37MB/s    0:00:00 (xfr#110, to-chk=656/773)
+MiasHealthy/train/mdb268.pgm
+         32,768   3%   43.66kB/s    0:00:23        1,048,593 100%    1.34MB/s    0:00:00 (xfr#111, to-chk=655/773)
+MiasHealthy/train/mdb272.pgm
+         32,768   3%   41.94kB/s    0:00:24        1,048,593 100%    1.29MB/s    0:00:00 (xfr#112, to-chk=654/773)
+MiasHealthy/train/mdb273.pgm
+         32,768   3%   40.20kB/s    0:00:25        1,048,593 100%    1.23MB/s    0:00:00 (xfr#113, to-chk=653/773)
+MiasHealthy/train/mdb276.pgm
+         32,768   3%   38.60kB/s    0:00:26        1,048,593 100%    1.18MB/s    0:00:00 (xfr#114, to-chk=652/773)
+MiasHealthy/train/mdb277.pgm
+         32,768   3%   37.51kB/s    0:00:27        1,048,593 100%    1.15MB/s    0:00:00 (xfr#115, to-chk=651/773)
+MiasHealthy/train/mdb278.pgm
+         32,768   3%   36.57kB/s    0:00:27        1,048,593 100%    1.12MB/s    0:00:00 (xfr#116, to-chk=650/773)
+MiasHealthy/train/mdb279.pgm
+         32,768   3%   35.87kB/s    0:00:28        1,048,593 100%    1.11MB/s    0:00:00 (xfr#117, to-chk=649/773)
+MiasHealthy/train/mdb280.pgm
+         32,768   3%   35.01kB/s    0:00:29        1,048,593 100%    1.08MB/s    0:00:00 (xfr#118, to-chk=648/773)
+MiasHealthy/train/mdb281.pgm
+         32,768   3%   34.37kB/s    0:00:29        1,048,593 100%    1.06MB/s    0:00:00 (xfr#119, to-chk=647/773)
+MiasHealthy/train/mdb282.pgm
+         32,768   3%   33.79kB/s    0:00:30        1,048,593 100%    1.04MB/s    0:00:00 (xfr#120, to-chk=646/773)
+MiasHealthy/train/mdb284.pgm
+         32,768   3%   33.20kB/s    0:00:30        1,048,593 100%    1.03MB/s    0:00:00 (xfr#121, to-chk=645/773)
+MiasHealthy/train/mdb285.pgm
+         32,768   3%   32.42kB/s    0:00:31          819,200  78%  800.00kB/s    0:00:00        1,048,593 100% 1021.97kB/s    0:00:01 (xfr#122, to-chk=644/773)
+MiasHealthy/train/mdb286.pgm
+         32,768   3%    1.04MB/s    0:00:00        1,048,593 100%   20.41MB/s    0:00:00 (xfr#123, to-chk=643/773)
+MiasHealthy/train/mdb288.pgm
+         32,768   3%  627.45kB/s    0:00:01        1,048,593 100%   16.39MB/s    0:00:00 (xfr#124, to-chk=642/773)
+MiasHealthy/train/mdb289.pgm
+         32,768   3%  162.44kB/s    0:00:06        1,048,593 100%    4.65MB/s    0:00:00 (xfr#125, to-chk=641/773)
+MiasHealthy/train/mdb291.pgm
+         32,768   3%  147.47kB/s    0:00:06        1,048,593 100%    4.37MB/s    0:00:00 (xfr#126, to-chk=640/773)
+MiasHealthy/train/mdb292.pgm
+         32,768   3%  138.53kB/s    0:00:07        1,048,593 100%    4.13MB/s    0:00:00 (xfr#127, to-chk=639/773)
+MiasHealthy/train/mdb295.pgm
+         32,768   3%  129.03kB/s    0:00:07        1,048,593 100%    3.65MB/s    0:00:00 (xfr#128, to-chk=638/773)
+MiasHealthy/train/mdb296.pgm
+         32,768   3%  108.47kB/s    0:00:09        1,048,593 100%    3.21MB/s    0:00:00 (xfr#129, to-chk=637/773)
+MiasHealthy/train/mdb297.pgm
+         32,768   3%  102.24kB/s    0:00:09        1,048,593 100%    3.09MB/s    0:00:00 (xfr#130, to-chk=636/773)
+MiasHealthy/train/mdb298.pgm
+         32,768   3%   98.16kB/s    0:00:10        1,048,593 100%    2.98MB/s    0:00:00 (xfr#131, to-chk=635/773)
+MiasHealthy/train/mdb299.pgm
+         32,768   3%   94.67kB/s    0:00:10        1,048,593 100%    2.87MB/s    0:00:00 (xfr#132, to-chk=634/773)
+MiasHealthy/train/mdb300.pgm
+         32,768   3%   91.69kB/s    0:00:11        1,048,593 100%    2.78MB/s    0:00:00 (xfr#133, to-chk=633/773)
+MiasHealthy/train/mdb301.pgm
+         32,768   3%   87.67kB/s    0:00:11        1,048,593 100%    2.67MB/s    0:00:00 (xfr#134, to-chk=632/773)
+MiasHealthy/train/mdb302.pgm
+         32,768   3%   84.21kB/s    0:00:12        1,048,593 100%    2.56MB/s    0:00:00 (xfr#135, to-chk=631/773)
+MiasHealthy/train/mdb303.pgm
+         32,768   3%   76.19kB/s    0:00:13        1,048,593 100%    2.28MB/s    0:00:00 (xfr#136, to-chk=630/773)
+MiasHealthy/train/mdb304.pgm
+         32,768   3%   70.18kB/s    0:00:14        1,048,593 100%    2.12MB/s    0:00:00 (xfr#137, to-chk=629/773)
+MiasHealthy/train/mdb306.pgm
+         32,768   3%   65.71kB/s    0:00:15        1,048,593 100%    1.99MB/s    0:00:00 (xfr#138, to-chk=628/773)
+MiasHealthy/train/mdb308.pgm
+         32,768   3%   61.54kB/s    0:00:16        1,048,593 100%    1.86MB/s    0:00:00 (xfr#139, to-chk=627/773)
+MiasHealthy/train/mdb309.pgm
+         32,768   3%   59.37kB/s    0:00:17        1,048,593 100%    1.82MB/s    0:00:00 (xfr#140, to-chk=626/773)
+MiasHealthy/train/mdb311.pgm
+         32,768   3%   58.08kB/s    0:00:17        1,048,593 100%    1.78MB/s    0:00:00 (xfr#141, to-chk=625/773)
+MiasHealthy/train/mdb313.pgm
+         32,768   3%   54.33kB/s    0:00:18        1,048,593 100%    1.66MB/s    0:00:00 (xfr#142, to-chk=624/773)
+MiasHealthy/train/mdb316.pgm
+         32,768   3%   36.82kB/s    0:00:27        1,048,593 100%    1.07MB/s    0:00:00 (xfr#143, to-chk=623/773)
+MiasHealthy/train/mdb317.pgm
+         32,768   3%   33.97kB/s    0:00:29        1,048,593 100%    1.03MB/s    0:00:00 (xfr#144, to-chk=622/773)
+MiasHealthy/train/mdb319.pgm
+         32,768   3%   32.39kB/s    0:00:31          557,056  53%  536.49kB/s    0:00:00        1,048,593 100% 1001.97kB/s    0:00:01 (xfr#145, to-chk=621/773)
+MiasHealthy/train/mdb320.pgm
+         32,768   3%    3.47MB/s    0:00:00        1,048,593 100%   47.62MB/s    0:00:00 (xfr#146, to-chk=620/773)
+MiasHealthy/train/mdb321.pgm
+         32,768   3%  680.85kB/s    0:00:01        1,048,593 100%   14.71MB/s    0:00:00 (xfr#147, to-chk=619/773)
+MiasHealthy/train/mdb322.pgm
+         32,768   3%  400.00kB/s    0:00:02        1,048,593 100%   10.20MB/s    0:00:00 (xfr#148, to-chk=618/773)
+MiasHealthy/val/
+MiasHealthy/val/mdb003.pgm
+         32,768   3%  244.27kB/s    0:00:04        1,048,593 100%    6.80MB/s    0:00:00 (xfr#149, to-chk=617/773)
+MiasHealthy/val/mdb007.pgm
+         32,768   3%  191.62kB/s    0:00:05        1,048,593 100%    5.43MB/s    0:00:00 (xfr#150, to-chk=616/773)
+MiasHealthy/val/mdb020.pgm
+         32,768   3%  172.97kB/s    0:00:05        1,048,593 100%    5.10MB/s    0:00:00 (xfr#151, to-chk=615/773)
+MiasHealthy/val/mdb029.pgm
+         32,768   3%  159.20kB/s    0:00:06        1,048,593 100%    4.63MB/s    0:00:00 (xfr#152, to-chk=614/773)
+MiasHealthy/val/mdb031.pgm
+         32,768   3%  133.33kB/s    0:00:07        1,048,593 100%    3.92MB/s    0:00:00 (xfr#153, to-chk=613/773)
+MiasHealthy/val/mdb034.pgm
+         32,768   3%  116.79kB/s    0:00:08        1,048,593 100%    3.46MB/s    0:00:00 (xfr#154, to-chk=612/773)
+MiasHealthy/val/mdb039.pgm
+         32,768   3%   99.07kB/s    0:00:10        1,048,593 100%    2.87MB/s    0:00:00 (xfr#155, to-chk=611/773)
+MiasHealthy/val/mdb040.pgm
+         32,768   3%   90.40kB/s    0:00:11        1,048,593 100%    2.68MB/s    0:00:00 (xfr#156, to-chk=610/773)
+MiasHealthy/val/mdb041.pgm
+         32,768   3%   81.84kB/s    0:00:12        1,048,593 100%    2.46MB/s    0:00:00 (xfr#157, to-chk=609/773)
+MiasHealthy/val/mdb051.pgm
+         32,768   3%   77.86kB/s    0:00:13        1,048,593 100%    2.22MB/s    0:00:00 (xfr#158, to-chk=608/773)
+MiasHealthy/val/mdb052.pgm
+         32,768   3%   70.33kB/s    0:00:14        1,048,593 100%    2.12MB/s    0:00:00 (xfr#159, to-chk=607/773)
+MiasHealthy/val/mdb053.pgm
+         32,768   3%    0.00kB/s    0:00:00          819,200  78%  696.91kB/s    0:00:00        1,048,593 100%  896.94kB/s    0:00:01 (xfr#160, to-chk=606/773)
+MiasHealthy/val/mdb067.pgm
+         32,768   3%    3.47MB/s    0:00:00        1,048,593 100%   50.00MB/s    0:00:00 (xfr#161, to-chk=605/773)
+MiasHealthy/val/mdb073.pgm
+         32,768   3%    1.42MB/s    0:00:00        1,048,593 100%   30.30MB/s    0:00:00 (xfr#162, to-chk=604/773)
+MiasHealthy/val/mdb077.pgm
+         32,768   3%  914.29kB/s    0:00:01        1,048,593 100%   22.22MB/s    0:00:00 (xfr#163, to-chk=603/773)
+MiasHealthy/val/mdb078.pgm
+         32,768   3%  680.85kB/s    0:00:01        1,048,593 100%   17.54MB/s    0:00:00 (xfr#164, to-chk=602/773)
+MiasHealthy/val/mdb086.pgm
+         32,768   3%  507.94kB/s    0:00:01        1,048,593 100%    5.56MB/s    0:00:00 (xfr#165, to-chk=601/773)
+MiasHealthy/val/mdb087.pgm
+         32,768   3%  175.82kB/s    0:00:05        1,048,593 100%    5.15MB/s    0:00:00 (xfr#166, to-chk=600/773)
+MiasHealthy/val/mdb089.pgm
+         32,768   3%  130.61kB/s    0:00:07        1,048,593 100%    3.80MB/s    0:00:00 (xfr#167, to-chk=599/773)
+MiasHealthy/val/mdb094.pgm
+         32,768   3%  114.29kB/s    0:00:08        1,048,593 100%    3.37MB/s    0:00:00 (xfr#168, to-chk=598/773)
+MiasHealthy/val/mdb106.pgm
+         32,768   3%  102.24kB/s    0:00:09        1,048,593 100%    3.04MB/s    0:00:00 (xfr#169, to-chk=597/773)
+MiasHealthy/val/mdb114.pgm
+         32,768   3%   90.65kB/s    0:00:11        1,048,593 100%    2.45MB/s    0:00:00 (xfr#170, to-chk=596/773)
+MiasHealthy/val/mdb118.pgm
+         32,768   3%   78.05kB/s    0:00:13        1,048,593 100%    2.36MB/s    0:00:00 (xfr#171, to-chk=595/773)
+MiasHealthy/val/mdb119.pgm
+         32,768   3%   74.77kB/s    0:00:13        1,048,593 100%    2.22MB/s    0:00:00 (xfr#172, to-chk=594/773)
+MiasHealthy/val/mdb128.pgm
+         32,768   3%   70.80kB/s    0:00:14        1,048,593 100%    2.16MB/s    0:00:00 (xfr#173, to-chk=593/773)
+MiasHealthy/val/mdb129.pgm
+         32,768   3%   68.82kB/s    0:00:14        1,048,593 100%    2.11MB/s    0:00:00 (xfr#174, to-chk=592/773)
+MiasHealthy/val/mdb131.pgm
+         32,768   3%   66.67kB/s    0:00:15        1,048,593 100%    2.02MB/s    0:00:00 (xfr#175, to-chk=591/773)
+MiasHealthy/val/mdb138.pgm
+         32,768   3%   64.00kB/s    0:00:15        1,048,593 100%    1.89MB/s    0:00:00 (xfr#176, to-chk=590/773)
+MiasHealthy/val/mdb139.pgm
+         32,768   3%   60.26kB/s    0:00:16        1,048,593 100%    1.85MB/s    0:00:00 (xfr#177, to-chk=589/773)
+MiasHealthy/val/mdb153.pgm
+         32,768   3%   57.55kB/s    0:00:17        1,048,593 100%    1.75MB/s    0:00:00 (xfr#178, to-chk=588/773)
+MiasHealthy/val/mdb159.pgm
+         32,768   3%   55.46kB/s    0:00:18        1,048,593 100%    1.69MB/s    0:00:00 (xfr#179, to-chk=587/773)
+MiasHealthy/val/mdb161.pgm
+         32,768   3%   51.86kB/s    0:00:19        1,048,593 100%    1.57MB/s    0:00:00 (xfr#180, to-chk=586/773)
+MiasHealthy/val/mdb168.pgm
+         32,768   3%   49.92kB/s    0:00:20        1,048,593 100%    1.52MB/s    0:00:00 (xfr#181, to-chk=585/773)
+MiasHealthy/val/mdb174.pgm
+         32,768   3%   48.63kB/s    0:00:20        1,048,593 100%    1.50MB/s    0:00:00 (xfr#182, to-chk=584/773)
+MiasHealthy/val/mdb177.pgm
+         32,768   3%   47.76kB/s    0:00:21        1,048,593 100%    1.47MB/s    0:00:00 (xfr#183, to-chk=583/773)
+MiasHealthy/val/mdb180.pgm
+         32,768   3%   46.99kB/s    0:00:21        1,048,593 100%    1.45MB/s    0:00:00 (xfr#184, to-chk=582/773)
+MiasHealthy/val/mdb192.pgm
+         32,768   3%   45.13kB/s    0:00:22        1,048,593 100%    1.38MB/s    0:00:00 (xfr#185, to-chk=581/773)
+MiasHealthy/val/mdb196.pgm
+         32,768   3%   44.02kB/s    0:00:23        1,048,593 100%    1.36MB/s    0:00:00 (xfr#186, to-chk=580/773)
+MiasHealthy/val/mdb200.pgm
+         32,768   3%   43.36kB/s    0:00:23        1,048,593 100%    1.34MB/s    0:00:00 (xfr#187, to-chk=579/773)
+MiasHealthy/val/mdb203.pgm
+         32,768   3%   42.67kB/s    0:00:23        1,048,593 100%    1.32MB/s    0:00:00 (xfr#188, to-chk=578/773)
+MiasHealthy/val/mdb210.pgm
+         32,768   3%   41.83kB/s    0:00:24        1,048,593 100%    1.26MB/s    0:00:00 (xfr#189, to-chk=577/773)
+MiasHealthy/val/mdb215.pgm
+         32,768   3%   39.02kB/s    0:00:26        1,048,593 100%    1.15MB/s    0:00:00 (xfr#190, to-chk=576/773)
+MiasHealthy/val/mdb221.pgm
+         32,768   3%   35.96kB/s    0:00:28        1,048,593 100%    1.10MB/s    0:00:00 (xfr#191, to-chk=575/773)
+MiasHealthy/val/mdb228.pgm
+         32,768   3%   34.48kB/s    0:00:29        1,048,593 100%    1.01MB/s    0:00:00 (xfr#192, to-chk=574/773)
+MiasHealthy/val/mdb232.pgm
+         32,768   3%   31.97kB/s    0:00:31           65,536   6%   63.94kB/s    0:00:15        1,048,593 100%  998.07kB/s    0:00:01 (xfr#193, to-chk=573/773)
+MiasHealthy/val/mdb234.pgm
+         32,768   3%  695.65kB/s    0:00:01        1,048,593 100%   16.13MB/s    0:00:00 (xfr#194, to-chk=572/773)
+MiasHealthy/val/mdb235.pgm
+         32,768   3%  500.00kB/s    0:00:02        1,048,593 100%   13.51MB/s    0:00:00 (xfr#195, to-chk=571/773)
+MiasHealthy/val/mdb242.pgm
+         32,768   3%  410.26kB/s    0:00:02        1,048,593 100%   11.36MB/s    0:00:00 (xfr#196, to-chk=570/773)
+MiasHealthy/val/mdb246.pgm
+         32,768   3%  359.55kB/s    0:00:02        1,048,593 100%   10.00MB/s    0:00:00 (xfr#197, to-chk=569/773)
+MiasHealthy/val/mdb254.pgm
+         32,768   3%  316.83kB/s    0:00:03        1,048,593 100%    8.93MB/s    0:00:00 (xfr#198, to-chk=568/773)
+MiasHealthy/val/mdb260.pgm
+         32,768   3%  260.16kB/s    0:00:03        1,048,593 100%    7.30MB/s    0:00:00 (xfr#199, to-chk=567/773)
+MiasHealthy/val/mdb262.pgm
+         32,768   3%  230.22kB/s    0:00:04        1,048,593 100%    6.71MB/s    0:00:00 (xfr#200, to-chk=566/773)
+MiasHealthy/val/mdb266.pgm
+         32,768   3%  207.79kB/s    0:00:04        1,048,593 100%    5.92MB/s    0:00:00 (xfr#201, to-chk=565/773)
+MiasHealthy/val/mdb269.pgm
+         32,768   3%  162.44kB/s    0:00:06        1,048,593 100%    4.59MB/s    0:00:00 (xfr#202, to-chk=564/773)
+MiasHealthy/val/mdb275.pgm
+         32,768   3%  131.69kB/s    0:00:07        1,048,593 100%    3.58MB/s    0:00:00 (xfr#203, to-chk=563/773)
+MiasHealthy/val/mdb283.pgm
+         32,768   3%  107.74kB/s    0:00:09        1,048,593 100%    3.18MB/s    0:00:00 (xfr#204, to-chk=562/773)
+MiasHealthy/val/mdb287.pgm
+         32,768   3%   97.26kB/s    0:00:10        1,048,593 100%    2.91MB/s    0:00:00 (xfr#205, to-chk=561/773)
+MiasHealthy/val/mdb293.pgm
+         32,768   3%   92.75kB/s    0:00:10        1,048,593 100%    2.81MB/s    0:00:00 (xfr#206, to-chk=560/773)
+MiasHealthy/val/mdb294.pgm
+         32,768   3%   88.64kB/s    0:00:11        1,048,593 100%    2.66MB/s    0:00:00 (xfr#207, to-chk=559/773)
+MiasHealthy/val/mdb305.pgm
+         32,768   3%   83.99kB/s    0:00:12        1,048,593 100%    2.46MB/s    0:00:00 (xfr#208, to-chk=558/773)
+MiasHealthy/val/mdb307.pgm
+         32,768   3%   77.86kB/s    0:00:13        1,048,593 100%    2.13MB/s    0:00:00 (xfr#209, to-chk=557/773)
+MiasHealthy/val/mdb310.pgm
+         32,768   3%   67.37kB/s    0:00:15        1,048,593 100%    2.01MB/s    0:00:00 (xfr#210, to-chk=556/773)
+MiasHealthy/val/mdb318.pgm
+         32,768   3%   57.87kB/s    0:00:17        1,048,593 100%    1.75MB/s    0:00:00 (xfr#211, to-chk=555/773)
+MiasPathological/
+MiasPathological/Info.txt
+          9,860 100%   16.75kB/s    0:00:00            9,860 100%   16.72kB/s    0:00:00 (xfr#212, to-chk=554/773)
+MiasPathological/table.txt
+          6,336 100%   10.72kB/s    0:00:00            6,336 100%   10.71kB/s    0:00:00 (xfr#213, to-chk=553/773)
+MiasPathological/test/
+MiasPathological/test/images/
+MiasPathological/test/images/mdb001.pgm
+         32,768   3%   52.89kB/s    0:00:19        1,048,593 100%    1.59MB/s    0:00:00 (xfr#214, to-chk=549/773)
+MiasPathological/test/images/mdb002.pgm
+         32,768   3%   48.78kB/s    0:00:20        1,048,593 100%    1.37MB/s    0:00:00 (xfr#215, to-chk=548/773)
+MiasPathological/test/images/mdb005.pgm
+         32,768   3%   41.83kB/s    0:00:24        1,048,593 100%    1.28MB/s    0:00:00 (xfr#216, to-chk=547/773)
+MiasPathological/test/images/mdb010.pgm
+         32,768   3%   39.41kB/s    0:00:25        1,048,593 100%    1.20MB/s    0:00:00 (xfr#217, to-chk=546/773)
+MiasPathological/test/images/mdb012.pgm
+         32,768   3%   38.14kB/s    0:00:26        1,048,593 100%    1.17MB/s    0:00:00 (xfr#218, to-chk=545/773)
+MiasPathological/test/images/mdb013.pgm
+         32,768   3%   36.32kB/s    0:00:27        1,048,593 100%    1.11MB/s    0:00:00 (xfr#219, to-chk=544/773)
+MiasPathological/test/images/mdb015.pgm
+         32,768   3%   34.78kB/s    0:00:29        1,048,593 100%    1.07MB/s    0:00:00 (xfr#220, to-chk=543/773)
+MiasPathological/test/images/mdb017.pgm
+         32,768   3%   33.47kB/s    0:00:30        1,048,593 100%    1.03MB/s    0:00:00 (xfr#221, to-chk=542/773)
+MiasPathological/test/images/mdb019.pgm
+         32,768   3%   32.69kB/s    0:00:31        1,048,593 100%    1.00MB/s    0:00:00 (xfr#222, to-chk=541/773)
+MiasPathological/test/images/mdb021.pgm
+         32,768   3%   31.75kB/s    0:00:31           65,536   6%   63.49kB/s    0:00:15        1,048,593 100% 1000.02kB/s    0:00:01 (xfr#223, to-chk=540/773)
+MiasPathological/test/images/mdb023.pgm
+         32,768   3%  711.11kB/s    0:00:01        1,048,593 100%   12.35MB/s    0:00:00 (xfr#224, to-chk=539/773)
+MiasPathological/test/images/mdb025.pgm
+         32,768   3%  323.23kB/s    0:00:03        1,048,593 100%    8.70MB/s    0:00:00 (xfr#225, to-chk=538/773)
+MiasPathological/test/images/mdb028.pgm
+         32,768   3%  240.60kB/s    0:00:04        1,048,593 100%    6.76MB/s    0:00:00 (xfr#226, to-chk=537/773)
+MiasPathological/test/images/mdb030.pgm
+         32,768   3%  184.97kB/s    0:00:05        1,048,593 100%    5.32MB/s    0:00:00 (xfr#227, to-chk=536/773)
+MiasPathological/test/images/mdb032.pgm
+         32,768   3%   74.77kB/s    0:00:13        1,048,593 100%    2.24MB/s    0:00:00 (xfr#228, to-chk=535/773)
+MiasPathological/test/images/mdb058.pgm
+         32,768   3%   54.79kB/s    0:00:18          819,200  78%  637.96kB/s    0:00:00        1,048,593 100%  814.65kB/s    0:00:01 (xfr#229, to-chk=534/773)
+MiasPathological/test/images/mdb059.pgm
+         32,768   3%    2.08MB/s    0:00:00        1,048,593 100%   31.25MB/s    0:00:00 (xfr#230, to-chk=533/773)
+MiasPathological/test/images/mdb063.pgm
+         32,768   3%   24.79kB/s    0:00:40           65,536   6%   49.54kB/s    0:00:19        1,048,593 100%  775.18kB/s    0:00:01 (xfr#231, to-chk=532/773)
+MiasPathological/test/images/mdb069.pgm
+         32,768   3%  615.38kB/s    0:00:01        1,048,593 100%   14.29MB/s    0:00:00 (xfr#232, to-chk=531/773)
+MiasPathological/test/images/mdb072.pgm
+         32,768   3%  347.83kB/s    0:00:02        1,048,593 100%    9.17MB/s    0:00:00 (xfr#233, to-chk=530/773)
+MiasPathological/test/images/mdb075.pgm
+         32,768   3%  248.06kB/s    0:00:04        1,048,593 100%    6.90MB/s    0:00:00 (xfr#234, to-chk=529/773)
+MiasPathological/test/images/mdb080.pgm
+         32,768   3%  200.00kB/s    0:00:05        1,048,593 100%    5.71MB/s    0:00:00 (xfr#235, to-chk=528/773)
+MiasPathological/test/images/mdb081.pgm
+         32,768   3%  105.96kB/s    0:00:09        1,048,593 100%    3.12MB/s    0:00:00 (xfr#236, to-chk=527/773)
+MiasPathological/test/images/mdb083.pgm
+         32,768   3%   94.67kB/s    0:00:10        1,048,593 100%    2.82MB/s    0:00:00 (xfr#237, to-chk=526/773)
+MiasPathological/test/images/mdb090.pgm
+         32,768   3%   78.05kB/s    0:00:13        1,048,593 100%    2.34MB/s    0:00:00 (xfr#238, to-chk=525/773)
+MiasPathological/test/images/mdb091.pgm
+         32,768   3%   73.56kB/s    0:00:13        1,048,593 100%    2.22MB/s    0:00:00 (xfr#239, to-chk=524/773)
+MiasPathological/test/images/mdb092.pgm
+         32,768   3%   65.17kB/s    0:00:15        1,048,593 100%    1.96MB/s    0:00:00 (xfr#240, to-chk=523/773)
+MiasPathological/test/images/mdb095.pgm
+         32,768   3%   61.66kB/s    0:00:16        1,048,593 100%    1.87MB/s    0:00:00 (xfr#241, to-chk=522/773)
+MiasPathological/test/images/mdb097.pgm
+         32,768   3%   57.97kB/s    0:00:17        1,048,593 100%    1.76MB/s    0:00:00 (xfr#242, to-chk=521/773)
+MiasPathological/test/images/mdb099.pgm
+         32,768   3%   54.98kB/s    0:00:18        1,048,593 100%    1.67MB/s    0:00:00 (xfr#243, to-chk=520/773)
+MiasPathological/test/images/mdb102.pgm
+         32,768   3%   52.55kB/s    0:00:19        1,048,593 100%    1.60MB/s    0:00:00 (xfr#244, to-chk=519/773)
+MiasPathological/test/images/mdb104.pgm
+         32,768   3%   48.34kB/s    0:00:21        1,048,593 100%    1.46MB/s    0:00:00 (xfr#245, to-chk=518/773)
+MiasPathological/test/images/mdb105.pgm
+         32,768   3%   44.51kB/s    0:00:22        1,048,593 100%    1.36MB/s    0:00:00 (xfr#246, to-chk=517/773)
+MiasPathological/test/images/mdb107.pgm
+         32,768   3%   41.94kB/s    0:00:24        1,048,593 100%    1.28MB/s    0:00:00 (xfr#247, to-chk=516/773)
+MiasPathological/test/images/mdb110.pgm
+         32,768   3%   40.66kB/s    0:00:24        1,048,593 100%    1.24MB/s    0:00:00 (xfr#248, to-chk=515/773)
+MiasPathological/test/images/mdb111.pgm
+         32,768   3%   35.44kB/s    0:00:28        1,048,593 100%    1.03MB/s    0:00:00 (xfr#249, to-chk=514/773)
+MiasPathological/test/images/mdb115.pgm
+         32,768   3%   32.26kB/s    0:00:31          458,752  43%  448.00kB/s    0:00:01        1,048,593 100% 1000.99kB/s    0:00:01 (xfr#250, to-chk=513/773)
+MiasPathological/test/images/mdb117.pgm
+         32,768   3%  914.29kB/s    0:00:01        1,048,593 100%   19.23MB/s    0:00:00 (xfr#251, to-chk=512/773)
+MiasPathological/test/images/mdb120.pgm
+         32,768   3%  507.94kB/s    0:00:01        1,048,593 100%   11.90MB/s    0:00:00 (xfr#252, to-chk=511/773)
+MiasPathological/test/images/mdb121.pgm
+         32,768   3%  290.91kB/s    0:00:03        1,048,593 100%    5.46MB/s    0:00:00 (xfr#253, to-chk=510/773)
+MiasPathological/test/images/mdb124.pgm
+         32,768   3%  150.23kB/s    0:00:06        1,048,593 100%    4.33MB/s    0:00:00 (xfr#254, to-chk=509/773)
+MiasPathological/test/images/mdb125.pgm
+         32,768   3%  128.00kB/s    0:00:07        1,048,593 100%    3.76MB/s    0:00:00 (xfr#255, to-chk=508/773)
+MiasPathological/test/images/mdb126.pgm
+         32,768   3%  117.65kB/s    0:00:08        1,048,593 100%    3.30MB/s    0:00:00 (xfr#256, to-chk=507/773)
+MiasPathological/test/images/mdb127.pgm
+         32,768   3%   97.26kB/s    0:00:10        1,048,593 100%    2.87MB/s    0:00:00 (xfr#257, to-chk=506/773)
+MiasPathological/test/images/mdb130.pgm
+         32,768   3%   82.47kB/s    0:00:12        1,048,593 100%    2.46MB/s    0:00:00 (xfr#258, to-chk=505/773)
+MiasPathological/test/images/mdb132.pgm
+         32,768   3%   77.29kB/s    0:00:13        1,048,593 100%    2.32MB/s    0:00:00 (xfr#259, to-chk=504/773)
+MiasPathological/test/images/mdb134.pgm
+         32,768   3%   72.23kB/s    0:00:14        1,048,593 100%    2.18MB/s    0:00:00 (xfr#260, to-chk=503/773)
+MiasPathological/test/images/mdb141.pgm
+         32,768   3%   66.25kB/s    0:00:15        1,048,593 100%    2.00MB/s    0:00:00 (xfr#261, to-chk=502/773)
+MiasPathological/test/images/mdb142.pgm
+         32,768   3%   60.72kB/s    0:00:16        1,048,593 100%    1.84MB/s    0:00:00 (xfr#262, to-chk=501/773)
+MiasPathological/test/images/mdb144.pgm
+         32,768   3%   57.97kB/s    0:00:17        1,048,593 100%    1.76MB/s    0:00:00 (xfr#263, to-chk=500/773)
+MiasPathological/test/images/mdb145.pgm
+         32,768   3%   53.42kB/s    0:00:19        1,048,593 100%    1.62MB/s    0:00:00 (xfr#264, to-chk=499/773)
+MiasPathological/test/images/mdb148.pgm
+         32,768   3%   50.79kB/s    0:00:19        1,048,593 100%    1.55MB/s    0:00:00 (xfr#265, to-chk=498/773)
+MiasPathological/test/images/mdb150.pgm
+         32,768   3%   47.69kB/s    0:00:21        1,048,593 100%    1.45MB/s    0:00:00 (xfr#266, to-chk=497/773)
+MiasPathological/test/images/mdb152.pgm
+         32,768   3%   44.57kB/s    0:00:22        1,048,593 100%    1.36MB/s    0:00:00 (xfr#267, to-chk=496/773)
+MiasPathological/test/images/mdb155.pgm
+         32,768   3%   41.78kB/s    0:00:24        1,048,593 100%    1.23MB/s    0:00:00 (xfr#268, to-chk=495/773)
+MiasPathological/test/images/mdb158.pgm
+         32,768   3%   38.37kB/s    0:00:26        1,048,593 100%    1.15MB/s    0:00:00 (xfr#269, to-chk=494/773)
+MiasPathological/test/images/mdb160.pgm
+         32,768   3%   34.59kB/s    0:00:29        1,048,593 100%    1.06MB/s    0:00:00 (xfr#270, to-chk=493/773)
+MiasPathological/test/images/mdb163.pgm
+         32,768   3%   33.16kB/s    0:00:30        1,048,593 100%    1.02MB/s    0:00:00 (xfr#271, to-chk=492/773)
+MiasPathological/test/images/mdb165.pgm
+         32,768   3%   32.32kB/s    0:00:31          557,056  53%  544.00kB/s    0:00:00        1,048,593 100% 1018.92kB/s    0:00:01 (xfr#272, to-chk=491/773)
+MiasPathological/test/images/mdb167.pgm
+         32,768   3%    1.25MB/s    0:00:00        1,048,593 100%   25.00MB/s    0:00:00 (xfr#273, to-chk=490/773)
+MiasPathological/test/images/mdb170.pgm
+         32,768   3%  666.67kB/s    0:00:01        1,048,593 100%   15.87MB/s    0:00:00 (xfr#274, to-chk=489/773)
+MiasPathological/test/images/mdb171.pgm
+         32,768   3%  313.73kB/s    0:00:03        1,048,593 100%    8.13MB/s    0:00:00 (xfr#275, to-chk=488/773)
+MiasPathological/test/images/mdb175.pgm
+         32,768   3%  159.20kB/s    0:00:06        1,048,593 100%    4.55MB/s    0:00:00 (xfr#276, to-chk=487/773)
+MiasPathological/test/images/mdb178.pgm
+         32,768   3%  131.69kB/s    0:00:07        1,048,593 100%    3.85MB/s    0:00:00 (xfr#277, to-chk=486/773)
+MiasPathological/test/images/mdb179.pgm
+         32,768   3%  112.28kB/s    0:00:09        1,048,593 100%    3.30MB/s    0:00:00 (xfr#278, to-chk=485/773)
+MiasPathological/test/images/mdb181.pgm
+         32,768   3%   98.16kB/s    0:00:10        1,048,593 100%    2.92MB/s    0:00:00 (xfr#279, to-chk=484/773)
+MiasPathological/test/images/mdb184.pgm
+         32,768   3%   89.39kB/s    0:00:11        1,048,593 100%    2.67MB/s    0:00:00 (xfr#280, to-chk=483/773)
+MiasPathological/test/images/mdb186.pgm
+         32,768   3%   83.12kB/s    0:00:12        1,048,593 100%    2.49MB/s    0:00:00 (xfr#281, to-chk=482/773)
+MiasPathological/test/images/mdb188.pgm
+         32,768   3%   76.74kB/s    0:00:13        1,048,593 100%    2.31MB/s    0:00:00 (xfr#282, to-chk=481/773)
+MiasPathological/test/images/mdb190.pgm
+         32,768   3%   71.91kB/s    0:00:14        1,048,593 100%    2.17MB/s    0:00:00 (xfr#283, to-chk=480/773)
+MiasPathological/test/images/mdb191.pgm
+         32,768   3%   66.95kB/s    0:00:15        1,048,593 100%    2.02MB/s    0:00:00 (xfr#284, to-chk=479/773)
+MiasPathological/test/images/mdb193.pgm
+         32,768   3%   61.42kB/s    0:00:16        1,048,593 100%    1.86MB/s    0:00:00 (xfr#285, to-chk=478/773)
+MiasPathological/test/images/mdb195.pgm
+         32,768   3%   57.45kB/s    0:00:17        1,048,593 100%    1.75MB/s    0:00:00 (xfr#286, to-chk=477/773)
+MiasPathological/test/images/mdb198.pgm
+         32,768   3%   54.24kB/s    0:00:18        1,048,593 100%    1.65MB/s    0:00:00 (xfr#287, to-chk=476/773)
+MiasPathological/test/images/mdb199.pgm
+         32,768   3%   51.12kB/s    0:00:19        1,048,593 100%    1.56MB/s    0:00:00 (xfr#288, to-chk=475/773)
+MiasPathological/test/images/mdb202.pgm
+         32,768   3%   47.90kB/s    0:00:21        1,048,593 100%    1.46MB/s    0:00:00 (xfr#289, to-chk=474/773)
+MiasPathological/test/images/mdb204.pgm
+         32,768   3%   46.44kB/s    0:00:21        1,048,593 100%    1.39MB/s    0:00:00 (xfr#290, to-chk=473/773)
+MiasPathological/test/images/mdb206.pgm
+         32,768   3%   42.84kB/s    0:00:23        1,048,593 100%    1.31MB/s    0:00:00 (xfr#291, to-chk=472/773)
+MiasPathological/test/images/mdb207.pgm
+         32,768   3%   41.24kB/s    0:00:24        1,048,593 100%    1.26MB/s    0:00:00 (xfr#292, to-chk=471/773)
+MiasPathological/test/images/mdb209.pgm
+         32,768   3%   39.51kB/s    0:00:25        1,048,593 100%    1.21MB/s    0:00:00 (xfr#293, to-chk=470/773)
+MiasPathological/test/images/mdb211.pgm
+         32,768   3%   37.69kB/s    0:00:26        1,048,593 100%    1.14MB/s    0:00:00 (xfr#294, to-chk=469/773)
+MiasPathological/test/images/mdb212.pgm
+         32,768   3%   36.04kB/s    0:00:28        1,048,593 100%    1.10MB/s    0:00:00 (xfr#295, to-chk=468/773)
+MiasPathological/test/images/mdb213.pgm
+         32,768   3%   33.13kB/s    0:00:30        1,048,593 100%    1.02MB/s    0:00:00 (xfr#296, to-chk=467/773)
+MiasPathological/test/images/mdb214.pgm
+         32,768   3%   31.71kB/s    0:00:32           65,536   6%   63.43kB/s    0:00:15        1,048,593 100%  998.07kB/s    0:00:01 (xfr#297, to-chk=466/773)
+MiasPathological/test/images/mdb218.pgm
+         32,768   3%  914.29kB/s    0:00:01        1,048,593 100%    9.90MB/s    0:00:00 (xfr#298, to-chk=465/773)
+MiasPathological/test/images/mdb219.pgm
+         32,768   3%  278.26kB/s    0:00:03        1,048,593 100%    7.58MB/s    0:00:00 (xfr#299, to-chk=464/773)
+MiasPathological/test/images/mdb222.pgm
+         32,768   3%  210.53kB/s    0:00:04        1,048,593 100%    5.95MB/s    0:00:00 (xfr#300, to-chk=463/773)
+MiasPathological/test/images/mdb223.pgm
+         32,768   3%  160.80kB/s    0:00:06        1,048,593 100%    4.12MB/s    0:00:00 (xfr#301, to-chk=462/773)
+MiasPathological/test/images/mdb226.pgm
+         32,768   3%  128.00kB/s    0:00:07        1,048,593 100%    3.60MB/s    0:00:00 (xfr#302, to-chk=461/773)
+MiasPathological/test/images/mdb227.pgm
+         32,768   3%  100.63kB/s    0:00:10        1,048,593 100%    2.95MB/s    0:00:00 (xfr#303, to-chk=460/773)
+MiasPathological/test/images/mdb231.pgm
+         32,768   3%   90.91kB/s    0:00:11        1,048,593 100%    2.71MB/s    0:00:00 (xfr#304, to-chk=459/773)
+MiasPathological/test/images/mdb236.pgm
+         32,768   3%   79.80kB/s    0:00:12        1,048,593 100%    2.39MB/s    0:00:00 (xfr#305, to-chk=458/773)
+MiasPathological/test/images/mdb238.pgm
+         32,768   3%   71.75kB/s    0:00:14        1,048,593 100%    2.07MB/s    0:00:00 (xfr#306, to-chk=457/773)
+MiasPathological/test/images/mdb239.pgm
+         32,768   3%   65.44kB/s    0:00:15        1,048,593 100%    1.98MB/s    0:00:00 (xfr#307, to-chk=456/773)
+MiasPathological/test/images/mdb240.pgm
+         32,768   3%   59.81kB/s    0:00:16        1,048,593 100%    1.81MB/s    0:00:00 (xfr#308, to-chk=455/773)
+MiasPathological/test/images/mdb241.pgm
+         32,768   3%   56.74kB/s    0:00:17        1,048,593 100%    1.73MB/s    0:00:00 (xfr#309, to-chk=454/773)
+MiasPathological/test/images/mdb244.pgm
+         32,768   3%   54.70kB/s    0:00:18        1,048,593 100%    1.67MB/s    0:00:00 (xfr#310, to-chk=453/773)
+MiasPathological/test/images/mdb248.pgm
+         32,768   3%   52.03kB/s    0:00:19        1,048,593 100%    1.59MB/s    0:00:00 (xfr#311, to-chk=452/773)
+MiasPathological/test/images/mdb249.pgm
+         32,768   3%   49.69kB/s    0:00:20        1,048,593 100%    1.47MB/s    0:00:00 (xfr#312, to-chk=451/773)
+MiasPathological/test/images/mdb252.pgm
+         32,768   3%   46.65kB/s    0:00:21        1,048,593 100%    1.43MB/s    0:00:00 (xfr#313, to-chk=450/773)
+MiasPathological/test/images/mdb253.pgm
+         32,768   3%   44.02kB/s    0:00:23        1,048,593 100%    1.34MB/s    0:00:00 (xfr#314, to-chk=449/773)
+MiasPathological/test/images/mdb256.pgm
+         32,768   3%   40.97kB/s    0:00:24        1,048,593 100%    1.25MB/s    0:00:00 (xfr#315, to-chk=448/773)
+MiasPathological/test/images/mdb264.pgm
+         32,768   3%   39.12kB/s    0:00:25        1,048,593 100%    1.20MB/s    0:00:00 (xfr#316, to-chk=447/773)
+MiasPathological/test/images/mdb265.pgm
+         32,768   3%   36.91kB/s    0:00:27        1,048,593 100%    1.07MB/s    0:00:00 (xfr#317, to-chk=446/773)
+MiasPathological/test/images/mdb267.pgm
+         32,768   3%   33.06kB/s    0:00:30        1,048,593 100%    1.01MB/s    0:00:00 (xfr#318, to-chk=445/773)
+MiasPathological/test/images/mdb270.pgm
+         32,768   3%   31.53kB/s    0:00:32           65,536   6%   63.05kB/s    0:00:15        1,048,593 100%  954.35kB/s    0:00:01 (xfr#319, to-chk=444/773)
+MiasPathological/test/images/mdb271.pgm
+         32,768   3%  438.36kB/s    0:00:02        1,048,593 100%   11.24MB/s    0:00:00 (xfr#320, to-chk=443/773)
+MiasPathological/test/images/mdb274.pgm
+         32,768   3%  271.19kB/s    0:00:03        1,048,593 100%    5.68MB/s    0:00:00 (xfr#321, to-chk=442/773)
+MiasPathological/test/images/mdb290.pgm
+         32,768   3%  168.42kB/s    0:00:06        1,048,593 100%    4.85MB/s    0:00:00 (xfr#322, to-chk=441/773)
+MiasPathological/test/images/mdb312.pgm
+         32,768   3%  142.86kB/s    0:00:07        1,048,593 100%    4.17MB/s    0:00:00 (xfr#323, to-chk=440/773)
+MiasPathological/test/images/mdb314.pgm
+         32,768   3%  121.67kB/s    0:00:08        1,048,593 100%    3.03MB/s    0:00:00 (xfr#324, to-chk=439/773)
+MiasPathological/test/images/mdb315.pgm
+         32,768   3%   93.57kB/s    0:00:10        1,048,593 100%    2.79MB/s    0:00:00 (xfr#325, to-chk=438/773)
+MiasPathological/test/target_images/
+MiasPathological/test/target_images/mdb001.pgm
+         32,768   3%   84.66kB/s    0:00:11        1,048,593 100%    2.48MB/s    0:00:00 (xfr#326, to-chk=437/773)
+MiasPathological/test/target_images/mdb002.pgm
+         32,768   3%   75.65kB/s    0:00:13        1,048,593 100%    2.23MB/s    0:00:00 (xfr#327, to-chk=436/773)
+MiasPathological/test/target_images/mdb005.pgm
+         32,768   3%   69.11kB/s    0:00:14        1,048,593 100%    2.09MB/s    0:00:00 (xfr#328, to-chk=435/773)
+MiasPathological/test/target_images/mdb010.pgm
+         32,768   3%   64.26kB/s    0:00:15        1,048,593 100%    1.95MB/s    0:00:00 (xfr#329, to-chk=434/773)
+MiasPathological/test/target_images/mdb012.pgm
+         32,768   3%   61.66kB/s    0:00:16        1,048,593 100%    1.87MB/s    0:00:00 (xfr#330, to-chk=433/773)
+MiasPathological/test/target_images/mdb013.pgm
+         32,768   3%   57.55kB/s    0:00:17        1,048,593 100%    1.75MB/s    0:00:00 (xfr#331, to-chk=432/773)
+MiasPathological/test/target_images/mdb015.pgm
+         32,768   3%   55.46kB/s    0:00:18        1,048,593 100%    1.69MB/s    0:00:00 (xfr#332, to-chk=431/773)
+MiasPathological/test/target_images/mdb017.pgm
+         32,768   3%   52.89kB/s    0:00:19        1,048,593 100%    1.61MB/s    0:00:00 (xfr#333, to-chk=430/773)
+MiasPathological/test/target_images/mdb019.pgm
+         32,768   3%   49.69kB/s    0:00:20        1,048,593 100%    1.51MB/s    0:00:00 (xfr#334, to-chk=429/773)
+MiasPathological/test/target_images/mdb021.pgm
+         32,768   3%   48.05kB/s    0:00:21        1,048,593 100%    1.44MB/s    0:00:00 (xfr#335, to-chk=428/773)
+MiasPathological/test/target_images/mdb023.pgm
+         32,768   3%   45.13kB/s    0:00:22        1,048,593 100%    1.36MB/s    0:00:00 (xfr#336, to-chk=427/773)
+MiasPathological/test/target_images/mdb025.pgm
+         32,768   3%   42.67kB/s    0:00:23        1,048,593 100%    1.31MB/s    0:00:00 (xfr#337, to-chk=426/773)
+MiasPathological/test/target_images/mdb028.pgm
+         32,768   3%   40.97kB/s    0:00:24        1,048,593 100%    1.26MB/s    0:00:00 (xfr#338, to-chk=425/773)
+MiasPathological/test/target_images/mdb030.pgm
+         32,768   3%   39.22kB/s    0:00:25        1,048,593 100%    1.20MB/s    0:00:00 (xfr#339, to-chk=424/773)
+MiasPathological/test/target_images/mdb032.pgm
+         32,768   3%   37.60kB/s    0:00:27        1,048,593 100%    1.15MB/s    0:00:00 (xfr#340, to-chk=423/773)
+MiasPathological/test/target_images/mdb058.pgm
+         32,768   3%   36.66kB/s    0:00:27        1,048,593 100%    1.12MB/s    0:00:00 (xfr#341, to-chk=422/773)
+MiasPathological/test/target_images/mdb059.pgm
+         32,768   3%   35.75kB/s    0:00:28        1,048,593 100%    1.10MB/s    0:00:00 (xfr#342, to-chk=421/773)
+MiasPathological/test/target_images/mdb063.pgm
+         32,768   3%   34.93kB/s    0:00:29        1,048,593 100%    1.07MB/s    0:00:00 (xfr#343, to-chk=420/773)
+MiasPathological/test/target_images/mdb069.pgm
+         32,768   3%   34.15kB/s    0:00:29        1,048,593 100%    1.05MB/s    0:00:00 (xfr#344, to-chk=419/773)
+MiasPathological/test/target_images/mdb072.pgm
+         32,768   3%   33.40kB/s    0:00:30        1,048,593 100%    1.02MB/s    0:00:00 (xfr#345, to-chk=418/773)
+MiasPathological/test/target_images/mdb075.pgm
+         32,768   3%   32.55kB/s    0:00:31          294,912  28%  287.43kB/s    0:00:02        1,048,593 100% 1009.88kB/s    0:00:01 (xfr#346, to-chk=417/773)
+MiasPathological/test/target_images/mdb080.pgm
+         32,768   3%    1.95MB/s    0:00:00        1,048,593 100%   32.26MB/s    0:00:00 (xfr#347, to-chk=416/773)
+MiasPathological/test/target_images/mdb081.pgm
+         32,768   3%  680.85kB/s    0:00:01        1,048,593 100%   15.87MB/s    0:00:00 (xfr#348, to-chk=415/773)
+MiasPathological/test/target_images/mdb083.pgm
+         32,768   3%  390.24kB/s    0:00:02        1,048,593 100%   10.31MB/s    0:00:00 (xfr#349, to-chk=414/773)
+MiasPathological/test/target_images/mdb090.pgm
+         32,768   3%  299.07kB/s    0:00:03        1,048,593 100%    8.06MB/s    0:00:00 (xfr#350, to-chk=413/773)
+MiasPathological/test/target_images/mdb091.pgm
+         32,768   3%  246.15kB/s    0:00:04        1,048,593 100%    6.90MB/s    0:00:00 (xfr#351, to-chk=412/773)
+MiasPathological/test/target_images/mdb092.pgm
+         32,768   3%  197.53kB/s    0:00:05        1,048,593 100%    5.52MB/s    0:00:00 (xfr#352, to-chk=411/773)
+MiasPathological/test/target_images/mdb095.pgm
+         32,768   3%  160.80kB/s    0:00:06        1,048,593 100%    4.55MB/s    0:00:00 (xfr#353, to-chk=410/773)
+MiasPathological/test/target_images/mdb097.pgm
+         32,768   3%  141.59kB/s    0:00:07        1,048,593 100%    4.10MB/s    0:00:00 (xfr#354, to-chk=409/773)
+MiasPathological/test/target_images/mdb099.pgm
+         32,768   3%  124.51kB/s    0:00:08        1,048,593 100%    3.68MB/s    0:00:00 (xfr#355, to-chk=408/773)
+MiasPathological/test/target_images/mdb102.pgm
+         32,768   3%  109.59kB/s    0:00:09        1,048,593 100%    3.25MB/s    0:00:00 (xfr#356, to-chk=407/773)
+MiasPathological/test/target_images/mdb104.pgm
+         32,768   3%   98.46kB/s    0:00:10        1,048,593 100%    2.93MB/s    0:00:00 (xfr#357, to-chk=406/773)
+MiasPathological/test/target_images/mdb105.pgm
+         32,768   3%   92.75kB/s    0:00:10        1,048,593 100%    2.77MB/s    0:00:00 (xfr#358, to-chk=405/773)
+MiasPathological/test/target_images/mdb107.pgm
+         32,768   3%   87.43kB/s    0:00:11        1,048,593 100%    2.62MB/s    0:00:00 (xfr#359, to-chk=404/773)
+MiasPathological/test/target_images/mdb110.pgm
+         32,768   3%   78.82kB/s    0:00:12        1,048,593 100%    2.29MB/s    0:00:00 (xfr#360, to-chk=403/773)
+MiasPathological/test/target_images/mdb111.pgm
+         32,768   3%   72.23kB/s    0:00:14        1,048,593 100%    2.07MB/s    0:00:00 (xfr#361, to-chk=402/773)
+MiasPathological/test/target_images/mdb115.pgm
+         32,768   3%   65.31kB/s    0:00:15        1,048,593 100%    1.91MB/s    0:00:00 (xfr#362, to-chk=401/773)
+MiasPathological/test/target_images/mdb117.pgm
+         32,768   3%   58.72kB/s    0:00:17        1,048,593 100%    1.76MB/s    0:00:00 (xfr#363, to-chk=400/773)
+MiasPathological/test/target_images/mdb120.pgm
+         32,768   3%   55.75kB/s    0:00:18        1,048,593 100%    1.68MB/s    0:00:00 (xfr#364, to-chk=399/773)
+MiasPathological/test/target_images/mdb121.pgm
+         32,768   3%   53.16kB/s    0:00:19        1,048,593 100%    1.62MB/s    0:00:00 (xfr#365, to-chk=398/773)
+MiasPathological/test/target_images/mdb124.pgm
+         32,768   3%   51.28kB/s    0:00:19        1,048,593 100%    1.56MB/s    0:00:00 (xfr#366, to-chk=397/773)
+MiasPathological/test/target_images/mdb125.pgm
+         32,768   3%   49.61kB/s    0:00:20        1,048,593 100%    1.46MB/s    0:00:00 (xfr#367, to-chk=396/773)
+MiasPathological/test/target_images/mdb126.pgm
+         32,768   3%   46.44kB/s    0:00:21        1,048,593 100%    1.38MB/s    0:00:00 (xfr#368, to-chk=395/773)
+MiasPathological/test/target_images/mdb127.pgm
+         32,768   3%   43.78kB/s    0:00:23        1,048,593 100%    1.31MB/s    0:00:00 (xfr#369, to-chk=394/773)
+MiasPathological/test/target_images/mdb130.pgm
+         32,768   3%   41.67kB/s    0:00:24        1,048,593 100%    1.28MB/s    0:00:00 (xfr#370, to-chk=393/773)
+MiasPathological/test/target_images/mdb132.pgm
+         32,768   3%   39.85kB/s    0:00:25        1,048,593 100%    1.22MB/s    0:00:00 (xfr#371, to-chk=392/773)
+MiasPathological/test/target_images/mdb134.pgm
+         32,768   3%   37.38kB/s    0:00:27        1,048,593 100%    1.15MB/s    0:00:00 (xfr#372, to-chk=391/773)
+MiasPathological/test/target_images/mdb141.pgm
+         32,768   3%   36.45kB/s    0:00:27        1,048,593 100%    1.12MB/s    0:00:00 (xfr#373, to-chk=390/773)
+MiasPathological/test/target_images/mdb142.pgm
+         32,768   3%   35.60kB/s    0:00:28        1,048,593 100%    1.09MB/s    0:00:00 (xfr#374, to-chk=389/773)
+MiasPathological/test/target_images/mdb144.pgm
+         32,768   3%   34.37kB/s    0:00:29        1,048,593 100%    1.06MB/s    0:00:00 (xfr#375, to-chk=388/773)
+MiasPathological/test/target_images/mdb145.pgm
+         32,768   3%   33.61kB/s    0:00:30        1,048,593 100%    1.03MB/s    0:00:00 (xfr#376, to-chk=387/773)
+MiasPathological/test/target_images/mdb148.pgm
+         32,768   3%   32.72kB/s    0:00:31        1,048,593 100%    1.01MB/s    0:00:00 (xfr#377, to-chk=386/773)
+MiasPathological/test/target_images/mdb150.pgm
+         32,768   3%   32.03kB/s    0:00:31           98,304   9%   96.00kB/s    0:00:09        1,048,593 100% 1010.88kB/s    0:00:01 (xfr#378, to-chk=385/773)
+MiasPathological/test/target_images/mdb152.pgm
+         32,768   3%    1.49MB/s    0:00:00        1,048,593 100%   27.78MB/s    0:00:00 (xfr#379, to-chk=384/773)
+MiasPathological/test/target_images/mdb155.pgm
+         32,768   3%  571.43kB/s    0:00:01        1,048,593 100%   10.87MB/s    0:00:00 (xfr#380, to-chk=383/773)
+MiasPathological/test/target_images/mdb158.pgm
+         32,768   3%  326.53kB/s    0:00:03        1,048,593 100%    8.00MB/s    0:00:00 (xfr#381, to-chk=382/773)
+MiasPathological/test/target_images/mdb160.pgm
+         32,768   3%  213.33kB/s    0:00:04        1,048,593 100%    5.78MB/s    0:00:00 (xfr#382, to-chk=381/773)
+MiasPathological/test/target_images/mdb163.pgm
+         32,768   3%  178.77kB/s    0:00:05        1,048,593 100%    5.13MB/s    0:00:00 (xfr#383, to-chk=380/773)
+MiasPathological/test/target_images/mdb165.pgm
+         32,768   3%  159.20kB/s    0:00:06        1,048,593 100%    4.63MB/s    0:00:00 (xfr#384, to-chk=379/773)
+MiasPathological/test/target_images/mdb167.pgm
+         32,768   3%  138.53kB/s    0:00:07        1,048,593 100%    4.07MB/s    0:00:00 (xfr#385, to-chk=378/773)
+MiasPathological/test/target_images/mdb170.pgm
+         32,768   3%  127.49kB/s    0:00:07        1,048,593 100%    3.66MB/s    0:00:00 (xfr#386, to-chk=377/773)
+MiasPathological/test/target_images/mdb171.pgm
+         32,768   3%  109.97kB/s    0:00:09        1,048,593 100%    3.26MB/s    0:00:00 (xfr#387, to-chk=376/773)
+MiasPathological/test/target_images/mdb175.pgm
+         32,768   3%  102.56kB/s    0:00:09        1,048,593 100%    3.01MB/s    0:00:00 (xfr#388, to-chk=375/773)
+MiasPathological/test/target_images/mdb178.pgm
+         32,768   3%   94.96kB/s    0:00:10        1,048,593 100%    2.82MB/s    0:00:00 (xfr#389, to-chk=374/773)
+MiasPathological/test/target_images/mdb179.pgm
+         32,768   3%   89.14kB/s    0:00:11        1,048,593 100%    2.57MB/s    0:00:00 (xfr#390, to-chk=373/773)
+MiasPathological/test/target_images/mdb181.pgm
+         32,768   3%   80.20kB/s    0:00:12        1,048,593 100%    2.35MB/s    0:00:00 (xfr#391, to-chk=372/773)
+MiasPathological/test/target_images/mdb184.pgm
+         32,768   3%   70.80kB/s    0:00:14        1,048,593 100%    2.14MB/s    0:00:00 (xfr#392, to-chk=371/773)
+MiasPathological/test/target_images/mdb186.pgm
+         32,768   3%   65.98kB/s    0:00:15        1,048,593 100%    2.00MB/s    0:00:00 (xfr#393, to-chk=370/773)
+MiasPathological/test/target_images/mdb188.pgm
+         32,768   3%   62.38kB/s    0:00:16        1,048,593 100%    1.87MB/s    0:00:00 (xfr#394, to-chk=369/773)
+MiasPathological/test/target_images/mdb190.pgm
+         32,768   3%   59.26kB/s    0:00:17        1,048,593 100%    1.80MB/s    0:00:00 (xfr#395, to-chk=368/773)
+MiasPathological/test/target_images/mdb191.pgm
+         32,768   3%   57.04kB/s    0:00:17        1,048,593 100%    1.74MB/s    0:00:00 (xfr#396, to-chk=367/773)
+MiasPathological/test/target_images/mdb193.pgm
+         32,768   3%   54.42kB/s    0:00:18        1,048,593 100%    1.65MB/s    0:00:00 (xfr#397, to-chk=366/773)
+MiasPathological/test/target_images/mdb195.pgm
+         32,768   3%   52.20kB/s    0:00:19        1,048,593 100%    1.57MB/s    0:00:00 (xfr#398, to-chk=365/773)
+MiasPathological/test/target_images/mdb198.pgm
+         32,768   3%   48.56kB/s    0:00:20        1,048,593 100%    1.46MB/s    0:00:00 (xfr#399, to-chk=364/773)
+MiasPathological/test/target_images/mdb199.pgm
+         32,768   3%   46.44kB/s    0:00:21        1,048,593 100%    1.42MB/s    0:00:00 (xfr#400, to-chk=363/773)
+MiasPathological/test/target_images/mdb202.pgm
+         32,768   3%   45.01kB/s    0:00:22        1,048,593 100%    1.36MB/s    0:00:00 (xfr#401, to-chk=362/773)
+MiasPathological/test/target_images/mdb204.pgm
+         32,768   3%   43.30kB/s    0:00:23        1,048,593 100%    1.32MB/s    0:00:00 (xfr#402, to-chk=361/773)
+MiasPathological/test/target_images/mdb206.pgm
+         32,768   3%   41.40kB/s    0:00:24        1,048,593 100%    1.24MB/s    0:00:00 (xfr#403, to-chk=360/773)
+MiasPathological/test/target_images/mdb207.pgm
+         32,768   3%   39.31kB/s    0:00:25        1,048,593 100%    1.21MB/s    0:00:00 (xfr#404, to-chk=359/773)
+MiasPathological/test/target_images/mdb209.pgm
+         32,768   3%   38.32kB/s    0:00:26        1,048,593 100%    1.18MB/s    0:00:00 (xfr#405, to-chk=358/773)
+MiasPathological/test/target_images/mdb211.pgm
+         32,768   3%   37.38kB/s    0:00:27        1,048,593 100%    1.15MB/s    0:00:00 (xfr#406, to-chk=357/773)
+MiasPathological/test/target_images/mdb212.pgm
+         32,768   3%   36.49kB/s    0:00:27        1,048,593 100%    1.12MB/s    0:00:00 (xfr#407, to-chk=356/773)
+MiasPathological/test/target_images/mdb213.pgm
+         32,768   3%   35.36kB/s    0:00:28        1,048,593 100%    1.08MB/s    0:00:00 (xfr#408, to-chk=355/773)
+MiasPathological/test/target_images/mdb214.pgm
+         32,768   3%   34.37kB/s    0:00:29        1,048,593 100%    1.06MB/s    0:00:00 (xfr#409, to-chk=354/773)
+MiasPathological/test/target_images/mdb218.pgm
+         32,768   3%   33.23kB/s    0:00:30        1,048,593 100%    1.02MB/s    0:00:00 (xfr#410, to-chk=353/773)
+MiasPathological/test/target_images/mdb219.pgm
+         32,768   3%   31.94kB/s    0:00:31           65,536   6%   63.87kB/s    0:00:15        1,048,593 100% 1004.92kB/s    0:00:01 (xfr#411, to-chk=352/773)
+MiasPathological/test/target_images/mdb222.pgm
+         32,768   3%    1.16MB/s    0:00:00        1,048,593 100%   22.73MB/s    0:00:00 (xfr#412, to-chk=351/773)
+MiasPathological/test/target_images/mdb223.pgm
+         32,768   3%  533.33kB/s    0:00:01        1,048,593 100%   13.33MB/s    0:00:00 (xfr#413, to-chk=350/773)
+MiasPathological/test/target_images/mdb226.pgm
+         32,768   3%  400.00kB/s    0:00:02        1,048,593 100%    9.35MB/s    0:00:00 (xfr#414, to-chk=349/773)
+MiasPathological/test/target_images/mdb227.pgm
+         32,768   3%  285.71kB/s    0:00:03        1,048,593 100%    7.87MB/s    0:00:00 (xfr#415, to-chk=348/773)
+MiasPathological/test/target_images/mdb231.pgm
+         32,768   3%  233.58kB/s    0:00:04        1,048,593 100%    6.58MB/s    0:00:00 (xfr#416, to-chk=347/773)
+MiasPathological/test/target_images/mdb236.pgm
+         32,768   3%  176.80kB/s    0:00:05        1,048,593 100%    5.08MB/s    0:00:00 (xfr#417, to-chk=346/773)
+MiasPathological/test/target_images/mdb238.pgm
+         32,768   3%  148.84kB/s    0:00:06        1,048,593 100%    4.33MB/s    0:00:00 (xfr#418, to-chk=345/773)
+MiasPathological/test/target_images/mdb239.pgm
+         32,768   3%  135.59kB/s    0:00:07        1,048,593 100%    3.98MB/s    0:00:00 (xfr#419, to-chk=344/773)
+MiasPathological/test/target_images/mdb240.pgm
+         32,768   3%  125.00kB/s    0:00:08        1,048,593 100%    3.69MB/s    0:00:00 (xfr#420, to-chk=343/773)
+MiasPathological/test/target_images/mdb241.pgm
+         32,768   3%  111.11kB/s    0:00:09        1,048,593 100%    3.31MB/s    0:00:00 (xfr#421, to-chk=342/773)
+MiasPathological/test/target_images/mdb244.pgm
+         32,768   3%  103.90kB/s    0:00:09        1,048,593 100%    3.01MB/s    0:00:00 (xfr#422, to-chk=341/773)
+MiasPathological/test/target_images/mdb248.pgm
+         32,768   3%   94.12kB/s    0:00:10        1,048,593 100%    2.81MB/s    0:00:00 (xfr#423, to-chk=340/773)
+MiasPathological/test/target_images/mdb249.pgm
+         32,768   3%   88.40kB/s    0:00:11        1,048,593 100%    2.57MB/s    0:00:00 (xfr#424, to-chk=339/773)
+MiasPathological/test/target_images/mdb252.pgm
+         32,768   3%   81.22kB/s    0:00:12        1,048,593 100%    2.45MB/s    0:00:00 (xfr#425, to-chk=338/773)
+MiasPathological/test/target_images/mdb253.pgm
+         32,768   3%   74.94kB/s    0:00:13        1,048,593 100%    2.26MB/s    0:00:00 (xfr#426, to-chk=337/773)
+MiasPathological/test/target_images/mdb256.pgm
+         32,768   3%   67.65kB/s    0:00:15        1,048,593 100%    2.04MB/s    0:00:00 (xfr#427, to-chk=336/773)
+MiasPathological/test/target_images/mdb264.pgm
+         32,768   3%   64.52kB/s    0:00:15        1,048,593 100%    1.95MB/s    0:00:00 (xfr#428, to-chk=335/773)
+MiasPathological/test/target_images/mdb265.pgm
+         32,768   3%   61.78kB/s    0:00:16        1,048,593 100%    1.84MB/s    0:00:00 (xfr#429, to-chk=334/773)
+MiasPathological/test/target_images/mdb267.pgm
+         32,768   3%   58.29kB/s    0:00:17        1,048,593 100%    1.77MB/s    0:00:00 (xfr#430, to-chk=333/773)
+MiasPathological/test/target_images/mdb270.pgm
+         32,768   3%   56.14kB/s    0:00:18        1,048,593 100%    1.67MB/s    0:00:00 (xfr#431, to-chk=332/773)
+MiasPathological/test/target_images/mdb271.pgm
+         32,768   3%   52.98kB/s    0:00:19        1,048,593 100%    1.60MB/s    0:00:00 (xfr#432, to-chk=331/773)
+MiasPathological/test/target_images/mdb274.pgm
+         32,768   3%   50.08kB/s    0:00:20        1,048,593 100%    1.46MB/s    0:00:00 (xfr#433, to-chk=330/773)
+MiasPathological/test/target_images/mdb290.pgm
+         32,768   3%   46.24kB/s    0:00:21        1,048,593 100%    1.41MB/s    0:00:00 (xfr#434, to-chk=329/773)
+MiasPathological/test/target_images/mdb312.pgm
+         32,768   3%   44.02kB/s    0:00:23        1,048,593 100%    1.35MB/s    0:00:00 (xfr#435, to-chk=328/773)
+MiasPathological/test/target_images/mdb314.pgm
+         32,768   3%   42.84kB/s    0:00:23        1,048,593 100%    1.31MB/s    0:00:00 (xfr#436, to-chk=327/773)
+MiasPathological/test/target_images/mdb315.pgm
+         32,768   3%   41.67kB/s    0:00:24        1,048,593 100%    1.28MB/s    0:00:00 (xfr#437, to-chk=326/773)
+MiasRaw/
+MiasRaw/Info.txt
+          9,860 100%   12.23kB/s    0:00:00            9,860 100%   12.23kB/s    0:00:00 (xfr#438, to-chk=325/773)
+MiasRaw/Licence.txt
+          1,720 100%    2.13kB/s    0:00:00            1,720 100%    2.13kB/s    0:00:00 (xfr#439, to-chk=324/773)
+MiasRaw/README
+          9,860 100%   12.19kB/s    0:00:00            9,860 100%   12.17kB/s    0:00:00 (xfr#440, to-chk=323/773)
+MiasRaw/mdb001.pgm
+         32,768   3%   39.31kB/s    0:00:25        1,048,593 100%    1.21MB/s    0:00:00 (xfr#441, to-chk=322/773)
+MiasRaw/mdb002.pgm
+         32,768   3%   37.04kB/s    0:00:27        1,048,593 100%    1.13MB/s    0:00:00 (xfr#442, to-chk=321/773)
+MiasRaw/mdb003.pgm
+         32,768   3%   35.40kB/s    0:00:28        1,048,593 100%    1.09MB/s    0:00:00 (xfr#443, to-chk=320/773)
+MiasRaw/mdb004.pgm
+         32,768   3%   34.01kB/s    0:00:29        1,048,593 100%    1.04MB/s    0:00:00 (xfr#444, to-chk=319/773)
+MiasRaw/mdb005.pgm
+         32,768   3%   32.75kB/s    0:00:31        1,048,593 100%    1.01MB/s    0:00:00 (xfr#445, to-chk=318/773)
+MiasRaw/mdb006.pgm
+         32,768   3%   31.50kB/s    0:00:32           65,536   6%   62.93kB/s    0:00:15        1,048,593 100%  963.33kB/s    0:00:01 (xfr#446, to-chk=317/773)
+MiasRaw/mdb007.pgm
+         32,768   3%  450.70kB/s    0:00:02        1,048,593 100%   11.11MB/s    0:00:00 (xfr#447, to-chk=316/773)
+MiasRaw/mdb008.pgm
+         32,768   3%  280.70kB/s    0:00:03        1,048,593 100%    7.69MB/s    0:00:00 (xfr#448, to-chk=315/773)
+MiasRaw/mdb009.pgm
+         32,768   3%  207.79kB/s    0:00:04        1,048,593 100%    5.88MB/s    0:00:00 (xfr#449, to-chk=314/773)
+MiasRaw/mdb010.pgm
+         32,768   3%  128.51kB/s    0:00:07        1,048,593 100%    3.53MB/s    0:00:00 (xfr#450, to-chk=313/773)
+MiasRaw/mdb011.pgm
+         32,768   3%  107.74kB/s    0:00:09        1,048,593 100%    3.18MB/s    0:00:00 (xfr#451, to-chk=312/773)
+MiasRaw/mdb012.pgm
+         32,768   3%   95.24kB/s    0:00:10        1,048,593 100%    2.71MB/s    0:00:00 (xfr#452, to-chk=311/773)
+MiasRaw/mdb013.pgm
+         32,768   3%   76.92kB/s    0:00:13        1,048,593 100%    2.30MB/s    0:00:00 (xfr#453, to-chk=310/773)
+MiasRaw/mdb014.pgm
+         32,768   3%   69.41kB/s    0:00:14        1,048,593 100%    2.08MB/s    0:00:00 (xfr#454, to-chk=309/773)
+MiasRaw/mdb015.pgm
+         32,768   3%   63.75kB/s    0:00:15        1,048,593 100%    1.93MB/s    0:00:00 (xfr#455, to-chk=308/773)
+MiasRaw/mdb016.pgm
+         32,768   3%   59.81kB/s    0:00:16        1,048,593 100%    1.81MB/s    0:00:00 (xfr#456, to-chk=307/773)
+MiasRaw/mdb017.pgm
+         32,768   3%   56.24kB/s    0:00:18        1,048,593 100%    1.71MB/s    0:00:00 (xfr#457, to-chk=306/773)
+MiasRaw/mdb018.pgm
+         32,768   3%   52.89kB/s    0:00:19        1,048,593 100%    1.61MB/s    0:00:00 (xfr#458, to-chk=305/773)
+MiasRaw/mdb019.pgm
+         32,768   3%   51.04kB/s    0:00:19        1,048,593 100%    1.55MB/s    0:00:00 (xfr#459, to-chk=304/773)
+MiasRaw/mdb020.pgm
+         32,768   3%   49.31kB/s    0:00:20        1,048,593 100%    1.51MB/s    0:00:00 (xfr#460, to-chk=303/773)
+MiasRaw/mdb021.pgm
+         32,768   3%   47.13kB/s    0:00:21        1,048,593 100%    1.44MB/s    0:00:00 (xfr#461, to-chk=302/773)
+MiasRaw/mdb022.pgm
+         32,768   3%   44.82kB/s    0:00:22        1,048,593 100%    1.37MB/s    0:00:00 (xfr#462, to-chk=301/773)
+MiasRaw/mdb023.pgm
+         32,768   3%   42.50kB/s    0:00:23        1,048,593 100%    1.30MB/s    0:00:00 (xfr#463, to-chk=300/773)
+MiasRaw/mdb024.pgm
+         32,768   3%   40.82kB/s    0:00:24        1,048,593 100%    1.25MB/s    0:00:00 (xfr#464, to-chk=299/773)
+MiasRaw/mdb025.pgm
+         32,768   3%   39.26kB/s    0:00:25        1,048,593 100%    1.20MB/s    0:00:00 (xfr#465, to-chk=298/773)
+MiasRaw/mdb026.pgm
+         32,768   3%   37.17kB/s    0:00:27        1,048,593 100%    1.08MB/s    0:00:00 (xfr#466, to-chk=297/773)
+MiasRaw/mdb027.pgm
+         32,768   3%   33.65kB/s    0:00:30        1,048,593 100%    1.03MB/s    0:00:00 (xfr#467, to-chk=296/773)
+MiasRaw/mdb028.pgm
+         32,768   3%   32.16kB/s    0:00:31          294,912  28%  288.00kB/s    0:00:02        1,048,593 100% 1010.88kB/s    0:00:01 (xfr#468, to-chk=295/773)
+MiasRaw/mdb029.pgm
+         32,768   3%  820.51kB/s    0:00:01        1,048,593 100%   18.18MB/s    0:00:00 (xfr#469, to-chk=294/773)
+MiasRaw/mdb030.pgm
+         32,768   3%  410.26kB/s    0:00:02        1,048,593 100%   10.53MB/s    0:00:00 (xfr#470, to-chk=293/773)
+MiasRaw/mdb031.pgm
+         32,768   3%  200.00kB/s    0:00:05        1,048,593 100%    5.26MB/s    0:00:00 (xfr#471, to-chk=292/773)
+MiasRaw/mdb032.pgm
+         32,768   3%  151.66kB/s    0:00:06        1,048,593 100%    4.33MB/s    0:00:00 (xfr#472, to-chk=291/773)
+MiasRaw/mdb033.pgm
+         32,768   3%  135.02kB/s    0:00:07        1,048,593 100%    3.70MB/s    0:00:00 (xfr#473, to-chk=290/773)
+MiasRaw/mdb034.pgm
+         32,768   3%  108.47kB/s    0:00:09        1,048,593 100%    3.19MB/s    0:00:00 (xfr#474, to-chk=289/773)
+MiasRaw/mdb035.pgm
+         32,768   3%   97.56kB/s    0:00:10        1,048,593 100%    2.90MB/s    0:00:00 (xfr#475, to-chk=288/773)
+MiasRaw/mdb036.pgm
+         32,768   3%   85.56kB/s    0:00:11        1,048,593 100%    2.54MB/s    0:00:00 (xfr#476, to-chk=287/773)
+MiasRaw/mdb037.pgm
+         32,768   3%   77.86kB/s    0:00:13        1,048,593 100%    2.33MB/s    0:00:00 (xfr#477, to-chk=286/773)
+MiasRaw/mdb038.pgm
+         32,768   3%   71.75kB/s    0:00:14        1,048,593 100%    2.16MB/s    0:00:00 (xfr#478, to-chk=285/773)
+MiasRaw/mdb039.pgm
+         32,768   3%   66.95kB/s    0:00:15        1,048,593 100%    1.90MB/s    0:00:00 (xfr#479, to-chk=284/773)
+MiasRaw/mdb040.pgm
+         32,768   3%   58.93kB/s    0:00:17        1,048,593 100%    1.79MB/s    0:00:00 (xfr#480, to-chk=283/773)
+MiasRaw/mdb041.pgm
+         32,768   3%   55.27kB/s    0:00:18        1,048,593 100%    1.68MB/s    0:00:00 (xfr#481, to-chk=282/773)
+MiasRaw/mdb042.pgm
+         32,768   3%   52.46kB/s    0:00:19        1,048,593 100%    1.55MB/s    0:00:00 (xfr#482, to-chk=281/773)
+MiasRaw/mdb043.pgm
+         32,768   3%   47.06kB/s    0:00:21        1,048,593 100%    1.43MB/s    0:00:00 (xfr#483, to-chk=280/773)
+MiasRaw/mdb044.pgm
+         32,768   3%   44.82kB/s    0:00:22        1,048,593 100%    1.37MB/s    0:00:00 (xfr#484, to-chk=279/773)
+MiasRaw/mdb045.pgm
+         32,768   3%   42.55kB/s    0:00:23        1,048,593 100%    1.28MB/s    0:00:00 (xfr#485, to-chk=278/773)
+MiasRaw/mdb046.pgm
+         32,768   3%   40.51kB/s    0:00:25        1,048,593 100%    1.24MB/s    0:00:00 (xfr#486, to-chk=277/773)
+MiasRaw/mdb047.pgm
+         32,768   3%   39.41kB/s    0:00:25        1,048,593 100%    1.21MB/s    0:00:00 (xfr#487, to-chk=276/773)
+MiasRaw/mdb048.pgm
+         32,768   3%   38.00kB/s    0:00:26        1,048,593 100%    1.16MB/s    0:00:00 (xfr#488, to-chk=275/773)
+MiasRaw/mdb049.pgm
+         32,768   3%   36.20kB/s    0:00:28        1,048,593 100%    1.11MB/s    0:00:00 (xfr#489, to-chk=274/773)
+MiasRaw/mdb050.pgm
+         32,768   3%   34.56kB/s    0:00:29        1,048,593 100%    1.03MB/s    0:00:00 (xfr#490, to-chk=273/773)
+MiasRaw/mdb051.pgm
+         32,768   3%   32.45kB/s    0:00:31          819,200  78%  799.20kB/s    0:00:00        1,048,593 100% 1020.95kB/s    0:00:01 (xfr#491, to-chk=272/773)
+MiasRaw/mdb052.pgm
+         32,768   3%    1.08MB/s    0:00:00        1,048,593 100%   21.74MB/s    0:00:00 (xfr#492, to-chk=271/773)
+MiasRaw/mdb053.pgm
+         32,768   3%  202.53kB/s    0:00:05        1,048,593 100%    5.68MB/s    0:00:00 (xfr#493, to-chk=270/773)
+MiasRaw/mdb054.pgm
+         32,768   3%  157.64kB/s    0:00:06        1,048,593 100%    4.55MB/s    0:00:00 (xfr#494, to-chk=269/773)
+MiasRaw/mdb055.pgm
+         32,768   3%  129.55kB/s    0:00:07        1,048,593 100%    3.77MB/s    0:00:00 (xfr#495, to-chk=268/773)
+MiasRaw/mdb056.pgm
+         32,768   3%  118.08kB/s    0:00:08        1,048,593 100%    3.48MB/s    0:00:00 (xfr#496, to-chk=267/773)
+MiasRaw/mdb057.pgm
+         32,768   3%  101.59kB/s    0:00:09        1,048,593 100%    3.03MB/s    0:00:00 (xfr#497, to-chk=266/773)
+MiasRaw/mdb058.pgm
+         32,768   3%   90.91kB/s    0:00:11        1,048,593 100%    2.72MB/s    0:00:00 (xfr#498, to-chk=265/773)
+MiasRaw/mdb059.pgm
+         32,768   3%   85.79kB/s    0:00:11        1,048,593 100%    2.57MB/s    0:00:00 (xfr#499, to-chk=264/773)
+MiasRaw/mdb060.pgm
+         32,768   3%   78.05kB/s    0:00:13        1,048,593 100%    2.35MB/s    0:00:00 (xfr#500, to-chk=263/773)
+MiasRaw/mdb061.pgm
+         32,768   3%   71.75kB/s    0:00:14        1,048,593 100%    2.17MB/s    0:00:00 (xfr#501, to-chk=262/773)
+MiasRaw/mdb062.pgm
+         32,768   3%   68.52kB/s    0:00:14        1,048,593 100%    2.07MB/s    0:00:00 (xfr#502, to-chk=261/773)
+MiasRaw/mdb063.pgm
+         32,768   3%   63.87kB/s    0:00:15        1,048,593 100%    1.93MB/s    0:00:00 (xfr#503, to-chk=260/773)
+MiasRaw/mdb064.pgm
+         32,768   3%   58.72kB/s    0:00:17        1,048,593 100%    1.77MB/s    0:00:00 (xfr#504, to-chk=259/773)
+MiasRaw/mdb065.pgm
+         32,768   3%   54.70kB/s    0:00:18        1,048,593 100%    1.67MB/s    0:00:00 (xfr#505, to-chk=258/773)
+MiasRaw/mdb066.pgm
+         32,768   3%   51.28kB/s    0:00:19        1,048,593 100%    1.56MB/s    0:00:00 (xfr#506, to-chk=257/773)
+MiasRaw/mdb067.pgm
+         32,768   3%   48.93kB/s    0:00:20        1,048,593 100%    1.49MB/s    0:00:00 (xfr#507, to-chk=256/773)
+MiasRaw/mdb068.pgm
+         32,768   3%   46.65kB/s    0:00:21        1,048,593 100%    1.43MB/s    0:00:00 (xfr#508, to-chk=255/773)
+MiasRaw/mdb069.pgm
+         32,768   3%   44.94kB/s    0:00:22        1,048,593 100%    1.37MB/s    0:00:00 (xfr#509, to-chk=254/773)
+MiasRaw/mdb070.pgm
+         32,768   3%   43.01kB/s    0:00:23        1,048,593 100%    1.32MB/s    0:00:00 (xfr#510, to-chk=253/773)
+MiasRaw/mdb071.pgm
+         32,768   3%   40.92kB/s    0:00:24        1,048,593 100%    1.24MB/s    0:00:00 (xfr#511, to-chk=252/773)
+MiasRaw/mdb072.pgm
+         32,768   3%   38.19kB/s    0:00:26        1,048,593 100%    1.17MB/s    0:00:00 (xfr#512, to-chk=251/773)
+MiasRaw/mdb073.pgm
+         32,768   3%   36.49kB/s    0:00:27        1,048,593 100%    1.12MB/s    0:00:00 (xfr#513, to-chk=250/773)
+MiasRaw/mdb074.pgm
+         32,768   3%   35.48kB/s    0:00:28        1,048,593 100%    1.09MB/s    0:00:00 (xfr#514, to-chk=249/773)
+MiasRaw/mdb075.pgm
+         32,768   3%   34.22kB/s    0:00:29        1,048,593 100%    1.05MB/s    0:00:00 (xfr#515, to-chk=248/773)
+MiasRaw/mdb076.pgm
+         32,768   3%   33.44kB/s    0:00:30        1,048,593 100%    1.03MB/s    0:00:00 (xfr#516, to-chk=247/773)
+MiasRaw/mdb077.pgm
+         32,768   3%   32.26kB/s    0:00:31          557,056  53%  544.00kB/s    0:00:00        1,048,593 100% 1016.90kB/s    0:00:01 (xfr#517, to-chk=246/773)
+MiasRaw/mdb078.pgm
+         32,768   3%    2.40MB/s    0:00:00        1,048,593 100%   33.33MB/s    0:00:00 (xfr#518, to-chk=245/773)
+MiasRaw/mdb079.pgm
+         32,768   3%  248.06kB/s    0:00:04        1,048,593 100%    6.80MB/s    0:00:00 (xfr#519, to-chk=244/773)
+MiasRaw/mdb080.pgm
+         32,768   3%  207.79kB/s    0:00:04        1,048,593 100%    5.85MB/s    0:00:00 (xfr#520, to-chk=243/773)
+MiasRaw/mdb081.pgm
+         32,768   3%  124.03kB/s    0:00:08        1,048,593 100%    3.62MB/s    0:00:00 (xfr#521, to-chk=242/773)
+MiasRaw/mdb082.pgm
+         32,768   3%  103.56kB/s    0:00:09        1,048,593 100%    3.05MB/s    0:00:00 (xfr#522, to-chk=241/773)
+MiasRaw/mdb083.pgm
+         32,768   3%   92.75kB/s    0:00:10        1,048,593 100%    2.75MB/s    0:00:00 (xfr#523, to-chk=240/773)
+MiasRaw/mdb084.pgm
+         32,768   3%   83.33kB/s    0:00:12        1,048,593 100%    2.39MB/s    0:00:00 (xfr#524, to-chk=239/773)
+MiasRaw/mdb085.pgm
+         32,768   3%   75.29kB/s    0:00:13        1,048,593 100%    2.19MB/s    0:00:00 (xfr#525, to-chk=238/773)
+MiasRaw/mdb086.pgm
+         32,768   3%   65.84kB/s    0:00:15        1,048,593 100%    1.97MB/s    0:00:00 (xfr#526, to-chk=237/773)
+MiasRaw/mdb087.pgm
+         32,768   3%   60.15kB/s    0:00:16        1,048,593 100%    1.77MB/s    0:00:00 (xfr#527, to-chk=236/773)
+MiasRaw/mdb088.pgm
+         32,768   3%   54.79kB/s    0:00:18        1,048,593 100%    1.62MB/s    0:00:00 (xfr#528, to-chk=235/773)
+MiasRaw/mdb089.pgm
+         32,768   3%   49.77kB/s    0:00:20        1,048,593 100%    1.47MB/s    0:00:00 (xfr#529, to-chk=234/773)
+MiasRaw/mdb090.pgm
+         32,768   3%   45.91kB/s    0:00:22        1,048,593 100%    1.40MB/s    0:00:00 (xfr#530, to-chk=233/773)
+MiasRaw/mdb091.pgm
+         32,768   3%   43.36kB/s    0:00:23        1,048,593 100%    1.32MB/s    0:00:00 (xfr#531, to-chk=232/773)
+MiasRaw/mdb092.pgm
+         32,768   3%   41.18kB/s    0:00:24        1,048,593 100%    1.26MB/s    0:00:00 (xfr#532, to-chk=231/773)
+MiasRaw/mdb093.pgm
+         32,768   3%   38.65kB/s    0:00:26        1,048,593 100%    1.18MB/s    0:00:00 (xfr#533, to-chk=230/773)
+MiasRaw/mdb094.pgm
+         32,768   3%   37.25kB/s    0:00:27        1,048,593 100%    1.14MB/s    0:00:00 (xfr#534, to-chk=229/773)
+MiasRaw/mdb095.pgm
+         32,768   3%   35.91kB/s    0:00:28        1,048,593 100%    1.10MB/s    0:00:00 (xfr#535, to-chk=228/773)
+MiasRaw/mdb096.pgm
+         32,768   3%   34.45kB/s    0:00:29        1,048,593 100%    1.06MB/s    0:00:00 (xfr#536, to-chk=227/773)
+MiasRaw/mdb097.pgm
+         32,768   3%   32.82kB/s    0:00:30        1,048,593 100%    1.01MB/s    0:00:00 (xfr#537, to-chk=226/773)
+MiasRaw/mdb098.pgm
+         32,768   3%   31.94kB/s    0:00:31           65,536   6%   63.87kB/s    0:00:15        1,048,593 100% 1005.91kB/s    0:00:01 (xfr#538, to-chk=225/773)
+MiasRaw/mdb099.pgm
+         32,768   3%    1.04MB/s    0:00:00        1,048,593 100%   16.95MB/s    0:00:00 (xfr#539, to-chk=224/773)
+MiasRaw/mdb100.pgm
+         32,768   3%  492.31kB/s    0:00:02        1,048,593 100%   12.20MB/s    0:00:00 (xfr#540, to-chk=223/773)
+MiasRaw/mdb101.pgm
+         32,768   3%  304.76kB/s    0:00:03        1,048,593 100%    8.33MB/s    0:00:00 (xfr#541, to-chk=222/773)
+MiasRaw/mdb102.pgm
+         32,768   3%  210.53kB/s    0:00:04        1,048,593 100%    5.81MB/s    0:00:00 (xfr#542, to-chk=221/773)
+MiasRaw/mdb103.pgm
+         32,768   3%  161.62kB/s    0:00:06        1,048,593 100%    4.61MB/s    0:00:00 (xfr#543, to-chk=220/773)
+MiasRaw/mdb104.pgm
+         32,768   3%  135.59kB/s    0:00:07        1,048,593 100%    3.97MB/s    0:00:00 (xfr#544, to-chk=219/773)
+MiasRaw/mdb105.pgm
+         32,768   3%  119.85kB/s    0:00:08        1,048,593 100%    3.32MB/s    0:00:00 (xfr#545, to-chk=218/773)
+MiasRaw/mdb106.pgm
+         32,768   3%   96.97kB/s    0:00:10        1,048,593 100%    2.82MB/s    0:00:00 (xfr#546, to-chk=217/773)
+MiasRaw/mdb107.pgm
+         32,768   3%   86.25kB/s    0:00:11        1,048,593 100%    2.59MB/s    0:00:00 (xfr#547, to-chk=216/773)
+MiasRaw/mdb108.pgm
+         32,768   3%   77.11kB/s    0:00:13        1,048,593 100%    2.32MB/s    0:00:00 (xfr#548, to-chk=215/773)
+MiasRaw/mdb109.pgm
+         32,768   3%   71.11kB/s    0:00:14        1,048,593 100%    2.15MB/s    0:00:00 (xfr#549, to-chk=214/773)
+MiasRaw/mdb110.pgm
+         32,768   3%   66.67kB/s    0:00:15        1,048,593 100%    2.02MB/s    0:00:00 (xfr#550, to-chk=213/773)
+MiasRaw/mdb111.pgm
+         32,768   3%   63.37kB/s    0:00:16        1,048,593 100%    1.92MB/s    0:00:00 (xfr#551, to-chk=212/773)
+MiasRaw/mdb112.pgm
+         32,768   3%   60.04kB/s    0:00:16        1,048,593 100%    1.82MB/s    0:00:00 (xfr#552, to-chk=211/773)
+MiasRaw/mdb113.pgm
+         32,768   3%   57.76kB/s    0:00:17        1,048,593 100%    1.75MB/s    0:00:00 (xfr#553, to-chk=210/773)
+MiasRaw/mdb114.pgm
+         32,768   3%   55.56kB/s    0:00:18        1,048,593 100%    1.69MB/s    0:00:00 (xfr#554, to-chk=209/773)
+MiasRaw/mdb115.pgm
+         32,768   3%   52.81kB/s    0:00:19        1,048,593 100%    1.61MB/s    0:00:00 (xfr#555, to-chk=208/773)
+MiasRaw/mdb116.pgm
+         32,768   3%   51.04kB/s    0:00:19        1,048,593 100%    1.50MB/s    0:00:00 (xfr#556, to-chk=207/773)
+MiasRaw/mdb117.pgm
+         32,768   3%   47.69kB/s    0:00:21        1,048,593 100%    1.46MB/s    0:00:00 (xfr#557, to-chk=206/773)
+MiasRaw/mdb118.pgm
+         32,768   3%   45.78kB/s    0:00:22        1,048,593 100%    1.40MB/s    0:00:00 (xfr#558, to-chk=205/773)
+MiasRaw/mdb119.pgm
+         32,768   3%   43.36kB/s    0:00:23        1,048,593 100%    1.33MB/s    0:00:00 (xfr#559, to-chk=204/773)
+MiasRaw/mdb120.pgm
+         32,768   3%   41.99kB/s    0:00:24        1,048,593 100%    1.29MB/s    0:00:00 (xfr#560, to-chk=203/773)
+MiasRaw/mdb121.pgm
+         32,768   3%   39.36kB/s    0:00:25        1,048,593 100%    1.20MB/s    0:00:00 (xfr#561, to-chk=202/773)
+MiasRaw/mdb122.pgm
+         32,768   3%   38.05kB/s    0:00:26        1,048,593 100%    1.16MB/s    0:00:00 (xfr#562, to-chk=201/773)
+MiasRaw/mdb123.pgm
+         32,768   3%   36.45kB/s    0:00:27        1,048,593 100%    1.12MB/s    0:00:00 (xfr#563, to-chk=200/773)
+MiasRaw/mdb124.pgm
+         32,768   3%   34.82kB/s    0:00:29        1,048,593 100%    1.07MB/s    0:00:00 (xfr#564, to-chk=199/773)
+MiasRaw/mdb125.pgm
+         32,768   3%   34.01kB/s    0:00:29        1,048,593 100%    1.02MB/s    0:00:00 (xfr#565, to-chk=198/773)
+MiasRaw/mdb126.pgm
+         32,768   3%   32.06kB/s    0:00:31          163,840  15%  160.00kB/s    0:00:05        1,048,593 100% 1009.88kB/s    0:00:01 (xfr#566, to-chk=197/773)
+MiasRaw/mdb127.pgm
+         32,768   3%    1.42MB/s    0:00:00        1,048,593 100%   26.32MB/s    0:00:00 (xfr#567, to-chk=196/773)
+MiasRaw/mdb128.pgm
+         32,768   3%  592.59kB/s    0:00:01        1,048,593 100%   14.49MB/s    0:00:00 (xfr#568, to-chk=195/773)
+MiasRaw/mdb129.pgm
+         32,768   3%  395.06kB/s    0:00:02        1,048,593 100%   10.42MB/s    0:00:00 (xfr#569, to-chk=194/773)
+MiasRaw/mdb130.pgm
+         32,768   3%  258.06kB/s    0:00:03        1,048,593 100%    6.99MB/s    0:00:00 (xfr#570, to-chk=193/773)
+MiasRaw/mdb131.pgm
+         32,768   3%  209.15kB/s    0:00:04        1,048,593 100%    5.92MB/s    0:00:00 (xfr#571, to-chk=192/773)
+MiasRaw/mdb132.pgm
+         32,768   3%  173.91kB/s    0:00:05        1,048,593 100%    5.03MB/s    0:00:00 (xfr#572, to-chk=191/773)
+MiasRaw/mdb133.pgm
+         32,768   3%  156.10kB/s    0:00:06        1,048,593 100%    4.52MB/s    0:00:00 (xfr#573, to-chk=190/773)
+MiasRaw/mdb134.pgm
+         32,768   3%  125.00kB/s    0:00:08        1,048,593 100%    3.68MB/s    0:00:00 (xfr#574, to-chk=189/773)
+MiasRaw/mdb135.pgm
+         32,768   3%  115.11kB/s    0:00:08        1,048,593 100%    3.38MB/s    0:00:00 (xfr#575, to-chk=188/773)
+MiasRaw/mdb136.pgm
+         32,768   3%  100.63kB/s    0:00:10        1,048,593 100%    2.99MB/s    0:00:00 (xfr#576, to-chk=187/773)
+MiasRaw/mdb137.pgm
+         32,768   3%   89.64kB/s    0:00:11        1,048,593 100%    2.68MB/s    0:00:00 (xfr#577, to-chk=186/773)
+MiasRaw/mdb138.pgm
+         32,768   3%   80.40kB/s    0:00:12        1,048,593 100%    2.42MB/s    0:00:00 (xfr#578, to-chk=185/773)
+MiasRaw/mdb139.pgm
+         32,768   3%   74.25kB/s    0:00:13        1,048,593 100%    2.24MB/s    0:00:00 (xfr#579, to-chk=184/773)
+MiasRaw/mdb140.pgm
+         32,768   3%   68.09kB/s    0:00:14        1,048,593 100%    2.04MB/s    0:00:00 (xfr#580, to-chk=183/773)
+MiasRaw/mdb141.pgm
+         32,768   3%   63.12kB/s    0:00:16        1,048,593 100%    1.91MB/s    0:00:00 (xfr#581, to-chk=182/773)
+MiasRaw/mdb142.pgm
+         32,768   3%   60.38kB/s    0:00:16        1,048,593 100%    1.83MB/s    0:00:00 (xfr#582, to-chk=181/773)
+MiasRaw/mdb143.pgm
+         32,768   3%   57.35kB/s    0:00:17        1,048,593 100%    1.75MB/s    0:00:00 (xfr#583, to-chk=180/773)
+MiasRaw/mdb144.pgm
+         32,768   3%   52.72kB/s    0:00:19        1,048,593 100%    1.59MB/s    0:00:00 (xfr#584, to-chk=179/773)
+MiasRaw/mdb145.pgm
+         32,768   3%   49.23kB/s    0:00:20        1,048,593 100%    1.49MB/s    0:00:00 (xfr#585, to-chk=178/773)
+MiasRaw/mdb146.pgm
+         32,768   3%   46.44kB/s    0:00:21        1,048,593 100%    1.42MB/s    0:00:00 (xfr#586, to-chk=177/773)
+MiasRaw/mdb147.pgm
+         32,768   3%   44.94kB/s    0:00:22        1,048,593 100%    1.37MB/s    0:00:00 (xfr#587, to-chk=176/773)
+MiasRaw/mdb148.pgm
+         32,768   3%   42.72kB/s    0:00:23        1,048,593 100%    1.31MB/s    0:00:00 (xfr#588, to-chk=175/773)
+MiasRaw/mdb149.pgm
+         32,768   3%   41.08kB/s    0:00:24        1,048,593 100%    1.26MB/s    0:00:00 (xfr#589, to-chk=174/773)
+MiasRaw/mdb150.pgm
+         32,768   3%   39.80kB/s    0:00:25        1,048,593 100%    1.22MB/s    0:00:00 (xfr#590, to-chk=173/773)
+MiasRaw/mdb151.pgm
+         32,768   3%   37.47kB/s    0:00:27        1,048,593 100%    1.15MB/s    0:00:00 (xfr#591, to-chk=172/773)
+MiasRaw/mdb152.pgm
+         32,768   3%   35.60kB/s    0:00:28        1,048,593 100%    1.08MB/s    0:00:00 (xfr#592, to-chk=171/773)
+MiasRaw/mdb153.pgm
+         32,768   3%   33.76kB/s    0:00:30        1,048,593 100%    1.04MB/s    0:00:00 (xfr#593, to-chk=170/773)
+MiasRaw/mdb154.pgm
+         32,768   3%   32.10kB/s    0:00:31          196,608  18%  192.00kB/s    0:00:04        1,048,593 100% 1008.88kB/s    0:00:01 (xfr#594, to-chk=169/773)
+MiasRaw/mdb155.pgm
+         32,768   3%  727.27kB/s    0:00:01        1,048,593 100%   16.67MB/s    0:00:00 (xfr#595, to-chk=168/773)
+MiasRaw/mdb156.pgm
+         32,768   3%  484.85kB/s    0:00:02        1,048,593 100%   10.64MB/s    0:00:00 (xfr#596, to-chk=167/773)
+MiasRaw/mdb157.pgm
+         32,768   3%  320.00kB/s    0:00:03        1,048,593 100%    7.75MB/s    0:00:00 (xfr#597, to-chk=166/773)
+MiasRaw/mdb158.pgm
+         32,768   3%  209.15kB/s    0:00:04        1,048,593 100%    5.95MB/s    0:00:00 (xfr#598, to-chk=165/773)
+MiasRaw/mdb159.pgm
+         32,768   3%  170.21kB/s    0:00:05        1,048,593 100%    4.78MB/s    0:00:00 (xfr#599, to-chk=164/773)
+MiasRaw/mdb160.pgm
+         32,768   3%  140.97kB/s    0:00:07        1,048,593 100%    4.13MB/s    0:00:00 (xfr#600, to-chk=163/773)
+MiasRaw/mdb161.pgm
+         32,768   3%  126.98kB/s    0:00:07        1,048,593 100%    3.75MB/s    0:00:00 (xfr#601, to-chk=162/773)
+MiasRaw/mdb162.pgm
+         32,768   3%  114.29kB/s    0:00:08        1,048,593 100%    3.39MB/s    0:00:00 (xfr#602, to-chk=161/773)
+MiasRaw/mdb163.pgm
+         32,768   3%  105.96kB/s    0:00:09        1,048,593 100%    3.15MB/s    0:00:00 (xfr#603, to-chk=160/773)
+MiasRaw/mdb164.pgm
+         32,768   3%   98.77kB/s    0:00:10        1,048,593 100%    2.95MB/s    0:00:00 (xfr#604, to-chk=159/773)
+MiasRaw/mdb165.pgm
+         32,768   3%   92.49kB/s    0:00:10        1,048,593 100%    2.70MB/s    0:00:00 (xfr#605, to-chk=158/773)
+MiasRaw/mdb166.pgm
+         32,768   3%   78.05kB/s    0:00:13        1,048,593 100%    2.20MB/s    0:00:00 (xfr#606, to-chk=157/773)
+MiasRaw/mdb167.pgm
+         32,768   3%   69.57kB/s    0:00:14        1,048,593 100%    2.06MB/s    0:00:00 (xfr#607, to-chk=156/773)
+MiasRaw/mdb168.pgm
+         32,768   3%   58.93kB/s    0:00:17        1,048,593 100%    1.78MB/s    0:00:00 (xfr#608, to-chk=155/773)
+MiasRaw/mdb169.pgm
+         32,768   3%   56.44kB/s    0:00:17        1,048,593 100%    1.60MB/s    0:00:00 (xfr#609, to-chk=154/773)
+MiasRaw/mdb170.pgm
+         32,768   3%   49.23kB/s    0:00:20        1,048,593 100%    1.49MB/s    0:00:00 (xfr#610, to-chk=153/773)
+MiasRaw/mdb171.pgm
+         32,768   3%   46.24kB/s    0:00:21        1,048,593 100%    1.41MB/s    0:00:00 (xfr#611, to-chk=152/773)
+MiasRaw/mdb172.pgm
+         32,768   3%   43.60kB/s    0:00:23        1,048,593 100%    1.34MB/s    0:00:00 (xfr#612, to-chk=151/773)
+MiasRaw/mdb173.pgm
+         32,768   3%   41.24kB/s    0:00:24        1,048,593 100%    1.26MB/s    0:00:00 (xfr#613, to-chk=150/773)
+MiasRaw/mdb174.pgm
+         32,768   3%   39.41kB/s    0:00:25        1,048,593 100%    1.21MB/s    0:00:00 (xfr#614, to-chk=149/773)
+MiasRaw/mdb175.pgm
+         32,768   3%   38.42kB/s    0:00:26        1,048,593 100%    1.18MB/s    0:00:00 (xfr#615, to-chk=148/773)
+MiasRaw/mdb176.pgm
+         32,768   3%   37.51kB/s    0:00:27        1,048,593 100%    1.14MB/s    0:00:00 (xfr#616, to-chk=147/773)
+MiasRaw/mdb177.pgm
+         32,768   3%   35.71kB/s    0:00:28        1,048,593 100%    1.10MB/s    0:00:00 (xfr#617, to-chk=146/773)
+MiasRaw/mdb178.pgm
+         32,768   3%   34.82kB/s    0:00:29        1,048,593 100%    1.07MB/s    0:00:00 (xfr#618, to-chk=145/773)
+MiasRaw/mdb179.pgm
+         32,768   3%   33.44kB/s    0:00:30        1,048,593 100%    1.03MB/s    0:00:00 (xfr#619, to-chk=144/773)
+MiasRaw/mdb180.pgm
+         32,768   3%   32.36kB/s    0:00:31          720,896  68%  704.00kB/s    0:00:00        1,048,593 100% 1019.94kB/s    0:00:01 (xfr#620, to-chk=143/773)
+MiasRaw/mdb181.pgm
+         32,768   3%    1.36MB/s    0:00:00        1,048,593 100%   25.00MB/s    0:00:00 (xfr#621, to-chk=142/773)
+MiasRaw/mdb182.pgm
+         32,768   3%  695.65kB/s    0:00:01        1,048,593 100%   16.13MB/s    0:00:00 (xfr#622, to-chk=141/773)
+MiasRaw/mdb183.pgm
+         32,768   3%  329.90kB/s    0:00:03        1,048,593 100%    8.55MB/s    0:00:00 (xfr#623, to-chk=140/773)
+MiasRaw/mdb184.pgm
+         32,768   3%  238.81kB/s    0:00:04        1,048,593 100%    5.99MB/s    0:00:00 (xfr#624, to-chk=139/773)
+MiasRaw/mdb185.pgm
+         32,768   3%  170.21kB/s    0:00:05        1,048,593 100%    4.93MB/s    0:00:00 (xfr#625, to-chk=138/773)
+MiasRaw/mdb186.pgm
+         32,768   3%  143.50kB/s    0:00:07        1,048,593 100%    4.20MB/s    0:00:00 (xfr#626, to-chk=137/773)
+MiasRaw/mdb187.pgm
+         32,768   3%  131.15kB/s    0:00:07        1,048,593 100%    3.86MB/s    0:00:00 (xfr#627, to-chk=136/773)
+MiasRaw/mdb188.pgm
+         32,768   3%  120.75kB/s    0:00:08        1,048,593 100%    3.57MB/s    0:00:00 (xfr#628, to-chk=135/773)
+MiasRaw/mdb189.pgm
+         32,768   3%  107.74kB/s    0:00:09        1,048,593 100%    3.21MB/s    0:00:00 (xfr#629, to-chk=134/773)
+MiasRaw/mdb190.pgm
+         32,768   3%   96.68kB/s    0:00:10        1,048,593 100%    2.89MB/s    0:00:00 (xfr#630, to-chk=133/773)
+MiasRaw/mdb191.pgm
+         32,768   3%   86.02kB/s    0:00:11        1,048,593 100%    2.59MB/s    0:00:00 (xfr#631, to-chk=132/773)
+MiasRaw/mdb192.pgm
+         32,768   3%   81.42kB/s    0:00:12        1,048,593 100%    2.39MB/s    0:00:00 (xfr#632, to-chk=131/773)
+MiasRaw/mdb193.pgm
+         32,768   3%   71.75kB/s    0:00:14        1,048,593 100%    2.12MB/s    0:00:00 (xfr#633, to-chk=130/773)
+MiasRaw/mdb194.pgm
+         32,768   3%   66.53kB/s    0:00:15        1,048,593 100%    2.02MB/s    0:00:00 (xfr#634, to-chk=129/773)
+MiasRaw/mdb195.pgm
+         32,768   3%   63.75kB/s    0:00:15        1,048,593 100%    1.94MB/s    0:00:00 (xfr#635, to-chk=128/773)
+MiasRaw/mdb196.pgm
+         32,768   3%   61.19kB/s    0:00:16        1,048,593 100%    1.86MB/s    0:00:00 (xfr#636, to-chk=127/773)
+MiasRaw/mdb197.pgm
+         32,768   3%   56.84kB/s    0:00:17        1,048,593 100%    1.73MB/s    0:00:00 (xfr#637, to-chk=126/773)
+MiasRaw/mdb198.pgm
+         32,768   3%   53.42kB/s    0:00:19        1,048,593 100%    1.63MB/s    0:00:00 (xfr#638, to-chk=125/773)
+MiasRaw/mdb199.pgm
+         32,768   3%   51.70kB/s    0:00:19        1,048,593 100%    1.57MB/s    0:00:00 (xfr#639, to-chk=124/773)
+MiasRaw/mdb200.pgm
+         32,768   3%   49.54kB/s    0:00:20        1,048,593 100%    1.51MB/s    0:00:00 (xfr#640, to-chk=123/773)
+MiasRaw/mdb201.pgm
+         32,768   3%   46.44kB/s    0:00:21        1,048,593 100%    1.42MB/s    0:00:00 (xfr#641, to-chk=122/773)
+MiasRaw/mdb202.pgm
+         32,768   3%   43.36kB/s    0:00:23        1,048,593 100%    1.32MB/s    0:00:00 (xfr#642, to-chk=121/773)
+MiasRaw/mdb203.pgm
+         32,768   3%   41.24kB/s    0:00:24        1,048,593 100%    1.26MB/s    0:00:00 (xfr#643, to-chk=120/773)
+MiasRaw/mdb204.pgm
+         32,768   3%   40.10kB/s    0:00:25        1,048,593 100%    1.22MB/s    0:00:00 (xfr#644, to-chk=119/773)
+MiasRaw/mdb205.pgm
+         32,768   3%   38.19kB/s    0:00:26        1,048,593 100%    1.17MB/s    0:00:00 (xfr#645, to-chk=118/773)
+MiasRaw/mdb206.pgm
+         32,768   3%   36.82kB/s    0:00:27        1,048,593 100%    1.13MB/s    0:00:00 (xfr#646, to-chk=117/773)
+MiasRaw/mdb207.pgm
+         32,768   3%   35.01kB/s    0:00:29        1,048,593 100%    1.07MB/s    0:00:00 (xfr#647, to-chk=116/773)
+MiasRaw/mdb208.pgm
+         32,768   3%   34.01kB/s    0:00:29        1,048,593 100%    1.05MB/s    0:00:00 (xfr#648, to-chk=115/773)
+MiasRaw/mdb209.pgm
+         32,768   3%   32.79kB/s    0:00:30        1,048,593 100%    1.01MB/s    0:00:00 (xfr#649, to-chk=114/773)
+MiasRaw/mdb210.pgm
+         32,768   3%   31.71kB/s    0:00:32           65,536   6%   63.43kB/s    0:00:15        1,048,593 100%  999.04kB/s    0:00:01 (xfr#650, to-chk=113/773)
+MiasRaw/mdb211.pgm
+         32,768   3%  780.49kB/s    0:00:01        1,048,593 100%   16.95MB/s    0:00:00 (xfr#651, to-chk=112/773)
+MiasRaw/mdb212.pgm
+         32,768   3%  438.36kB/s    0:00:02        1,048,593 100%   11.11MB/s    0:00:00 (xfr#652, to-chk=111/773)
+MiasRaw/mdb213.pgm
+         32,768   3%  296.30kB/s    0:00:03        1,048,593 100%    7.46MB/s    0:00:00 (xfr#653, to-chk=110/773)
+MiasRaw/mdb214.pgm
+         32,768   3%  115.11kB/s    0:00:08        1,048,593 100%    3.38MB/s    0:00:00 (xfr#654, to-chk=109/773)
+MiasRaw/mdb215.pgm
+         32,768   3%   99.69kB/s    0:00:10        1,048,593 100%    2.97MB/s    0:00:00 (xfr#655, to-chk=108/773)
+MiasRaw/mdb216.pgm
+         32,768   3%   92.49kB/s    0:00:10        1,048,593 100%    2.77MB/s    0:00:00 (xfr#656, to-chk=107/773)
+MiasRaw/mdb217.pgm
+         32,768   3%   83.99kB/s    0:00:12        1,048,593 100%    2.53MB/s    0:00:00 (xfr#657, to-chk=106/773)
+MiasRaw/mdb218.pgm
+         32,768   3%   79.60kB/s    0:00:12        1,048,593 100%    2.40MB/s    0:00:00 (xfr#658, to-chk=105/773)
+MiasRaw/mdb219.pgm
+         32,768   3%   73.23kB/s    0:00:13        1,048,593 100%    2.17MB/s    0:00:00 (xfr#659, to-chk=104/773)
+MiasRaw/mdb220.pgm
+         32,768   3%   66.67kB/s    0:00:15        1,048,593 100%    1.90MB/s    0:00:00 (xfr#660, to-chk=103/773)
+MiasRaw/mdb221.pgm
+         32,768   3%   58.61kB/s    0:00:17        1,048,593 100%    1.78MB/s    0:00:00 (xfr#661, to-chk=102/773)
+MiasRaw/mdb222.pgm
+         32,768   3%   55.27kB/s    0:00:18        1,048,593 100%    1.68MB/s    0:00:00 (xfr#662, to-chk=101/773)
+MiasRaw/mdb223.pgm
+         32,768   3%   51.53kB/s    0:00:19        1,048,593 100%    1.57MB/s    0:00:00 (xfr#663, to-chk=100/773)
+MiasRaw/mdb224.pgm
+         32,768   3%   49.69kB/s    0:00:20        1,048,593 100%    1.52MB/s    0:00:00 (xfr#664, to-chk=99/773)
+MiasRaw/mdb225.pgm
+         32,768   3%   47.76kB/s    0:00:21        1,048,593 100%    1.46MB/s    0:00:00 (xfr#665, to-chk=98/773)
+MiasRaw/mdb226.pgm
+         32,768   3%   44.57kB/s    0:00:22        1,048,593 100%    1.35MB/s    0:00:00 (xfr#666, to-chk=97/773)
+MiasRaw/mdb227.pgm
+         32,768   3%   43.01kB/s    0:00:23        1,048,593 100%    1.17MB/s    0:00:00 (xfr#667, to-chk=96/773)
+MiasRaw/mdb228.pgm
+         32,768   3%   36.36kB/s    0:00:27        1,048,593 100%    1.11MB/s    0:00:00 (xfr#668, to-chk=95/773)
+MiasRaw/mdb229.pgm
+         32,768   3%   34.63kB/s    0:00:29        1,048,593 100%    1.06MB/s    0:00:00 (xfr#669, to-chk=94/773)
+MiasRaw/mdb230.pgm
+         32,768   3%   33.33kB/s    0:00:30        1,048,593 100%    1.02MB/s    0:00:00 (xfr#670, to-chk=93/773)
+MiasRaw/mdb231.pgm
+         32,768   3%   32.49kB/s    0:00:31          294,912  28%  285.15kB/s    0:00:02        1,048,593 100% 1001.97kB/s    0:00:01 (xfr#671, to-chk=92/773)
+MiasRaw/mdb232.pgm
+         32,768   3%    1.95MB/s    0:00:00        1,048,593 100%   30.30MB/s    0:00:00 (xfr#672, to-chk=91/773)
+MiasRaw/mdb233.pgm
+         32,768   3%  842.11kB/s    0:00:01        1,048,593 100%   18.18MB/s    0:00:00 (xfr#673, to-chk=90/773)
+MiasRaw/mdb234.pgm
+         32,768   3%  385.54kB/s    0:00:02        1,048,593 100%   10.00MB/s    0:00:00 (xfr#674, to-chk=89/773)
+MiasRaw/mdb235.pgm
+         32,768   3%  271.19kB/s    0:00:03        1,048,593 100%    7.41MB/s    0:00:00 (xfr#675, to-chk=88/773)
+MiasRaw/mdb236.pgm
+         32,768   3%  207.79kB/s    0:00:04        1,048,593 100%    5.92MB/s    0:00:00 (xfr#676, to-chk=87/773)
+MiasRaw/mdb237.pgm
+         32,768   3%  122.14kB/s    0:00:08        1,048,593 100%    3.57MB/s    0:00:00 (xfr#677, to-chk=86/773)
+MiasRaw/mdb238.pgm
+         32,768   3%  107.38kB/s    0:00:09        1,048,593 100%    3.18MB/s    0:00:00 (xfr#678, to-chk=85/773)
+MiasRaw/mdb239.pgm
+         32,768   3%   97.26kB/s    0:00:10        1,048,593 100%    2.90MB/s    0:00:00 (xfr#679, to-chk=84/773)
+MiasRaw/mdb240.pgm
+         32,768   3%   89.14kB/s    0:00:11        1,048,593 100%    2.67MB/s    0:00:00 (xfr#680, to-chk=83/773)
+MiasRaw/mdb241.pgm
+         32,768   3%   81.22kB/s    0:00:12        1,048,593 100%    2.44MB/s    0:00:00 (xfr#681, to-chk=82/773)
+MiasRaw/mdb242.pgm
+         32,768   3%   75.29kB/s    0:00:13        1,048,593 100%    2.27MB/s    0:00:00 (xfr#682, to-chk=81/773)
+MiasRaw/mdb243.pgm
+         32,768   3%   69.41kB/s    0:00:14        1,048,593 100%    2.09MB/s    0:00:00 (xfr#683, to-chk=80/773)
+MiasRaw/mdb244.pgm
+         32,768   3%   64.78kB/s    0:00:15        1,048,593 100%    1.90MB/s    0:00:00 (xfr#684, to-chk=79/773)
+MiasRaw/mdb245.pgm
+         32,768   3%   59.48kB/s    0:00:17        1,048,593 100%    1.81MB/s    0:00:00 (xfr#685, to-chk=78/773)
+MiasRaw/mdb246.pgm
+         32,768   3%   57.35kB/s    0:00:17        1,048,593 100%    1.74MB/s    0:00:00 (xfr#686, to-chk=77/773)
+MiasRaw/mdb247.pgm
+         32,768   3%   55.27kB/s    0:00:18        1,048,593 100%    1.68MB/s    0:00:00 (xfr#687, to-chk=76/773)
+MiasRaw/mdb248.pgm
+         32,768   3%   52.46kB/s    0:00:19        1,048,593 100%    1.60MB/s    0:00:00 (xfr#688, to-chk=75/773)
+MiasRaw/mdb249.pgm
+         32,768   3%   49.46kB/s    0:00:20        1,048,593 100%    1.51MB/s    0:00:00 (xfr#689, to-chk=74/773)
+MiasRaw/mdb250.pgm
+         32,768   3%   47.06kB/s    0:00:21        1,048,593 100%    1.44MB/s    0:00:00 (xfr#690, to-chk=73/773)
+MiasRaw/mdb251.pgm
+         32,768   3%   45.26kB/s    0:00:22        1,048,593 100%    1.38MB/s    0:00:00 (xfr#691, to-chk=72/773)
+MiasRaw/mdb252.pgm
+         32,768   3%   25.38kB/s    0:00:40           65,536   6%   50.75kB/s    0:00:19        1,048,593 100%  800.64kB/s    0:00:01 (xfr#692, to-chk=71/773)
+MiasRaw/mdb253.pgm
+         32,768   3%  711.11kB/s    0:00:01        1,048,593 100%   16.39MB/s    0:00:00 (xfr#693, to-chk=70/773)
+MiasRaw/mdb254.pgm
+         32,768   3%  376.47kB/s    0:00:02        1,048,593 100%    9.80MB/s    0:00:00 (xfr#694, to-chk=69/773)
+MiasRaw/mdb255.pgm
+         32,768   3%  299.07kB/s    0:00:03        1,048,593 100%    7.81MB/s    0:00:00 (xfr#695, to-chk=68/773)
+MiasRaw/mdb256.pgm
+         32,768   3%  202.53kB/s    0:00:05        1,048,593 100%    5.24MB/s    0:00:00 (xfr#696, to-chk=67/773)
+MiasRaw/mdb257.pgm
+         32,768   3%  152.38kB/s    0:00:06        1,048,593 100%    4.42MB/s    0:00:00 (xfr#697, to-chk=66/773)
+MiasRaw/mdb258.pgm
+         32,768   3%  129.03kB/s    0:00:07        1,048,593 100%    3.79MB/s    0:00:00 (xfr#698, to-chk=65/773)
+MiasRaw/mdb259.pgm
+         32,768   3%  112.28kB/s    0:00:09        1,048,593 100%    3.32MB/s    0:00:00 (xfr#699, to-chk=64/773)
+MiasRaw/mdb260.pgm
+         32,768   3%  103.90kB/s    0:00:09        1,048,593 100%    3.10MB/s    0:00:00 (xfr#700, to-chk=63/773)
+MiasRaw/mdb261.pgm
+         32,768   3%   92.49kB/s    0:00:10        1,048,593 100%    2.77MB/s    0:00:00 (xfr#701, to-chk=62/773)
+MiasRaw/mdb262.pgm
+         32,768   3%   85.33kB/s    0:00:11        1,048,593 100%    2.56MB/s    0:00:00 (xfr#702, to-chk=61/773)
+MiasRaw/mdb263.pgm
+         32,768   3%   76.01kB/s    0:00:13        1,048,593 100%    2.27MB/s    0:00:00 (xfr#703, to-chk=60/773)
+MiasRaw/mdb264.pgm
+         32,768   3%   69.87kB/s    0:00:14        1,048,593 100%    2.10MB/s    0:00:00 (xfr#704, to-chk=59/773)
+MiasRaw/mdb265.pgm
+         32,768   3%   66.25kB/s    0:00:15        1,048,593 100%    2.01MB/s    0:00:00 (xfr#705, to-chk=58/773)
+MiasRaw/mdb266.pgm
+         32,768   3%   61.66kB/s    0:00:16        1,048,593 100%    1.87MB/s    0:00:00 (xfr#706, to-chk=57/773)
+MiasRaw/mdb267.pgm
+         32,768   3%   56.94kB/s    0:00:17        1,048,593 100%    1.72MB/s    0:00:00 (xfr#707, to-chk=56/773)
+MiasRaw/mdb268.pgm
+         32,768   3%   53.33kB/s    0:00:19        1,048,593 100%    1.62MB/s    0:00:00 (xfr#708, to-chk=55/773)
+MiasRaw/mdb269.pgm
+         32,768   3%   49.84kB/s    0:00:20        1,048,593 100%    1.52MB/s    0:00:00 (xfr#709, to-chk=54/773)
+MiasRaw/mdb270.pgm
+         32,768   3%   48.05kB/s    0:00:21        1,048,593 100%    1.47MB/s    0:00:00 (xfr#710, to-chk=53/773)
+MiasRaw/mdb271.pgm
+         32,768   3%   45.71kB/s    0:00:22        1,048,593 100%    1.40MB/s    0:00:00 (xfr#711, to-chk=52/773)
+MiasRaw/mdb272.pgm
+         32,768   3%   43.24kB/s    0:00:23        1,048,593 100%    1.32MB/s    0:00:00 (xfr#712, to-chk=51/773)
+MiasRaw/mdb273.pgm
+         32,768   3%   41.67kB/s    0:00:24        1,048,593 100%    1.28MB/s    0:00:00 (xfr#713, to-chk=50/773)
+MiasRaw/mdb274.pgm
+         32,768   3%   39.95kB/s    0:00:25        1,048,593 100%    1.22MB/s    0:00:00 (xfr#714, to-chk=49/773)
+MiasRaw/mdb275.pgm
+         32,768   3%   37.74kB/s    0:00:26        1,048,593 100%    1.15MB/s    0:00:00 (xfr#715, to-chk=48/773)
+MiasRaw/mdb276.pgm
+         32,768   3%   36.20kB/s    0:00:28        1,048,593 100%    1.11MB/s    0:00:00 (xfr#716, to-chk=47/773)
+MiasRaw/mdb277.pgm
+         32,768   3%   34.41kB/s    0:00:29        1,048,593 100%    1.06MB/s    0:00:00 (xfr#717, to-chk=46/773)
+MiasRaw/mdb278.pgm
+         32,768   3%   33.61kB/s    0:00:30        1,048,593 100%    1.02MB/s    0:00:00 (xfr#718, to-chk=45/773)
+MiasRaw/mdb279.pgm
+         32,768   3%   32.00kB/s    0:00:31           65,536   6%   64.00kB/s    0:00:15        1,048,593 100% 1009.88kB/s    0:00:01 (xfr#719, to-chk=44/773)
+MiasRaw/mdb280.pgm
+         32,768   3% 1000.00kB/s    0:00:01        1,048,593 100%   21.28MB/s    0:00:00 (xfr#720, to-chk=43/773)
+MiasRaw/mdb281.pgm
+         32,768   3%  592.59kB/s    0:00:01        1,048,593 100%   14.49MB/s    0:00:00 (xfr#721, to-chk=42/773)
+MiasRaw/mdb282.pgm
+         32,768   3%  380.95kB/s    0:00:02        1,048,593 100%   10.10MB/s    0:00:00 (xfr#722, to-chk=41/773)
+MiasRaw/mdb283.pgm
+         32,768   3%  216.22kB/s    0:00:04        1,048,593 100%    2.86MB/s    0:00:00 (xfr#723, to-chk=40/773)
+MiasRaw/mdb284.pgm
+         32,768   3%   89.64kB/s    0:00:11        1,048,593 100%    2.67MB/s    0:00:00 (xfr#724, to-chk=39/773)
+MiasRaw/mdb285.pgm
+         32,768   3%   84.21kB/s    0:00:12        1,048,593 100%    2.52MB/s    0:00:00 (xfr#725, to-chk=38/773)
+MiasRaw/mdb286.pgm
+         32,768   3%   54.51kB/s    0:00:18        1,048,593 100%    1.61MB/s    0:00:00 (xfr#726, to-chk=37/773)
+MiasRaw/mdb287.pgm
+         32,768   3%   49.54kB/s    0:00:20        1,048,593 100%    1.51MB/s    0:00:00 (xfr#727, to-chk=36/773)
+MiasRaw/mdb288.pgm
+         32,768   3%   47.90kB/s    0:00:21        1,048,593 100%    1.44MB/s    0:00:00 (xfr#728, to-chk=35/773)
+MiasRaw/mdb289.pgm
+         32,768   3%   45.71kB/s    0:00:22        1,048,593 100%    1.40MB/s    0:00:00 (xfr#729, to-chk=34/773)
+MiasRaw/mdb290.pgm
+         32,768   3%   44.38kB/s    0:00:22        1,048,593 100%    1.33MB/s    0:00:00 (xfr#730, to-chk=33/773)
+MiasRaw/mdb291.pgm
+         32,768   3%   41.56kB/s    0:00:24        1,048,593 100%    1.27MB/s    0:00:00 (xfr#731, to-chk=32/773)
+MiasRaw/mdb292.pgm
+         32,768   3%   35.79kB/s    0:00:28        1,048,593 100%    1.10MB/s    0:00:00 (xfr#732, to-chk=31/773)
+MiasRaw/mdb293.pgm
+         32,768   3%   34.86kB/s    0:00:29        1,048,593 100%    1.06MB/s    0:00:00 (xfr#733, to-chk=30/773)
+MiasRaw/mdb294.pgm
+         32,768   3%   33.30kB/s    0:00:30        1,048,593 100%    1.02MB/s    0:00:00 (xfr#734, to-chk=29/773)
+MiasRaw/mdb295.pgm
+         32,768   3%   32.16kB/s    0:00:31          294,912  28%  288.00kB/s    0:00:02        1,048,593 100% 1013.88kB/s    0:00:01 (xfr#735, to-chk=28/773)
+MiasRaw/mdb296.pgm
+         32,768   3%    1.74MB/s    0:00:00        1,048,593 100%   30.30MB/s    0:00:00 (xfr#736, to-chk=27/773)
+MiasRaw/mdb297.pgm
+         32,768   3%  551.72kB/s    0:00:01        1,048,593 100%   12.99MB/s    0:00:00 (xfr#737, to-chk=26/773)
+MiasRaw/mdb298.pgm
+         32,768   3%  336.84kB/s    0:00:03        1,048,593 100%    9.01MB/s    0:00:00 (xfr#738, to-chk=25/773)
+MiasRaw/mdb299.pgm
+         32,768   3%  244.27kB/s    0:00:04        1,048,593 100%    6.85MB/s    0:00:00 (xfr#739, to-chk=24/773)
+MiasRaw/mdb300.pgm
+         32,768   3%  210.53kB/s    0:00:04        1,048,593 100%    5.35MB/s    0:00:00 (xfr#740, to-chk=23/773)
+MiasRaw/mdb301.pgm
+         32,768   3%  153.85kB/s    0:00:06        1,048,593 100%    4.48MB/s    0:00:00 (xfr#741, to-chk=22/773)
+MiasRaw/mdb302.pgm
+         32,768   3%  130.61kB/s    0:00:07        1,048,593 100%    3.85MB/s    0:00:00 (xfr#742, to-chk=21/773)
+MiasRaw/mdb303.pgm
+         32,768   3%  113.88kB/s    0:00:08        1,048,593 100%    3.37MB/s    0:00:00 (xfr#743, to-chk=20/773)
+MiasRaw/mdb304.pgm
+         32,768   3%  100.63kB/s    0:00:10        1,048,593 100%    2.99MB/s    0:00:00 (xfr#744, to-chk=19/773)
+MiasRaw/mdb305.pgm
+         32,768   3%   90.91kB/s    0:00:11        1,048,593 100%    2.72MB/s    0:00:00 (xfr#745, to-chk=18/773)
+MiasRaw/mdb306.pgm
+         32,768   3%   85.56kB/s    0:00:11        1,048,593 100%    2.56MB/s    0:00:00 (xfr#746, to-chk=17/773)
+MiasRaw/mdb307.pgm
+         32,768   3%   80.81kB/s    0:00:12        1,048,593 100%    2.44MB/s    0:00:00 (xfr#747, to-chk=16/773)
+MiasRaw/mdb308.pgm
+         32,768   3%   74.59kB/s    0:00:13        1,048,593 100%    2.25MB/s    0:00:00 (xfr#748, to-chk=15/773)
+MiasRaw/mdb309.pgm
+         32,768   3%   71.11kB/s    0:00:14        1,048,593 100%    2.14MB/s    0:00:00 (xfr#749, to-chk=14/773)
+MiasRaw/mdb310.pgm
+         32,768   3%   66.39kB/s    0:00:15        1,048,593 100%    2.01MB/s    0:00:00 (xfr#750, to-chk=13/773)
+MiasRaw/mdb311.pgm
+         32,768   3%   60.95kB/s    0:00:16        1,048,593 100%    1.85MB/s    0:00:00 (xfr#751, to-chk=12/773)
+MiasRaw/mdb312.pgm
+         32,768   3%   58.50kB/s    0:00:17        1,048,593 100%    1.78MB/s    0:00:00 (xfr#752, to-chk=11/773)
+MiasRaw/mdb313.pgm
+         32,768   3%   46.92kB/s    0:00:21        1,048,593 100%    1.22MB/s    0:00:00 (xfr#753, to-chk=10/773)
+MiasRaw/mdb314.pgm
+         32,768   3%   37.43kB/s    0:00:27        1,048,593 100%    1.14MB/s    0:00:00 (xfr#754, to-chk=9/773)
+MiasRaw/mdb315.pgm
+         32,768   3%   35.13kB/s    0:00:28        1,048,593 100%    1.07MB/s    0:00:00 (xfr#755, to-chk=8/773)
+MiasRaw/mdb316.pgm
+         32,768   3%   33.61kB/s    0:00:30        1,048,593 100%    1.03MB/s    0:00:00 (xfr#756, to-chk=7/773)
+MiasRaw/mdb317.pgm
+         32,768   3%   32.92kB/s    0:00:30        1,048,593 100%    1.01MB/s    0:00:00 (xfr#757, to-chk=6/773)
+MiasRaw/mdb318.pgm
+         32,768   3%   32.23kB/s    0:00:31          294,912  28%  287.14kB/s    0:00:02        1,048,593 100% 1010.88kB/s    0:00:01 (xfr#758, to-chk=5/773)
+MiasRaw/mdb319.pgm
+         32,768   3%    1.25MB/s    0:00:00        1,048,593 100%   24.39MB/s    0:00:00 (xfr#759, to-chk=4/773)
+MiasRaw/mdb320.pgm
+         32,768   3%  542.37kB/s    0:00:01        1,048,593 100%   13.51MB/s    0:00:00 (xfr#760, to-chk=3/773)
+MiasRaw/mdb321.pgm
+         32,768   3%  336.84kB/s    0:00:03        1,048,593 100%    9.01MB/s    0:00:00 (xfr#761, to-chk=2/773)
+MiasRaw/mdb322.pgm
+         32,768   3%  225.35kB/s    0:00:04        1,048,593 100%    6.17MB/s    0:00:00 (xfr#762, to-chk=1/773)
+MiasRaw/table.txt
+          6,413 100%   37.96kB/s    0:00:00            6,413 100%   37.96kB/s    0:00:00 (xfr#763, to-chk=0/773)
+/var/spool/slurmd/job371895/slurm_script: line 41: unexpected EOF while looking for matching `"'
+/var/spool/slurmd/job371895/slurm_script: line 42: syntax error: unexpected end of file

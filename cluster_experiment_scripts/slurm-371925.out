@@ -1,0 +1,12 @@
+mkdir: cannot create directory ‘/disk/scratch/s1890594/data/’: File exists
+sending incremental file list
+use 4 GPU(s)
+[('continue_from_epoch', '-1'), ('seed', '0'), ('task', 'regression'), ('use_gpu', 'True'), ('gpu_id', '0,1,2,3'), ('model_name', 'context_encoder'), ('kernel_size', '4'), ('num_layers_enc', '6'), ('num_channels_enc', '64'), ('num_channels_progression_enc', '[1, 1, 2, 4, 8]'), ('num_channels_bottleneck', '4000'), ('num_layers_dec', '5'), ('num_channels_dec', '64'), ('num_channels_progression_dec', '[8, 4, 2, 1]'), ('dataset_name', 'MiasHealthy'), ('num_image_channels', '1'), ('image_height', '128'), ('image_width', '128'), ('debug_mode', 'False'), ('num_workers', '8'), ('augment', 'False'), ('gamma_factor', '1'), ('rot_angle', '0'), ('translate_factor', '[0, 0]'), ('scale_factor', '1'), ('shear_angle', '0'), ('patch_size', '[128, 128]'), ('patch_location_during_training', 'central'), ('mask_size', '[64, 64]'), ('batch_size', '50'), ('loss', 'L2'), ('num_epochs', '100'), ('learning_rate', '0.0002'), ('betas', '[0.5, 0.999]'), ('weight_decay_coefficient', '0'), ('experiment_name', 'CE_test_cluster_copy_over')]
+Traceback (most recent call last):
+  File "main.py", line 30, in <module>
+    train_data, val_data, test_data, num_output_classes = data_providers.create_dataset(args, augmentations, rng)
+  File "/mnt/mscteach_home/s1890594/mlp_framework/data_providers.py", line 936, in create_dataset
+    patch_location=args.patch_location_during_training, mask_size=args.mask_size)
+  File "/mnt/mscteach_home/s1890594/mlp_framework/data_providers.py", line 676, in __init__
+    self.image_path = os.path.join(self.image_base_path, which_set)
+AttributeError: 'MiasHealthy' object has no attribute 'image_base_path'
