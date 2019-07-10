@@ -67,6 +67,7 @@ default_args = {
 # data parameters: image patches
 "patch_size": [128, 128],
 "patch_location_during_training": "central", # Can be "central" or "random"
+"patch_rejection_threshold": 10, # threshold, on a 8-bit scale. Patches sampled from the data loader with a mean below this threshold get rejected because they show only background
 
 # data parameters: masking
 "mask_size": [64, 64],

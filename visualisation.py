@@ -15,10 +15,10 @@ from experiment_builder import ExperimentBuilder
 
 
 # parameters:
-experiment_name = "CE_cpu_dev"
+experiment_name = "CE_random_patch_location_test_1"
 batch_size = 5
-image_batch_idx = 2 # use different number to see different images
-set_to_visualise = "val"
+image_batch_idx = 3 # use different number to see different images
+set_to_visualise = "train"
 
 def create_central_region_slice(image_size, size_central_region):
     margins = ((image_size[2]-size_central_region[0])/2, 
@@ -130,7 +130,7 @@ filled_in_images[central_region_slice] = outputs.detach()
 
 
 grid_parameters = {
-        "nrow":5, 
+        "nrow":args.batch_size, 
         "padding":10, 
         "normalize":False, 
         "range":None, 
