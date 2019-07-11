@@ -15,10 +15,12 @@ from experiment_builder import ExperimentBuilder
 
 
 # parameters:
-experiment_name = "CE_random_patch_2_preprocessed"
+experiment_name = "CE_random_patch_2_preprocessed" # "CE_1_bug_capped_fixed" # "CE_random_patch_2_preprocessed" # #  #  # 
 batch_size = 5
-image_batch_idx = 1 # use different number to see different images
-set_to_visualise = "train"
+image_batch_idx = 0 # use different number to see different images
+seed = 1 # to see different regions of the images
+set_to_visualise = "test"
+force_patch_location = "random" # "False": every model gets visualised with patches from the location it was trained with. Otherwise, specify the patch_location the models should be tested with
 
 def create_central_region_slice(image_size, size_central_region):
     margins = ((image_size[2]-size_central_region[0])/2, 
@@ -42,7 +44,11 @@ args, device = get_args(experiment_name)
 args.batch_size = batch_size
 args.use_gpu = False
 args.num_workers = 0
-
+args.seed = 0
+if force_patch_location:
+    print("force patch location to {}".format(force_patch_location))
+    args.patch_location_during_training = force_patch_location 
+    
 model_dir = os.path.join("results", experiment_name, "saved_models")
 model_list = os.listdir(model_dir)
 for model_name in model_list:
@@ -88,13 +94,19 @@ model = model_architectures.create_model(args)
 model.load_state_dict(state_dict=state_dict["network"])
 model.eval()
 
+# load batch for visualisation
 if set_to_visualise == "train":
-    iterator = iter(train_data)
+    data_loader = train_data
 elif set_to_visualise == "val":
-    iterator = iter(val_data)
+    data_loader = val_data
+elif set_to_visualise == "test":
+    data_loader = test_data
 
-for i in range(image_batch_idx): # show the n-th batch
-    inputs, targets = next(iterator)
+cnt = 0
+for inputs, targets in data_loader:
+    cnt += 1
+    if cnt >= image_batch_idx:
+        break
 
 outputs = model.forward(inputs)
 
