@@ -19,8 +19,8 @@ experiment_name = "CE_random_patch_2_preprocessed" # "CE_1_bug_capped_fixed" # "
 batch_size = 5
 image_batch_idx = 0 # use different number to see different images
 seed = 1 # to see different regions of the images
-set_to_visualise = "test"
-force_patch_location = "random" # "False": every model gets visualised with patches from the location it was trained with. Otherwise, specify the patch_location the models should be tested with
+set_to_visualise = "train"
+force_patch_location = False # "False": every model gets visualised with patches from the location it was trained with. Otherwise, specify the patch_location the models should be tested with
 
 def create_central_region_slice(image_size, size_central_region):
     margins = ((image_size[2]-size_central_region[0])/2, 
