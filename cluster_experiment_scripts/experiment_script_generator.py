@@ -23,7 +23,7 @@ default_args = {
 # =============================================================================
 ### GPU settings
 "use_gpu": True, # 'A flag indicating whether we will use GPU acceleration or not'
-"gpu_id": "0", # "A string indicating the gpu to use, ids separated by ','. For e.g. 4 gpus, this would usually be [0,1,2,3]."
+"gpu_id": "0,1,3,4", # "A string indicating the gpu to use, ids separated by ','. For e.g. 4 gpus, this would usually be [0,1,2,3]."
 
 # =============================================================================
 ### model parameters
@@ -157,7 +157,7 @@ shell_script_path = os.path.abspath(os.path.join(os.path.dirname(__file__), os.p
 
 
 #%% A list of independent experiment 
-experiment_names = ["CE_random_patch_2_preprocessed"]
+experiment_names = ["CE_central_patch_2_preprocessed"]
 cpu = False
 partition = "Standard"
 time = None
@@ -165,7 +165,7 @@ time = None
 
 # arguments to update from default, each inner list has the keys for one experiment:
 keys_to_update = [["patch_location_during_training"]]
-values_to_update = [["random"]]
+values_to_update = [["central"]]
 
 # for each experiment
 for idx, experiment_name in enumerate(experiment_names):
