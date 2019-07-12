@@ -2,6 +2,9 @@
 results/*/saved_models
 exp1/*/saved_models
 
+# most data (not Mias, that is sufficiently small)
+data/GoogleStreetView
+
 #dropbox stuff
 *.dropbox*
 
