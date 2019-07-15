@@ -23,8 +23,8 @@ batch_size = 5 # number of images per row
 image_batch_idx = 0 # use different number to see different images
 seed = 1 # to see different regions of the images
 set_to_visualise = "test"
-force_patch_location = False # "False": every model gets visualised with patches from the location it was trained with. Otherwise, specify the patch_location the models should be tested with
-force_dataset = False # "False": every model gets visualised with dataset it was trained. Otherwise, specify the dataset the models should be tested with
+force_patch_location = "random" # "False": every model gets visualised with patches from the location it was trained with. Otherwise, specify the patch_location the models should be tested with
+force_dataset = "DescribableTextures" # "False": every model gets visualised with dataset it was trained. Otherwise, specify the dataset the models should be tested with. !Of course, you can't force a model that was trained on gray-scale images to work on RGB images
 
 # add new parameters to older experiments that were run when that argument didn't yet exist and thus don't hove that argument in their config files
 patch_mode_default = True
@@ -74,7 +74,7 @@ args, device = get_args(experiment_name)
 args.batch_size = batch_size # to display a specified amount of image per figure
 args.use_gpu = False # to run on cpu
 args.num_workers = 0 # to run on cpu
-args.seed = 0 # to ensure the same images are shown for different models
+args.seed = seed # to ensure the same images are shown for different models
 
 # for parameters specified above
 if force_patch_location:
@@ -172,6 +172,13 @@ if args.dataset_name == "MiasHealthy":
         SD = (0.5,)
 
 elif args.dataset_name == "GoogleStreetView":
+    if args.normalisation == "mn0sd1":
+        raise NotImplementedError
+    elif args.normalisation == "range-11":
+        mn = [0.5, 0.5, 0.5]
+        SD = [0.5, 0.5, 0.5]
+
+elif args.dataset_name == "DescribableTextures":
     if args.normalisation == "mn0sd1":
         raise NotImplementedError
     elif args.normalisation == "range-11":

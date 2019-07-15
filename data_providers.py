@@ -1008,21 +1008,6 @@ def create_dataset(args, augmentations, rng):
         val_data = torch.utils.data.DataLoader(valset, shuffle=False, **kwargs_dataloader)
         testset = MiasHealthy(which_set='test', transformer=transform_test, **kwargs_dataset)#, patch_rejection_threshold=patch_rejection_threshold)
         test_data = torch.utils.data.DataLoader(testset, shuffle=False,  **kwargs_dataloader)
-# =============================================================================
-#         trainset = MiasHealthy(which_set='train', transformer=transform_train, rng=rng, patch_mode=args.patch_mode,
-#                               debug_mode=args.debug_mode, patch_size=(args.image_height, args.image_width),
-#                               patch_location=args.patch_location_during_training, mask_size=args.mask_size)#, patch_rejection_threshold=patch_rejection_threshold)
-#         train_data = torch.utils.data.DataLoader(trainset, batch_size=args.batch_size, shuffle=True, num_workers=args.num_workers)
-#     
-#         valset = MiasHealthy(which_set='val', transformer=transform_test, rng=rng, patch_mode=args.patch_mode,
-#                             debug_mode=args.debug_mode, patch_size=(args.image_height, args.image_width), 
-#                             patch_location=args.patch_location_during_training, mask_size=args.mask_size) #, patch_rejection_threshold=patch_rejection_threshold)
-#         val_data = torch.utils.data.DataLoader(valset, batch_size=args.batch_size, shuffle=False, num_workers=args.num_workers)
-#         testset = MiasHealthy(which_set='test', transformer=transform_test, rng=rng, patch_mode=args.patch_mode,
-#                              debug_mode=args.debug_mode, patch_size=(args.image_height, args.image_width), 
-#                              patch_location=args.patch_location_during_training, mask_size=args.mask_size)#, patch_rejection_threshold=patch_rejection_threshold)
-#         test_data = torch.utils.data.DataLoader(testset, batch_size=args.batch_size, shuffle=False, num_workers=args.num_workers)
-# =============================================================================
     
         num_output_classes = 666
         
@@ -1032,16 +1017,9 @@ def create_dataset(args, augmentations, rng):
 
 
     elif args.dataset_name == 'GoogleStreetView':
+        # calculate mean and SD for normalisation
         if args.normalisation == "mn0sd1":
             raise NotImplementedError
-# =============================================================================
-#             if args.patch_location_during_training == "random": # calculated offline: mean and SD for all training images (whole images)
-#                 mn = 0.14581
-#                 sd = 0.25929
-#             elif args.patch_location_during_training == "central": # calculated offline: mean and SD for all training images (central 256x256 patch)
-#                 mn = 0.39865
-#                 sd = 0.30890
-# =============================================================================
         elif args.normalisation == "range-11":
             mn = [0.5, 0.5, 0.5]
             sd = [0.5, 0.5, 0.5]
@@ -1080,21 +1058,57 @@ def create_dataset(args, augmentations, rng):
         
         testset = GoogleStreetView(which_set='test', transformer=transform_test, **kwargs_dataset)#, patch_rejection_threshold=patch_rejection_threshold)
         test_data = torch.utils.data.DataLoader(testset, shuffle=False, **kwargs_dataloader)
-# =============================================================================
-#         trainset = GoogleStreetView(which_set='train', transformer=transform_train, rng=rng, patch_mode=args.patch_mode,
-#                           debug_mode=args.debug_mode, patch_size=(args.image_height, args.image_width),
-#                           patch_location=args.patch_location_during_training, mask_size=args.mask_size)#, patch_rejection_threshold=patch_rejection_threshold)
-#         train_data = torch.utils.data.DataLoader(trainset, batch_size=args.batch_size, shuffle=True, num_workers=args.num_workers)
-#     
-#         valset = GoogleStreetView(which_set='val', transformer=transform_test, rng=rng, patch_mode=args.patch_mode,
-#                             debug_mode=args.debug_mode, patch_size=(args.image_height, args.image_width), 
-#                             patch_location=args.patch_location_during_training, mask_size=args.mask_size) #, patch_rejection_threshold=patch_rejection_threshold)
-#         val_data = torch.utils.data.DataLoader(valset, batch_size=args.batch_size, shuffle=False, num_workers=args.num_workers)
-#         testset = GoogleStreetView(which_set='test', transformer=transform_test, rng=rng,  patch_mode=args.patch_mode,
-#                              debug_mode=args.debug_mode, patch_size=(args.image_height, args.image_width), 
-#                              patch_location=args.patch_location_during_training, mask_size=args.mask_size)#, patch_rejection_threshold=patch_rejection_threshold)
-#         test_data = torch.utils.data.DataLoader(testset, batch_size=args.batch_size, shuffle=False, num_workers=args.num_workers)
-# =============================================================================
+    
+        num_output_classes = 666
+        
+        return train_data, val_data, test_data, num_output_classes
+    
+    
+    
+    
+    
+    elif args.dataset_name == "DescribableTextures":
+        # calculate mean and SD for normalisation
+        if args.normalisation == "mn0sd1":
+            raise NotImplementedError
+        elif args.normalisation == "range-11":
+            mn = [0.5, 0.5, 0.5]
+            sd = [0.5, 0.5, 0.5]
+
+        # transformations and augmentations        
+        if args.patch_mode: # patches get extracted within the Datset class, no need to resize images here
+            standard_transforms = [transforms.ToTensor(),
+                                   transforms.Normalize(mn, sd)] 
+        else:
+            standard_transforms = [transforms.Resize(args.image_height), # resize the image to approximately image_height x image_height
+                                   transforms.CenterCrop(args.image_height), # then crop the image to exactly image_height x image_height
+                                   transforms.ToTensor(),
+                                   transforms.Normalize(mn, sd)] 
+         
+        if augmentations is not None:
+            transform_train = transforms.Compose(augmentations + standard_transforms)
+        else:
+            transform_train = transforms.Compose(standard_transforms)
+    
+        transform_test = transforms.Compose(standard_transforms)
+        
+        kwargs_dataset= {"rng":rng, 
+                         "patch_mode" : args.patch_mode, 
+                         "debug_mode" : args.debug_mode,
+                         "patch_size" : (args.image_height, args.image_width),
+                         "patch_location" : args.patch_location_during_training,
+                         "mask_size" : args.mask_size}
+        kwargs_dataloader = {"batch_size": args.batch_size,
+                             "num_workers": args.num_workers}
+        
+        trainset = DescribableTextures(which_set='train', transformer=transform_train, **kwargs_dataset)#, patch_rejection_threshold=patch_rejection_threshold)
+        train_data = torch.utils.data.DataLoader(trainset, shuffle=True, **kwargs_dataloader)
+    
+        valset = DescribableTextures(which_set='val', transformer=transform_test, **kwargs_dataset) #, patch_rejection_threshold=patch_rejection_threshold)
+        val_data = torch.utils.data.DataLoader(valset, shuffle=False, **kwargs_dataloader)
+        
+        testset = DescribableTextures(which_set='test', transformer=transform_test, **kwargs_dataset)#, patch_rejection_threshold=patch_rejection_threshold)
+        test_data = torch.utils.data.DataLoader(testset, shuffle=False, **kwargs_dataloader)
     
         num_output_classes = 666
         
