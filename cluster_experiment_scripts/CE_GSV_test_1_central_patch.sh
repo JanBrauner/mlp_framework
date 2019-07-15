@@ -34,7 +34,7 @@ export DATASET_DIR=${TMP}/datasets/
 source /home/${STUDENT_ID}/miniconda3/bin/activate mlp
 cd ..
 
-mkdir /disk/scratch/${STUDENT_ID}/data/GoogleStreetView
+mkdir -p /disk/scratch/${STUDENT_ID}/data/GoogleStreetView
 rsync -ua --progress /home/${STUDENT_ID}/mlp_framework/data/GoogleStreetView /disk/scratch/${STUDENT_ID}/data/GoogleStreetView
 export DATASET_DIR=/disk/scratch/${STUDENT_ID}/data/
 

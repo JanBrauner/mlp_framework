@@ -34,7 +34,7 @@ export DATASET_DIR=${TMP}/datasets/
 source /home/${STUDENT_ID}/miniconda3/bin/activate mlp
 cd ..
 
-mkdir /disk/scratch/${STUDENT_ID}/data/DescribableTextures
+mkdir -p /disk/scratch/${STUDENT_ID}/data/DescribableTextures
 rsync -ua --progress /home/${STUDENT_ID}/mlp_framework/data/DescribableTextures /disk/scratch/${STUDENT_ID}/data/DescribableTextures
 export DATASET_DIR=/disk/scratch/${STUDENT_ID}/data/
 
