@@ -35,7 +35,7 @@ source /home/${STUDENT_ID}/miniconda3/bin/activate mlp
 cd ..
 
 mkdir /disk/scratch/${STUDENT_ID}/data/MiasHealthy
-rsync -ua --progress /home/${STUDENT_ID}/mlp_framework/data/MiasHealthy /disk/scratch/${STUDENT_ID}/data/MiasHealty
+rsync -ua --progress /home/${STUDENT_ID}/mlp_framework/data/MiasHealthy /disk/scratch/${STUDENT_ID}/data/MiasHealthy
 export DATASET_DIR=/disk/scratch/${STUDENT_ID}/data/
 
 python main.py --experiment_name CE_Mias_resize_test_1
