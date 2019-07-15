@@ -126,11 +126,11 @@ export DATASET_DIR=${{TMP}}/datasets/
 source /home/${{STUDENT_ID}}/miniconda3/bin/activate mlp
 cd ..
 
-mkdir /disk/scratch/${{STUDENT_ID}}/data/
-rsync -ua --progress /home/${{STUDENT_ID}}/mlp_framework/data/ /disk/scratch/${{STUDENT_ID}}/data/
+mkdir /disk/scratch/${{STUDENT_ID}}/data/{3}
+rsync -ua --progress /home/${{STUDENT_ID}}/mlp_framework/data/{3} /disk/scratch/${{STUDENT_ID}}/data/{3}
 export DATASET_DIR=/disk/scratch/${{STUDENT_ID}}/data/
 
-python main.py --experiment_name {3}
+python main.py --experiment_name {4}
 """
 
 ### functions
@@ -148,7 +148,7 @@ def create_shell_script(experiment_name, experiment_path, partition, args, time=
             time = "0-02:00:00"
         elif partition == "Standard":
             time = "0-08:00:00"
-    script_str = default_script.format(partition, num_gpus, time, experiment_name)
+    script_str = default_script.format(partition, num_gpus, time, args["dataset_name"], experiment_name)
     with open("{}.sh".format(experiment_name), "w") as f:
         f.write(script_str)
         

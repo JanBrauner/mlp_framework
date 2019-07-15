@@ -5,6 +5,7 @@ exp1/*/saved_models
 # most data (not Mias, that is sufficiently small)
 data/GoogleStreetView
 data/DescribableTextures/raw
+data/downloads
 
 #dropbox stuff
 *.dropbox*

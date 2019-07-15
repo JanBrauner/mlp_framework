@@ -776,7 +776,124 @@ class DescribableTextures(InpaintingDataset):
              debug_mode=debug_mode, patch_mode=patch_mode, patch_size=patch_size, patch_location=patch_location, mask_size=mask_size) #, patch_rejection_threshold):
 
 
+class DatasetWithAnomalies(data.Dataset):
+    def __init(self):
+        xxx
+# =============================================================================
+#             # check a valid which_set was provided
+#         assert which_set in ['train', 'val', 'test'], (
+#             'Expected which_set to be either train, val or test '
+#             'Got {0}'.format(which_set)
+#         )
+# 
+# =============================================================================
+        
+        self.which_set = which_set  # train, val or test set
+        
+        self.patch_size = patch_size
+#        self.patch_location = patch_location # default should be random
+        self.mask_size = mask_size 
+        self.transformer = transformer
+#        self.rng = rng
+#        self.patch_mode = patch_mode
+#        self.patch_rejection_threshold = patch_rejection_threshold
 
+        # create list of all images in current dataset
+        self.image_path = os.path.join(self.image_base_path, which_set)
+        self.image_list = os.listdir(self.image_path) #directory may only contain the image files, no other files or directories
+        assert len(self.image_list) > 0, "source directory doesn't contain image files"
+
+        # debugging mode sets the dataset size to 50, so we can run the whole experiment locally.
+        if debug_mode:
+            self.image_list = self.image_list[0:50]
+            
+        # calculate central regions slices
+        # self.patch_slice = self.create_central_region_slice((1,1024,1024), self.patch_size) ### this can be done if images have all equal size
+        self.mask_slice = self.create_central_region_slice((1,)+tuple(self.patch_size), self.mask_size)
+        
+        self.num_samples = self.count_samples()
+
+
+    def count_samples(self):
+        """
+        Number of samples in the dataset: sum of valid sliding window positions in every image
+        """
+        num_samples = 0
+        sample_list = []
+        for image_idx, image_name in enumerate(image_list):
+                
+            # load image
+            full_image = Image.open(os.path.join(self.image_path, self.image_name))
+    
+            # transform image
+            full_image = self.transformer(full_image)
+            assert (full_image.shape[1] > self.patch_size[0] and full_image.shape[2] > self.patch_size[1]), "Specified patch size larger than test image"
+            
+            num_windows_0 = 1 + ((full_image.shape[1] - self.patch_size[0]) // self.patch_stride[0]) # number of times that the sliding window fits into image dimension 0 (tensor dimension 1)
+            num_windows_1 = 1 + ((full_image.shape[2] - self.patch_size[1]) // self.patch_stride[1]) # number of times that the sliding window fits into image dimension 1 (tensor dimension 2)
+            for i in range(num_windows_0):
+                for j in range(num_windows_1):
+                    sample_position = {
+                            "image_idx": image_idx, 
+                            "pos_0"}
+                    # continue here
+            
+            num_windows = num_windows_0 * num_windows_1
+            num_samples += num_windows
+            
+        return num_samples
+    
+    def create_sample_list(self):
+        
+        
+        
+        # continue here
+    
+    def __getitem(self, index):
+        
+    
+    def __len__(self):
+        return self.num_samples
+
+
+
+
+
+            if self.patch_mode: # if a image patch should be returned
+                # create patch, but the patch will be called "image" for consistency with other Dataset classes
+                if self.patch_location == "central":
+                    
+                    # image = full_image[self.patch_slice] ### this can be done if images have all equal size
+                        
+                    # This is the version to calculate a new cetnral_region_slice for every image. This becomes necessary if input images vary in shape
+                    central_region_slice = self.create_central_region_slice(full_image.size(), self.patch_size)
+                    image = full_image[central_region_slice]      
+                    
+                
+                if self.patch_location == "random":
+        #            comment these things back in if rejection of dark patches is still desired
+        #            image_mean = -100000
+        #            while image_mean <= patch_rejection_threshold:
+                    top_left_corner = (self.rng.randint(0,full_image.size(1)-self.patch_size[0]), 
+                                       self.rng.randint(0,full_image.size(2)-self.patch_size[1])) # location of top-left corner of patch in dimensions 1 and 2 of the input tensor
+                    image = full_image[:,
+                                       top_left_corner[0]:top_left_corner[0]+self.patch_size[0],
+                                       top_left_corner[1]:top_left_corner[1]+self.patch_size[1]]
+        #                image_mean = torch.mean(image)
+            else:
+                image = full_image
+                
+            # create target image
+            target_image = image[self.mask_slice].clone().detach()
+            
+            # mask out central region in input image
+            image[self.mask_slice] = 0 # note that zero is the dataset-wide mean value as images are centered
+       
+        return image, target_image
+            
+            
+            
+            
 class MiasPathological(data.Dataset):
     """
 
