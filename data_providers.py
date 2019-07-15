@@ -737,7 +737,7 @@ class MiasHealthy(InpaintingDataset):
 
         # DATASET_DIR should point to root directory of data
         self.image_base_path = os.path.join(os.environ['DATASET_DIR'], "MiasHealthy") # path of the data set images
-        print("Loading from data from: ", self.image_base_path)
+        print("Loading data from: ", self.image_base_path)
 
         super(MiasHealthy, self).__init__(which_set=which_set, transformer=transformer, rng=rng, 
              debug_mode=debug_mode, patch_mode=patch_mode, patch_size=patch_size, patch_location=patch_location, mask_size=mask_size) #, patch_rejection_threshold):
@@ -754,9 +754,25 @@ class GoogleStreetView(InpaintingDataset):
 
         # DATASET_DIR should point to root directory of data
         self.image_base_path = os.path.join(os.environ['DATASET_DIR'], "GoogleStreetView") # path of the data set images
-        print("Loading from data from: ", self.image_base_path)
+        print("Loading data from: ", self.image_base_path)
 
         super(GoogleStreetView, self).__init__(which_set=which_set, transformer=transformer, rng=rng, 
+             debug_mode=debug_mode, patch_mode=patch_mode, patch_size=patch_size, patch_location=patch_location, mask_size=mask_size) #, patch_rejection_threshold):
+
+class DescribableTextures(InpaintingDataset):
+    """
+
+    """
+    
+    def __init__(self, which_set, transformer, rng, patch_mode, debug_mode=False, 
+                 patch_size=(256,256), patch_location="central", mask_size=(64,64)):
+
+
+        # DATASET_DIR should point to root directory of data
+        self.image_base_path = os.path.join(os.environ['DATASET_DIR'], "DescribableTextures") # path of the data set images
+        print("Loading data from: ", self.image_base_path)
+
+        super(DescribableTextures, self).__init__(which_set=which_set, transformer=transformer, rng=rng, 
              debug_mode=debug_mode, patch_mode=patch_mode, patch_size=patch_size, patch_location=patch_location, mask_size=mask_size) #, patch_rejection_threshold):
 
 
@@ -940,6 +956,9 @@ def create_dataset(args, augmentations, rng):
         return train_data, val_data, test_data, num_output_classes
     
     
+    
+    
+    
     elif args.dataset_name == 'MiasHealthy':
         # normalisation:
         if args.normalisation == "range-11": # if "range-11" is specified, always normalise to [-1,1]
@@ -973,23 +992,44 @@ def create_dataset(args, augmentations, rng):
 #        # patches with mean value below this get rejected (so we don't sample too many black images)
 #        patch_rejection_threshold = (args.patch_rejection_treshold/255 - mn)/sd
         
-        trainset = MiasHealthy(which_set='train', transformer=transform_train, rng=rng, patch_mode=args.patch_mode,
-                              debug_mode=args.debug_mode, patch_size=(args.image_height, args.image_width),
-                              patch_location=args.patch_location_during_training, mask_size=args.mask_size)#, patch_rejection_threshold=patch_rejection_threshold)
-        train_data = torch.utils.data.DataLoader(trainset, batch_size=args.batch_size, shuffle=True, num_workers=args.num_workers)
+        kwargs_dataset= {"rng":rng, 
+                         "patch_mode" : args.patch_mode, 
+                         "debug_mode" : args.debug_mode,
+                         "patch_size" : (args.image_height, args.image_width),
+                         "patch_location" : args.patch_location_during_training,
+                         "mask_size" : args.mask_size}
+        kwargs_dataloader = {"batch_size": args.batch_size,
+                             "num_workers": args.num_workers}
+        
+        trainset = MiasHealthy(which_set='train', transformer=transform_train, **kwargs_dataset)#, patch_rejection_threshold=patch_rejection_threshold)
+        train_data = torch.utils.data.DataLoader(trainset, shuffle=True, **kwargs_dataloader)
     
-        valset = MiasHealthy(which_set='val', transformer=transform_test, rng=rng, patch_mode=args.patch_mode,
-                            debug_mode=args.debug_mode, patch_size=(args.image_height, args.image_width), 
-                            patch_location=args.patch_location_during_training, mask_size=args.mask_size) #, patch_rejection_threshold=patch_rejection_threshold)
-        val_data = torch.utils.data.DataLoader(valset, batch_size=args.batch_size, shuffle=False, num_workers=args.num_workers)
-        testset = MiasHealthy(which_set='test', transformer=transform_test, rng=rng, patch_mode=args.patch_mode,
-                             debug_mode=args.debug_mode, patch_size=(args.image_height, args.image_width), 
-                             patch_location=args.patch_location_during_training, mask_size=args.mask_size)#, patch_rejection_threshold=patch_rejection_threshold)
-        test_data = torch.utils.data.DataLoader(testset, batch_size=args.batch_size, shuffle=False, num_workers=args.num_workers)
+        valset = MiasHealthy(which_set='val', transformer=transform_test, **kwargs_dataset) #, patch_rejection_threshold=patch_rejection_threshold)
+        val_data = torch.utils.data.DataLoader(valset, shuffle=False, **kwargs_dataloader)
+        testset = MiasHealthy(which_set='test', transformer=transform_test, **kwargs_dataset)#, patch_rejection_threshold=patch_rejection_threshold)
+        test_data = torch.utils.data.DataLoader(testset, shuffle=False,  **kwargs_dataloader)
+# =============================================================================
+#         trainset = MiasHealthy(which_set='train', transformer=transform_train, rng=rng, patch_mode=args.patch_mode,
+#                               debug_mode=args.debug_mode, patch_size=(args.image_height, args.image_width),
+#                               patch_location=args.patch_location_during_training, mask_size=args.mask_size)#, patch_rejection_threshold=patch_rejection_threshold)
+#         train_data = torch.utils.data.DataLoader(trainset, batch_size=args.batch_size, shuffle=True, num_workers=args.num_workers)
+#     
+#         valset = MiasHealthy(which_set='val', transformer=transform_test, rng=rng, patch_mode=args.patch_mode,
+#                             debug_mode=args.debug_mode, patch_size=(args.image_height, args.image_width), 
+#                             patch_location=args.patch_location_during_training, mask_size=args.mask_size) #, patch_rejection_threshold=patch_rejection_threshold)
+#         val_data = torch.utils.data.DataLoader(valset, batch_size=args.batch_size, shuffle=False, num_workers=args.num_workers)
+#         testset = MiasHealthy(which_set='test', transformer=transform_test, rng=rng, patch_mode=args.patch_mode,
+#                              debug_mode=args.debug_mode, patch_size=(args.image_height, args.image_width), 
+#                              patch_location=args.patch_location_during_training, mask_size=args.mask_size)#, patch_rejection_threshold=patch_rejection_threshold)
+#         test_data = torch.utils.data.DataLoader(testset, batch_size=args.batch_size, shuffle=False, num_workers=args.num_workers)
+# =============================================================================
     
         num_output_classes = 666
         
         return train_data, val_data, test_data, num_output_classes
+
+
+
 
     elif args.dataset_name == 'GoogleStreetView':
         if args.normalisation == "mn0sd1":
@@ -1023,19 +1063,38 @@ def create_dataset(args, augmentations, rng):
     
         transform_test = transforms.Compose(standard_transforms)
         
-        trainset = GoogleStreetView(which_set='train', transformer=transform_train, rng=rng, patch_mode=args.patch_mode,
-                          debug_mode=args.debug_mode, patch_size=(args.image_height, args.image_width),
-                          patch_location=args.patch_location_during_training, mask_size=args.mask_size)#, patch_rejection_threshold=patch_rejection_threshold)
-        train_data = torch.utils.data.DataLoader(trainset, batch_size=args.batch_size, shuffle=True, num_workers=args.num_workers)
+        kwargs_dataset= {"rng":rng, 
+                         "patch_mode" : args.patch_mode, 
+                         "debug_mode" : args.debug_mode,
+                         "patch_size" : (args.image_height, args.image_width),
+                         "patch_location" : args.patch_location_during_training,
+                         "mask_size" : args.mask_size}
+        kwargs_dataloader = {"batch_size": args.batch_size,
+                             "num_workers": args.num_workers}
+        
+        trainset = GoogleStreetView(which_set='train', transformer=transform_train, **kwargs_dataset)#, patch_rejection_threshold=patch_rejection_threshold)
+        train_data = torch.utils.data.DataLoader(trainset, shuffle=True, **kwargs_dataloader)
     
-        valset = GoogleStreetView(which_set='val', transformer=transform_test, rng=rng, patch_mode=args.patch_mode,
-                            debug_mode=args.debug_mode, patch_size=(args.image_height, args.image_width), 
-                            patch_location=args.patch_location_during_training, mask_size=args.mask_size) #, patch_rejection_threshold=patch_rejection_threshold)
-        val_data = torch.utils.data.DataLoader(valset, batch_size=args.batch_size, shuffle=False, num_workers=args.num_workers)
-        testset = GoogleStreetView(which_set='test', transformer=transform_test, rng=rng,  patch_mode=args.patch_mode,
-                             debug_mode=args.debug_mode, patch_size=(args.image_height, args.image_width), 
-                             patch_location=args.patch_location_during_training, mask_size=args.mask_size)#, patch_rejection_threshold=patch_rejection_threshold)
-        test_data = torch.utils.data.DataLoader(testset, batch_size=args.batch_size, shuffle=False, num_workers=args.num_workers)
+        valset = GoogleStreetView(which_set='val', transformer=transform_test, **kwargs_dataset) #, patch_rejection_threshold=patch_rejection_threshold)
+        val_data = torch.utils.data.DataLoader(valset, shuffle=False, **kwargs_dataloader)
+        
+        testset = GoogleStreetView(which_set='test', transformer=transform_test, **kwargs_dataset)#, patch_rejection_threshold=patch_rejection_threshold)
+        test_data = torch.utils.data.DataLoader(testset, shuffle=False, **kwargs_dataloader)
+# =============================================================================
+#         trainset = GoogleStreetView(which_set='train', transformer=transform_train, rng=rng, patch_mode=args.patch_mode,
+#                           debug_mode=args.debug_mode, patch_size=(args.image_height, args.image_width),
+#                           patch_location=args.patch_location_during_training, mask_size=args.mask_size)#, patch_rejection_threshold=patch_rejection_threshold)
+#         train_data = torch.utils.data.DataLoader(trainset, batch_size=args.batch_size, shuffle=True, num_workers=args.num_workers)
+#     
+#         valset = GoogleStreetView(which_set='val', transformer=transform_test, rng=rng, patch_mode=args.patch_mode,
+#                             debug_mode=args.debug_mode, patch_size=(args.image_height, args.image_width), 
+#                             patch_location=args.patch_location_during_training, mask_size=args.mask_size) #, patch_rejection_threshold=patch_rejection_threshold)
+#         val_data = torch.utils.data.DataLoader(valset, batch_size=args.batch_size, shuffle=False, num_workers=args.num_workers)
+#         testset = GoogleStreetView(which_set='test', transformer=transform_test, rng=rng,  patch_mode=args.patch_mode,
+#                              debug_mode=args.debug_mode, patch_size=(args.image_height, args.image_width), 
+#                              patch_location=args.patch_location_during_training, mask_size=args.mask_size)#, patch_rejection_threshold=patch_rejection_threshold)
+#         test_data = torch.utils.data.DataLoader(testset, batch_size=args.batch_size, shuffle=False, num_workers=args.num_workers)
+# =============================================================================
     
         num_output_classes = 666
         
