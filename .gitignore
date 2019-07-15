@@ -65,3 +65,5 @@ docs/_build/
 
 # PyBuilder
 target/
+results/CE_cpu_dev/result_outputs/summary.csv
+results/CE_cpu_dev/result_outputs/test_summary.csv
