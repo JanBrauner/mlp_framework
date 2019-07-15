@@ -4,6 +4,7 @@ import os
 import json
 import itertools
 import numpy as np
+import copy
 
 #%% Run this cell once at the beginning
 
@@ -23,7 +24,7 @@ default_args = {
 # =============================================================================
 ### GPU settings
 "use_gpu": True, # 'A flag indicating whether we will use GPU acceleration or not'
-"gpu_id": "0,1,3,4", # "A string indicating the gpu to use, ids separated by ','. For e.g. 4 gpus, this would usually be [0,1,2,3]."
+"gpu_id": "0,1,2,3", # "A string indicating the gpu to use, ids separated by ','. For e.g. 4 gpus, this would usually be [0,1,2,3]."
 
 # =============================================================================
 ### model parameters
@@ -65,6 +66,7 @@ default_args = {
 "shear_angle": 0,
 
 # data parameters: image patches
+"patch_mode": True, # if true, patches of patch_size will be extracted from the image for training. If false, the whole image will be rescaled and cropped to image_size
 "patch_size": [128, 128],
 "patch_location_during_training": "central", # Can be "central" or "random"
 "patch_rejection_threshold": 10, # CURRENTLY NOT USED!.threshold, on a 8-bit scale. Patches sampled from the data loader with a mean below this threshold get rejected because they show only background
@@ -75,7 +77,7 @@ default_args = {
 # =============================================================================
 ### training parameters
 # training parameters: general
-"batch_size": 50,
+"batch_size": 100,
 "loss": "L2",
 "num_epochs": 100,
 
@@ -155,31 +157,64 @@ def create_shell_script(experiment_name, experiment_path, partition, args, time=
 config_path = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, "configs"))
 shell_script_path = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, "cluster_experiment_scripts"))
 
+### Commonly used themes
+def cpu_theme(args):
+    args["use_gpu"] = False
+    args["num_workers"] = 0
+    args["debug_mode"] = True
+    args["batch_size"] = 5
+    args["num_epochs"] = 2
+    return args
 
+def GoogleStreetView_theme(args):
+    args["num_image_channels"] = 3
+    args["dataset_name"] = "GoogleStreetView"
+    args["gpu_id"] ="0,1,2,3,4,5"
+    args["num_workers"] = 6
+    return args
+    
 #%% A list of independent experiment 
-experiment_names = ["CE_central_patch_2_preprocessed"]
-cpu = False
+experiment_names = ["Test1", "Test2"]
 partition = "Standard"
 time = None
 
+# Commonly used themes
+cpu = False
+GoogleStreetView = False
 
-# arguments to update from default, each inner list has the keys for one experiment:
-keys_to_update = [["patch_location_during_training"]]
-values_to_update = [["central"]]
+# arguments to update from default, each inner dict has the items for one experiment:
+update_dicts = [{"patch_mode": False, "num_epochs":500}, {"num_epochs": 1000}]
+
+# TEMP, DELETE AFTER RUN
+#experiment_names = ["CE_GSV_test_1_resize","CE_GSV_test_1_central_patch","CE_GSV_test_1_random_patch"]
+#partition = "Standard"
+#time = None
+#
+## Commonly used themes
+#cpu = False
+#GoogleStreetView = True
+#
+## arguments to update from default, each inner list has the keys for one experiment:
+#keys_to_update = [["patch_mode"],["patch_location_during_training"],["patch_location_during_training"]]
+#values_to_update = [[False], ["central"], ["random"]]
 
 # for each experiment
 for idx, experiment_name in enumerate(experiment_names):
     # update args
-    args = default_args
+    args = copy.copy(default_args)
     if cpu:
-        args["use_gpu"] = False
-        args["num_workers"] = 0
-        args["debug_mode"] = True
-        args["batch_size"] = 5
-        args["num_epochs"] = 5
-    for key,value in zip(keys_to_update[idx], values_to_update[idx]):
+        args = cpu_theme(args)
+    if GoogleStreetView:
+        args = GoogleStreetView_theme(args)
+
+    for key in update_dicts[idx].keys():
         assert key in args.keys(), "wrong parameters name"
-        args[key] = value
+    args.update(update_dicts[idx])
+# =============================================================================
+#     for dict in zip(keys_to_update[idx], values_to_update[idx]):
+#         assert key in args.keys(), "wrong parameters name"
+#         args[key] = value
+# =============================================================================
 
 
     # create files        
@@ -189,19 +224,30 @@ for idx, experiment_name in enumerate(experiment_names):
                                          partition=partition, args=args, time=time)
 # =============================================================================
 # #%% one parameter over a range
+# ### !!!! This is not up to date, update with above example !!!!
+    
 # experiment_base_name = "test_script_generator_range_{}" # needs to include {}
-# cpu = False
 # key_to_vary = "num_epochs"
 # values = [10,30,70]
 # partition = "Interactive"
 # args = default_args
 # time = None
 # 
+# 
+# # Commonly used themes
+# cpu = False
+# colour_image = True
+# 
 # # other non-default parameters
 # keys_to_update = ["num_epochs", "loss"]
 # values_to_update = [50, "L2"]
 # 
 # # update other non-default parameters
+# if cpu:
+#     args = cpu_theme(args)
+# if colour_image:
+#     args = colour_image_theme(args)
+# 
 # for key,value in zip(keys_to_update, values_to_update):
 #     assert key in args.keys(), "wrong parameters name"
 #     args[key] = value
@@ -221,8 +267,8 @@ for idx, experiment_name in enumerate(experiment_names):
 #                                      partition=partition, args=args, time=time)
 #     
 #     
+# 
 # =============================================================================
-
 # =============================================================================
 # #%% Two-parameter grid
 #     # to implement
