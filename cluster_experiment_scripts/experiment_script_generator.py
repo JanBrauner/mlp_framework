@@ -183,31 +183,19 @@ def DescribableTextures_theme(args):
     
     
 #%% A list of independent experiment 
-experiment_names = ["CE_cpu_dev"]
+experiment_names = ["CE_DTD_random_patch_test_1", "CE_DTD_central_patch_test_1", "CE_DTD_resize_test_1"]
 partition = "Standard"
 time = None
 
 # Commonly used themes
-cpu = True
+cpu = False
 GoogleStreetView = False
 DescribableTextures = True
 
 
 # arguments to update from default, each inner dict has the items for one experiment:
-update_dicts = [{}, {}]
+update_dicts = [{"patch_location_during_training":"random"}, {"patch_location_during_training":"central"}, {"patch_mode":False}]
 
-# TEMP, DELETE AFTER RUN
-#experiment_names = ["CE_GSV_test_1_resize","CE_GSV_test_1_central_patch","CE_GSV_test_1_random_patch"]
-#partition = "Standard"
-#time = None
-#
-## Commonly used themes
-#cpu = False
-#GoogleStreetView = True
-#
-## arguments to update from default, each inner list has the keys for one experiment:
-#keys_to_update = [["patch_mode"],["patch_location_during_training"],["patch_location_during_training"]]
-#values_to_update = [[False], ["central"], ["random"]]
 
 # for each experiment
 for idx, experiment_name in enumerate(experiment_names):
