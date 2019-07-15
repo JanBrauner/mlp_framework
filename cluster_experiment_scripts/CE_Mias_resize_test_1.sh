@@ -38,4 +38,4 @@ mkdir /disk/scratch/${STUDENT_ID}/data/
 rsync -ua --progress /home/${STUDENT_ID}/mlp_framework/data/ /disk/scratch/${STUDENT_ID}/data/
 export DATASET_DIR=/disk/scratch/${STUDENT_ID}/data/
 
-python main.py --experiment_name CE_cpu_dev
+python main.py --experiment_name CE_Mias_resize_test_1

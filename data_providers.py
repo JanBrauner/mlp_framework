@@ -635,7 +635,7 @@ class CIFAR100(CIFAR10):
 
 class InpaintingDataset(data.Dataset):
     
-    def __init__(self, which_set, transformer, rng, debug_mode=False, 
+    def __init__(self, which_set, transformer, rng, patch_mode, debug_mode=False, 
                  patch_size=(256,256), patch_location="central", mask_size=(64,64)): #, patch_rejection_threshold):
 
         # check a valid which_set was provided
@@ -652,6 +652,7 @@ class InpaintingDataset(data.Dataset):
         self.mask_size = mask_size
         self.transformer = transformer
         self.rng = rng
+        self.patch_mode = patch_mode
 #        self.patch_rejection_threshold = patch_rejection_threshold
 
         # create list of all images in current dataset
@@ -681,7 +682,7 @@ class InpaintingDataset(data.Dataset):
         # transform image
         full_image = self.transformer(full_image)
         
-        if self.patch_size[0] < full_image.shape[1] or self.patch_size[1] < full_image.shape[2]: # if patch is smaller than the full image. The indexes are weird because patch-size refers to the 1-D image, but full_image is a Tensor (CxHxW)
+        if self.patch_mode: # if a image patch should be returned
             # create patch, but the patch will be called "image" for consistency with other Dataset classes
             if self.patch_location == "central":
                 
@@ -729,18 +730,34 @@ class InpaintingDataset(data.Dataset):
 class MiasHealthy(InpaintingDataset):
     """
 
+    """    
+    
+    def __init__(self, which_set, transformer, rng, patch_mode, debug_mode=False, 
+                 patch_size=(256,256), patch_location="central", mask_size=(64,64)):
+
+        # DATASET_DIR should point to root directory of data
+        self.image_base_path = os.path.join(os.environ['DATASET_DIR'], "MiasHealthy") # path of the data set images
+        print("Loading from data from: ", self.image_base_path)
+
+        super(MiasHealthy, self).__init__(which_set=which_set, transformer=transformer, rng=rng, 
+             debug_mode=debug_mode, patch_mode=patch_mode, patch_size=patch_size, patch_location=patch_location, mask_size=mask_size) #, patch_rejection_threshold):
+
+
+class GoogleStreetView(InpaintingDataset):
     """
 
-    # DATASET_DIR should point to root directory of data
-    image_base_path = os.path.join(os.environ['DATASET_DIR'], "MiasHealthy") # path of the data set images
-    print("Loading from data from: ", image_base_path)
+    """
     
-    
-    def __init__(self, which_set, transformer, rng, debug_mode=False, 
+    def __init__(self, which_set, transformer, rng, patch_mode, debug_mode=False, 
                  patch_size=(256,256), patch_location="central", mask_size=(64,64)):
-        super(MiasHealthy, self).__init__(which_set=which_set, transformer=transformer, rng=rng, 
-             debug_mode=debug_mode, patch_size=patch_size, patch_location=patch_location, mask_size=mask_size) #, patch_rejection_threshold):
 
+
+        # DATASET_DIR should point to root directory of data
+        self.image_base_path = os.path.join(os.environ['DATASET_DIR'], "GoogleStreetView") # path of the data set images
+        print("Loading from data from: ", self.image_base_path)
+
+        super(GoogleStreetView, self).__init__(which_set=which_set, transformer=transformer, rng=rng, 
+             debug_mode=debug_mode, patch_mode=patch_mode, patch_size=patch_size, patch_location=patch_location, mask_size=mask_size) #, patch_rejection_threshold):
 
 
 
@@ -924,20 +941,27 @@ def create_dataset(args, augmentations, rng):
     
     
     elif args.dataset_name == 'MiasHealthy':
-        if args.normalisation == "mn0sd1":
-            if args.patch_location_during_training == "random": # calculated offline: mean and SD for all training images (whole images)
-                mn = 0.14581
-                sd = 0.25929
-            elif args.patch_location_during_training == "central": # calculated offline: mean and SD for all training images (central 256x256 patch)
-                mn = 0.39865
-                sd = 0.30890
-        elif args.normalisation == "range-11":
-            mn = 0.5
-            sd = 0.5
+        # normalisation:
+        if args.normalisation == "range-11": # if "range-11" is specified, always normalise to [-1,1]
+            mn = (0.5,)
+            sd = (0.5,)
+        elif args.normalisation == "mn0sd1":
+            if not args.patch_mode or args.patch_location_during_training == "random": # calculated offline: mean and SD for all training images (whole images)
+                mn = (0.14581,)
+                sd = (0.25929,)
+            elif args.patch_mode and args.patch_location_during_training == "central": # calculated offline: mean and SD for all training images (central 256x256 patch)
+                mn = (0.39865,)
+                sd = (0.30890,)
         
-        # transformations and augmentations
-        standard_transforms = [transforms.ToTensor(),
-                    transforms.Normalize((mn,), (sd,))] 
+        # transformations and augmentations        
+        if args.patch_mode: # patches get extracted within the Datset class, no need to resize images here
+            standard_transforms = [transforms.ToTensor(),
+                                   transforms.Normalize(mn, sd)] 
+        else:
+            standard_transforms = [transforms.Resize(args.image_height), # resize the image to approximately image_height x image_height
+                                   transforms.CenterCrop(args.image_height), # then crop the image to exactly image_height x image_height
+                                   transforms.ToTensor(),
+                                   transforms.Normalize(mn, sd)] 
          
         if augmentations is not None:
             transform_train = transforms.Compose(augmentations + standard_transforms)
@@ -949,16 +973,66 @@ def create_dataset(args, augmentations, rng):
 #        # patches with mean value below this get rejected (so we don't sample too many black images)
 #        patch_rejection_threshold = (args.patch_rejection_treshold/255 - mn)/sd
         
-        trainset = MiasHealthy(which_set='train', transformer=transform_train, rng=rng, 
+        trainset = MiasHealthy(which_set='train', transformer=transform_train, rng=rng, patch_mode=args.patch_mode,
                               debug_mode=args.debug_mode, patch_size=(args.image_height, args.image_width),
                               patch_location=args.patch_location_during_training, mask_size=args.mask_size)#, patch_rejection_threshold=patch_rejection_threshold)
         train_data = torch.utils.data.DataLoader(trainset, batch_size=args.batch_size, shuffle=True, num_workers=args.num_workers)
     
-        valset = MiasHealthy(which_set='val', transformer=transform_test, rng=rng,
+        valset = MiasHealthy(which_set='val', transformer=transform_test, rng=rng, patch_mode=args.patch_mode,
                             debug_mode=args.debug_mode, patch_size=(args.image_height, args.image_width), 
                             patch_location=args.patch_location_during_training, mask_size=args.mask_size) #, patch_rejection_threshold=patch_rejection_threshold)
         val_data = torch.utils.data.DataLoader(valset, batch_size=args.batch_size, shuffle=False, num_workers=args.num_workers)
-        testset = MiasHealthy(which_set='test', transformer=transform_test, rng=rng,
+        testset = MiasHealthy(which_set='test', transformer=transform_test, rng=rng, patch_mode=args.patch_mode,
+                             debug_mode=args.debug_mode, patch_size=(args.image_height, args.image_width), 
+                             patch_location=args.patch_location_during_training, mask_size=args.mask_size)#, patch_rejection_threshold=patch_rejection_threshold)
+        test_data = torch.utils.data.DataLoader(testset, batch_size=args.batch_size, shuffle=False, num_workers=args.num_workers)
+    
+        num_output_classes = 666
+        
+        return train_data, val_data, test_data, num_output_classes
+
+    elif args.dataset_name == 'GoogleStreetView':
+        if args.normalisation == "mn0sd1":
+            raise NotImplementedError
+# =============================================================================
+#             if args.patch_location_during_training == "random": # calculated offline: mean and SD for all training images (whole images)
+#                 mn = 0.14581
+#                 sd = 0.25929
+#             elif args.patch_location_during_training == "central": # calculated offline: mean and SD for all training images (central 256x256 patch)
+#                 mn = 0.39865
+#                 sd = 0.30890
+# =============================================================================
+        elif args.normalisation == "range-11":
+            mn = [0.5, 0.5, 0.5]
+            sd = [0.5, 0.5, 0.5]
+
+        # transformations and augmentations        
+        if args.patch_mode: # patches get extracted within the Datset class, no need to resize images here
+            standard_transforms = [transforms.ToTensor(),
+                                   transforms.Normalize(mn, sd)] 
+        else:
+            standard_transforms = [transforms.Resize(args.image_height), # resize the image to approximately image_height x image_height
+                                   transforms.CenterCrop(args.image_height), # then crop the image to exactly image_height x image_height
+                                   transforms.ToTensor(),
+                                   transforms.Normalize(mn, sd)] 
+         
+        if augmentations is not None:
+            transform_train = transforms.Compose(augmentations + standard_transforms)
+        else:
+            transform_train = transforms.Compose(standard_transforms)
+    
+        transform_test = transforms.Compose(standard_transforms)
+        
+        trainset = GoogleStreetView(which_set='train', transformer=transform_train, rng=rng, patch_mode=args.patch_mode,
+                          debug_mode=args.debug_mode, patch_size=(args.image_height, args.image_width),
+                          patch_location=args.patch_location_during_training, mask_size=args.mask_size)#, patch_rejection_threshold=patch_rejection_threshold)
+        train_data = torch.utils.data.DataLoader(trainset, batch_size=args.batch_size, shuffle=True, num_workers=args.num_workers)
+    
+        valset = GoogleStreetView(which_set='val', transformer=transform_test, rng=rng, patch_mode=args.patch_mode,
+                            debug_mode=args.debug_mode, patch_size=(args.image_height, args.image_width), 
+                            patch_location=args.patch_location_during_training, mask_size=args.mask_size) #, patch_rejection_threshold=patch_rejection_threshold)
+        val_data = torch.utils.data.DataLoader(valset, batch_size=args.batch_size, shuffle=False, num_workers=args.num_workers)
+        testset = GoogleStreetView(which_set='test', transformer=transform_test, rng=rng,  patch_mode=args.patch_mode,
                              debug_mode=args.debug_mode, patch_size=(args.image_height, args.image_width), 
                              patch_location=args.patch_location_during_training, mask_size=args.mask_size)#, patch_rejection_threshold=patch_rejection_threshold)
         test_data = torch.utils.data.DataLoader(testset, batch_size=args.batch_size, shuffle=False, num_workers=args.num_workers)

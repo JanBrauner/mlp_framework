@@ -2,7 +2,7 @@
 #SBATCH -N 1	  # nodes requested
 #SBATCH -n 1	  # tasks requested
 #SBATCH --partition=Standard
-#SBATCH --gres=gpu:4
+#SBATCH --gres=gpu:6
 #SBATCH --mem=12000  # memory in Mb
 #SBATCH --time=0-08:00:00
 
@@ -38,4 +38,4 @@ mkdir /disk/scratch/${STUDENT_ID}/data/
 rsync -ua --progress /home/${STUDENT_ID}/mlp_framework/data/ /disk/scratch/${STUDENT_ID}/data/
 export DATASET_DIR=/disk/scratch/${STUDENT_ID}/data/
 
-python main.py --experiment_name CE_cpu_dev
+python main.py --experiment_name CE_GSV_test_1_resize
