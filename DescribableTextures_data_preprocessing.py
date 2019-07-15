@@ -26,7 +26,7 @@ def create_list_of_images(file_path):
 raw_data_path = os.path.join("data","DescribableTextures", "raw")
 image_base_path = os.path.join("data","DescribableTextures")
 # parameters
-test_images_per_category = 2
+test_images_per_category = 20
 
 # 2/3rd of of images go to train set: copy images from train1.txt and test1.txt to the train subdirectory
 #file_path = os.path.join(raw_data_path, "train1.txt")

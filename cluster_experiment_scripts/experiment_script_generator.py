@@ -172,18 +172,29 @@ def GoogleStreetView_theme(args):
     args["gpu_id"] ="0,1,2,3,4,5"
     args["num_workers"] = 6
     return args
+
+
+def DescribableTextures_theme(args):
+    args["num_image_channels"] = 3
+    args["dataset_name"] = "DescribableTextures"
+    args["gpu_id"] ="0,1,2,3,4,5"
+    args["num_workers"] = 6
+    return args
+    
     
 #%% A list of independent experiment 
-experiment_names = ["Test1", "Test2"]
+experiment_names = ["CE_cpu_dev"]
 partition = "Standard"
 time = None
 
 # Commonly used themes
-cpu = False
+cpu = True
 GoogleStreetView = False
+DescribableTextures = True
+
 
 # arguments to update from default, each inner dict has the items for one experiment:
-update_dicts = [{"patch_mode": False, "num_epochs":500}, {"num_epochs": 1000}]
+update_dicts = [{}, {}]
 
 # TEMP, DELETE AFTER RUN
 #experiment_names = ["CE_GSV_test_1_resize","CE_GSV_test_1_central_patch","CE_GSV_test_1_random_patch"]
@@ -202,10 +213,13 @@ update_dicts = [{"patch_mode": False, "num_epochs":500}, {"num_epochs": 1000}]
 for idx, experiment_name in enumerate(experiment_names):
     # update args
     args = copy.copy(default_args)
-    if cpu:
-        args = cpu_theme(args)
     if GoogleStreetView:
         args = GoogleStreetView_theme(args)
+    if DescribableTextures:
+        args = DescribableTextures_theme(args)
+    if cpu: # it's important that this one is last, because it needs to overwrite num_workers and use_gpu
+        args = cpu_theme(args)
+
 
     for key in update_dicts[idx].keys():
         assert key in args.keys(), "wrong parameters name"
