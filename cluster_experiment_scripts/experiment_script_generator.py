@@ -126,8 +126,8 @@ export DATASET_DIR=${{TMP}}/datasets/
 source /home/${{STUDENT_ID}}/miniconda3/bin/activate mlp
 cd ..
 
-mkdir -p /disk/scratch/${{STUDENT_ID}}/data/{3}
-rsync -ua --progress /home/${{STUDENT_ID}}/mlp_framework/data/{3} /disk/scratch/${{STUDENT_ID}}/data/{3}
+mkdir -p /disk/scratch/${{STUDENT_ID}}/data/{3}/
+rsync -ua --progress /home/${{STUDENT_ID}}/mlp_framework/data/{3}/ /disk/scratch/${{STUDENT_ID}}/data/{3}/
 export DATASET_DIR=/disk/scratch/${{STUDENT_ID}}/data/
 
 python main.py --experiment_name {4}
