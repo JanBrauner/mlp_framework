@@ -1,0 +1,1465 @@
+mkdir: cannot create directory ‘/disk/scratch/s1890594/data/GoogleStreetView’: File exists
+sending incremental file list
+GoogleStreetView/test/
+GoogleStreetView/test/010270_5.jpg
+         32,768   5%    0.00kB/s    0:00:00          603,363 100%   21.77MB/s    0:00:00 (xfr#1, ir-chk=38860/40722)
+GoogleStreetView/test/010271_1.jpg
+         32,768   3%  385.54kB/s    0:00:02          852,978 100%    6.95MB/s    0:00:00 (xfr#2, ir-chk=38859/40722)
+GoogleStreetView/test/010271_2.jpg
+         32,768   3%  132.23kB/s    0:00:06          885,166 100%    2.68MB/s    0:00:00 (xfr#3, ir-chk=38858/40722)
+GoogleStreetView/test/010271_3.jpg
+         32,768   3%   61.07kB/s    0:00:15          960,800 100%    1.57MB/s    0:00:00 (xfr#4, ir-chk=38857/40722)
+GoogleStreetView/test/010271_4.jpg
+         32,768   4%   37.34kB/s    0:00:20          784,975 100%  801.86kB/s    0:00:00 (xfr#5, ir-chk=38856/40722)
+GoogleStreetView/test/010271_5.jpg
+         32,768   7%   24.22kB/s    0:00:16           65,536  15%   48.37kB/s    0:00:07          429,392 100%  315.05kB/s    0:00:01 (xfr#6, ir-chk=38855/40722)
+GoogleStreetView/test/010272_1.jpg
+         32,768   3%   23.72kB/s    0:00:34           65,536   7%   47.41kB/s    0:00:16          844,845 100%  595.70kB/s    0:00:01 (xfr#7, ir-chk=38854/40722)
+GoogleStreetView/test/010272_2.jpg
+         32,768   3%   22.52kB/s    0:00:39           65,536   7%   45.04kB/s    0:00:19          924,179 100%  611.88kB/s    0:00:01 (xfr#8, ir-chk=38853/40722)
+GoogleStreetView/test/010272_3.jpg
+         32,768   3%  101.59kB/s    0:00:08          918,376 100%    2.55MB/s    0:00:00 (xfr#9, ir-chk=38852/40722)
+GoogleStreetView/test/010272_4.jpg
+         32,768   4%   81.84kB/s    0:00:09          791,487 100%    1.86MB/s    0:00:00 (xfr#10, ir-chk=38851/40722)
+GoogleStreetView/test/010272_5.jpg
+         32,768   7%   58.08kB/s    0:00:06          430,598 100%  750.90kB/s    0:00:00 (xfr#11, ir-chk=38850/40722)
+GoogleStreetView/test/010273_1.jpg
+         32,768   4%    0.00kB/s    0:00:00          804,405 100%   35.04MB/s    0:00:00 (xfr#12, ir-chk=38849/40722)
+GoogleStreetView/test/010273_2.jpg
+         32,768   3%  168.42kB/s    0:00:05          934,743 100%    3.68MB/s    0:00:00 (xfr#13, ir-chk=38848/40722)
+GoogleStreetView/test/010273_3.jpg
+         32,768   3%   74.25kB/s    0:00:11          861,446 100%    1.69MB/s    0:00:00 (xfr#14, ir-chk=38847/40722)
+GoogleStreetView/test/010273_4.jpg
+         32,768   4%   49.31kB/s    0:00:14          765,779 100%    1.08MB/s    0:00:00 (xfr#15, ir-chk=38846/40722)
+GoogleStreetView/test/010273_5.jpg
+         32,768   9%   44.51kB/s    0:00:06          330,624 100%  445.96kB/s    0:00:00 (xfr#16, ir-chk=38845/40722)
+GoogleStreetView/test/010274_1.jpg
+         32,768   3%   34.63kB/s    0:00:23          852,540 100%  868.15kB/s    0:00:00 (xfr#17, ir-chk=38844/40722)
+GoogleStreetView/test/010274_2.jpg
+         32,768   3%   29.04kB/s    0:00:31           65,536   7%   58.08kB/s    0:00:14          933,448 100%  813.18kB/s    0:00:01 (xfr#18, ir-chk=38843/40722)
+GoogleStreetView/test/010274_3.jpg
+         32,768   3%  226.95kB/s    0:00:03          864,469 100%    5.25MB/s    0:00:00 (xfr#19, ir-chk=38842/40722)
+GoogleStreetView/test/010274_4.jpg
+         32,768   4%  114.70kB/s    0:00:06          808,135 100%    2.64MB/s    0:00:00 (xfr#20, ir-chk=38841/40722)
+GoogleStreetView/test/010274_5.jpg
+         32,768  10%    0.00kB/s    0:00:00          310,304 100%   88.23MB/s    0:00:00 (xfr#21, ir-chk=38840/40722)
+GoogleStreetView/test/010275_1.jpg
+         32,768   3%  118.96kB/s    0:00:07          891,250 100%    2.81MB/s    0:00:00 (xfr#22, ir-chk=38839/40722)
+GoogleStreetView/test/010275_2.jpg
+         32,768   3%   88.15kB/s    0:00:09          862,442 100%    2.12MB/s    0:00:00 (xfr#23, ir-chk=38838/40722)
+GoogleStreetView/test/010275_3.jpg
+         32,768   3%   63.62kB/s    0:00:13          892,972 100%    1.61MB/s    0:00:00 (xfr#24, ir-chk=38837/40722)
+GoogleStreetView/test/010275_4.jpg
+         32,768   4%   23.95kB/s    0:00:30           65,536   8%   47.87kB/s    0:00:14          758,745 100%  538.88kB/s    0:00:01 (xfr#25, ir-chk=38836/40722)
+GoogleStreetView/test/010275_5.jpg
+         32,768  10%  178.77kB/s    0:00:01          312,763 100%    1.62MB/s    0:00:00 (xfr#26, ir-chk=38835/40722)
+GoogleStreetView/test/010276_1.jpg
+         32,768   3%   75.65kB/s    0:00:10          827,992 100%    1.68MB/s    0:00:00 (xfr#27, ir-chk=38834/40722)
+GoogleStreetView/test/010276_2.jpg
+         32,768   4%   43.13kB/s    0:00:17          808,859 100%  977.60kB/s    0:00:00 (xfr#28, ir-chk=38833/40722)
+GoogleStreetView/test/010276_3.jpg
+         32,768   3%   29.55kB/s    0:00:29           65,536   7%   59.04kB/s    0:00:14          904,560 100%  645.73kB/s    0:00:01 (xfr#29, ir-chk=38832/40722)
+GoogleStreetView/test/010276_4.jpg
+         32,768   4%   53.69kB/s    0:00:13          779,664 100%    1.08MB/s    0:00:00 (xfr#30, ir-chk=38831/40722)
+GoogleStreetView/test/010276_5.jpg
+         32,768  10%   25.81kB/s    0:00:10           65,536  21%   51.61kB/s    0:00:04          308,371 100%  242.08kB/s    0:00:01 (xfr#31, ir-chk=38830/40722)
+GoogleStreetView/test/010277_1.jpg
+         32,768   4%  149.53kB/s    0:00:05          791,895 100%    2.95MB/s    0:00:00 (xfr#32, ir-chk=38829/40722)
+GoogleStreetView/test/010277_2.jpg
+         32,768   4%   48.05kB/s    0:00:15          785,830 100%    1.10MB/s    0:00:00 (xfr#33, ir-chk=38828/40722)
+GoogleStreetView/test/010277_3.jpg
+         32,768   3%   28.99kB/s    0:00:31           65,536   7%   57.92kB/s    0:00:15          934,936 100%  814.47kB/s    0:00:01 (xfr#34, ir-chk=38827/40722)
+GoogleStreetView/test/010277_4.jpg
+         32,768   4%   35.48kB/s    0:00:20          753,885 100%  773.34kB/s    0:00:00 (xfr#35, ir-chk=38826/40722)
+GoogleStreetView/test/010277_5.jpg
+         32,768   9%   28.99kB/s    0:00:10           65,536  18%   57.97kB/s    0:00:04          350,576 100%  308.99kB/s    0:00:01 (xfr#36, ir-chk=38825/40722)
+GoogleStreetView/test/010278_1.jpg
+         32,768   4%  592.59kB/s    0:00:01          787,240 100%    8.16MB/s    0:00:00 (xfr#37, ir-chk=38824/40722)
+GoogleStreetView/test/010278_2.jpg
+         32,768   4%  214.77kB/s    0:00:03          754,120 100%    4.04MB/s    0:00:00 (xfr#38, ir-chk=38823/40722)
+GoogleStreetView/test/010278_3.jpg
+         32,768   3%   24.43kB/s    0:00:36           65,536   7%   48.82kB/s    0:00:17          918,704 100%  614.92kB/s    0:00:01 (xfr#39, ir-chk=38822/40722)
+GoogleStreetView/test/010278_4.jpg
+         32,768   4%    0.00kB/s    0:00:00          755,887 100%   32.84MB/s    0:00:00 (xfr#40, ir-chk=38821/40722)
+GoogleStreetView/test/010278_5.jpg
+         32,768   9%  307.69kB/s    0:00:00          329,942 100%    2.91MB/s    0:00:00 (xfr#41, ir-chk=38820/40722)
+GoogleStreetView/test/010279_1.jpg
+         32,768   4%  137.93kB/s    0:00:05          813,238 100%    2.78MB/s    0:00:00 (xfr#42, ir-chk=38819/40722)
+GoogleStreetView/test/010279_2.jpg
+         32,768   4%   89.64kB/s    0:00:07          725,868 100%    1.58MB/s    0:00:00 (xfr#43, ir-chk=38818/40722)
+GoogleStreetView/test/010279_3.jpg
+         32,768   3%   61.90kB/s    0:00:14          933,210 100%    1.62MB/s    0:00:00 (xfr#44, ir-chk=38817/40722)
+GoogleStreetView/test/010279_4.jpg
+         32,768   3%   52.46kB/s    0:00:15          827,499 100%    1.12MB/s    0:00:00 (xfr#45, ir-chk=38816/40722)
+GoogleStreetView/test/010279_5.jpg
+         32,768   9%   39.65kB/s    0:00:07          335,811 100%  404.37kB/s    0:00:00 (xfr#46, ir-chk=38815/40722)
+GoogleStreetView/test/010280_1.jpg
+         32,768   4%   30.65kB/s    0:00:24           65,536   8%   61.30kB/s    0:00:11          777,017 100%  715.85kB/s    0:00:01 (xfr#47, ir-chk=38814/40722)
+GoogleStreetView/test/010280_2.jpg
+         32,768   4%   67.80kB/s    0:00:11          819,131 100%    1.36MB/s    0:00:00 (xfr#48, ir-chk=38813/40722)
+GoogleStreetView/test/010280_3.jpg
+         32,768   3%   47.20kB/s    0:00:19          953,992 100%    1.25MB/s    0:00:00 (xfr#49, ir-chk=38812/40722)
+GoogleStreetView/test/010280_4.jpg
+         32,768   4%   39.56kB/s    0:00:18          769,419 100%  908.57kB/s    0:00:00 (xfr#50, ir-chk=38811/40722)
+GoogleStreetView/test/010280_5.jpg
+         32,768   8%   36.12kB/s    0:00:09          368,118 100%  403.02kB/s    0:00:00 (xfr#51, ir-chk=38810/40722)
+GoogleStreetView/test/010281_1.jpg
+         32,768   4%   32.19kB/s    0:00:22          294,912  38%  287.71kB/s    0:00:01          771,110 100%  746.32kB/s    0:00:01 (xfr#52, ir-chk=38809/40722)
+GoogleStreetView/test/010281_2.jpg
+         32,768   4%  450.70kB/s    0:00:01          773,293 100%    7.37MB/s    0:00:00 (xfr#53, ir-chk=38808/40722)
+GoogleStreetView/test/010281_3.jpg
+         32,768   3%  187.13kB/s    0:00:04          964,734 100%    3.42MB/s    0:00:00 (xfr#54, ir-chk=38807/40722)
+GoogleStreetView/test/010281_4.jpg
+         32,768   4%   84.43kB/s    0:00:09          806,681 100%    1.88MB/s    0:00:00 (xfr#55, ir-chk=38806/40722)
+GoogleStreetView/test/010281_5.jpg
+         32,768   9%   63.75kB/s    0:00:04          327,684 100%  631.17kB/s    0:00:00 (xfr#56, ir-chk=38805/40722)
+GoogleStreetView/test/010282_1.jpg
+         32,768   4%   51.12kB/s    0:00:14          777,132 100%    1.15MB/s    0:00:00 (xfr#57, ir-chk=38804/40722)
+GoogleStreetView/test/010282_2.jpg
+         32,768   4%   41.40kB/s    0:00:16          714,937 100%  884.89kB/s    0:00:00 (xfr#58, ir-chk=38803/40722)
+GoogleStreetView/test/010282_3.jpg
+         32,768   3%   33.16kB/s    0:00:27          688,128  73%  672.00kB/s    0:00:00          941,743 100%  808.15kB/s    0:00:01 (xfr#59, ir-chk=38802/40722)
+GoogleStreetView/test/010282_4.jpg
+         32,768   4%  156.10kB/s    0:00:04          797,932 100%    3.49MB/s    0:00:00 (xfr#60, ir-chk=38801/40722)
+GoogleStreetView/test/010282_5.jpg
+         32,768   9%   79.80kB/s    0:00:04          354,856 100%  855.65kB/s    0:00:00 (xfr#61, ir-chk=38800/40722)
+GoogleStreetView/test/010283_1.jpg
+         32,768   4%   31.90kB/s    0:00:22           65,536   8%   63.81kB/s    0:00:10          762,862 100%  712.90kB/s    0:00:01 (xfr#62, ir-chk=38799/40722)
+GoogleStreetView/test/010283_2.jpg
+         32,768   4%  130.08kB/s    0:00:04          679,200 100%    2.52MB/s    0:00:00 (xfr#63, ir-chk=38798/40722)
+GoogleStreetView/test/010283_3.jpg
+         32,768   3%   58.50kB/s    0:00:15          966,209 100%    1.50MB/s    0:00:00 (xfr#64, ir-chk=38797/40722)
+GoogleStreetView/test/010283_4.jpg
+         32,768   3%   40.61kB/s    0:00:19          836,584 100%  961.15kB/s    0:00:00 (xfr#65, ir-chk=38796/40722)
+GoogleStreetView/test/010283_5.jpg
+         32,768   8%   27.19kB/s    0:00:13           65,536  16%   54.33kB/s    0:00:06          397,114 100%  327.82kB/s    0:00:01 (xfr#66, ir-chk=38795/40722)
+GoogleStreetView/test/010284_1.jpg
+         32,768   3%  141.59kB/s    0:00:05          829,233 100%    1.79MB/s    0:00:00 (xfr#67, ir-chk=38794/40722)
+GoogleStreetView/test/010284_2.jpg
+         32,768   4%   60.26kB/s    0:00:10          681,673 100%    1.16MB/s    0:00:00 (xfr#68, ir-chk=38793/40722)
+GoogleStreetView/test/010284_3.jpg
+         32,768   3%   30.16kB/s    0:00:30           65,536   6%   60.26kB/s    0:00:14          952,385 100%  835.64kB/s    0:00:01 (xfr#69, ir-chk=38792/40722)
+GoogleStreetView/test/010284_4.jpg
+         32,768   3%  178.77kB/s    0:00:04          926,070 100% 1009.34kB/s    0:00:00 (xfr#70, ir-chk=38791/40722)
+GoogleStreetView/test/010284_5.jpg
+         32,768   7%   29.22kB/s    0:00:13           65,536  15%   58.45kB/s    0:00:06          417,358 100%  369.18kB/s    0:00:01 (xfr#71, ir-chk=38790/40722)
+GoogleStreetView/test/010285_1.jpg
+         32,768   3%  288.29kB/s    0:00:03          910,105 100%    5.56MB/s    0:00:00 (xfr#72, ir-chk=38789/40722)
+GoogleStreetView/test/010285_2.jpg
+         32,768   4%  147.47kB/s    0:00:05          797,296 100%    3.21MB/s    0:00:00 (xfr#73, ir-chk=38788/40722)
+GoogleStreetView/test/010285_3.jpg
+         32,768   3%  115.11kB/s    0:00:07          948,684 100%    3.05MB/s    0:00:00 (xfr#74, ir-chk=38787/40722)
+GoogleStreetView/test/010285_4.jpg
+         32,768   3%   34.22kB/s    0:00:23          819,200  98%  795.23kB/s    0:00:00          835,176 100%  810.74kB/s    0:00:01 (xfr#75, ir-chk=38786/40722)
+GoogleStreetView/test/010285_5.jpg
+         32,768   8%  113.07kB/s    0:00:03          407,599 100%    1.34MB/s    0:00:00 (xfr#76, ir-chk=38785/40722)
+GoogleStreetView/test/010286_1.jpg
+         32,768   4%   92.22kB/s    0:00:08          785,472 100%    2.05MB/s    0:00:00 (xfr#77, ir-chk=38784/40722)
+GoogleStreetView/test/010286_2.jpg
+         32,768   3%   67.80kB/s    0:00:12          864,741 100%    1.65MB/s    0:00:00 (xfr#78, ir-chk=38783/40722)
+GoogleStreetView/test/010286_3.jpg
+         32,768   3%   57.55kB/s    0:00:16          998,016 100%    1.60MB/s    0:00:00 (xfr#79, ir-chk=38782/40722)
+GoogleStreetView/test/010286_4.jpg
+         32,768   4%   24.22kB/s    0:00:30           65,536   8%   48.45kB/s    0:00:14          780,071 100%  569.77kB/s    0:00:01 (xfr#80, ir-chk=38781/40722)
+GoogleStreetView/test/010286_5.jpg
+         32,768   6%    0.00kB/s    0:00:00          519,834 100%   21.11MB/s    0:00:00 (xfr#81, ir-chk=38780/40722)
+GoogleStreetView/test/010287_1.jpg
+         32,768   4%  114.29kB/s    0:00:06          778,582 100%    2.26MB/s    0:00:00 (xfr#82, ir-chk=38779/40722)
+GoogleStreetView/test/010287_2.jpg
+         32,768   4%   75.12kB/s    0:00:10          795,373 100%    1.61MB/s    0:00:00 (xfr#83, ir-chk=38778/40722)
+GoogleStreetView/test/010287_3.jpg
+         32,768   3%   43.60kB/s    0:00:21          958,570 100%    1.16MB/s    0:00:00 (xfr#84, ir-chk=38777/40722)
+GoogleStreetView/test/010287_4.jpg
+         32,768   4%   33.13kB/s    0:00:22          774,285 100%  758.41kB/s    0:00:00 (xfr#85, ir-chk=38776/40722)
+GoogleStreetView/test/010287_5.jpg
+         32,768   6%   25.24kB/s    0:00:19           65,536  12%   50.47kB/s    0:00:09          521,211 100%  396.72kB/s    0:00:01 (xfr#86, ir-chk=38775/40722)
+GoogleStreetView/test/010288_1.jpg
+         32,768   6%  168.42kB/s    0:00:03          543,345 100%    2.41MB/s    0:00:00 (xfr#87, ir-chk=38774/40722)
+GoogleStreetView/test/010288_2.jpg
+         32,768   7%   60.38kB/s    0:00:07          456,116 100%  829.47kB/s    0:00:00 (xfr#88, ir-chk=38773/40722)
+GoogleStreetView/test/010288_3.jpg
+         32,768   6%   48.27kB/s    0:00:10          533,712 100%  775.60kB/s    0:00:00 (xfr#89, ir-chk=38772/40722)
+GoogleStreetView/test/010288_4.jpg
+         32,768   7%   35.01kB/s    0:00:11          445,960 100%  472.35kB/s    0:00:00 (xfr#90, ir-chk=38771/40722)
+GoogleStreetView/test/010288_5.jpg
+         32,768   8%   29.22kB/s    0:00:12           65,536  16%   58.45kB/s    0:00:05          396,424 100%  345.96kB/s    0:00:01 (xfr#91, ir-chk=38770/40722)
+GoogleStreetView/test/010289_1.jpg
+         32,768   4%   91.95kB/s    0:00:08          788,768 100%    1.98MB/s    0:00:00 (xfr#92, ir-chk=38769/40722)
+GoogleStreetView/test/010289_2.jpg
+         32,768   4%   56.14kB/s    0:00:13          771,642 100%    1.17MB/s    0:00:00 (xfr#93, ir-chk=38768/40722)
+GoogleStreetView/test/010289_3.jpg
+         32,768   3%   42.78kB/s    0:00:20          902,474 100%    1.09MB/s    0:00:00 (xfr#94, ir-chk=38767/40722)
+GoogleStreetView/test/010289_4.jpg
+         32,768   4%   37.17kB/s    0:00:20          795,984 100%  867.55kB/s    0:00:00 (xfr#95, ir-chk=38766/40722)
+GoogleStreetView/test/010289_5.jpg
+         32,768   6%   27.35kB/s    0:00:16           65,536  13%   54.65kB/s    0:00:07          493,240 100%  408.55kB/s    0:00:01 (xfr#96, ir-chk=38765/40722)
+GoogleStreetView/test/010290_1.jpg
+         32,768   4%  240.60kB/s    0:00:03          786,049 100%    3.86MB/s    0:00:00 (xfr#97, ir-chk=38764/40722)
+GoogleStreetView/test/010290_2.jpg
+         32,768   4%   95.24kB/s    0:00:07          756,233 100%    2.02MB/s    0:00:00 (xfr#98, ir-chk=38763/40722)
+GoogleStreetView/test/010290_3.jpg
+         32,768   3%   55.85kB/s    0:00:15          902,916 100%    1.19MB/s    0:00:00 (xfr#99, ir-chk=38762/40722)
+GoogleStreetView/test/010290_4.jpg
+         32,768   4%   37.51kB/s    0:00:20          793,915 100%  894.24kB/s    0:00:00 (xfr#100, ir-chk=38761/40722)
+GoogleStreetView/test/010290_5.jpg
+         32,768   6%   33.06kB/s    0:00:13          478,424 100%  475.29kB/s    0:00:00 (xfr#101, ir-chk=38760/40722)
+GoogleStreetView/test/010291_1.jpg
+         32,768   4%   30.13kB/s    0:00:25           65,536   8%   60.21kB/s    0:00:12          801,649 100%  702.12kB/s    0:00:01 (xfr#102, ir-chk=38759/40722)
+GoogleStreetView/test/010291_2.jpg
+         32,768   4%  200.00kB/s    0:00:03          742,191 100%    2.90MB/s    0:00:00 (xfr#103, ir-chk=38758/40722)
+GoogleStreetView/test/010291_3.jpg
+         32,768   3%   61.90kB/s    0:00:14          903,096 100%    1.55MB/s    0:00:00 (xfr#104, ir-chk=38757/40722)
+GoogleStreetView/test/010291_4.jpg
+         32,768   3%   22.44kB/s    0:00:35           65,536   7%   44.85kB/s    0:00:17          830,000 100%  562.88kB/s    0:00:01 (xfr#105, ir-chk=38756/40722)
+GoogleStreetView/test/010291_5.jpg
+         32,768   7%  129.55kB/s    0:00:03          465,269 100%    1.75MB/s    0:00:00 (xfr#106, ir-chk=38755/40722)
+GoogleStreetView/test/010292_1.jpg
+         32,768   3%   23.79kB/s    0:00:33           65,536   7%   47.58kB/s    0:00:16          819,200  98%  300.19kB/s    0:00:00          834,555 100%  305.81kB/s    0:00:02 (xfr#107, ir-chk=38754/40722)
+GoogleStreetView/test/010292_2.jpg
+         32,768   4%  206.45kB/s    0:00:03          731,873 100%    3.65MB/s    0:00:00 (xfr#108, ir-chk=38753/40722)
+GoogleStreetView/test/010292_3.jpg
+         32,768   3%  121.21kB/s    0:00:07          906,769 100%    2.75MB/s    0:00:00 (xfr#109, ir-chk=38752/40722)
+GoogleStreetView/test/010292_4.jpg
+         32,768   3%   47.90kB/s    0:00:17          879,433 100%    1.19MB/s    0:00:00 (xfr#110, ir-chk=38751/40722)
+GoogleStreetView/test/010292_5.jpg
+         32,768   6%   38.23kB/s    0:00:11          468,828 100%  538.00kB/s    0:00:00 (xfr#111, ir-chk=38750/40722)
+GoogleStreetView/test/010293_1.jpg
+         32,768   3%   32.39kB/s    0:00:25          294,912  33%  286.00kB/s    0:00:02          870,763 100%  825.59kB/s    0:00:01 (xfr#112, ir-chk=38749/40722)
+GoogleStreetView/test/010293_2.jpg
+         32,768   4%  301.89kB/s    0:00:02          758,187 100%    5.78MB/s    0:00:00 (xfr#113, ir-chk=38748/40722)
+GoogleStreetView/test/010293_3.jpg
+         32,768   3%  155.34kB/s    0:00:05          901,200 100%    2.50MB/s    0:00:00 (xfr#114, ir-chk=38747/40722)
+GoogleStreetView/test/010293_4.jpg
+         32,768   3%   59.26kB/s    0:00:13          846,553 100%    1.34MB/s    0:00:00 (xfr#115, ir-chk=38746/40722)
+GoogleStreetView/test/010293_5.jpg
+         32,768   6%   46.24kB/s    0:00:09          481,511 100%  646.80kB/s    0:00:00 (xfr#116, ir-chk=38745/40722)
+GoogleStreetView/test/010294_1.jpg
+         32,768   3%   37.04kB/s    0:00:24          928,038 100% 1001.42kB/s    0:00:00 (xfr#117, ir-chk=38744/40722)
+GoogleStreetView/test/010294_2.jpg
+         32,768   4%   32.96kB/s    0:00:22          781,403 100%  774.71kB/s    0:00:00 (xfr#118, ir-chk=38743/40722)
+GoogleStreetView/test/010294_3.jpg
+         32,768   3%   27.05kB/s    0:00:31           65,536   7%   54.10kB/s    0:00:15          886,819 100%  708.70kB/s    0:00:01 (xfr#119, ir-chk=38742/40722)
+GoogleStreetView/test/010294_4.jpg
+         32,768   3%  130.61kB/s    0:00:06          851,352 100%    2.92MB/s    0:00:00 (xfr#120, ir-chk=38741/40722)
+GoogleStreetView/test/010294_5.jpg
+         32,768   6%   77.48kB/s    0:00:06          507,829 100%    1.15MB/s    0:00:00 (xfr#121, ir-chk=38740/40722)
+GoogleStreetView/test/010295_1.jpg
+         32,768   3%   37.47kB/s    0:00:23          901,380 100% 1011.79kB/s    0:00:00 (xfr#122, ir-chk=38739/40722)
+GoogleStreetView/test/010295_2.jpg
+         32,768   4%    0.00kB/s    0:00:00          771,423 100%   50.32MB/s    0:00:00 (xfr#123, ir-chk=38738/40722)
+GoogleStreetView/test/010295_3.jpg
+         32,768   3%  200.00kB/s    0:00:04          890,398 100%    4.02MB/s    0:00:00 (xfr#124, ir-chk=38737/40722)
+GoogleStreetView/test/010295_4.jpg
+         32,768   3%  119.85kB/s    0:00:06          848,943 100%    2.65MB/s    0:00:00 (xfr#125, ir-chk=38736/40722)
+GoogleStreetView/test/010295_5.jpg
+         32,768   6%   57.97kB/s    0:00:08          513,575 100%  870.73kB/s    0:00:00 (xfr#126, ir-chk=38735/40722)
+GoogleStreetView/test/010296_1.jpg
+         32,768   3%   41.94kB/s    0:00:22          973,594 100%    1.17MB/s    0:00:00 (xfr#127, ir-chk=38734/40722)
+GoogleStreetView/test/010296_2.jpg
+         32,768   3%   36.04kB/s    0:00:22          829,791 100%  897.39kB/s    0:00:00 (xfr#128, ir-chk=38733/40722)
+GoogleStreetView/test/010296_3.jpg
+         32,768   3%   32.32kB/s    0:00:27          294,912  31%  288.00kB/s    0:00:02          936,245 100%  894.62kB/s    0:00:01 (xfr#129, ir-chk=38732/40722)
+GoogleStreetView/test/010296_4.jpg
+         32,768   4%  139.74kB/s    0:00:05          807,306 100%    3.00MB/s    0:00:00 (xfr#130, ir-chk=38731/40722)
+GoogleStreetView/test/010296_5.jpg
+         32,768   6%   66.25kB/s    0:00:07          545,807 100%    1.05MB/s    0:00:00 (xfr#131, ir-chk=38730/40722)
+GoogleStreetView/test/010297_1.jpg
+         32,768   3%   57.14kB/s    0:00:16          948,931 100%    1.55MB/s    0:00:00 (xfr#132, ir-chk=38729/40722)
+GoogleStreetView/test/010297_2.jpg
+         32,768   3%   41.29kB/s    0:00:20          894,808 100%    1.05MB/s    0:00:00 (xfr#133, ir-chk=38728/40722)
+GoogleStreetView/test/010297_3.jpg
+         32,768   3%   35.71kB/s    0:00:24          914,686 100%  979.44kB/s    0:00:00 (xfr#134, ir-chk=38727/40722)
+GoogleStreetView/test/010297_4.jpg
+         32,768   3%   30.65kB/s    0:00:26           65,536   7%   61.30kB/s    0:00:12          841,952 100%  743.42kB/s    0:00:01 (xfr#135, ir-chk=38726/40722)
+GoogleStreetView/test/010297_5.jpg
+         32,768   6%  172.04kB/s    0:00:02          542,664 100%    2.67MB/s    0:00:00 (xfr#136, ir-chk=38725/40722)
+GoogleStreetView/test/010298_1.jpg
+         32,768   3%  113.07kB/s    0:00:08        1,031,380 100%    1.48MB/s    0:00:00 (xfr#137, ir-chk=38724/40722)
+GoogleStreetView/test/010298_2.jpg
+         32,768   3%   37.60kB/s    0:00:21          846,009 100%  930.38kB/s    0:00:00 (xfr#138, ir-chk=38723/40722)
+GoogleStreetView/test/010298_3.jpg
+         32,768   3%   30.62kB/s    0:00:29           65,536   7%   61.19kB/s    0:00:14          931,213 100%  855.49kB/s    0:00:01 (xfr#139, ir-chk=38722/40722)
+GoogleStreetView/test/010298_4.jpg
+         32,768   4%  293.58kB/s    0:00:02          808,818 100%    2.64MB/s    0:00:00 (xfr#140, ir-chk=38721/40722)
+GoogleStreetView/test/010298_5.jpg
+         32,768   5%   34.30kB/s    0:00:15          294,912  52%  122.24kB/s    0:00:02          556,536 100%  216.44kB/s    0:00:02 (xfr#141, ir-chk=38720/40722)
+GoogleStreetView/test/010299_1.jpg
+         32,768   3%   77.86kB/s    0:00:13        1,076,605 100%    2.34MB/s    0:00:00 (xfr#142, ir-chk=38719/40722)
+GoogleStreetView/test/010299_2.jpg
+         32,768   3%   70.95kB/s    0:00:11          871,477 100%    1.71MB/s    0:00:00 (xfr#143, ir-chk=38718/40722)
+GoogleStreetView/test/010299_3.jpg
+         32,768   3%   57.25kB/s    0:00:16          953,589 100%    1.57MB/s    0:00:00 (xfr#144, ir-chk=38717/40722)
+GoogleStreetView/test/010299_4.jpg
+         32,768   4%   43.07kB/s    0:00:16          763,671 100%  983.87kB/s    0:00:00 (xfr#145, ir-chk=38716/40722)
+GoogleStreetView/test/010299_5.jpg
+         32,768   6%   34.97kB/s    0:00:13          294,912  58%  279.61kB/s    0:00:00          507,356 100%  479.64kB/s    0:00:01 (xfr#146, ir-chk=38715/40722)
+GoogleStreetView/test/010300_1.jpg
+         32,768   3%  307.69kB/s    0:00:02          931,025 100%    5.19MB/s    0:00:00 (xfr#147, ir-chk=38714/40722)
+GoogleStreetView/test/010300_2.jpg
+         32,768   3%   67.37kB/s    0:00:14          981,733 100%    1.68MB/s    0:00:00 (xfr#148, ir-chk=38713/40722)
+GoogleStreetView/test/010300_3.jpg
+         32,768   3%   45.91kB/s    0:00:20          951,101 100%    1.25MB/s    0:00:00 (xfr#149, ir-chk=38712/40722)
+GoogleStreetView/test/010300_4.jpg
+         32,768   3%   39.26kB/s    0:00:22          926,059 100%    1.05MB/s    0:00:00 (xfr#150, ir-chk=38711/40722)
+GoogleStreetView/test/010300_5.jpg
+         32,768   7%   33.40kB/s    0:00:12          444,969 100%  449.37kB/s    0:00:00 (xfr#151, ir-chk=38710/40722)
+GoogleStreetView/test/010301_1.jpg
+         32,768   3%   31.43kB/s    0:00:28           65,536   6%   62.81kB/s    0:00:13          942,372 100%  888.31kB/s    0:00:01 (xfr#152, ir-chk=38709/40722)
+GoogleStreetView/test/010301_2.jpg
+         32,768   3%  313.73kB/s    0:00:02          964,561 100%    5.20MB/s    0:00:00 (xfr#153, ir-chk=38708/40722)
+GoogleStreetView/test/010301_3.jpg
+         32,768   3%  102.24kB/s    0:00:09          960,305 100%    2.63MB/s    0:00:00 (xfr#154, ir-chk=38707/40722)
+GoogleStreetView/test/010301_4.jpg
+         32,768   3%   72.07kB/s    0:00:11          894,269 100%    1.82MB/s    0:00:00 (xfr#155, ir-chk=38706/40722)
+GoogleStreetView/test/010301_5.jpg
+         32,768   7%   49.46kB/s    0:00:08          440,417 100%  655.63kB/s    0:00:00 (xfr#156, ir-chk=38705/40722)
+GoogleStreetView/test/010302_1.jpg
+         32,768   3%   39.80kB/s    0:00:20          858,719 100% 1004.30kB/s    0:00:00 (xfr#157, ir-chk=38704/40722)
+GoogleStreetView/test/010302_2.jpg
+         32,768   3%   31.59kB/s    0:00:28           65,536   6%   63.18kB/s    0:00:13          937,537 100%  882.90kB/s    0:00:01 (xfr#158, ir-chk=38703/40722)
+GoogleStreetView/test/010302_3.jpg
+         32,768   3%  288.29kB/s    0:00:03        1,067,230 100%    4.71MB/s    0:00:00 (xfr#159, ir-chk=38702/40722)
+GoogleStreetView/test/010302_4.jpg
+         32,768   3%   68.09kB/s    0:00:12          907,601 100%    1.67MB/s    0:00:00 (xfr#160, ir-chk=38701/40722)
+GoogleStreetView/test/010302_5.jpg
+         32,768   7%   58.29kB/s    0:00:07          451,838 100%  750.42kB/s    0:00:00 (xfr#161, ir-chk=38700/40722)
+GoogleStreetView/test/010303_1.jpg
+         32,768   4%   46.99kB/s    0:00:16          819,116 100%    1.10MB/s    0:00:00 (xfr#162, ir-chk=38699/40722)
+GoogleStreetView/test/010303_2.jpg
+         32,768   3%   39.22kB/s    0:00:21          870,879 100%  979.80kB/s    0:00:00 (xfr#163, ir-chk=38698/40722)
+GoogleStreetView/test/010303_3.jpg
+         32,768   2%   31.78kB/s    0:00:36           65,536   5%   63.56kB/s    0:00:17        1,190,363 100%    1.10MB/s    0:00:01 (xfr#164, ir-chk=38697/40722)
+GoogleStreetView/test/010303_4.jpg
+         32,768   3%  351.65kB/s    0:00:02          952,200 100%    8.26MB/s    0:00:00 (xfr#165, ir-chk=38696/40722)
+GoogleStreetView/test/010303_5.jpg
+         32,768   7%  184.97kB/s    0:00:02          458,362 100%    2.40MB/s    0:00:00 (xfr#166, ir-chk=38695/40722)
+GoogleStreetView/test/010304_1.jpg
+         32,768   3%  125.98kB/s    0:00:06          862,601 100%    3.07MB/s    0:00:00 (xfr#167, ir-chk=38694/40722)
+GoogleStreetView/test/010304_2.jpg
+         32,768   3%   63.24kB/s    0:00:13          868,905 100%    1.54MB/s    0:00:00 (xfr#168, ir-chk=38693/40722)
+GoogleStreetView/test/010304_3.jpg
+         32,768   2%   41.24kB/s    0:00:28        1,190,723 100%    1.26MB/s    0:00:00 (xfr#169, ir-chk=38692/40722)
+GoogleStreetView/test/010304_4.jpg
+         32,768   3%   24.08kB/s    0:00:39           65,536   6%   48.16kB/s    0:00:19          986,303 100%  702.03kB/s    0:00:01 (xfr#170, ir-chk=38691/40722)
+GoogleStreetView/test/010304_5.jpg
+         32,768   6%  107.74kB/s    0:00:04          507,482 100%    1.59MB/s    0:00:00 (xfr#171, ir-chk=38690/40722)
+GoogleStreetView/test/010305_1.jpg
+         32,768   3%   61.66kB/s    0:00:14          918,640 100%    1.63MB/s    0:00:00 (xfr#172, ir-chk=38689/40722)
+GoogleStreetView/test/010305_2.jpg
+         32,768   3%   48.41kB/s    0:00:18          557,056  59%  395.64kB/s    0:00:00          933,328 100%  647.34kB/s    0:00:01 (xfr#173, ir-chk=38688/40722)
+GoogleStreetView/test/010305_3.jpg
+         32,768   2%   75.65kB/s    0:00:14        1,128,238 100%    2.31MB/s    0:00:00 (xfr#174, ir-chk=38687/40722)
+GoogleStreetView/test/010305_4.jpg
+         32,768   3%   49.69kB/s    0:00:17          921,306 100%    1.30MB/s    0:00:00 (xfr#175, ir-chk=38686/40722)
+GoogleStreetView/test/010305_5.jpg
+         32,768   3%   38.23kB/s    0:00:21          857,781 100%  939.10kB/s    0:00:00 (xfr#176, ir-chk=38685/40722)
+GoogleStreetView/test/010306_1.jpg
+         32,768   3%   29.41kB/s    0:00:27           65,536   7%   58.77kB/s    0:00:13          841,254 100%  723.82kB/s    0:00:01 (xfr#177, ir-chk=38684/40722)
+GoogleStreetView/test/010306_2.jpg
+         32,768   3%  235.29kB/s    0:00:04          996,570 100%    5.66MB/s    0:00:00 (xfr#178, ir-chk=38683/40722)
+GoogleStreetView/test/010306_3.jpg
+         32,768   3%  115.52kB/s    0:00:08        1,069,005 100%    3.11MB/s    0:00:00 (xfr#179, ir-chk=38682/40722)
+GoogleStreetView/test/010306_4.jpg
+         32,768   4%   47.06kB/s    0:00:16          785,740 100%    1.07MB/s    0:00:00 (xfr#180, ir-chk=38681/40722)
+GoogleStreetView/test/010306_5.jpg
+         32,768   7%   41.08kB/s    0:00:09          423,207 100%  524.48kB/s    0:00:00 (xfr#181, ir-chk=38680/40722)
+GoogleStreetView/test/010307_1.jpg
+         32,768   3%   30.19kB/s    0:00:28           65,536   7%   60.32kB/s    0:00:13          881,223 100%  687.91kB/s    0:00:01 (xfr#182, ir-chk=38679/40722)
+GoogleStreetView/test/010307_2.jpg
+         32,768   3%   72.56kB/s    0:00:11          876,870 100%    1.74MB/s    0:00:00 (xfr#183, ir-chk=38678/40722)
+GoogleStreetView/test/010307_3.jpg
+         32,768   3%   44.82kB/s    0:00:20          955,398 100%    1.23MB/s    0:00:00 (xfr#184, ir-chk=38677/40722)
+GoogleStreetView/test/010307_4.jpg
+         32,768   4%   33.83kB/s    0:00:22          557,056  69%  502.77kB/s    0:00:00          806,082 100%  725.52kB/s    0:00:01 (xfr#185, ir-chk=38676/40722)
+GoogleStreetView/test/010307_5.jpg
+         32,768   7%  253.97kB/s    0:00:01          427,433 100%    3.04MB/s    0:00:00 (xfr#186, ir-chk=38675/40722)
+GoogleStreetView/test/010308_1.jpg
+         32,768   3%  149.53kB/s    0:00:05          895,734 100%    3.68MB/s    0:00:00 (xfr#187, ir-chk=38674/40722)
+GoogleStreetView/test/010308_2.jpg
+         32,768   3%   86.25kB/s    0:00:09          876,160 100%    2.14MB/s    0:00:00 (xfr#188, ir-chk=38673/40722)
+GoogleStreetView/test/010308_3.jpg
+         32,768   3%   59.70kB/s    0:00:15          930,904 100%    1.55MB/s    0:00:00 (xfr#189, ir-chk=38672/40722)
+GoogleStreetView/test/010308_4.jpg
+         32,768   4%   43.30kB/s    0:00:17          776,053 100%  990.67kB/s    0:00:00 (xfr#190, ir-chk=38671/40722)
+GoogleStreetView/test/010308_5.jpg
+         32,768   7%   38.79kB/s    0:00:09          417,444 100%  489.39kB/s    0:00:00 (xfr#191, ir-chk=38670/40722)
+GoogleStreetView/test/010309_1.jpg
+         32,768   4%   32.45kB/s    0:00:22          557,056  72%  525.60kB/s    0:00:00          766,081 100%  721.43kB/s    0:00:01 (xfr#192, ir-chk=38669/40722)
+GoogleStreetView/test/010309_2.jpg
+         32,768   3%  533.33kB/s    0:00:01          860,694 100%    8.29MB/s    0:00:00 (xfr#193, ir-chk=38668/40722)
+GoogleStreetView/test/010309_3.jpg
+         32,768   3%  186.05kB/s    0:00:04          952,638 100%    4.43MB/s    0:00:00 (xfr#194, ir-chk=38667/40722)
+GoogleStreetView/test/010309_4.jpg
+         32,768   3%   85.33kB/s    0:00:09          842,909 100%    1.88MB/s    0:00:00 (xfr#195, ir-chk=38666/40722)
+GoogleStreetView/test/010309_5.jpg
+         32,768   7%   64.26kB/s    0:00:06          449,676 100%  867.86kB/s    0:00:00 (xfr#196, ir-chk=38665/40722)
+GoogleStreetView/test/010310_1.jpg
+         32,768   4%   22.82kB/s    0:00:30           65,536   8%   45.62kB/s    0:00:14          729,927 100%  497.78kB/s    0:00:01 (xfr#197, ir-chk=38664/40722)
+GoogleStreetView/test/010310_2.jpg
+         32,768   3%    0.00kB/s    0:00:00          853,557 100%   37.27MB/s    0:00:00 (xfr#198, ir-chk=38663/40722)
+GoogleStreetView/test/010310_3.jpg
+         32,768   3%    0.00kB/s    0:00:00          939,695 100%   13.10MB/s    0:00:00 (xfr#199, ir-chk=38662/40722)
+GoogleStreetView/test/010310_4.jpg
+         32,768   3%  142.22kB/s    0:00:06          929,393 100%    3.66MB/s    0:00:00 (xfr#200, ir-chk=38661/40722)
+GoogleStreetView/test/010310_5.jpg
+         32,768   7%   86.49kB/s    0:00:04          460,147 100%    1.16MB/s    0:00:00 (xfr#201, ir-chk=38660/40722)
+GoogleStreetView/test/010311_1.jpg
+         32,768   3%   74.42kB/s    0:00:12          931,556 100%    1.99MB/s    0:00:00 (xfr#202, ir-chk=38659/40722)
+GoogleStreetView/test/010311_2.jpg
+         32,768   4%    0.00kB/s    0:00:00          769,927 100%    5.91MB/s    0:00:00 (xfr#203, ir-chk=38658/40722)
+GoogleStreetView/test/010311_3.jpg
+         32,768   3%   55.27kB/s    0:00:16          935,508 100%    1.13MB/s    0:00:00 (xfr#204, ir-chk=38657/40722)
+GoogleStreetView/test/010311_4.jpg
+         32,768   3%   29.74kB/s    0:00:31           65,536   6%   59.42kB/s    0:00:15          977,405 100%  761.77kB/s    0:00:01 (xfr#205, ir-chk=38656/40722)
+GoogleStreetView/test/010311_5.jpg
+         32,768   5%   41.94kB/s    0:00:14          621,143 100%  774.69kB/s    0:00:00 (xfr#206, ir-chk=38655/40722)
+GoogleStreetView/test/010312_1.jpg
+         32,768   3%   35.44kB/s    0:00:29        1,062,193 100%    1.09MB/s    0:00:00 (xfr#207, ir-chk=38654/40722)
+GoogleStreetView/test/010312_2.jpg
+         32,768   3%   33.58kB/s    0:00:24          819,200  95%  785.08kB/s    0:00:00          859,116 100%  822.53kB/s    0:00:01 (xfr#208, ir-chk=38653/40722)
+GoogleStreetView/test/010312_3.jpg
+         32,768   4%    0.00kB/s    0:00:00          800,693 100%   21.54MB/s    0:00:00 (xfr#209, ir-chk=38652/40722)
+GoogleStreetView/test/010312_4.jpg
+         32,768   4%  264.46kB/s    0:00:02          759,435 100%    5.36MB/s    0:00:00 (xfr#210, ir-chk=38651/40722)
+GoogleStreetView/test/010312_5.jpg
+         32,768   7%   98.77kB/s    0:00:04          432,629 100%    1.25MB/s    0:00:00 (xfr#211, ir-chk=38650/40722)
+GoogleStreetView/test/010313_1.jpg
+         32,768   3%   64.26kB/s    0:00:14          976,764 100%    1.53MB/s    0:00:00 (xfr#212, ir-chk=38649/40722)
+GoogleStreetView/test/010313_2.jpg
+         32,768   4%   42.78kB/s    0:00:17          787,623 100%  920.05kB/s    0:00:00 (xfr#213, ir-chk=38648/40722)
+GoogleStreetView/test/010313_3.jpg
+         32,768   4%   33.30kB/s    0:00:21          759,271 100%  749.72kB/s    0:00:00 (xfr#214, ir-chk=38647/40722)
+GoogleStreetView/test/010313_4.jpg
+         32,768   4%   29.57kB/s    0:00:24           65,536   8%   59.10kB/s    0:00:11          771,198 100%  685.90kB/s    0:00:01 (xfr#215, ir-chk=38646/40722)
+GoogleStreetView/test/010313_5.jpg
+         32,768   9%  390.24kB/s    0:00:00          329,965 100%    3.66MB/s    0:00:00 (xfr#216, ir-chk=38645/40722)
+GoogleStreetView/test/010314_1.jpg
+         32,768   3%  107.74kB/s    0:00:07          836,534 100%    2.51MB/s    0:00:00 (xfr#217, ir-chk=38644/40722)
+GoogleStreetView/test/010314_2.jpg
+         32,768   4%   90.65kB/s    0:00:08          802,937 100%    2.07MB/s    0:00:00 (xfr#218, ir-chk=38643/40722)
+GoogleStreetView/test/010314_3.jpg
+         32,768   3%   58.61kB/s    0:00:13          822,334 100%    1.38MB/s    0:00:00 (xfr#219, ir-chk=38642/40722)
+GoogleStreetView/test/010314_4.jpg
+         32,768   4%   52.98kB/s    0:00:11          663,091 100%    1.03MB/s    0:00:00 (xfr#220, ir-chk=38641/40722)
+GoogleStreetView/test/010314_5.jpg
+         32,768  10%   50.00kB/s    0:00:05          301,643 100%  458.12kB/s    0:00:00 (xfr#221, ir-chk=38640/40722)
+GoogleStreetView/test/010315_1.jpg
+         32,768   4%   35.75kB/s    0:00:20          774,433 100%  762.38kB/s    0:00:00 (xfr#222, ir-chk=38639/40722)
+GoogleStreetView/test/010315_2.jpg
+         32,768   4%   31.40kB/s    0:00:24           65,536   8%   62.81kB/s    0:00:11          811,183 100%  766.86kB/s    0:00:01 (xfr#223, ir-chk=38638/40722)
+GoogleStreetView/test/010315_3.jpg
+         32,768   4%    0.00kB/s    0:00:00          294,912  36%   62.06kB/s    0:00:08          799,515 100%  180.52kB/s    0:00:04 (xfr#224, ir-chk=38637/40722)
+GoogleStreetView/test/010315_4.jpg
+         32,768   4%  154.59kB/s    0:00:04          679,976 100%    2.61MB/s    0:00:00 (xfr#225, ir-chk=38636/40722)
+GoogleStreetView/test/010315_5.jpg
+         32,768  11%   90.14kB/s    0:00:02          294,588 100%  803.59kB/s    0:00:00 (xfr#226, ir-chk=38635/40722)
+GoogleStreetView/test/010316_1.jpg
+         32,768   4%   69.57kB/s    0:00:11          817,800 100%    1.45MB/s    0:00:00 (xfr#227, ir-chk=38634/40722)
+GoogleStreetView/test/010316_2.jpg
+         32,768   4%   40.76kB/s    0:00:18          779,025 100%  908.92kB/s    0:00:00 (xfr#228, ir-chk=38633/40722)
+GoogleStreetView/test/010316_3.jpg
+         32,768   3%   35.48kB/s    0:00:22          835,511 100%  887.84kB/s    0:00:00 (xfr#229, ir-chk=38632/40722)
+GoogleStreetView/test/010316_4.jpg
+         32,768   4%   30.22kB/s    0:00:23           65,536   8%   60.43kB/s    0:00:11          740,660 100%  649.28kB/s    0:00:01 (xfr#230, ir-chk=38631/40722)
+GoogleStreetView/test/010316_5.jpg
+         32,768   7%  253.97kB/s    0:00:01          411,761 100%    2.97MB/s    0:00:00 (xfr#231, ir-chk=38630/40722)
+GoogleStreetView/test/010317_1.jpg
+         32,768   3%  109.97kB/s    0:00:07          875,116 100%    2.71MB/s    0:00:00 (xfr#232, ir-chk=38629/40722)
+GoogleStreetView/test/010317_2.jpg
+         32,768   4%   39.70kB/s    0:00:17          131,072  18%  115.52kB/s    0:00:05          725,190 100%  631.75kB/s    0:00:01 (xfr#233, ir-chk=38628/40722)
+GoogleStreetView/test/010317_3.jpg
+         32,768   4%  134.45kB/s    0:00:05          789,612 100%    2.86MB/s    0:00:00 (xfr#234, ir-chk=38627/40722)
+GoogleStreetView/test/010317_4.jpg
+         32,768   4%   27.59kB/s    0:00:28           65,536   8%   55.17kB/s    0:00:13          811,917 100%  674.80kB/s    0:00:01 (xfr#235, ir-chk=38626/40722)
+GoogleStreetView/test/010317_5.jpg
+         32,768   8%  561.40kB/s    0:00:00          404,824 100%    6.23MB/s    0:00:00 (xfr#236, ir-chk=38625/40722)
+GoogleStreetView/test/010318_1.jpg
+         32,768   3%  104.23kB/s    0:00:08          896,508 100%    2.61MB/s    0:00:00 (xfr#237, ir-chk=38624/40722)
+GoogleStreetView/test/010318_2.jpg
+         32,768   4%   58.39kB/s    0:00:13          804,459 100%    1.35MB/s    0:00:00 (xfr#238, ir-chk=38623/40722)
+GoogleStreetView/test/010318_3.jpg
+         32,768   3%   45.01kB/s    0:00:18          865,575 100%    1.04MB/s    0:00:00 (xfr#239, ir-chk=38622/40722)
+GoogleStreetView/test/010318_4.jpg
+         32,768   3%   39.36kB/s    0:00:20          845,074 100%  990.72kB/s    0:00:00 (xfr#240, ir-chk=38621/40722)
+GoogleStreetView/test/010318_5.jpg
+         32,768   7%   33.37kB/s    0:00:11          420,503 100%  425.54kB/s    0:00:00 (xfr#241, ir-chk=38620/40722)
+GoogleStreetView/test/010319_1.jpg
+         32,768   3%   28.80kB/s    0:00:27           65,536   7%   57.55kB/s    0:00:13          827,555 100%  707.67kB/s    0:00:01 (xfr#242, ir-chk=38619/40722)
+GoogleStreetView/test/010319_2.jpg
+         32,768   4%  207.79kB/s    0:00:03          807,207 100%    4.25MB/s    0:00:00 (xfr#243, ir-chk=38618/40722)
+GoogleStreetView/test/010319_3.jpg
+         32,768   3%  125.00kB/s    0:00:06          893,518 100%    3.08MB/s    0:00:00 (xfr#244, ir-chk=38617/40722)
+GoogleStreetView/test/010319_4.jpg
+         32,768   3%   84.88kB/s    0:00:09          862,642 100%    2.06MB/s    0:00:00 (xfr#245, ir-chk=38616/40722)
+GoogleStreetView/test/010319_5.jpg
+         32,768   8%   53.60kB/s    0:00:06          402,416 100%  651.72kB/s    0:00:00 (xfr#246, ir-chk=38615/40722)
+GoogleStreetView/test/010320_1.jpg
+         32,768   3%   47.83kB/s    0:00:20          998,924 100%    1.37MB/s    0:00:00 (xfr#247, ir-chk=38614/40722)
+GoogleStreetView/test/010320_2.jpg
+         32,768   4%   38.55kB/s    0:00:18          747,680 100%  835.42kB/s    0:00:00 (xfr#248, ir-chk=38613/40722)
+GoogleStreetView/test/010320_3.jpg
+         32,768   3%   28.44kB/s    0:00:31           65,536   7%   56.89kB/s    0:00:15          931,600 100%  764.51kB/s    0:00:01 (xfr#249, ir-chk=38612/40722)
+GoogleStreetView/test/010320_4.jpg
+         32,768   3%   54.24kB/s    0:00:15          882,908 100%    1.29MB/s    0:00:00 (xfr#250, ir-chk=38611/40722)
+GoogleStreetView/test/010320_5.jpg
+         32,768   7%   40.61kB/s    0:00:09          419,626 100%  516.11kB/s    0:00:00 (xfr#251, ir-chk=38610/40722)
+GoogleStreetView/test/010321_1.jpg
+         32,768   2%   36.36kB/s    0:00:30        1,123,942 100%    1.19MB/s    0:00:00 (xfr#252, ir-chk=38609/40722)
+GoogleStreetView/test/010321_2.jpg
+         32,768   3%   31.53kB/s    0:00:25           65,536   7%   63.05kB/s    0:00:12          829,127 100%  761.71kB/s    0:00:01 (xfr#253, ir-chk=38608/40722)
+GoogleStreetView/test/010321_3.jpg
+         32,768   3%  264.46kB/s    0:00:03          979,621 100%    5.46MB/s    0:00:00 (xfr#254, ir-chk=38607/40722)
+GoogleStreetView/test/010321_4.jpg
+         32,768   3%   89.64kB/s    0:00:09          868,016 100%    1.63MB/s    0:00:00 (xfr#255, ir-chk=38606/40722)
+GoogleStreetView/test/010321_5.jpg
+         32,768   6%   55.65kB/s    0:00:08          496,731 100%  832.06kB/s    0:00:00 (xfr#256, ir-chk=38605/40722)
+GoogleStreetView/test/010322_1.jpg
+         32,768   2%   50.47kB/s    0:00:21        1,141,143 100%    1.53MB/s    0:00:00 (xfr#257, ir-chk=38604/40722)
+GoogleStreetView/test/010322_2.jpg
+         32,768   3%   40.46kB/s    0:00:21          895,119 100% 1020.00kB/s    0:00:00 (xfr#258, ir-chk=38603/40722)
+GoogleStreetView/test/010322_3.jpg
+         32,768   3%   32.42kB/s    0:00:27          557,056  59%  541.29kB/s    0:00:00          932,301 100%  899.65kB/s    0:00:01 (xfr#259, ir-chk=38602/40722)
+GoogleStreetView/test/010322_4.jpg
+         32,768   3%  118.08kB/s    0:00:07          912,431 100%    2.91MB/s    0:00:00 (xfr#260, ir-chk=38601/40722)
+GoogleStreetView/test/010322_5.jpg
+         32,768   7%   54.42kB/s    0:00:07          455,045 100%  745.60kB/s    0:00:00 (xfr#261, ir-chk=38600/40722)
+GoogleStreetView/test/010323_1.jpg
+         32,768   3%   50.96kB/s    0:00:20        1,082,957 100%    1.60MB/s    0:00:00 (xfr#262, ir-chk=38599/40722)
+GoogleStreetView/test/010323_2.jpg
+         32,768   3%   43.48kB/s    0:00:20          925,054 100%    1.15MB/s    0:00:00 (xfr#263, ir-chk=38598/40722)
+GoogleStreetView/test/010323_3.jpg
+         32,768   3%   35.32kB/s    0:00:25          819,200  86%  800.00kB/s    0:00:00          948,914 100%  924.82kB/s    0:00:01 (xfr#264, ir-chk=38597/40722)
+GoogleStreetView/test/010323_4.jpg
+         32,768   3%  211.92kB/s    0:00:04          949,784 100%    2.42MB/s    0:00:00 (xfr#265, ir-chk=38596/40722)
+GoogleStreetView/test/010323_5.jpg
+         32,768   6%   22.96kB/s    0:00:19           65,536  13%   45.91kB/s    0:00:08          470,469 100%  316.20kB/s    0:00:01 (xfr#266, ir-chk=38595/40722)
+GoogleStreetView/test/010324_1.jpg
+         32,768   3%  189.35kB/s    0:00:05        1,029,854 100%    4.96MB/s    0:00:00 (xfr#267, ir-chk=38594/40722)
+GoogleStreetView/test/010324_2.jpg
+         32,768   3%  100.63kB/s    0:00:09          949,262 100%    2.48MB/s    0:00:00 (xfr#268, ir-chk=38593/40722)
+GoogleStreetView/test/010324_3.jpg
+         32,768   3%   64.52kB/s    0:00:14          950,015 100%    1.34MB/s    0:00:00 (xfr#269, ir-chk=38592/40722)
+GoogleStreetView/test/010324_4.jpg
+         32,768   4%    0.00kB/s    0:00:00          818,299 100%    2.44MB/s    0:00:00 (xfr#270, ir-chk=38591/40722)
+GoogleStreetView/test/010324_5.jpg
+         32,768   6%   67.94kB/s    0:00:07          514,959 100%    1.02MB/s    0:00:00 (xfr#271, ir-chk=38590/40722)
+GoogleStreetView/test/010325_1.jpg
+         32,768   3%   39.51kB/s    0:00:24        1,005,213 100%    1.11MB/s    0:00:00 (xfr#272, ir-chk=38589/40722)
+GoogleStreetView/test/010325_2.jpg
+         32,768   3%   32.52kB/s    0:00:26          884,736  97%  864.00kB/s    0:00:00          908,418 100%  887.13kB/s    0:00:01 (xfr#273, ir-chk=38588/40722)
+GoogleStreetView/test/010325_3.jpg
+         32,768   3%  273.50kB/s    0:00:03          977,791 100%    4.07MB/s    0:00:00 (xfr#274, ir-chk=38587/40722)
+GoogleStreetView/test/010325_4.jpg
+         32,768   4%   62.87kB/s    0:00:11          778,052 100%    1.29MB/s    0:00:00 (xfr#275, ir-chk=38586/40722)
+GoogleStreetView/test/010325_5.jpg
+         32,768   7%   36.87kB/s    0:00:10          411,684 100%  459.99kB/s    0:00:00 (xfr#276, ir-chk=38585/40722)
+GoogleStreetView/test/010326_1.jpg
+         32,768   3%   34.97kB/s    0:00:26          819,200  85%  793.65kB/s    0:00:00          954,404 100%  922.81kB/s    0:00:01 (xfr#277, ir-chk=38584/40722)
+GoogleStreetView/test/010326_2.jpg
+         32,768   3%  492.31kB/s    0:00:01          923,987 100%    7.66MB/s    0:00:00 (xfr#278, ir-chk=38583/40722)
+GoogleStreetView/test/010326_3.jpg
+         32,768   3%  161.62kB/s    0:00:05          919,711 100%    4.06MB/s    0:00:00 (xfr#279, ir-chk=38582/40722)
+GoogleStreetView/test/010326_4.jpg
+         32,768   4%  123.55kB/s    0:00:06          777,891 100%    2.48MB/s    0:00:00 (xfr#280, ir-chk=38581/40722)
+GoogleStreetView/test/010326_5.jpg
+         32,768   8%   71.75kB/s    0:00:04          387,900 100%  839.93kB/s    0:00:00 (xfr#281, ir-chk=38580/40722)
+GoogleStreetView/test/010327_1.jpg
+         32,768   3%   51.28kB/s    0:00:18          986,329 100%    1.45MB/s    0:00:00 (xfr#282, ir-chk=38579/40722)
+GoogleStreetView/test/010327_2.jpg
+         32,768   3%   40.10kB/s    0:00:20          859,794 100%  985.50kB/s    0:00:00 (xfr#283, ir-chk=38578/40722)
+GoogleStreetView/test/010327_3.jpg
+         32,768   3%   35.52kB/s    0:00:23          884,163 100%  940.57kB/s    0:00:00 (xfr#284, ir-chk=38577/40722)
+GoogleStreetView/test/010327_4.jpg
+         32,768   4%   30.56kB/s    0:00:25           65,536   8%   61.13kB/s    0:00:11          797,034 100%  730.85kB/s    0:00:01 (xfr#285, ir-chk=38576/40722)
+GoogleStreetView/test/010327_5.jpg
+         32,768   8%  405.06kB/s    0:00:00          394,898 100%    4.38MB/s    0:00:00 (xfr#286, ir-chk=38575/40722)
+GoogleStreetView/test/010328_1.jpg
+         32,768   3%  137.34kB/s    0:00:06          912,838 100%    2.81MB/s    0:00:00 (xfr#287, ir-chk=38574/40722)
+GoogleStreetView/test/010328_2.jpg
+         32,768   3%   72.40kB/s    0:00:11          865,872 100%    1.70MB/s    0:00:00 (xfr#288, ir-chk=38573/40722)
+GoogleStreetView/test/010328_3.jpg
+         32,768   3%   55.56kB/s    0:00:14          836,825 100%    1.26MB/s    0:00:00 (xfr#289, ir-chk=38572/40722)
+GoogleStreetView/test/010328_4.jpg
+         32,768   4%   39.80kB/s    0:00:19          798,075 100%  948.14kB/s    0:00:00 (xfr#290, ir-chk=38571/40722)
+GoogleStreetView/test/010328_5.jpg
+         32,768   8%   32.85kB/s    0:00:10          387,747 100%  386.78kB/s    0:00:00 (xfr#291, ir-chk=38570/40722)
+GoogleStreetView/test/010329_1.jpg
+         32,768   3%   27.54kB/s    0:00:33           65,536   6%   55.08kB/s    0:00:16          960,151 100%  761.08kB/s    0:00:01 (xfr#292, ir-chk=38569/40722)
+GoogleStreetView/test/010329_2.jpg
+         32,768   4%  134.45kB/s    0:00:05          792,115 100%    2.87MB/s    0:00:00 (xfr#293, ir-chk=38568/40722)
+GoogleStreetView/test/010329_3.jpg
+         32,768   3%   81.01kB/s    0:00:10          887,718 100%    2.06MB/s    0:00:00 (xfr#294, ir-chk=38567/40722)
+GoogleStreetView/test/010329_4.jpg
+         32,768   4%   45.39kB/s    0:00:16          796,960 100%  907.09kB/s    0:00:00 (xfr#295, ir-chk=38566/40722)
+GoogleStreetView/test/010329_5.jpg
+         32,768   8%   27.56kB/s    0:00:12           65,536  16%   55.12kB/s    0:00:05          385,966 100%  322.98kB/s    0:00:01 (xfr#296, ir-chk=38565/40722)
+GoogleStreetView/test/010330_1.jpg
+         32,768   3%  347.83kB/s    0:00:02          958,210 100%    5.34MB/s    0:00:00 (xfr#297, ir-chk=38564/40722)
+GoogleStreetView/test/010330_2.jpg
+         32,768   4%  135.02kB/s    0:00:05          777,759 100%    2.92MB/s    0:00:00 (xfr#298, ir-chk=38563/40722)
+GoogleStreetView/test/010330_3.jpg
+         32,768   3%   71.91kB/s    0:00:12          896,030 100%    1.74MB/s    0:00:00 (xfr#299, ir-chk=38562/40722)
+GoogleStreetView/test/010330_4.jpg
+         32,768   3%   44.26kB/s    0:00:19          890,569 100%  878.48kB/s    0:00:00 (xfr#300, ir-chk=38561/40722)
+GoogleStreetView/test/010330_5.jpg
+         32,768   7%   29.09kB/s    0:00:14           65,536  14%   58.18kB/s    0:00:06          450,213 100%  393.61kB/s    0:00:01 (xfr#301, ir-chk=38560/40722)
+GoogleStreetView/test/010331_1.jpg
+         32,768   2%  320.00kB/s    0:00:03        1,121,117 100%    7.64MB/s    0:00:00 (xfr#302, ir-chk=38559/40722)
+GoogleStreetView/test/010331_2.jpg
+         32,768   4%   79.40kB/s    0:00:09          767,707 100%    1.56MB/s    0:00:00 (xfr#303, ir-chk=38558/40722)
+GoogleStreetView/test/010331_3.jpg
+         32,768   3%   57.35kB/s    0:00:16          983,406 100%    1.61MB/s    0:00:00 (xfr#304, ir-chk=38557/40722)
+GoogleStreetView/test/010331_4.jpg
+         32,768   4%   51.86kB/s    0:00:15          818,718 100%    1.23MB/s    0:00:00 (xfr#305, ir-chk=38556/40722)
+GoogleStreetView/test/010331_5.jpg
+         32,768   7%   36.95kB/s    0:00:11          442,880 100%  494.85kB/s    0:00:00 (xfr#306, ir-chk=38555/40722)
+GoogleStreetView/test/010332_1.jpg
+         32,768   3%   32.89kB/s    0:00:30          589,824  57%  576.00kB/s    0:00:00        1,021,179 100%  979.61kB/s    0:00:01 (xfr#307, ir-chk=38554/40722)
+GoogleStreetView/test/010332_2.jpg
+         32,768   3%  500.00kB/s    0:00:01          847,166 100%    5.15MB/s    0:00:00 (xfr#308, ir-chk=38553/40722)
+GoogleStreetView/test/010332_3.jpg
+         32,768   3%  152.38kB/s    0:00:05          858,303 100%    3.09MB/s    0:00:00 (xfr#309, ir-chk=38552/40722)
+GoogleStreetView/test/010332_4.jpg
+         32,768   3%  111.89kB/s    0:00:07          846,958 100%    2.61MB/s    0:00:00 (xfr#310, ir-chk=38551/40722)
+GoogleStreetView/test/010332_5.jpg
+         32,768   5%   92.75kB/s    0:00:06          600,035 100%    1.56MB/s    0:00:00 (xfr#311, ir-chk=38550/40722)
+GoogleStreetView/test/010333_1.jpg
+         32,768   3%   50.87kB/s    0:00:19        1,017,009 100%    1.39MB/s    0:00:00 (xfr#312, ir-chk=38549/40722)
+GoogleStreetView/test/010333_2.jpg
+         32,768   3%   32.69kB/s    0:00:26          294,912  32%  257.37kB/s    0:00:02          905,571 100%  781.92kB/s    0:00:01 (xfr#313, ir-chk=38548/40722)
+GoogleStreetView/test/010333_3.jpg
+         32,768   3%  158.42kB/s    0:00:05          827,529 100%    2.16MB/s    0:00:00 (xfr#314, ir-chk=38547/40722)
+GoogleStreetView/test/010333_4.jpg
+         32,768   3%   55.46kB/s    0:00:14          846,089 100%    1.27MB/s    0:00:00 (xfr#315, ir-chk=38546/40722)
+GoogleStreetView/test/010333_5.jpg
+         32,768   4%   36.28kB/s    0:00:17          673,851 100%  731.18kB/s    0:00:00 (xfr#316, ir-chk=38545/40722)
+GoogleStreetView/test/010334_1.jpg
+         32,768   3%   29.20kB/s    0:00:32           65,536   6%   58.39kB/s    0:00:15          994,994 100%  843.47kB/s    0:00:01 (xfr#317, ir-chk=38544/40722)
+GoogleStreetView/test/010334_2.jpg
+         32,768   3%  116.36kB/s    0:00:07          948,521 100%    2.94MB/s    0:00:00 (xfr#318, ir-chk=38543/40722)
+GoogleStreetView/test/010334_3.jpg
+         32,768   4%   71.75kB/s    0:00:10          781,386 100%    1.56MB/s    0:00:00 (xfr#319, ir-chk=38542/40722)
+GoogleStreetView/test/010334_4.jpg
+         32,768   4%   40.87kB/s    0:00:18          801,881 100%  970.37kB/s    0:00:00 (xfr#320, ir-chk=38541/40722)
+GoogleStreetView/test/010334_5.jpg
+         32,768   4%   31.75kB/s    0:00:21           65,536   9%   63.49kB/s    0:00:10          722,714 100%  687.89kB/s    0:00:01 (xfr#321, ir-chk=38540/40722)
+GoogleStreetView/test/010335_1.jpg
+         32,768   3%  235.29kB/s    0:00:04          986,969 100%    5.60MB/s    0:00:00 (xfr#322, ir-chk=38539/40722)
+GoogleStreetView/test/010335_2.jpg
+         32,768   3%  111.89kB/s    0:00:07          899,794 100%    2.72MB/s    0:00:00 (xfr#323, ir-chk=38538/40722)
+GoogleStreetView/test/010335_3.jpg
+         32,768   4%   86.72kB/s    0:00:08          791,800 100%    1.79MB/s    0:00:00 (xfr#324, ir-chk=38537/40722)
+GoogleStreetView/test/010335_4.jpg
+         32,768   3%    0.00kB/s    0:00:00          864,834 100%    7.63MB/s    0:00:00 (xfr#325, ir-chk=38536/40722)
+GoogleStreetView/test/010335_5.jpg
+         32,768   7%   46.65kB/s    0:00:08          433,734 100%  612.09kB/s    0:00:00 (xfr#326, ir-chk=38535/40722)
+GoogleStreetView/test/010336_1.jpg
+         32,768   3%    0.00kB/s    0:00:00          935,044 100%    2.45MB/s    0:00:00 (xfr#327, ir-chk=38534/40722)
+GoogleStreetView/test/010336_2.jpg
+         32,768   3%   70.02kB/s    0:00:12          885,482 100%    1.68MB/s    0:00:00 (xfr#328, ir-chk=38533/40722)
+GoogleStreetView/test/010336_3.jpg
+         32,768   4%   22.92kB/s    0:00:32           65,536   8%   45.85kB/s    0:00:15          778,041 100%  538.49kB/s    0:00:01 (xfr#329, ir-chk=38532/40722)
+GoogleStreetView/test/010336_4.jpg
+         32,768   3%   99.69kB/s    0:00:08          830,855 100%    2.18MB/s    0:00:00 (xfr#330, ir-chk=38531/40722)
+GoogleStreetView/test/010336_5.jpg
+         32,768   3%   78.82kB/s    0:00:10          850,329 100%    1.93MB/s    0:00:00 (xfr#331, ir-chk=38530/40722)
+GoogleStreetView/test/010337_1.jpg
+         32,768   3%   43.18kB/s    0:00:22          819,200  80%  704.23kB/s    0:00:00        1,015,533 100%  871.47kB/s    0:00:01 (xfr#332, ir-chk=38529/40722)
+GoogleStreetView/test/010337_2.jpg
+         32,768   3%  390.24kB/s    0:00:02          900,023 100%    8.10MB/s    0:00:00 (xfr#333, ir-chk=38528/40722)
+GoogleStreetView/test/010337_3.jpg
+         32,768   4%  169.31kB/s    0:00:04          777,034 100%    2.69MB/s    0:00:00 (xfr#334, ir-chk=38527/40722)
+GoogleStreetView/test/010337_4.jpg
+         32,768   4%   78.05kB/s    0:00:09          796,997 100%    1.63MB/s    0:00:00 (xfr#335, ir-chk=38526/40722)
+GoogleStreetView/test/010337_5.jpg
+         32,768   6%    0.00kB/s    0:00:00          486,345 100%   21.63MB/s    0:00:00 (xfr#336, ir-chk=38525/40722)
+GoogleStreetView/test/010338_1.jpg
+         32,768   3%   99.07kB/s    0:00:10        1,078,348 100%    2.90MB/s    0:00:00 (xfr#337, ir-chk=38524/40722)
+GoogleStreetView/test/010338_2.jpg
+         32,768   3%   80.00kB/s    0:00:10          873,441 100%    1.89MB/s    0:00:00 (xfr#338, ir-chk=38523/40722)
+GoogleStreetView/test/010338_3.jpg
+         32,768   3%   53.24kB/s    0:00:15          838,861 100%    1.28MB/s    0:00:00 (xfr#339, ir-chk=38522/40722)
+GoogleStreetView/test/010338_4.jpg
+         32,768   3%   44.20kB/s    0:00:18          842,225 100%    1.07MB/s    0:00:00 (xfr#340, ir-chk=38521/40722)
+GoogleStreetView/test/010338_5.jpg
+         32,768   7%   28.57kB/s    0:00:14           65,536  14%   57.09kB/s    0:00:06          442,996 100%  383.52kB/s    0:00:01 (xfr#341, ir-chk=38520/40722)
+GoogleStreetView/test/010339_1.jpg
+         32,768   3%  121.67kB/s    0:00:07          936,706 100%    3.04MB/s    0:00:00 (xfr#342, ir-chk=38519/40722)
+GoogleStreetView/test/010339_2.jpg
+         32,768   4%   52.55kB/s    0:00:14          785,656 100%    1.20MB/s    0:00:00 (xfr#343, ir-chk=38518/40722)
+GoogleStreetView/test/010339_3.jpg
+         32,768   3%   40.61kB/s    0:00:20          852,230 100%  934.07kB/s    0:00:00 (xfr#344, ir-chk=38517/40722)
+GoogleStreetView/test/010339_4.jpg
+         32,768   3%    0.00kB/s    0:00:00          825,135 100%   13.03MB/s    0:00:00 (xfr#345, ir-chk=38516/40722)
+GoogleStreetView/test/010339_5.jpg
+         32,768   9%  179.78kB/s    0:00:01          334,640 100%    1.76MB/s    0:00:00 (xfr#346, ir-chk=38515/40722)
+GoogleStreetView/test/010340_1.jpg
+         32,768   3%   86.96kB/s    0:00:11        1,012,719 100%    2.31MB/s    0:00:00 (xfr#347, ir-chk=38514/40722)
+GoogleStreetView/test/010340_2.jpg
+         32,768   4%   62.14kB/s    0:00:11          776,614 100%    1.37MB/s    0:00:00 (xfr#348, ir-chk=38513/40722)
+GoogleStreetView/test/010340_3.jpg
+         32,768   3%   54.42kB/s    0:00:17          976,822 100%    1.51MB/s    0:00:00 (xfr#349, ir-chk=38512/40722)
+GoogleStreetView/test/010340_4.jpg
+         32,768   3%   49.23kB/s    0:00:16          834,512 100%    1.18MB/s    0:00:00 (xfr#350, ir-chk=38511/40722)
+GoogleStreetView/test/010340_5.jpg
+         32,768   8%   43.66kB/s    0:00:08          385,808 100%  510.52kB/s    0:00:00 (xfr#351, ir-chk=38510/40722)
+GoogleStreetView/test/010341_1.jpg
+         32,768   3%   40.87kB/s    0:00:24        1,051,882 100%    1.24MB/s    0:00:00 (xfr#352, ir-chk=38509/40722)
+GoogleStreetView/test/010341_2.jpg
+         32,768   4%   33.83kB/s    0:00:23          815,628 100%  814.43kB/s    0:00:00 (xfr#353, ir-chk=38508/40722)
+GoogleStreetView/test/010341_3.jpg
+         32,768   3%   28.37kB/s    0:00:31           65,536   7%   56.64kB/s    0:00:15          935,911 100%  788.59kB/s    0:00:01 (xfr#354, ir-chk=38507/40722)
+GoogleStreetView/test/010341_4.jpg
+         32,768   3%  333.33kB/s    0:00:02          832,848 100%    6.79MB/s    0:00:00 (xfr#355, ir-chk=38506/40722)
+GoogleStreetView/test/010341_5.jpg
+         32,768   9%  162.44kB/s    0:00:01          344,205 100%    1.63MB/s    0:00:00 (xfr#356, ir-chk=38505/40722)
+GoogleStreetView/test/010342_1.jpg
+         32,768   3%  104.23kB/s    0:00:09          991,596 100%    2.09MB/s    0:00:00 (xfr#357, ir-chk=38504/40722)
+GoogleStreetView/test/010342_2.jpg
+         32,768   3%   31.97kB/s    0:00:26           65,536   7%   63.94kB/s    0:00:12          866,873 100%  814.00kB/s    0:00:01 (xfr#358, ir-chk=38503/40722)
+GoogleStreetView/test/010342_3.jpg
+         32,768   3%   91.69kB/s    0:00:09          916,982 100%    2.14MB/s    0:00:00 (xfr#359, ir-chk=38502/40722)
+GoogleStreetView/test/010342_4.jpg
+         32,768   3%   64.00kB/s    0:00:13          894,452 100%    1.63MB/s    0:00:00 (xfr#360, ir-chk=38501/40722)
+GoogleStreetView/test/010342_5.jpg
+         32,768   9%   52.98kB/s    0:00:06          359,498 100%  577.42kB/s    0:00:00 (xfr#361, ir-chk=38500/40722)
+GoogleStreetView/test/010343_1.jpg
+         32,768   3%   40.66kB/s    0:00:19          839,128 100%  975.55kB/s    0:00:00 (xfr#362, ir-chk=38499/40722)
+GoogleStreetView/test/010343_2.jpg
+         32,768   3%   32.00kB/s    0:00:25           65,536   7%   63.94kB/s    0:00:12          863,134 100%  748.58kB/s    0:00:01 (xfr#363, ir-chk=38498/40722)
+GoogleStreetView/test/010343_3.jpg
+         32,768   3%  125.98kB/s    0:00:07          940,999 100%    3.04MB/s    0:00:00 (xfr#364, ir-chk=38497/40722)
+GoogleStreetView/test/010343_4.jpg
+         32,768   3%   80.60kB/s    0:00:10          873,096 100%    1.96MB/s    0:00:00 (xfr#365, ir-chk=38496/40722)
+GoogleStreetView/test/010343_5.jpg
+         32,768  10%   50.08kB/s    0:00:05          327,333 100%  497.14kB/s    0:00:00 (xfr#366, ir-chk=38495/40722)
+GoogleStreetView/train/000001_1.jpg
+         32,768   4%    0.00kB/s    0:00:00          741,324 100%   25.03MB/s    0:00:00 (xfr#367, to-chk=49494/51722)
+GoogleStreetView/train/000001_2.jpg
+         32,768   4%  175.82kB/s    0:00:03          715,117 100%    2.78MB/s    0:00:00 (xfr#368, to-chk=49493/51722)
+GoogleStreetView/train/000001_3.jpg
+         32,768   4%  100.95kB/s    0:00:07          793,019 100%    2.15MB/s    0:00:00 (xfr#369, to-chk=49492/51722)
+GoogleStreetView/train/000001_4.jpg
+         32,768   4%   73.23kB/s    0:00:10          782,310 100%    1.59MB/s    0:00:00 (xfr#370, to-chk=49491/51722)
+GoogleStreetView/train/000001_5.jpg
+         32,768   8%   50.79kB/s    0:00:07          393,985 100%  604.00kB/s    0:00:00 (xfr#371, to-chk=49490/51722)
+GoogleStreetView/train/000002_1.jpg
+         32,768   7%   26.38kB/s    0:00:16           65,536  14%   52.72kB/s    0:00:07          466,084 100%  333.94kB/s    0:00:01 (xfr#372, to-chk=49489/51722)
+GoogleStreetView/train/000002_2.jpg
+         32,768   7%   37.51kB/s    0:00:11          446,161 100%  506.04kB/s    0:00:00 (xfr#373, to-chk=49488/51722)
+GoogleStreetView/train/000002_3.jpg
+         32,768   6%    0.00kB/s    0:00:00          532,073 100%   52.91MB/s    0:00:00 (xfr#374, to-chk=49487/51722)
+GoogleStreetView/train/000002_4.jpg
+         32,768   6%  680.85kB/s    0:00:00          504,236 100%    8.29MB/s    0:00:00 (xfr#375, to-chk=49486/51722)
+GoogleStreetView/train/000002_5.jpg
+         32,768   9%  296.30kB/s    0:00:01          362,934 100%    3.06MB/s    0:00:00 (xfr#376, to-chk=49485/51722)
+GoogleStreetView/train/000003_1.jpg
+         32,768   5%  125.00kB/s    0:00:04          649,865 100%    2.06MB/s    0:00:00 (xfr#377, to-chk=49484/51722)
+GoogleStreetView/train/000003_2.jpg
+         32,768   6%   72.73kB/s    0:00:06          520,568 100%    1.11MB/s    0:00:00 (xfr#378, to-chk=49483/51722)
+GoogleStreetView/train/000003_3.jpg
+         32,768   4%   62.14kB/s    0:00:11          755,993 100%    1.36MB/s    0:00:00 (xfr#379, to-chk=49482/51722)
+GoogleStreetView/train/000003_4.jpg
+         32,768   4%   36.78kB/s    0:00:20          793,710 100%  876.82kB/s    0:00:00 (xfr#380, to-chk=49481/51722)
+GoogleStreetView/train/000003_5.jpg
+         32,768   7%   27.05kB/s    0:00:14           65,536  15%   54.05kB/s    0:00:06          436,816 100%  358.47kB/s    0:00:01 (xfr#381, to-chk=49480/51722)
+GoogleStreetView/train/000004_1.jpg
+         32,768   4%   92.49kB/s    0:00:07          740,265 100%    1.89MB/s    0:00:00 (xfr#382, to-chk=49479/51722)
+GoogleStreetView/train/000004_2.jpg
+         32,768   6%   80.00kB/s    0:00:06          534,158 100%    1.25MB/s    0:00:00 (xfr#383, to-chk=49478/51722)
+GoogleStreetView/train/000004_3.jpg
+         32,768   4%   69.87kB/s    0:00:09          687,254 100%    1.39MB/s    0:00:00 (xfr#384, to-chk=49477/51722)
+GoogleStreetView/train/000004_4.jpg
+         32,768   4%   46.92kB/s    0:00:16          811,434 100%    1.09MB/s    0:00:00 (xfr#385, to-chk=49476/51722)
+GoogleStreetView/train/000004_5.jpg
+         32,768   7%   33.86kB/s    0:00:12          294,912  64%  283.74kB/s    0:00:00          460,783 100%  442.46kB/s    0:00:01 (xfr#386, to-chk=49475/51722)
+GoogleStreetView/train/000005_1.jpg
+         32,768   3%  390.24kB/s    0:00:02          819,745 100%    6.11MB/s    0:00:00 (xfr#387, to-chk=49474/51722)
+GoogleStreetView/train/000005_2.jpg
+         32,768   5%  179.78kB/s    0:00:03          594,160 100%    3.03MB/s    0:00:00 (xfr#388, to-chk=49473/51722)
+GoogleStreetView/train/000005_3.jpg
+         32,768   4%  136.17kB/s    0:00:05          765,992 100%    2.92MB/s    0:00:00 (xfr#389, to-chk=49472/51722)
+GoogleStreetView/train/000005_4.jpg
+         32,768   4%   68.23kB/s    0:00:11          812,715 100%    1.58MB/s    0:00:00 (xfr#390, to-chk=49471/51722)
+GoogleStreetView/train/000005_5.jpg
+         32,768   7%   48.12kB/s    0:00:08          454,421 100%  660.37kB/s    0:00:00 (xfr#391, to-chk=49470/51722)
+GoogleStreetView/train/000006_1.jpg
+         32,768   3%   46.04kB/s    0:00:17          836,093 100%    1.09MB/s    0:00:00 (xfr#392, to-chk=49469/51722)
+GoogleStreetView/train/000006_2.jpg
+         32,768   4%   30.02kB/s    0:00:20           65,536   9%   59.98kB/s    0:00:09          655,663 100%  554.85kB/s    0:00:01 (xfr#393, to-chk=49468/51722)
+GoogleStreetView/train/000006_3.jpg
+         32,768   3%  107.74kB/s    0:00:07          860,698 100%    2.59MB/s    0:00:00 (xfr#394, to-chk=49467/51722)
+GoogleStreetView/train/000006_4.jpg
+         32,768   3%   67.51kB/s    0:00:11          828,912 100%    1.56MB/s    0:00:00 (xfr#395, to-chk=49466/51722)
+GoogleStreetView/train/000006_5.jpg
+         32,768   7%   54.42kB/s    0:00:07          454,432 100%  745.85kB/s    0:00:00 (xfr#396, to-chk=49465/51722)
+GoogleStreetView/train/000007_1.jpg
+         32,768   3%   43.78kB/s    0:00:18          841,513 100%    1.06MB/s    0:00:00 (xfr#397, to-chk=49464/51722)
+GoogleStreetView/train/000007_2.jpg
+         32,768   4%   34.59kB/s    0:00:19          712,796 100%  734.27kB/s    0:00:00 (xfr#398, to-chk=49463/51722)
+GoogleStreetView/train/000007_3.jpg
+         32,768   3%   31.07kB/s    0:00:26           65,536   7%   62.08kB/s    0:00:12          850,851 100%  732.72kB/s    0:00:01 (xfr#399, to-chk=49462/51722)
+GoogleStreetView/train/000007_4.jpg
+         32,768   4%  148.84kB/s    0:00:05          818,629 100%    3.15MB/s    0:00:00 (xfr#400, to-chk=49461/51722)
+GoogleStreetView/train/000007_5.jpg
+         32,768   7%  103.56kB/s    0:00:03          434,274 100%    1.31MB/s    0:00:00 (xfr#401, to-chk=49460/51722)
+GoogleStreetView/train/000008_1.jpg
+         32,768   4%   69.87kB/s    0:00:11          803,744 100%    1.62MB/s    0:00:00 (xfr#402, to-chk=49459/51722)
+GoogleStreetView/train/000008_2.jpg
+         32,768   4%   54.79kB/s    0:00:12          745,046 100%  999.43kB/s    0:00:00 (xfr#403, to-chk=49458/51722)
+GoogleStreetView/train/000008_3.jpg
+         32,768   3%   36.49kB/s    0:00:21          823,336 100%  885.51kB/s    0:00:00 (xfr#404, to-chk=49457/51722)
+GoogleStreetView/train/000008_4.jpg
+         32,768   3%   34.12kB/s    0:00:23          846,756 100%  864.06kB/s    0:00:00 (xfr#405, to-chk=49456/51722)
+GoogleStreetView/train/000008_5.jpg
+         32,768   7%   27.30kB/s    0:00:13           65,536  15%   54.56kB/s    0:00:06          413,863 100%  342.51kB/s    0:00:01 (xfr#406, to-chk=49455/51722)
+GoogleStreetView/train/000009_1.jpg
+         32,768   3%  405.06kB/s    0:00:01          830,336 100%    6.71MB/s    0:00:00 (xfr#407, to-chk=49454/51722)
+GoogleStreetView/train/000009_2.jpg
+         32,768   4%  107.74kB/s    0:00:06          741,883 100%    2.28MB/s    0:00:00 (xfr#408, to-chk=49453/51722)
+GoogleStreetView/train/000009_3.jpg
+         32,768   3%    0.00kB/s    0:00:00          848,364 100%   33.82MB/s    0:00:00 (xfr#409, to-chk=49452/51722)
+GoogleStreetView/train/000009_4.jpg
+         32,768   3%  156.10kB/s    0:00:05          844,168 100%    3.59MB/s    0:00:00 (xfr#410, to-chk=49451/51722)
+GoogleStreetView/train/000009_5.jpg
+         32,768   8%   96.97kB/s    0:00:03          372,505 100%    1.06MB/s    0:00:00 (xfr#411, to-chk=49450/51722)
+GoogleStreetView/train/000010_1.jpg
+         32,768   4%   53.96kB/s    0:00:13          769,099 100%    1.05MB/s    0:00:00 (xfr#412, to-chk=49449/51722)
+GoogleStreetView/train/000010_2.jpg
+         32,768   4%   29.47kB/s    0:00:24           65,536   8%   58.88kB/s    0:00:11          767,652 100%  673.55kB/s    0:00:01 (xfr#413, to-chk=49448/51722)
+GoogleStreetView/train/000010_3.jpg
+         32,768   3%  385.54kB/s    0:00:02          829,559 100%    7.00MB/s    0:00:00 (xfr#414, to-chk=49447/51722)
+GoogleStreetView/train/000010_4.jpg
+         32,768   4%  135.02kB/s    0:00:05          746,294 100%    2.77MB/s    0:00:00 (xfr#415, to-chk=49446/51722)
+GoogleStreetView/train/000010_5.jpg
+         32,768   7%   51.61kB/s    0:00:07          419,033 100%  653.69kB/s    0:00:00 (xfr#416, to-chk=49445/51722)
+GoogleStreetView/train/000011_1.jpg
+         32,768   4%   39.75kB/s    0:00:19          807,075 100%  955.34kB/s    0:00:00 (xfr#417, to-chk=49444/51722)
+GoogleStreetView/train/000011_2.jpg
+         32,768   4%   29.17kB/s    0:00:24           65,536   8%   58.29kB/s    0:00:11          755,491 100%  586.47kB/s    0:00:01 (xfr#418, to-chk=49443/51722)
+GoogleStreetView/train/000011_3.jpg
+         32,768   3%  111.50kB/s    0:00:07          830,979 100%    2.47MB/s    0:00:00 (xfr#419, to-chk=49442/51722)
+GoogleStreetView/train/000011_4.jpg
+         32,768   4%   80.20kB/s    0:00:09          791,825 100%    1.66MB/s    0:00:00 (xfr#420, to-chk=49441/51722)
+GoogleStreetView/train/000011_5.jpg
+         32,768   5%   52.20kB/s    0:00:10          570,796 100%  896.17kB/s    0:00:00 (xfr#421, to-chk=49440/51722)
+GoogleStreetView/train/000012_1.jpg
+         32,768   4%   47.48kB/s    0:00:16          803,703 100%    1.10MB/s    0:00:00 (xfr#422, to-chk=49439/51722)
+GoogleStreetView/train/000012_2.jpg
+         32,768   4%   42.90kB/s    0:00:16          724,417 100%  893.23kB/s    0:00:00 (xfr#423, to-chk=49438/51722)
+GoogleStreetView/train/000012_3.jpg
+         32,768   4%   37.12kB/s    0:00:20          786,372 100%  877.65kB/s    0:00:00 (xfr#424, to-chk=49437/51722)
+GoogleStreetView/train/000012_4.jpg
+         32,768   4%   31.90kB/s    0:00:23           65,536   8%   63.75kB/s    0:00:11          776,638 100%  724.39kB/s    0:00:01 (xfr#425, to-chk=49436/51722)
+GoogleStreetView/train/000012_5.jpg
+         32,768   7%    0.00kB/s    0:00:00          466,757 100%   29.56MB/s    0:00:00 (xfr#426, to-chk=49435/51722)
+GoogleStreetView/train/000013_1.jpg
+         32,768   3%   40.76kB/s    0:00:19          821,828 100%  998.22kB/s    0:00:00 (xfr#427, to-chk=49434/51722)
+GoogleStreetView/train/000013_2.jpg
+         32,768   4%    0.00kB/s    0:00:00          685,473 100%   11.74MB/s    0:00:00 (xfr#428, to-chk=49433/51722)
+GoogleStreetView/train/000013_3.jpg
+         32,768   4%  118.08kB/s    0:00:06          814,249 100%    2.45MB/s    0:00:00 (xfr#429, to-chk=49432/51722)
+GoogleStreetView/train/000013_4.jpg
+         32,768   4%   85.79kB/s    0:00:08          732,940 100%    1.61MB/s    0:00:00 (xfr#430, to-chk=49431/51722)
+GoogleStreetView/train/000013_5.jpg
+         32,768   6%   65.98kB/s    0:00:07          543,037 100%    1.05MB/s    0:00:00 (xfr#431, to-chk=49430/51722)
+GoogleStreetView/train/000014_1.jpg
+         32,768   3%   51.53kB/s    0:00:16          869,772 100%    1.30MB/s    0:00:00 (xfr#432, to-chk=49429/51722)
+GoogleStreetView/train/000014_2.jpg
+         32,768   4%   40.61kB/s    0:00:15          676,758 100%  780.28kB/s    0:00:00 (xfr#433, to-chk=49428/51722)
+GoogleStreetView/train/000014_3.jpg
+         32,768   3%   31.28kB/s    0:00:25           65,536   7%   62.56kB/s    0:00:12          840,725 100%  786.42kB/s    0:00:01 (xfr#434, to-chk=49427/51722)
+GoogleStreetView/train/000014_4.jpg
+         32,768   4%  106.67kB/s    0:00:06          740,517 100%    2.06MB/s    0:00:00 (xfr#435, to-chk=49426/51722)
+GoogleStreetView/train/000014_5.jpg
+         32,768   5%   75.65kB/s    0:00:07          575,708 100%    1.23MB/s    0:00:00 (xfr#436, to-chk=49425/51722)
+GoogleStreetView/train/000015_1.jpg
+         32,768   4%   58.39kB/s    0:00:13          810,532 100%    1.37MB/s    0:00:00 (xfr#437, to-chk=49424/51722)
+GoogleStreetView/train/000015_2.jpg
+         32,768   4%   40.40kB/s    0:00:17          747,934 100%  896.20kB/s    0:00:00 (xfr#438, to-chk=49423/51722)
+GoogleStreetView/train/000015_3.jpg
+         32,768   3%   34.59kB/s    0:00:23          839,277 100%  851.10kB/s    0:00:00 (xfr#439, to-chk=49422/51722)
+GoogleStreetView/train/000015_4.jpg
+         32,768   4%   30.39kB/s    0:00:23           65,536   8%   60.78kB/s    0:00:11          752,155 100%  683.92kB/s    0:00:01 (xfr#440, to-chk=49421/51722)
+GoogleStreetView/train/000015_5.jpg
+         32,768   6%   43.42kB/s    0:00:11          514,371 100%  644.82kB/s    0:00:00 (xfr#441, to-chk=49420/51722)
+GoogleStreetView/train/000016_1.jpg
+         32,768   3%   27.35kB/s    0:00:28           65,536   7%   54.65kB/s    0:00:13          820,747 100%  665.71kB/s    0:00:01 (xfr#442, to-chk=49419/51722)
+GoogleStreetView/train/000016_2.jpg
+         32,768   3%  615.38kB/s    0:00:01          842,167 100%   12.17MB/s    0:00:00 (xfr#443, to-chk=49418/51722)
+GoogleStreetView/train/000016_3.jpg
+         32,768   3%  128.51kB/s    0:00:06          826,124 100%    2.70MB/s    0:00:00 (xfr#444, to-chk=49417/51722)
+GoogleStreetView/train/000016_4.jpg
+         32,768   4%   83.33kB/s    0:00:08          719,862 100%    1.67MB/s    0:00:00 (xfr#445, to-chk=49416/51722)
+GoogleStreetView/train/000016_5.jpg
+         32,768   7%   72.56kB/s    0:00:05          414,970 100%  902.55kB/s    0:00:00 (xfr#446, to-chk=49415/51722)
+GoogleStreetView/train/000017_1.jpg
+         32,768   3%   40.30kB/s    0:00:19          830,294 100%  987.62kB/s    0:00:00 (xfr#447, to-chk=49414/51722)
+GoogleStreetView/train/000017_2.jpg
+         32,768   3%   36.04kB/s    0:00:23          863,824 100%  909.03kB/s    0:00:00 (xfr#448, to-chk=49413/51722)
+GoogleStreetView/train/000017_3.jpg
+         32,768   3%   30.13kB/s    0:00:29           65,536   7%   60.21kB/s    0:00:14          913,455 100%  800.76kB/s    0:00:01 (xfr#449, to-chk=49412/51722)
+GoogleStreetView/train/000017_4.jpg
+         32,768   4%  115.11kB/s    0:00:05          701,855 100%    2.26MB/s    0:00:00 (xfr#450, to-chk=49411/51722)
+GoogleStreetView/train/000017_5.jpg
+         32,768   7%   89.64kB/s    0:00:04          465,731 100%    1.22MB/s    0:00:00 (xfr#451, to-chk=49410/51722)
+GoogleStreetView/train/000018_1.jpg
+         32,768   4%   50.47kB/s    0:00:15          795,585 100%    1.17MB/s    0:00:00 (xfr#452, to-chk=49409/51722)
+GoogleStreetView/train/000018_2.jpg
+         32,768   3%   37.25kB/s    0:00:23          903,618 100%  991.51kB/s    0:00:00 (xfr#453, to-chk=49408/51722)
+GoogleStreetView/train/000018_3.jpg
+         32,768   3%   24.22kB/s    0:00:34           65,536   7%   48.41kB/s    0:00:16          856,529 100%  615.04kB/s    0:00:01 (xfr#454, to-chk=49407/51722)
+GoogleStreetView/train/000018_4.jpg
+         32,768   4%  238.81kB/s    0:00:02          735,678 100%    2.66MB/s    0:00:00 (xfr#455, to-chk=49406/51722)
+GoogleStreetView/train/000018_5.jpg
+         32,768   6%   85.33kB/s    0:00:05          477,699 100%    1.18MB/s    0:00:00 (xfr#456, to-chk=49405/51722)
+GoogleStreetView/train/000019_1.jpg
+         32,768   4%   60.15kB/s    0:00:12          791,641 100%    1.33MB/s    0:00:00 (xfr#457, to-chk=49404/51722)
+GoogleStreetView/train/000019_2.jpg
+         32,768   3%   50.00kB/s    0:00:16          878,616 100%    1.22MB/s    0:00:00 (xfr#458, to-chk=49403/51722)
+GoogleStreetView/train/000019_3.jpg
+         32,768   3%   42.44kB/s    0:00:18          825,491 100%    1.01MB/s    0:00:00 (xfr#459, to-chk=49402/51722)
+GoogleStreetView/train/000019_4.jpg
+         32,768   4%   36.70kB/s    0:00:20          776,596 100%  829.75kB/s    0:00:00 (xfr#460, to-chk=49401/51722)
+GoogleStreetView/train/000019_5.jpg
+         32,768   6%   31.59kB/s    0:00:14           65,536  13%   63.18kB/s    0:00:06          487,815 100%  430.72kB/s    0:00:01 (xfr#461, to-chk=49400/51722)
+GoogleStreetView/train/000020_1.jpg
+         32,768   4%  222.22kB/s    0:00:03          755,070 100%    3.98MB/s    0:00:00 (xfr#462, to-chk=49399/51722)
+GoogleStreetView/train/000020_2.jpg
+         32,768   3%  101.59kB/s    0:00:08          858,581 100%    2.13MB/s    0:00:00 (xfr#463, to-chk=49398/51722)
+GoogleStreetView/train/000020_3.jpg
+         32,768   3%   49.38kB/s    0:00:15          821,959 100%    1.16MB/s    0:00:00 (xfr#464, to-chk=49397/51722)
+GoogleStreetView/train/000020_4.jpg
+         32,768   3%   35.05kB/s    0:00:22          820,148 100%  854.78kB/s    0:00:00 (xfr#465, to-chk=49396/51722)
+GoogleStreetView/train/000020_5.jpg
+         32,768   6%   26.51kB/s    0:00:18           65,536  12%   52.98kB/s    0:00:08          525,307 100%  422.22kB/s    0:00:01 (xfr#466, to-chk=49395/51722)
+GoogleStreetView/train/000021_1.jpg
+         32,768   3%  176.80kB/s    0:00:04          895,804 100%    4.27MB/s    0:00:00 (xfr#467, to-chk=49394/51722)
+GoogleStreetView/train/000021_2.jpg
+         32,768   4%   62.02kB/s    0:00:12          802,772 100%    1.45MB/s    0:00:00 (xfr#468, to-chk=49393/51722)
+GoogleStreetView/train/000021_3.jpg
+         32,768   4%   54.61kB/s    0:00:14          805,235 100%    1.23MB/s    0:00:00 (xfr#469, to-chk=49392/51722)
+GoogleStreetView/train/000021_4.jpg
+         32,768   3%   41.40kB/s    0:00:19          859,687 100%    1.02MB/s    0:00:00 (xfr#470, to-chk=49391/51722)
+GoogleStreetView/train/000021_5.jpg
+         32,768   6%   38.37kB/s    0:00:13          540,158 100%  614.08kB/s    0:00:00 (xfr#471, to-chk=49390/51722)
+GoogleStreetView/train/000022_1.jpg
+         32,768   2%   29.85kB/s    0:00:35           65,536   5%   59.70kB/s    0:00:17        1,106,654 100%  978.91kB/s    0:00:01 (xfr#472, to-chk=49389/51722)
+GoogleStreetView/train/000022_2.jpg
+         32,768   4%  225.35kB/s    0:00:03          816,506 100%    3.18MB/s    0:00:00 (xfr#473, to-chk=49388/51722)
+GoogleStreetView/train/000022_3.jpg
+         32,768   3%   86.72kB/s    0:00:09          841,972 100%    1.98MB/s    0:00:00 (xfr#474, to-chk=49387/51722)
+GoogleStreetView/train/000022_4.jpg
+         32,768   3%   66.81kB/s    0:00:11          833,704 100%    1.61MB/s    0:00:00 (xfr#475, to-chk=49386/51722)
+GoogleStreetView/train/000022_5.jpg
+         32,768   5%   58.61kB/s    0:00:09          567,193 100%  996.22kB/s    0:00:00 (xfr#476, to-chk=49385/51722)
+GoogleStreetView/train/000023_1.jpg
+         32,768   3%   42.05kB/s    0:00:24        1,059,514 100%    1.16MB/s    0:00:00 (xfr#477, to-chk=49384/51722)
+GoogleStreetView/train/000023_2.jpg
+         32,768   3%   32.75kB/s    0:00:25          294,912  33%  287.71kB/s    0:00:02          875,415 100%  846.43kB/s    0:00:01 (xfr#478, to-chk=49383/51722)
+GoogleStreetView/train/000023_3.jpg
+         32,768   3%  123.55kB/s    0:00:06          856,082 100%    2.82MB/s    0:00:00 (xfr#479, to-chk=49382/51722)
+GoogleStreetView/train/000023_4.jpg
+         32,768   4%   89.39kB/s    0:00:08          764,836 100%    1.92MB/s    0:00:00 (xfr#480, to-chk=49381/51722)
+GoogleStreetView/train/000023_5.jpg
+         32,768   5%   71.91kB/s    0:00:07          602,338 100%    1.26MB/s    0:00:00 (xfr#481, to-chk=49380/51722)
+GoogleStreetView/train/000024_1.jpg
+         32,768   3%   53.07kB/s    0:00:15          843,987 100%    1.23MB/s    0:00:00 (xfr#482, to-chk=49379/51722)
+GoogleStreetView/train/000024_2.jpg
+         32,768   3%   42.90kB/s    0:00:20          904,361 100%    1.12MB/s    0:00:00 (xfr#483, to-chk=49378/51722)
+GoogleStreetView/train/000024_3.jpg
+         32,768   3%   36.91kB/s    0:00:22          878,739 100%  952.43kB/s    0:00:00 (xfr#484, to-chk=49377/51722)
+GoogleStreetView/train/000024_4.jpg
+         32,768   4%   23.15kB/s    0:00:30           65,536   8%   46.28kB/s    0:00:14          743,858 100%  521.11kB/s    0:00:01 (xfr#485, to-chk=49376/51722)
+GoogleStreetView/train/000024_5.jpg
+         32,768   5%  507.94kB/s    0:00:01          606,478 100%    7.92MB/s    0:00:00 (xfr#486, to-chk=49375/51722)
+GoogleStreetView/train/000025_1.jpg
+         32,768   4%  133.89kB/s    0:00:05          781,958 100%    2.41MB/s    0:00:00 (xfr#487, to-chk=49374/51722)
+GoogleStreetView/train/000025_2.jpg
+         32,768   3%   76.01kB/s    0:00:10          862,924 100%    1.86MB/s    0:00:00 (xfr#488, to-chk=49373/51722)
+GoogleStreetView/train/000025_3.jpg
+         32,768   3%   48.63kB/s    0:00:17          294,912  34%  283.74kB/s    0:00:02          863,004 100%  815.07kB/s    0:00:01 (xfr#489, to-chk=49372/51722)
+GoogleStreetView/train/000025_4.jpg
+         32,768   4%  283.19kB/s    0:00:02          762,966 100%    5.47MB/s    0:00:00 (xfr#490, to-chk=49371/51722)
+GoogleStreetView/train/000025_5.jpg
+         32,768   5%  110.73kB/s    0:00:04          576,925 100%    1.82MB/s    0:00:00 (xfr#491, to-chk=49370/51722)
+GoogleStreetView/train/000026_1.jpg
+         32,768   4%   56.74kB/s    0:00:13          788,242 100%    1.24MB/s    0:00:00 (xfr#492, to-chk=49369/51722)
+GoogleStreetView/train/000026_2.jpg
+         32,768   3%   31.56kB/s    0:00:25           65,536   7%   63.05kB/s    0:00:12          850,701 100%  787.45kB/s    0:00:01 (xfr#493, to-chk=49368/51722)
+GoogleStreetView/train/000026_3.jpg
+         32,768   3%   76.74kB/s    0:00:11          896,327 100%    1.97MB/s    0:00:00 (xfr#494, to-chk=49367/51722)
+GoogleStreetView/train/000026_4.jpg
+         32,768   4%   67.80kB/s    0:00:10          762,639 100%    1.47MB/s    0:00:00 (xfr#495, to-chk=49366/51722)
+GoogleStreetView/train/000026_5.jpg
+         32,768   6%   53.87kB/s    0:00:09          534,899 100%  860.56kB/s    0:00:00 (xfr#496, to-chk=49365/51722)
+GoogleStreetView/train/000027_1.jpg
+         32,768   4%    0.00kB/s    0:00:00          722,476 100%  702.34kB/s    0:00:00 (xfr#497, to-chk=49364/51722)
+GoogleStreetView/train/000027_2.jpg
+         32,768   3%    0.00kB/s    0:00:00          882,249 100%   36.82MB/s    0:00:00 (xfr#498, to-chk=49363/51722)
+GoogleStreetView/train/000027_3.jpg
+         32,768   3%    0.00kB/s    0:00:00          958,771 100%   38.40MB/s    0:00:00 (xfr#499, to-chk=49362/51722)
+GoogleStreetView/train/000027_4.jpg
+         32,768   4%    0.00kB/s    0:00:00          763,482 100%   49.78MB/s    0:00:00 (xfr#500, to-chk=49361/51722)
+GoogleStreetView/train/000027_5.jpg
+         32,768   6%  258.06kB/s    0:00:01          522,544 100%    3.78MB/s    0:00:00 (xfr#501, to-chk=49360/51722)
+GoogleStreetView/train/000028_1.jpg
+         32,768   4%  135.59kB/s    0:00:05          733,977 100%    2.82MB/s    0:00:00 (xfr#502, to-chk=49359/51722)
+GoogleStreetView/train/000028_2.jpg
+         32,768   3%  121.21kB/s    0:00:06          865,583 100%    2.85MB/s    0:00:00 (xfr#503, to-chk=49358/51722)
+GoogleStreetView/train/000028_3.jpg
+         32,768   3%   56.84kB/s    0:00:15          902,592 100%    1.29MB/s    0:00:00 (xfr#504, to-chk=49357/51722)
+GoogleStreetView/train/000028_4.jpg
+         32,768   4%   37.43kB/s    0:00:18          736,574 100%  829.65kB/s    0:00:00 (xfr#505, to-chk=49356/51722)
+GoogleStreetView/train/000028_5.jpg
+         32,768   6%   34.48kB/s    0:00:14          516,001 100%  538.36kB/s    0:00:00 (xfr#506, to-chk=49355/51722)
+GoogleStreetView/train/000029_1.jpg
+         32,768   4%   31.53kB/s    0:00:22           65,536   8%   62.99kB/s    0:00:10          749,516 100%  710.63kB/s    0:00:01 (xfr#507, to-chk=49354/51722)
+GoogleStreetView/train/000029_2.jpg
+         32,768   3%  219.18kB/s    0:00:03          856,431 100%    3.08MB/s    0:00:00 (xfr#508, to-chk=49353/51722)
+GoogleStreetView/train/000029_3.jpg
+         32,768   3%   84.66kB/s    0:00:09          835,983 100%    1.83MB/s    0:00:00 (xfr#509, to-chk=49352/51722)
+GoogleStreetView/train/000029_4.jpg
+         32,768   4%   67.09kB/s    0:00:10          738,492 100%    1.44MB/s    0:00:00 (xfr#510, to-chk=49351/51722)
+GoogleStreetView/train/000029_5.jpg
+         32,768   6%   62.62kB/s    0:00:07          482,126 100%  890.03kB/s    0:00:00 (xfr#511, to-chk=49350/51722)
+GoogleStreetView/train/000030_1.jpg
+         32,768   4%   36.20kB/s    0:00:19          721,182 100%  783.40kB/s    0:00:00 (xfr#512, to-chk=49349/51722)
+GoogleStreetView/train/000030_2.jpg
+         32,768   3%   29.25kB/s    0:00:28           65,536   7%   58.50kB/s    0:00:13          866,315 100%  759.44kB/s    0:00:01 (xfr#513, to-chk=49348/51722)
+GoogleStreetView/train/000030_3.jpg
+         32,768   4%  307.69kB/s    0:00:02          797,166 100%    5.67MB/s    0:00:00 (xfr#514, to-chk=49347/51722)
+GoogleStreetView/train/000030_4.jpg
+         32,768   4%   33.97kB/s    0:00:21          294,912  39%  284.30kB/s    0:00:01          747,528 100%  712.90kB/s    0:00:01 (xfr#515, to-chk=49346/51722)
+GoogleStreetView/train/000030_5.jpg
+         32,768   7%   23.95kB/s    0:00:18           65,536  14%   47.90kB/s    0:00:08          465,848 100%  338.74kB/s    0:00:01 (xfr#516, to-chk=49345/51722)
+GoogleStreetView/train/000031_1.jpg
+         32,768   4%  102.89kB/s    0:00:06          659,897 100%    1.95MB/s    0:00:00 (xfr#517, to-chk=49344/51722)
+GoogleStreetView/train/000031_2.jpg
+         32,768   3%   88.40kB/s    0:00:08          828,224 100%    2.05MB/s    0:00:00 (xfr#518, to-chk=49343/51722)
+GoogleStreetView/train/000031_3.jpg
+         32,768   4%   60.26kB/s    0:00:12          762,556 100%    1.32MB/s    0:00:00 (xfr#519, to-chk=49342/51722)
+GoogleStreetView/train/000031_4.jpg
+         32,768   4%   48.27kB/s    0:00:15          784,149 100%    1.05MB/s    0:00:00 (xfr#520, to-chk=49341/51722)
+GoogleStreetView/train/000031_5.jpg
+         32,768   6%   25.44kB/s    0:00:18           65,536  13%   50.83kB/s    0:00:08          492,288 100%  379.44kB/s    0:00:01 (xfr#521, to-chk=49340/51722)
+GoogleStreetView/train/000032_1.jpg
+         32,768   4%  372.09kB/s    0:00:01          707,587 100%    4.09MB/s    0:00:00 (xfr#522, to-chk=49339/51722)
+GoogleStreetView/train/000032_2.jpg
+         32,768   4%  175.82kB/s    0:00:04          783,486 100%    3.74MB/s    0:00:00 (xfr#523, to-chk=49338/51722)
+GoogleStreetView/train/000032_3.jpg
+         32,768   4%  126.98kB/s    0:00:05          763,094 100%    2.71MB/s    0:00:00 (xfr#524, to-chk=49337/51722)
+GoogleStreetView/train/000032_4.jpg
+         32,768   4%   94.40kB/s    0:00:08          790,660 100%    2.11MB/s    0:00:00 (xfr#525, to-chk=49336/51722)
+GoogleStreetView/train/000032_5.jpg
+         32,768   6%   52.37kB/s    0:00:08          498,769 100%  786.88kB/s    0:00:00 (xfr#526, to-chk=49335/51722)
+GoogleStreetView/train/000033_1.jpg
+         32,768   4%   41.61kB/s    0:00:16          730,361 100%  905.13kB/s    0:00:00 (xfr#527, to-chk=49334/51722)
+GoogleStreetView/train/000033_2.jpg
+         32,768   4%   37.17kB/s    0:00:20          803,292 100%  818.86kB/s    0:00:00 (xfr#528, to-chk=49333/51722)
+GoogleStreetView/train/000033_3.jpg
+         32,768   4%   28.88kB/s    0:00:25           65,536   8%   57.71kB/s    0:00:12          762,558 100%  644.75kB/s    0:00:01 (xfr#529, to-chk=49332/51722)
+GoogleStreetView/train/000033_4.jpg
+         32,768   4%  222.22kB/s    0:00:03          787,799 100%    3.98MB/s    0:00:00 (xfr#530, to-chk=49331/51722)
+GoogleStreetView/train/000033_5.jpg
+         32,768   6%   83.99kB/s    0:00:05          508,101 100%    1.25MB/s    0:00:00 (xfr#531, to-chk=49330/51722)
+GoogleStreetView/train/000034_1.jpg
+         32,768   4%   54.70kB/s    0:00:11          679,029 100%    1.07MB/s    0:00:00 (xfr#532, to-chk=49329/51722)
+GoogleStreetView/train/000034_2.jpg
+         32,768   4%   45.58kB/s    0:00:16          799,666 100%    1.05MB/s    0:00:00 (xfr#533, to-chk=49328/51722)
+GoogleStreetView/train/000034_3.jpg
+         32,768   4%   33.79kB/s    0:00:21          557,056  71%  496.35kB/s    0:00:00          774,184 100%  687.93kB/s    0:00:01 (xfr#534, to-chk=49327/51722)
+GoogleStreetView/train/000034_4.jpg
+         32,768   3%  206.45kB/s    0:00:03          828,123 100%    4.44MB/s    0:00:00 (xfr#535, to-chk=49326/51722)
+GoogleStreetView/train/000034_5.jpg
+         32,768   5%  108.84kB/s    0:00:04          547,458 100%    1.62MB/s    0:00:00 (xfr#536, to-chk=49325/51722)
+GoogleStreetView/train/000035_1.jpg
+         32,768   4%   62.14kB/s    0:00:10          677,325 100%    1.21MB/s    0:00:00 (xfr#537, to-chk=49324/51722)
+GoogleStreetView/train/000035_2.jpg
+         32,768   4%   39.60kB/s    0:00:19          790,983 100%  906.62kB/s    0:00:00 (xfr#538, to-chk=49323/51722)
+GoogleStreetView/train/000035_3.jpg
+         32,768   3%   23.36kB/s    0:00:33           65,536   7%   46.68kB/s    0:00:16          825,563 100%  579.59kB/s    0:00:01 (xfr#539, to-chk=49322/51722)
+GoogleStreetView/train/000035_4.jpg
+         32,768   3%    0.00kB/s    0:00:00          829,541 100%    3.84MB/s    0:00:00 (xfr#540, to-chk=49321/51722)
+GoogleStreetView/train/000035_5.jpg
+         32,768   5%   53.78kB/s    0:00:10          571,317 100%  837.73kB/s    0:00:00 (xfr#541, to-chk=49320/51722)
+GoogleStreetView/train/000036_1.jpg
+         32,768   4%   41.61kB/s    0:00:15          682,218 100%  811.48kB/s    0:00:00 (xfr#542, to-chk=49319/51722)
+GoogleStreetView/train/000036_2.jpg
+         32,768   4%   37.25kB/s    0:00:19          774,929 100%  861.92kB/s    0:00:00 (xfr#543, to-chk=49318/51722)
+GoogleStreetView/train/000036_3.jpg
+         32,768   3%    0.00kB/s    0:00:00          854,973 100%   39.21MB/s    0:00:00 (xfr#544, to-chk=49317/51722)
+GoogleStreetView/train/000036_4.jpg
+         32,768   4%  167.54kB/s    0:00:04          807,686 100%    3.22MB/s    0:00:00 (xfr#545, to-chk=49316/51722)
+GoogleStreetView/train/000036_5.jpg
+         32,768   5%   96.97kB/s    0:00:05          583,438 100%    1.62MB/s    0:00:00 (xfr#546, to-chk=49315/51722)
+GoogleStreetView/train/000037_1.jpg
+         32,768   4%   75.65kB/s    0:00:09          734,933 100%    1.34MB/s    0:00:00 (xfr#547, to-chk=49314/51722)
+GoogleStreetView/train/000037_2.jpg
+         32,768   4%   44.63kB/s    0:00:16          787,985 100%    1.00MB/s    0:00:00 (xfr#548, to-chk=49313/51722)
+GoogleStreetView/train/000037_3.jpg
+         32,768   3%   37.56kB/s    0:00:22          862,896 100%  953.25kB/s    0:00:00 (xfr#549, to-chk=49312/51722)
+GoogleStreetView/train/000037_4.jpg
+         32,768   4%   29.91kB/s    0:00:25           65,536   8%   59.76kB/s    0:00:12          791,826 100%  702.97kB/s    0:00:01 (xfr#550, to-chk=49311/51722)
+GoogleStreetView/train/000037_5.jpg
+         32,768   5%  244.27kB/s    0:00:02          598,837 100%    3.99MB/s    0:00:00 (xfr#551, to-chk=49310/51722)
+GoogleStreetView/train/000038_1.jpg
+         32,768   4%  124.03kB/s    0:00:05          724,051 100%    2.41MB/s    0:00:00 (xfr#552, to-chk=49309/51722)
+GoogleStreetView/train/000038_2.jpg
+         32,768   4%   65.44kB/s    0:00:11          801,418 100%    1.45MB/s    0:00:00 (xfr#553, to-chk=49308/51722)
+GoogleStreetView/train/000038_3.jpg
+         32,768   3%   54.51kB/s    0:00:14          826,553 100%    1.25MB/s    0:00:00 (xfr#554, to-chk=49307/51722)
+GoogleStreetView/train/000038_4.jpg
+         32,768   4%   42.38kB/s    0:00:17          787,191 100%  979.29kB/s    0:00:00 (xfr#555, to-chk=49306/51722)
+GoogleStreetView/train/000038_5.jpg
+         32,768   5%   36.99kB/s    0:00:14          580,977 100%  646.20kB/s    0:00:00 (xfr#556, to-chk=49305/51722)
+GoogleStreetView/train/000039_1.jpg
+         32,768   4%   30.86kB/s    0:00:23           65,536   8%   61.66kB/s    0:00:11          744,689 100%  669.65kB/s    0:00:01 (xfr#557, to-chk=49304/51722)
+GoogleStreetView/train/000039_2.jpg
+         32,768   4%  237.04kB/s    0:00:03          808,032 100%    4.94MB/s    0:00:00 (xfr#558, to-chk=49303/51722)
+GoogleStreetView/train/000039_3.jpg
+         32,768   4%  126.48kB/s    0:00:06          806,510 100%    2.81MB/s    0:00:00 (xfr#559, to-chk=49302/51722)
+GoogleStreetView/train/000039_4.jpg
+         32,768   4%   57.14kB/s    0:00:13          785,940 100%    1.22MB/s    0:00:00 (xfr#560, to-chk=49301/51722)
+GoogleStreetView/train/000039_5.jpg
+         32,768   6%    0.00kB/s    0:00:00          525,662 100%   52.23MB/s    0:00:00 (xfr#561, to-chk=49300/51722)
+GoogleStreetView/train/000040_1.jpg
+         32,768   4%   40.51kB/s    0:00:18          763,907 100%  872.52kB/s    0:00:00 (xfr#562, to-chk=49299/51722)
+GoogleStreetView/train/000040_2.jpg
+         32,768   4%   34.33kB/s    0:00:22          814,007 100%  822.91kB/s    0:00:00 (xfr#563, to-chk=49298/51722)
+GoogleStreetView/train/000040_3.jpg
+         32,768   3%   24.17kB/s    0:00:33           65,536   7%   48.30kB/s    0:00:16          847,772 100%  579.36kB/s    0:00:01 (xfr#564, to-chk=49297/51722)
+GoogleStreetView/train/000040_4.jpg
+         32,768   4%   70.18kB/s    0:00:10          792,545 100%    1.57MB/s    0:00:00 (xfr#565, to-chk=49296/51722)
+GoogleStreetView/train/000040_5.jpg
+         32,768   9%   59.04kB/s    0:00:05          357,996 100%  640.30kB/s    0:00:00 (xfr#566, to-chk=49295/51722)
+GoogleStreetView/train/000041_1.jpg
+         32,768   4%   49.38kB/s    0:00:15          790,569 100%    1.12MB/s    0:00:00 (xfr#567, to-chk=49294/51722)
+GoogleStreetView/train/000041_2.jpg
+         32,768   3%   35.79kB/s    0:00:22          842,082 100%  902.68kB/s    0:00:00 (xfr#568, to-chk=49293/51722)
+GoogleStreetView/train/000041_3.jpg
+         32,768   3%   22.32kB/s    0:00:37           65,536   7%   44.60kB/s    0:00:18          874,271 100%  588.41kB/s    0:00:01 (xfr#569, to-chk=49292/51722)
+GoogleStreetView/train/000041_4.jpg
+         32,768   3%  336.84kB/s    0:00:02          823,153 100%    6.77MB/s    0:00:00 (xfr#570, to-chk=49291/51722)
+GoogleStreetView/train/000041_5.jpg
+         32,768   7%  187.13kB/s    0:00:02          446,510 100%    2.41MB/s    0:00:00 (xfr#571, to-chk=49290/51722)
+GoogleStreetView/train/000042_1.jpg
+         32,768   4%  121.67kB/s    0:00:05          746,411 100%    2.56MB/s    0:00:00 (xfr#572, to-chk=49289/51722)
+GoogleStreetView/train/000042_2.jpg
+         32,768   3%   73.56kB/s    0:00:11          876,160 100%    1.74MB/s    0:00:00 (xfr#573, to-chk=49288/51722)
+GoogleStreetView/train/000042_3.jpg
+         32,768   3%   60.72kB/s    0:00:16        1,027,023 100%    1.72MB/s    0:00:00 (xfr#574, to-chk=49287/51722)
+GoogleStreetView/train/000042_4.jpg
+         32,768   4%   43.78kB/s    0:00:15          721,509 100%  945.77kB/s    0:00:00 (xfr#575, to-chk=49286/51722)
+GoogleStreetView/train/000042_5.jpg
+         32,768   7%   38.79kB/s    0:00:10          446,707 100%  524.32kB/s    0:00:00 (xfr#576, to-chk=49285/51722)
+GoogleStreetView/train/000043_1.jpg
+         32,768   4%   29.14kB/s    0:00:26           65,536   8%   58.29kB/s    0:00:12          792,193 100%  366.30kB/s    0:00:00          792,193 100%  366.30kB/s    0:00:02 (xfr#577, to-chk=49284/51722)
+GoogleStreetView/train/000043_2.jpg
+         32,768   3%   60.49kB/s    0:00:14          884,781 100%    1.49MB/s    0:00:00 (xfr#578, to-chk=49283/51722)
+GoogleStreetView/train/000043_3.jpg
+         32,768   3%   23.93kB/s    0:00:33           65,536   7%   47.83kB/s    0:00:16          845,915 100%  604.31kB/s    0:00:01 (xfr#579, to-chk=49282/51722)
+GoogleStreetView/train/000043_4.jpg
+         32,768   4%   72.40kB/s    0:00:10          810,112 100%    1.57MB/s    0:00:00 (xfr#580, to-chk=49281/51722)
+GoogleStreetView/train/000043_5.jpg
+         32,768   6%   49.84kB/s    0:00:08          479,047 100%  719.72kB/s    0:00:00 (xfr#581, to-chk=49280/51722)
+GoogleStreetView/train/000044_1.jpg
+         32,768   3%   41.29kB/s    0:00:20          864,709 100%    1.03MB/s    0:00:00 (xfr#582, to-chk=49279/51722)
+GoogleStreetView/train/000044_2.jpg
+         32,768   3%   35.09kB/s    0:00:23          871,885 100%  900.05kB/s    0:00:00 (xfr#583, to-chk=49278/51722)
+GoogleStreetView/train/000044_3.jpg
+         32,768   3%   27.63kB/s    0:00:30           65,536   7%   55.27kB/s    0:00:14          886,761 100%  694.45kB/s    0:00:01 (xfr#584, to-chk=49277/51722)
+GoogleStreetView/train/000044_4.jpg
+         32,768   4%  186.05kB/s    0:00:04          800,732 100%    4.04MB/s    0:00:00 (xfr#585, to-chk=49276/51722)
+GoogleStreetView/train/000044_5.jpg
+         32,768   6%  115.11kB/s    0:00:04          526,103 100%    1.69MB/s    0:00:00 (xfr#586, to-chk=49275/51722)
+GoogleStreetView/train/000045_1.jpg
+         32,768   4%   93.29kB/s    0:00:07          762,736 100%    1.98MB/s    0:00:00 (xfr#587, to-chk=49274/51722)
+GoogleStreetView/train/000045_2.jpg
+         32,768   3%   50.47kB/s    0:00:17          919,725 100%    1.31MB/s    0:00:00 (xfr#588, to-chk=49273/51722)
+GoogleStreetView/train/000045_3.jpg
+         32,768   3%    0.00kB/s    0:00:00          880,731 100%  892.34kB/s    0:00:00 (xfr#589, to-chk=49272/51722)
+GoogleStreetView/train/000045_4.jpg
+         32,768   4%    0.00kB/s    0:00:00          785,738 100%    7.64MB/s    0:00:00 (xfr#590, to-chk=49271/51722)
+GoogleStreetView/train/000045_5.jpg
+         32,768   5%  154.59kB/s    0:00:03          559,155 100%    2.40MB/s    0:00:00 (xfr#591, to-chk=49270/51722)
+GoogleStreetView/train/000046_1.jpg
+         32,768   3%  108.47kB/s    0:00:07          820,317 100%    2.05MB/s    0:00:00 (xfr#592, to-chk=49269/51722)
+GoogleStreetView/train/000046_2.jpg
+         32,768   3%   71.43kB/s    0:00:11          864,988 100%    1.76MB/s    0:00:00 (xfr#593, to-chk=49268/51722)
+GoogleStreetView/train/000046_3.jpg
+         32,768   3%   63.62kB/s    0:00:12          845,910 100%    1.56MB/s    0:00:00 (xfr#594, to-chk=49267/51722)
+GoogleStreetView/train/000046_4.jpg
+         32,768   4%   59.04kB/s    0:00:12          751,297 100%    1.27MB/s    0:00:00 (xfr#595, to-chk=49266/51722)
+GoogleStreetView/train/000046_5.jpg
+         32,768   7%   45.91kB/s    0:00:09          461,995 100%  639.95kB/s    0:00:00 (xfr#596, to-chk=49265/51722)
+GoogleStreetView/train/000047_1.jpg
+         32,768   5%   40.92kB/s    0:00:13          567,114 100%  686.27kB/s    0:00:00 (xfr#597, to-chk=49264/51722)
+GoogleStreetView/train/000047_2.jpg
+         32,768   5%   37.69kB/s    0:00:14          574,165 100%  635.00kB/s    0:00:00 (xfr#598, to-chk=49263/51722)
+GoogleStreetView/train/000047_3.jpg
+         32,768   6%   32.89kB/s    0:00:14          360,448  70%  352.00kB/s    0:00:00          510,207 100%  498.25kB/s    0:00:01 (xfr#599, to-chk=49262/51722)
+GoogleStreetView/train/000047_4.jpg
+         32,768   6%  561.40kB/s    0:00:00          489,536 100%    6.97MB/s    0:00:00 (xfr#600, to-chk=49261/51722)
+GoogleStreetView/train/000047_5.jpg
+         32,768   5%  296.30kB/s    0:00:01          564,822 100%    4.60MB/s    0:00:00 (xfr#601, to-chk=49260/51722)
+GoogleStreetView/train/000048_1.jpg
+         32,768   6%   40.30kB/s    0:00:10          468,515 100%  544.68kB/s    0:00:00 (xfr#602, to-chk=49259/51722)
+GoogleStreetView/train/000048_2.jpg
+         32,768   5%   35.28kB/s    0:00:17          647,985 100%  683.37kB/s    0:00:00 (xfr#603, to-chk=49258/51722)
+GoogleStreetView/train/000048_3.jpg
+         32,768   6%   32.89kB/s    0:00:15          533,739 100%  529.70kB/s    0:00:00 (xfr#604, to-chk=49257/51722)
+GoogleStreetView/train/000048_4.jpg
+         32,768   6%   25.06kB/s    0:00:18           65,536  13%   50.12kB/s    0:00:08          503,687 100%  382.49kB/s    0:00:01 (xfr#605, to-chk=49256/51722)
+GoogleStreetView/train/000048_5.jpg
+         32,768   5%    0.00kB/s    0:00:00          580,629 100%   12.74MB/s    0:00:00 (xfr#606, to-chk=49255/51722)
+GoogleStreetView/train/000049_1.jpg
+         32,768   5%   44.82kB/s    0:00:12          582,161 100%  768.27kB/s    0:00:00 (xfr#607, to-chk=49254/51722)
+GoogleStreetView/train/000049_2.jpg
+         32,768   5%   34.52kB/s    0:00:16          598,186 100%  601.61kB/s    0:00:00 (xfr#608, to-chk=49253/51722)
+GoogleStreetView/train/000049_3.jpg
+         32,768   5%   30.83kB/s    0:00:18           65,536  10%   61.66kB/s    0:00:08          611,524 100%  569.30kB/s    0:00:01 (xfr#609, to-chk=49252/51722)
+GoogleStreetView/train/000049_4.jpg
+         32,768   4%   41.72kB/s    0:00:15          665,236 100%  827.57kB/s    0:00:00 (xfr#610, to-chk=49251/51722)
+GoogleStreetView/train/000049_5.jpg
+         32,768   5%   25.32kB/s    0:00:23           65,536  10%   50.59kB/s    0:00:11          623,228 100%  461.43kB/s    0:00:01 (xfr#611, to-chk=49250/51722)
+GoogleStreetView/train/000050_1.jpg
+         32,768   4%  316.83kB/s    0:00:02          731,382 100%    5.91MB/s    0:00:00 (xfr#612, to-chk=49249/51722)
+GoogleStreetView/train/000050_2.jpg
+         32,768   3%  128.00kB/s    0:00:06          830,285 100%    2.68MB/s    0:00:00 (xfr#613, to-chk=49248/51722)
+GoogleStreetView/train/000050_3.jpg
+         32,768   3%   76.92kB/s    0:00:12          957,633 100%    2.05MB/s    0:00:00 (xfr#614, to-chk=49247/51722)
+GoogleStreetView/train/000050_4.jpg
+         32,768   3%   56.34kB/s    0:00:14          839,213 100%    1.32MB/s    0:00:00 (xfr#615, to-chk=49246/51722)
+GoogleStreetView/train/000050_5.jpg
+         32,768   8%   48.78kB/s    0:00:06          370,062 100%  546.73kB/s    0:00:00 (xfr#616, to-chk=49245/51722)
+GoogleStreetView/train/000051_1.jpg
+         32,768   4%   43.30kB/s    0:00:16          757,887 100%  919.41kB/s    0:00:00 (xfr#617, to-chk=49244/51722)
+GoogleStreetView/train/000051_2.jpg
+         32,768   3%   37.87kB/s    0:00:22          902,488 100% 1003.80kB/s    0:00:00 (xfr#618, to-chk=49243/51722)
+GoogleStreetView/train/000051_3.jpg
+         32,768   3%   32.06kB/s    0:00:30          131,072  12%  128.00kB/s    0:00:06        1,021,569 100%  979.02kB/s    0:00:01 (xfr#619, to-chk=49242/51722)
+GoogleStreetView/train/000051_4.jpg
+         32,768   3%  262.30kB/s    0:00:03          899,450 100%    6.17MB/s    0:00:00 (xfr#620, to-chk=49241/51722)
+GoogleStreetView/train/000051_5.jpg
+         32,768   8%   93.02kB/s    0:00:03          380,625 100%    1.04MB/s    0:00:00 (xfr#621, to-chk=49240/51722)
+GoogleStreetView/train/000052_1.jpg
+         32,768   3%   62.02kB/s    0:00:15          987,098 100%    1.72MB/s    0:00:00 (xfr#622, to-chk=49239/51722)
+GoogleStreetView/train/000052_2.jpg
+         32,768   3%   23.43kB/s    0:00:37           65,536   7%   46.85kB/s    0:00:18          919,776 100%  543.39kB/s    0:00:01 (xfr#623, to-chk=49238/51722)
+GoogleStreetView/train/000052_3.jpg
+         32,768   3%    0.00kB/s    0:00:00          903,323 100%   17.66MB/s    0:00:00 (xfr#624, to-chk=49237/51722)
+GoogleStreetView/train/000052_4.jpg
+         32,768   3%  246.15kB/s    0:00:03          888,429 100%    5.13MB/s    0:00:00 (xfr#625, to-chk=49236/51722)
+GoogleStreetView/train/000052_5.jpg
+         32,768   6%   96.39kB/s    0:00:04          473,269 100%    1.33MB/s    0:00:00 (xfr#626, to-chk=49235/51722)
+GoogleStreetView/train/000053_1.jpg
+         32,768   3%   48.85kB/s    0:00:20        1,036,516 100%    1.43MB/s    0:00:00 (xfr#627, to-chk=49234/51722)
+GoogleStreetView/train/000053_2.jpg
+         32,768   3%   44.51kB/s    0:00:21          975,882 100%    1.24MB/s    0:00:00 (xfr#628, to-chk=49233/51722)
+GoogleStreetView/train/000053_3.jpg
+         32,768   3%   37.51kB/s    0:00:22          867,040 100%  960.00kB/s    0:00:00 (xfr#629, to-chk=49232/51722)
+GoogleStreetView/train/000053_4.jpg
+         32,768   3%   34.12kB/s    0:00:23          557,056  66%  544.00kB/s    0:00:00          832,993 100%  806.21kB/s    0:00:01 (xfr#630, to-chk=49231/51722)
+GoogleStreetView/train/000053_5.jpg
+         32,768   6%  197.53kB/s    0:00:02          469,800 100%    2.62MB/s    0:00:00 (xfr#631, to-chk=49230/51722)
+GoogleStreetView/train/000054_1.jpg
+         32,768   3%   64.26kB/s    0:00:12          860,603 100%    1.57MB/s    0:00:00 (xfr#632, to-chk=49229/51722)
+GoogleStreetView/train/000054_2.jpg
+         32,768   3%   49.84kB/s    0:00:18          948,594 100%    1.36MB/s    0:00:00 (xfr#633, to-chk=49228/51722)
+GoogleStreetView/train/000054_3.jpg
+         32,768   3%   37.60kB/s    0:00:24          945,833 100%  961.15kB/s    0:00:00 (xfr#634, to-chk=49227/51722)
+GoogleStreetView/train/000054_4.jpg
+         32,768   4%   28.83kB/s    0:00:25           65,536   8%   57.66kB/s    0:00:12          779,305 100%  674.08kB/s    0:00:01 (xfr#635, to-chk=49226/51722)
+GoogleStreetView/train/000054_5.jpg
+         32,768   6%  340.43kB/s    0:00:01          501,477 100%    4.55MB/s    0:00:00 (xfr#636, to-chk=49225/51722)
+GoogleStreetView/train/000055_1.jpg
+         32,768   4%  250.00kB/s    0:00:02          715,800 100%    4.19MB/s    0:00:00 (xfr#637, to-chk=49224/51722)
+GoogleStreetView/train/000055_2.jpg
+         32,768   3%  144.80kB/s    0:00:05          858,926 100%    3.46MB/s    0:00:00 (xfr#638, to-chk=49223/51722)
+GoogleStreetView/train/000055_3.jpg
+         32,768   3%  102.89kB/s    0:00:07          842,997 100%    2.33MB/s    0:00:00 (xfr#639, to-chk=49222/51722)
+GoogleStreetView/train/000055_4.jpg
+         32,768   3%   70.80kB/s    0:00:11          822,545 100%    1.47MB/s    0:00:00 (xfr#640, to-chk=49221/51722)
+GoogleStreetView/train/000055_5.jpg
+         32,768   8%   49.16kB/s    0:00:06          371,195 100%  553.43kB/s    0:00:00 (xfr#641, to-chk=49220/51722)
+GoogleStreetView/train/000056_1.jpg
+         32,768   4%   40.30kB/s    0:00:16          709,727 100%  853.56kB/s    0:00:00 (xfr#642, to-chk=49219/51722)
+GoogleStreetView/train/000056_2.jpg
+         32,768   3%   36.74kB/s    0:00:21          821,674 100%  895.55kB/s    0:00:00 (xfr#643, to-chk=49218/51722)
+GoogleStreetView/train/000056_3.jpg
+         32,768   3%   28.93kB/s    0:00:29           65,536   7%   57.87kB/s    0:00:14          881,314 100%  731.23kB/s    0:00:01 (xfr#644, to-chk=49217/51722)
+GoogleStreetView/train/000056_4.jpg
+         32,768   3%  264.46kB/s    0:00:03          874,279 100%    5.28MB/s    0:00:00 (xfr#645, to-chk=49216/51722)
+GoogleStreetView/train/000056_5.jpg
+         32,768   8%   72.56kB/s    0:00:05          399,576 100%  871.01kB/s    0:00:00 (xfr#646, to-chk=49215/51722)
+GoogleStreetView/train/000057_1.jpg
+         32,768   3%    0.00kB/s    0:00:00          840,556 100%   20.27MB/s    0:00:00 (xfr#647, to-chk=49214/51722)
+GoogleStreetView/train/000057_2.jpg
+         32,768   3%  264.46kB/s    0:00:03          838,206 100%    3.15MB/s    0:00:00 (xfr#648, to-chk=49213/51722)
+GoogleStreetView/train/000057_3.jpg
+         32,768   3%   88.89kB/s    0:00:09          914,172 100%    2.20MB/s    0:00:00 (xfr#649, to-chk=49212/51722)
+GoogleStreetView/train/000057_4.jpg
+         32,768   3%   48.56kB/s    0:00:17          868,562 100%    1.15MB/s    0:00:00 (xfr#650, to-chk=49211/51722)
+GoogleStreetView/train/000057_5.jpg
+         32,768   6%   35.56kB/s    0:00:14          544,901 100%  579.66kB/s    0:00:00 (xfr#651, to-chk=49210/51722)
+GoogleStreetView/train/000058_1.jpg
+         32,768   4%   32.16kB/s    0:00:24          294,912  36%  286.85kB/s    0:00:01          804,930 100%  768.39kB/s    0:00:01 (xfr#652, to-chk=49209/51722)
+GoogleStreetView/train/000058_2.jpg
+         32,768   3%  268.91kB/s    0:00:03          856,915 100%    5.88MB/s    0:00:00 (xfr#653, to-chk=49208/51722)
+GoogleStreetView/train/000058_3.jpg
+         32,768   3%  153.85kB/s    0:00:05          933,731 100%    3.14MB/s    0:00:00 (xfr#654, to-chk=49207/51722)
+GoogleStreetView/train/000058_4.jpg
+         32,768   3%   87.91kB/s    0:00:10          916,546 100%    2.20MB/s    0:00:00 (xfr#655, to-chk=49206/51722)
+GoogleStreetView/train/000058_5.jpg
+         32,768   4%   59.37kB/s    0:00:11          695,628 100%    1.15MB/s    0:00:00 (xfr#656, to-chk=49205/51722)
+GoogleStreetView/train/000059_1.jpg
+         32,768   3%   49.16kB/s    0:00:16          822,467 100%    1.15MB/s    0:00:00 (xfr#657, to-chk=49204/51722)
+GoogleStreetView/train/000059_2.jpg
+         32,768   3%   42.84kB/s    0:00:19          867,540 100%    1.03MB/s    0:00:00 (xfr#658, to-chk=49203/51722)
+GoogleStreetView/train/000059_3.jpg
+         32,768   3%   37.65kB/s    0:00:23          931,215 100% 1005.96kB/s    0:00:00 (xfr#659, to-chk=49202/51722)
+GoogleStreetView/train/000059_4.jpg
+         32,768   3%   34.30kB/s    0:00:24          883,513 100%  881.31kB/s    0:00:00 (xfr#660, to-chk=49201/51722)
+GoogleStreetView/train/000059_5.jpg
+         32,768   6%   30.48kB/s    0:00:15           65,536  13%   60.95kB/s    0:00:07          496,557 100%  458.34kB/s    0:00:01 (xfr#661, to-chk=49200/51722)
+GoogleStreetView/train/000060_1.jpg
+         32,768   3%  410.26kB/s    0:00:01          840,519 100%    7.42MB/s    0:00:00 (xfr#662, to-chk=49199/51722)
+GoogleStreetView/train/000060_2.jpg
+         32,768   3%  164.95kB/s    0:00:05          893,580 100%    3.54MB/s    0:00:00 (xfr#663, to-chk=49198/51722)
+GoogleStreetView/train/000060_3.jpg
+         32,768   3%  106.31kB/s    0:00:08          919,406 100%    2.77MB/s    0:00:00 (xfr#664, to-chk=49197/51722)
+GoogleStreetView/train/000060_4.jpg
+         32,768   3%   70.18kB/s    0:00:12          907,398 100%    1.58MB/s    0:00:00 (xfr#665, to-chk=49196/51722)
+GoogleStreetView/train/000060_5.jpg
+         32,768   7%   47.83kB/s    0:00:08          422,958 100%  610.11kB/s    0:00:00 (xfr#666, to-chk=49195/51722)
+GoogleStreetView/train/000061_1.jpg
+         32,768   4%   33.61kB/s    0:00:22          778,504 100%  782.16kB/s    0:00:00 (xfr#667, to-chk=49194/51722)
+GoogleStreetView/train/000061_2.jpg
+         32,768   3%   27.97kB/s    0:00:31           65,536   7%   55.94kB/s    0:00:14          902,019 100%  754.82kB/s    0:00:01 (xfr#668, to-chk=49193/51722)
+GoogleStreetView/train/000061_3.jpg
+         32,768   2%   55.46kB/s    0:00:19        1,118,390 100%    1.70MB/s    0:00:00 (xfr#669, to-chk=49192/51722)
+GoogleStreetView/train/000061_4.jpg
+         32,768   3%   48.41kB/s    0:00:17          864,005 100%    1.17MB/s    0:00:00 (xfr#670, to-chk=49191/51722)
+GoogleStreetView/train/000061_5.jpg
+         32,768   6%   41.29kB/s    0:00:10          476,287 100%  592.51kB/s    0:00:00 (xfr#671, to-chk=49190/51722)
+GoogleStreetView/train/000062_1.jpg
+         32,768   4%   32.19kB/s    0:00:23          294,912  37%  287.43kB/s    0:00:01          776,974 100%  748.29kB/s    0:00:01 (xfr#672, to-chk=49189/51722)
+GoogleStreetView/train/000062_2.jpg
+         32,768   3%  516.13kB/s    0:00:01          892,670 100%    9.46MB/s    0:00:00 (xfr#673, to-chk=49188/51722)
+GoogleStreetView/train/000062_3.jpg
+         32,768   3%  147.47kB/s    0:00:06          939,200 100%    3.55MB/s    0:00:00 (xfr#674, to-chk=49187/51722)
+GoogleStreetView/train/000062_4.jpg
+         32,768   3%   55.46kB/s    0:00:14          861,816 100%    1.30MB/s    0:00:00 (xfr#675, to-chk=49186/51722)
+GoogleStreetView/train/000062_5.jpg
+         32,768   7%   21.78kB/s    0:00:19           65,536  14%   43.57kB/s    0:00:09          466,423 100%  308.60kB/s    0:00:01 (xfr#676, to-chk=49185/51722)
+GoogleStreetView/train/000063_1.jpg
+         32,768   4%  492.31kB/s    0:00:01          708,437 100%    4.33MB/s    0:00:00 (xfr#677, to-chk=49184/51722)
+GoogleStreetView/train/000063_2.jpg
+         32,768   3%  131.69kB/s    0:00:06          835,736 100%    2.53MB/s    0:00:00 (xfr#678, to-chk=49183/51722)
+GoogleStreetView/train/000063_3.jpg
+         32,768   3%   67.23kB/s    0:00:12          903,908 100%    1.63MB/s    0:00:00 (xfr#679, to-chk=49182/51722)
+GoogleStreetView/train/000063_4.jpg
+         32,768   4%   52.72kB/s    0:00:14          807,029 100%    1.22MB/s    0:00:00 (xfr#680, to-chk=49181/51722)
+GoogleStreetView/train/000063_5.jpg
+         32,768   6%   41.03kB/s    0:00:11          488,483 100%  603.84kB/s    0:00:00 (xfr#681, to-chk=49180/51722)
+GoogleStreetView/train/000064_1.jpg
+         32,768   4%   32.92kB/s    0:00:22          557,056  70%  534.38kB/s    0:00:00          786,192 100%  752.71kB/s    0:00:01 (xfr#682, to-chk=49179/51722)
+GoogleStreetView/train/000064_2.jpg
+         32,768   4%  113.88kB/s    0:00:06          807,276 100%    2.48MB/s    0:00:00 (xfr#683, to-chk=49178/51722)
+GoogleStreetView/train/000064_3.jpg
+         32,768   3%   80.40kB/s    0:00:10          898,893 100%    2.02MB/s    0:00:00 (xfr#684, to-chk=49177/51722)
+GoogleStreetView/train/000064_4.jpg
+         32,768   3%   31.04kB/s    0:00:27           65,536   7%   62.08kB/s    0:00:13          875,111 100%  790.56kB/s    0:00:01 (xfr#685, to-chk=49176/51722)
+GoogleStreetView/train/000064_5.jpg
+         32,768   5%  203.82kB/s    0:00:02          627,250 100%    3.30MB/s    0:00:00 (xfr#686, to-chk=49175/51722)
+GoogleStreetView/train/000065_1.jpg
+         32,768   3%  129.55kB/s    0:00:06          839,720 100%    2.74MB/s    0:00:00 (xfr#687, to-chk=49174/51722)
+GoogleStreetView/train/000065_2.jpg
+         32,768   3%   49.00kB/s    0:00:16          835,051 100%    1.13MB/s    0:00:00 (xfr#688, to-chk=49173/51722)
+GoogleStreetView/train/000065_3.jpg
+         32,768   3%   42.05kB/s    0:00:19          840,702 100%    1.03MB/s    0:00:00 (xfr#689, to-chk=49172/51722)
+GoogleStreetView/train/000065_4.jpg
+         32,768   3%   33.09kB/s    0:00:25          294,912  33%  286.00kB/s    0:00:02          892,133 100%  855.82kB/s    0:00:01 (xfr#690, to-chk=49171/51722)
+GoogleStreetView/train/000065_5.jpg
+         32,768   4%  457.14kB/s    0:00:01          793,940 100%    1.42MB/s    0:00:00 (xfr#691, to-chk=49170/51722)
+GoogleStreetView/train/000066_1.jpg
+         32,768   4%   28.62kB/s    0:00:27           65,536   8%   57.25kB/s    0:00:12          809,482 100%  679.72kB/s    0:00:01 (xfr#692, to-chk=49169/51722)
+GoogleStreetView/train/000066_2.jpg
+         32,768   3%  167.54kB/s    0:00:04          853,320 100%    3.45MB/s    0:00:00 (xfr#693, to-chk=49168/51722)
+GoogleStreetView/train/000066_3.jpg
+         32,768   4%   80.40kB/s    0:00:09          817,454 100%    1.85MB/s    0:00:00 (xfr#694, to-chk=49167/51722)
+GoogleStreetView/train/000066_4.jpg
+         32,768   3%   61.30kB/s    0:00:13          860,093 100%    1.31MB/s    0:00:00 (xfr#695, to-chk=49166/51722)
+GoogleStreetView/train/000066_5.jpg
+         32,768   4%   43.84kB/s    0:00:17          812,274 100%    1.03MB/s    0:00:00 (xfr#696, to-chk=49165/51722)
+GoogleStreetView/train/000067_1.jpg
+         32,768   4%   34.71kB/s    0:00:20          760,201 100%  743.87kB/s    0:00:00 (xfr#697, to-chk=49164/51722)
+GoogleStreetView/train/000067_2.jpg
+         32,768   4%   29.22kB/s    0:00:25           65,536   8%   58.45kB/s    0:00:12          791,010 100%  660.23kB/s    0:00:01 (xfr#698, to-chk=49163/51722)
+GoogleStreetView/train/000067_3.jpg
+         32,768   4%   72.89kB/s    0:00:09          755,201 100%    1.58MB/s    0:00:00 (xfr#699, to-chk=49162/51722)
+GoogleStreetView/train/000067_4.jpg
+         32,768   3%   48.93kB/s    0:00:18          925,068 100%    1.27MB/s    0:00:00 (xfr#700, to-chk=49161/51722)
+GoogleStreetView/train/000067_5.jpg
+         32,768   5%   33.44kB/s    0:00:17          601,886 100%  606.58kB/s    0:00:00 (xfr#701, to-chk=49160/51722)
+GoogleStreetView/train/000068_1.jpg
+         32,768   3%   30.13kB/s    0:00:32           65,536   6%   60.26kB/s    0:00:15        1,018,181 100%  913.06kB/s    0:00:01 (xfr#702, to-chk=49159/51722)
+GoogleStreetView/train/000068_2.jpg
+         32,768   4%  264.46kB/s    0:00:02          810,265 100%    3.66MB/s    0:00:00 (xfr#703, to-chk=49158/51722)
+GoogleStreetView/train/000068_3.jpg
+         32,768   4%  110.73kB/s    0:00:06          793,885 100%    2.42MB/s    0:00:00 (xfr#704, to-chk=49157/51722)
+GoogleStreetView/train/000068_4.jpg
+         32,768   4%   61.66kB/s    0:00:12          811,002 100%    1.42MB/s    0:00:00 (xfr#705, to-chk=49156/51722)
+GoogleStreetView/train/000068_5.jpg
+         32,768   5%   50.16kB/s    0:00:10          569,175 100%  855.13kB/s    0:00:00 (xfr#706, to-chk=49155/51722)
+GoogleStreetView/train/000069_1.jpg
+         32,768   4%   41.67kB/s    0:00:16          714,593 100%  887.84kB/s    0:00:00 (xfr#707, to-chk=49154/51722)
+GoogleStreetView/train/000069_2.jpg
+         32,768   3%   37.69kB/s    0:00:23          909,439 100%  984.62kB/s    0:00:00 (xfr#708, to-chk=49153/51722)
+GoogleStreetView/train/000069_3.jpg
+         32,768   3%   34.12kB/s    0:00:23          828,225 100%  821.13kB/s    0:00:00 (xfr#709, to-chk=49152/51722)
+GoogleStreetView/train/000069_4.jpg
+         32,768   3%   29.60kB/s    0:00:27           65,536   7%   59.20kB/s    0:00:13          860,057 100%  736.75kB/s    0:00:01 (xfr#710, to-chk=49151/51722)
+GoogleStreetView/train/000069_5.jpg
+         32,768   6%  155.34kB/s    0:00:02          475,051 100%    2.13MB/s    0:00:00 (xfr#711, to-chk=49150/51722)
+GoogleStreetView/train/000070_1.jpg
+         32,768   5%  100.95kB/s    0:00:05          634,725 100%    1.83MB/s    0:00:00 (xfr#712, to-chk=49149/51722)
+GoogleStreetView/train/000070_2.jpg
+         32,768   3%   25.70kB/s    0:00:32           65,536   7%   51.36kB/s    0:00:15          861,151 100%  651.91kB/s    0:00:01 (xfr#713, to-chk=49148/51722)
+GoogleStreetView/train/000070_3.jpg
+         32,768   3%  161.62kB/s    0:00:05          999,619 100%    2.60MB/s    0:00:00 (xfr#714, to-chk=49147/51722)
+GoogleStreetView/train/000070_4.jpg
+         32,768   3%   52.72kB/s    0:00:17          941,174 100%    1.37MB/s    0:00:00 (xfr#715, to-chk=49146/51722)
+GoogleStreetView/train/000070_5.jpg
+         32,768   6%   36.57kB/s    0:00:12          294,912  60%  266.42kB/s    0:00:00          490,375 100%  442.18kB/s    0:00:01 (xfr#716, to-chk=49145/51722)
+GoogleStreetView/train/000071_1.jpg
+         32,768   4%  290.91kB/s    0:00:02          787,488 100%    5.60MB/s    0:00:00 (xfr#717, to-chk=49144/51722)
+GoogleStreetView/train/000071_2.jpg
+         32,768   4%  139.13kB/s    0:00:05          810,050 100%    2.50MB/s    0:00:00 (xfr#718, to-chk=49143/51722)
+GoogleStreetView/train/000071_3.jpg
+         32,768   3%   76.56kB/s    0:00:10          843,917 100%    1.77MB/s    0:00:00 (xfr#719, to-chk=49142/51722)
+GoogleStreetView/train/000071_4.jpg
+         32,768   3%   46.92kB/s    0:00:16          826,975 100%  999.50kB/s    0:00:00 (xfr#720, to-chk=49141/51722)
+GoogleStreetView/train/000071_5.jpg
+         32,768   8%   34.71kB/s    0:00:09          378,015 100%  398.66kB/s    0:00:00 (xfr#721, to-chk=49140/51722)
+GoogleStreetView/train/000072_1.jpg
+         32,768   3%   25.26kB/s    0:00:32           65,536   7%   50.47kB/s    0:00:15          850,324 100%  484.48kB/s    0:00:01 (xfr#722, to-chk=49139/51722)
+slurmstepd: error: *** JOB 591149 ON landonia16 CANCELLED AT 2019-07-15T21:28:26 ***
+GoogleStreetView/train/000072_2.jpg
+         32,768   3%   30.53kB/s    0:00:28           65,536   7%   61.07kB/s    0:00:13          912,599 100%  836.03kB/s    0:00:01 (xfr#723, to-chk=49138/51722)
+GoogleStreetView/train/000072_3.jpg
+         32,768   3%  390.24kB/s    0:00:02          836,368 100%    8.40MB/s    0:00:00 (xfr#724, to-chk=49137/51722)
+GoogleStreetView/train/000072_4.jpg
+         32,768   4%  189.35kB/s    0:00:04          817,653 100%    4.00MB/s    0:00:00 (xfr#725, to-chk=49136/51722)
+GoogleStreetView/train/000072_5.jpg
+         32,768   5%  139.13kB/s    0:00:03          553,763 100%    2.20MB/s    0:00:00 (xfr#726, to-chk=49135/51722)
+GoogleStreetView/train/000073_1.jpg
+         32,768   3%  118.96kB/s    0:00:06          843,418 100%    2.84MB/s    0:00:00 (xfr#727, to-chk=49134/51722)
+GoogleStreetView/train/000073_2.jpg
+         32,768   3%  102.24kB/s    0:00:08          912,367 100%    2.64MB/s    0:00:00 (xfr#728, to-chk=49133/51722)
+GoogleStreetView/train/000073_3.jpg
+         32,768   3%   83.99kB/s    0:00:09          824,141 100%    1.98MB/s    0:00:00 (xfr#729, to-chk=49132/51722)
+GoogleStreetView/train/000073_4.jpg
+         32,768   4%   76.74kB/s    0:00:09          787,343 100%    1.73MB/s    0:00:00 (xfr#730, to-chk=49131/51722)
+GoogleStreetView/train/000073_5.jpg

@@ -1,0 +1,432 @@
+sending incremental file list
+MiasHealthy/
+MiasHealthy/test/
+MiasHealthy/test/mdb020.pgm
+         32,768   5%    0.00kB/s    0:00:00          613,816 100%   61.57MB/s    0:00:00 (xfr#1, to-chk=206/211)
+MiasHealthy/test/mdb094.pgm
+         32,768   7%    1.84MB/s    0:00:00          446,044 100%   19.34MB/s    0:00:00 (xfr#2, to-chk=205/211)
+MiasHealthy/test/mdb114.pgm
+         32,768  11%    1.08MB/s    0:00:00          274,191 100%    8.44MB/s    0:00:00 (xfr#3, to-chk=204/211)
+MiasHealthy/test/mdb139.pgm
+         32,768   4%  842.11kB/s    0:00:00          709,978 100%   14.11MB/s    0:00:00 (xfr#4, to-chk=203/211)
+MiasHealthy/test/mdb153.pgm
+         32,768   3%  592.59kB/s    0:00:01        1,023,017 100%   13.55MB/s    0:00:00 (xfr#5, to-chk=202/211)
+MiasHealthy/test/mdb161.pgm
+         32,768   5%  400.00kB/s    0:00:01          632,230 100%    6.77MB/s    0:00:00 (xfr#6, to-chk=201/211)
+MiasHealthy/test/mdb168.pgm
+         32,768   5%  340.43kB/s    0:00:01          572,301 100%    5.35MB/s    0:00:00 (xfr#7, to-chk=200/211)
+MiasHealthy/test/mdb196.pgm
+         32,768   5%  290.91kB/s    0:00:02          629,161 100%    5.04MB/s    0:00:00 (xfr#8, to-chk=199/211)
+MiasHealthy/test/mdb200.pgm
+         32,768   7%  250.00kB/s    0:00:01          460,366 100%    3.28MB/s    0:00:00 (xfr#9, to-chk=198/211)
+MiasHealthy/test/mdb215.pgm
+         32,768   5%  147.47kB/s    0:00:03          605,659 100%    2.56MB/s    0:00:00 (xfr#10, to-chk=197/211)
+MiasHealthy/test/mdb307.pgm
+         32,768   5%  116.36kB/s    0:00:04          597,817 100%    1.96MB/s    0:00:00 (xfr#11, to-chk=196/211)
+MiasHealthy/train/
+MiasHealthy/train/mdb004.pgm
+         32,768   6%  107.38kB/s    0:00:04          495,148 100%    1.54MB/s    0:00:00 (xfr#12, to-chk=195/211)
+MiasHealthy/train/mdb006.pgm
+         32,768   5%  102.56kB/s    0:00:05          619,954 100%    1.84MB/s    0:00:00 (xfr#13, to-chk=194/211)
+MiasHealthy/train/mdb008.pgm
+         32,768   5%   97.86kB/s    0:00:05          586,195 100%    1.67MB/s    0:00:00 (xfr#14, to-chk=193/211)
+MiasHealthy/train/mdb009.pgm
+         32,768   6%   94.12kB/s    0:00:05          510,493 100%    1.40MB/s    0:00:00 (xfr#15, to-chk=192/211)
+MiasHealthy/train/mdb011.pgm
+         32,768   5%   90.91kB/s    0:00:05          572,881 100%    1.51MB/s    0:00:00 (xfr#16, to-chk=191/211)
+MiasHealthy/train/mdb014.pgm
+         32,768   6%   79.80kB/s    0:00:06          529,930 100%    1.18MB/s    0:00:00 (xfr#17, to-chk=190/211)
+MiasHealthy/train/mdb016.pgm
+         32,768   6%   67.51kB/s    0:00:06          481,849 100%  974.24kB/s    0:00:00 (xfr#18, to-chk=189/211)
+MiasHealthy/train/mdb018.pgm
+         32,768  11%   65.17kB/s    0:00:04          296,686 100%  585.32kB/s    0:00:00 (xfr#19, to-chk=188/211)
+MiasHealthy/train/mdb022.pgm
+         32,768   7%   63.87kB/s    0:00:06          425,515 100%  819.61kB/s    0:00:00 (xfr#20, to-chk=187/211)
+MiasHealthy/train/mdb024.pgm
+         32,768   6%   62.50kB/s    0:00:07          507,424 100%  951.12kB/s    0:00:00 (xfr#21, to-chk=186/211)
+MiasHealthy/train/mdb026.pgm
+         32,768   5%   60.72kB/s    0:00:09          591,310 100%    1.05MB/s    0:00:00 (xfr#22, to-chk=185/211)
+MiasHealthy/train/mdb027.pgm
+         32,768   5%   58.93kB/s    0:00:10          651,316 100%    1.13MB/s    0:00:00 (xfr#23, to-chk=184/211)
+MiasHealthy/train/mdb033.pgm
+         32,768  11%   57.14kB/s    0:00:04          297,485 100%  516.01kB/s    0:00:00 (xfr#24, to-chk=183/211)
+MiasHealthy/train/mdb035.pgm
+         32,768   9%   56.24kB/s    0:00:05          362,415 100%  618.74kB/s    0:00:00 (xfr#25, to-chk=182/211)
+MiasHealthy/train/mdb036.pgm
+         32,768  10%   55.08kB/s    0:00:05          323,284 100%  541.52kB/s    0:00:00 (xfr#26, to-chk=181/211)
+MiasHealthy/train/mdb037.pgm
+         32,768   8%   54.05kB/s    0:00:06          394,415 100%  646.26kB/s    0:00:00 (xfr#27, to-chk=180/211)
+MiasHealthy/train/mdb038.pgm
+         32,768  10%   53.16kB/s    0:00:05          325,263 100%  525.02kB/s    0:00:00 (xfr#28, to-chk=179/211)
+MiasHealthy/train/mdb042.pgm
+         32,768   6%   52.29kB/s    0:00:08          479,803 100%  758.18kB/s    0:00:00 (xfr#29, to-chk=178/211)
+MiasHealthy/train/mdb043.pgm
+         32,768   6%   51.20kB/s    0:00:08          474,615 100%  733.37kB/s    0:00:00 (xfr#30, to-chk=177/211)
+MiasHealthy/train/mdb044.pgm
+         32,768  10%   50.08kB/s    0:00:05          322,435 100%  491.23kB/s    0:00:00 (xfr#31, to-chk=176/211)
+MiasHealthy/train/mdb045.pgm
+         32,768   6%   49.23kB/s    0:00:09          488,020 100%  726.50kB/s    0:00:00 (xfr#32, to-chk=175/211)
+MiasHealthy/train/mdb046.pgm
+         32,768   7%   48.34kB/s    0:00:08          461,389 100%  674.51kB/s    0:00:00 (xfr#33, to-chk=174/211)
+MiasHealthy/train/mdb047.pgm
+         32,768   6%   47.41kB/s    0:00:09          504,847 100%  723.96kB/s    0:00:00 (xfr#34, to-chk=173/211)
+MiasHealthy/train/mdb048.pgm
+         32,768   7%   46.51kB/s    0:00:08          425,584 100%  599.72kB/s    0:00:00 (xfr#35, to-chk=172/211)
+MiasHealthy/train/mdb049.pgm
+         32,768   5%   45.71kB/s    0:00:12          600,081 100%  827.71kB/s    0:00:00 (xfr#36, to-chk=171/211)
+MiasHealthy/train/mdb050.pgm
+         32,768   5%   44.76kB/s    0:00:13          616,472 100%  833.83kB/s    0:00:00 (xfr#37, to-chk=170/211)
+MiasHealthy/train/mdb054.pgm
+         32,768  10%   43.90kB/s    0:00:06          298,732 100%  398.54kB/s    0:00:00 (xfr#38, to-chk=169/211)
+MiasHealthy/train/mdb055.pgm
+         32,768   7%   43.07kB/s    0:00:09          449,631 100%  586.24kB/s    0:00:00 (xfr#39, to-chk=168/211)
+MiasHealthy/train/mdb056.pgm
+         32,768   8%   42.33kB/s    0:00:08          377,503 100%  485.71kB/s    0:00:00 (xfr#40, to-chk=167/211)
+MiasHealthy/train/mdb057.pgm
+         32,768   5%   41.61kB/s    0:00:13          584,667 100%  732.94kB/s    0:00:00 (xfr#41, to-chk=166/211)
+MiasHealthy/train/mdb060.pgm
+         32,768  10%   40.71kB/s    0:00:07          322,261 100%  398.36kB/s    0:00:00 (xfr#42, to-chk=165/211)
+MiasHealthy/train/mdb061.pgm
+         32,768   9%   40.25kB/s    0:00:07          328,015 100%  401.41kB/s    0:00:00 (xfr#43, to-chk=164/211)
+MiasHealthy/train/mdb062.pgm
+         32,768  11%   39.75kB/s    0:00:06          275,647 100%  333.56kB/s    0:00:00 (xfr#44, to-chk=163/211)
+MiasHealthy/train/mdb064.pgm
+         32,768   7%   39.22kB/s    0:00:10          425,584 100%  506.22kB/s    0:00:00 (xfr#45, to-chk=162/211)
+MiasHealthy/train/mdb065.pgm
+         32,768   6%   38.51kB/s    0:00:12          504,847 100%  587.62kB/s    0:00:00 (xfr#46, to-chk=161/211)
+MiasHealthy/train/mdb066.pgm
+         32,768   8%   32.52kB/s    0:00:10          364,204 100%  359.62kB/s    0:00:00 (xfr#47, to-chk=160/211)
+MiasHealthy/train/mdb068.pgm
+         32,768   6%   32.13kB/s    0:00:13          294,912  62%  288.00kB/s    0:00:00          472,642 100%  460.64kB/s    0:00:01 (xfr#48, to-chk=159/211)
+MiasHealthy/train/mdb070.pgm
+         32,768   6%    4.46MB/s    0:00:00          524,975 100%   33.38MB/s    0:00:00 (xfr#49, to-chk=158/211)
+MiasHealthy/train/mdb071.pgm
+         32,768   7%    1.56MB/s    0:00:00          411,745 100%   15.71MB/s    0:00:00 (xfr#50, to-chk=157/211)
+MiasHealthy/train/mdb074.pgm
+         32,768  10%    1.01MB/s    0:00:00          312,031 100%    8.50MB/s    0:00:00 (xfr#51, to-chk=156/211)
+MiasHealthy/train/mdb076.pgm
+         32,768   7%  780.49kB/s    0:00:00          434,791 100%    8.82MB/s    0:00:00 (xfr#52, to-chk=155/211)
+MiasHealthy/train/mdb079.pgm
+         32,768   5%  592.59kB/s    0:00:01          636,322 100%    9.79MB/s    0:00:00 (xfr#53, to-chk=154/211)
+MiasHealthy/train/mdb082.pgm
+         32,768   5%  477.61kB/s    0:00:01          602,175 100%    7.66MB/s    0:00:00 (xfr#54, to-chk=153/211)
+MiasHealthy/train/mdb084.pgm
+         32,768   5%  400.00kB/s    0:00:01          654,736 100%    7.02MB/s    0:00:00 (xfr#55, to-chk=152/211)
+MiasHealthy/train/mdb085.pgm
+         32,768   4%  340.43kB/s    0:00:01          656,782 100%    6.08MB/s    0:00:00 (xfr#56, to-chk=151/211)
+MiasHealthy/train/mdb088.pgm
+         32,768   7%  293.58kB/s    0:00:01          423,538 100%    3.54MB/s    0:00:00 (xfr#57, to-chk=150/211)
+MiasHealthy/train/mdb093.pgm
+         32,768   7%  268.91kB/s    0:00:01          412,713 100%    3.17MB/s    0:00:00 (xfr#58, to-chk=149/211)
+MiasHealthy/train/mdb096.pgm
+         32,768   7%  246.15kB/s    0:00:01          466,504 100%    3.25MB/s    0:00:00 (xfr#59, to-chk=148/211)
+MiasHealthy/train/mdb098.pgm
+         32,768   5%  223.78kB/s    0:00:02          613,816 100%    3.85MB/s    0:00:00 (xfr#60, to-chk=147/211)
+MiasHealthy/train/mdb100.pgm
+         32,768   6%  202.53kB/s    0:00:02          470,596 100%    2.74MB/s    0:00:00 (xfr#61, to-chk=146/211)
+MiasHealthy/train/mdb101.pgm
+         32,768   6%  188.24kB/s    0:00:02          502,799 100%    2.71MB/s    0:00:00 (xfr#62, to-chk=145/211)
+MiasHealthy/train/mdb103.pgm
+         32,768   6%  174.86kB/s    0:00:02          469,860 100%    2.37MB/s    0:00:00 (xfr#63, to-chk=144/211)
+MiasHealthy/train/mdb108.pgm
+         32,768   5%  164.10kB/s    0:00:03          628,138 100%    2.95MB/s    0:00:00 (xfr#64, to-chk=143/211)
+MiasHealthy/train/mdb109.pgm
+         32,768   5%  153.11kB/s    0:00:03          546,690 100%    2.40MB/s    0:00:00 (xfr#65, to-chk=142/211)
+MiasHealthy/train/mdb112.pgm
+         32,768   5%  144.14kB/s    0:00:03          599,494 100%    2.47MB/s    0:00:00 (xfr#66, to-chk=141/211)
+MiasHealthy/train/mdb113.pgm
+         32,768   6%  135.59kB/s    0:00:03          520,623 100%    2.04MB/s    0:00:00 (xfr#67, to-chk=140/211)
+MiasHealthy/train/mdb116.pgm
+         32,768   6%  129.03kB/s    0:00:03          513,693 100%    1.92MB/s    0:00:00 (xfr#68, to-chk=139/211)
+MiasHealthy/train/mdb122.pgm
+         32,768   5%  122.61kB/s    0:00:04          562,666 100%    2.00MB/s    0:00:00 (xfr#69, to-chk=138/211)
+MiasHealthy/train/mdb123.pgm
+         32,768   5%  117.22kB/s    0:00:04          572,881 100%    1.94MB/s    0:00:00 (xfr#70, to-chk=137/211)
+MiasHealthy/train/mdb133.pgm
+         32,768   3%  109.97kB/s    0:00:08          952,429 100%    2.98MB/s    0:00:00 (xfr#71, to-chk=136/211)
+MiasHealthy/train/mdb135.pgm
+         32,768   3%  103.23kB/s    0:00:07          853,198 100%    2.53MB/s    0:00:00 (xfr#72, to-chk=135/211)
+MiasHealthy/train/mdb136.pgm
+         32,768   4%   97.56kB/s    0:00:07          768,289 100%    2.16MB/s    0:00:00 (xfr#73, to-chk=134/211)
+MiasHealthy/train/mdb137.pgm
+         32,768   6%   93.02kB/s    0:00:04          484,565 100%    1.31MB/s    0:00:00 (xfr#74, to-chk=133/211)
+MiasHealthy/train/mdb140.pgm
+         32,768   4%   89.39kB/s    0:00:08          763,174 100%    1.96MB/s    0:00:00 (xfr#75, to-chk=132/211)
+MiasHealthy/train/mdb143.pgm
+         32,768   4%   84.66kB/s    0:00:08          763,174 100%    1.87MB/s    0:00:00 (xfr#76, to-chk=131/211)
+MiasHealthy/train/mdb146.pgm
+         32,768   4%   80.81kB/s    0:00:08          736,218 100%    1.73MB/s    0:00:00 (xfr#77, to-chk=130/211)
+MiasHealthy/train/mdb147.pgm
+         32,768   4%   77.48kB/s    0:00:09          758,059 100%    1.71MB/s    0:00:00 (xfr#78, to-chk=129/211)
+MiasHealthy/train/mdb149.pgm
+         32,768   4%   74.59kB/s    0:00:09          763,174 100%    1.65MB/s    0:00:00 (xfr#79, to-chk=128/211)
+MiasHealthy/train/mdb151.pgm
+         32,768   3%   72.07kB/s    0:00:13        1,033,247 100%    2.14MB/s    0:00:00 (xfr#80, to-chk=127/211)
+MiasHealthy/train/mdb154.pgm
+         32,768   5%   68.67kB/s    0:00:08          632,230 100%    1.27MB/s    0:00:00 (xfr#81, to-chk=126/211)
+MiasHealthy/train/mdb156.pgm
+         32,768   5%   66.67kB/s    0:00:08          610,747 100%    1.19MB/s    0:00:00 (xfr#82, to-chk=125/211)
+MiasHealthy/train/mdb157.pgm
+         32,768   6%   64.91kB/s    0:00:07          543,250 100%    1.04MB/s    0:00:00 (xfr#83, to-chk=124/211)
+MiasHealthy/train/mdb162.pgm
+         32,768   6%   63.37kB/s    0:00:06          468,550 100%  893.69kB/s    0:00:00 (xfr#84, to-chk=123/211)
+MiasHealthy/train/mdb164.pgm
+         32,768   5%   61.78kB/s    0:00:08          553,459 100%    1.00MB/s    0:00:00 (xfr#85, to-chk=122/211)
+MiasHealthy/train/mdb166.pgm
+         32,768   8%   60.15kB/s    0:00:05          370,342 100%  674.74kB/s    0:00:00 (xfr#86, to-chk=121/211)
+MiasHealthy/train/mdb169.pgm
+         32,768   5%   59.15kB/s    0:00:09          572,881 100% 1020.90kB/s    0:00:00 (xfr#87, to-chk=120/211)
+MiasHealthy/train/mdb172.pgm
+         32,768   6%   57.76kB/s    0:00:08          535,045 100%  931.38kB/s    0:00:00 (xfr#88, to-chk=119/211)
+MiasHealthy/train/mdb173.pgm
+         32,768   5%   56.54kB/s    0:00:10          647,415 100%    1.07MB/s    0:00:00 (xfr#89, to-chk=118/211)
+MiasHealthy/train/mdb176.pgm
+         32,768   7%   55.08kB/s    0:00:07          422,515 100%  702.92kB/s    0:00:00 (xfr#90, to-chk=117/211)
+MiasHealthy/train/mdb182.pgm
+         32,768   6%   53.96kB/s    0:00:08          483,895 100%  788.90kB/s    0:00:00 (xfr#91, to-chk=116/211)
+MiasHealthy/train/mdb183.pgm
+         32,768   5%   52.89kB/s    0:00:10          599,494 100%  956.61kB/s    0:00:00 (xfr#92, to-chk=115/211)
+MiasHealthy/train/mdb185.pgm
+         32,768   6%   51.86kB/s    0:00:09          537,091 100%  840.55kB/s    0:00:00 (xfr#93, to-chk=114/211)
+MiasHealthy/train/mdb187.pgm
+         32,768   7%   50.87kB/s    0:00:08          463,435 100%  711.59kB/s    0:00:00 (xfr#94, to-chk=113/211)
+MiasHealthy/train/mdb189.pgm
+         32,768   5%   49.92kB/s    0:00:12          643,876 100%  941.30kB/s    0:00:00 (xfr#95, to-chk=112/211)
+MiasHealthy/train/mdb194.pgm
+         32,768   5%   47.41kB/s    0:00:11          564,712 100%  807.43kB/s    0:00:00 (xfr#96, to-chk=111/211)
+MiasHealthy/train/mdb197.pgm
+         32,768   5%   45.65kB/s    0:00:12          606,655 100%  835.59kB/s    0:00:00 (xfr#97, to-chk=110/211)
+MiasHealthy/train/mdb201.pgm
+         32,768   4%   44.44kB/s    0:00:14          663,943 100%  888.19kB/s    0:00:00 (xfr#98, to-chk=109/211)
+MiasHealthy/train/mdb205.pgm
+         32,768   5%   43.48kB/s    0:00:13          632,465 100%  830.16kB/s    0:00:00 (xfr#99, to-chk=108/211)
+MiasHealthy/train/mdb208.pgm
+         32,768   7%   42.67kB/s    0:00:09          429,676 100%  556.51kB/s    0:00:00 (xfr#100, to-chk=107/211)
+MiasHealthy/train/mdb217.pgm
+         32,768   6%   42.05kB/s    0:00:11          537,091 100%  683.84kB/s    0:00:00 (xfr#101, to-chk=106/211)
+MiasHealthy/train/mdb220.pgm
+         32,768   5%   41.34kB/s    0:00:13          606,655 100%  757.59kB/s    0:00:00 (xfr#102, to-chk=105/211)
+MiasHealthy/train/mdb224.pgm
+         32,768   8%   40.61kB/s    0:00:08          394,894 100%  486.92kB/s    0:00:00 (xfr#103, to-chk=104/211)
+MiasHealthy/train/mdb225.pgm
+         32,768   7%   40.20kB/s    0:00:09          431,847 100%  526.50kB/s    0:00:00 (xfr#104, to-chk=103/211)
+MiasHealthy/train/mdb229.pgm
+         32,768   6%   39.70kB/s    0:00:12          509,994 100%  613.35kB/s    0:00:00 (xfr#105, to-chk=102/211)
+MiasHealthy/train/mdb230.pgm
+         32,768   6%   39.12kB/s    0:00:12          521,746 100%  618.35kB/s    0:00:00 (xfr#106, to-chk=101/211)
+MiasHealthy/train/mdb237.pgm
+         32,768   5%   38.60kB/s    0:00:14          582,741 100%  680.72kB/s    0:00:00 (xfr#107, to-chk=100/211)
+MiasHealthy/train/mdb243.pgm
+         32,768   7%   37.96kB/s    0:00:11          456,533 100%  525.75kB/s    0:00:00 (xfr#108, to-chk=99/211)
+MiasHealthy/train/mdb247.pgm
+         32,768   6%   37.51kB/s    0:00:12          517,665 100%  587.15kB/s    0:00:00 (xfr#109, to-chk=98/211)
+MiasHealthy/train/mdb250.pgm
+         32,768   7%   36.91kB/s    0:00:10          428,252 100%  479.60kB/s    0:00:00 (xfr#110, to-chk=97/211)
+MiasHealthy/train/mdb251.pgm
+         32,768   6%   36.49kB/s    0:00:12          504,847 100%  558.34kB/s    0:00:00 (xfr#111, to-chk=96/211)
+MiasHealthy/train/mdb255.pgm
+         32,768   6%   35.91kB/s    0:00:13          529,497 100%  575.18kB/s    0:00:00 (xfr#112, to-chk=95/211)
+MiasHealthy/train/mdb257.pgm
+         32,768   4%   35.32kB/s    0:00:17          664,966 100%  708.16kB/s    0:00:00 (xfr#113, to-chk=94/211)
+MiasHealthy/train/mdb258.pgm
+         32,768   5%   34.67kB/s    0:00:16          606,891 100%  637.28kB/s    0:00:00 (xfr#114, to-chk=93/211)
+MiasHealthy/train/mdb259.pgm
+         32,768   5%   34.22kB/s    0:00:15          578,439 100%  599.66kB/s    0:00:00 (xfr#115, to-chk=92/211)
+MiasHealthy/train/mdb261.pgm
+         32,768   5%   33.83kB/s    0:00:17          612,321 100%  627.46kB/s    0:00:00 (xfr#116, to-chk=91/211)
+MiasHealthy/train/mdb263.pgm
+         32,768   6%   33.40kB/s    0:00:13          476,734 100%  483.45kB/s    0:00:00 (xfr#117, to-chk=90/211)
+MiasHealthy/train/mdb268.pgm
+         32,768   6%   33.02kB/s    0:00:14          511,516 100%  512.34kB/s    0:00:00 (xfr#118, to-chk=89/211)
+MiasHealthy/train/mdb272.pgm
+         32,768   5%   32.69kB/s    0:00:18          634,276 100%  626.93kB/s    0:00:00 (xfr#119, to-chk=88/211)
+MiasHealthy/train/mdb273.pgm
+         32,768   4%   32.23kB/s    0:00:19          557,056  83%  544.00kB/s    0:00:00          664,966 100%  649.38kB/s    0:00:01 (xfr#120, to-chk=87/211)
+MiasHealthy/train/mdb276.pgm
+         32,768   5%    5.21MB/s    0:00:00          596,425 100%   43.75MB/s    0:00:00 (xfr#121, to-chk=86/211)
+MiasHealthy/train/mdb277.pgm
+         32,768   6%    1.64MB/s    0:00:00          478,015 100%   16.88MB/s    0:00:00 (xfr#122, to-chk=85/211)
+MiasHealthy/train/mdb278.pgm
+         32,768   8%  914.29kB/s    0:00:00          405,285 100%    9.43MB/s    0:00:00 (xfr#123, to-chk=84/211)
+MiasHealthy/train/mdb279.pgm
+         32,768   5%  653.06kB/s    0:00:00          598,517 100%   10.19MB/s    0:00:00 (xfr#124, to-chk=83/211)
+MiasHealthy/train/mdb280.pgm
+         32,768   3%  500.00kB/s    0:00:01        1,021,993 100%   11.89MB/s    0:00:00 (xfr#125, to-chk=82/211)
+MiasHealthy/train/mdb281.pgm
+         32,768   8%  367.82kB/s    0:00:00          365,503 100%    3.83MB/s    0:00:00 (xfr#126, to-chk=81/211)
+MiasHealthy/train/mdb282.pgm
+         32,768   9%  329.90kB/s    0:00:00          334,520 100%    3.22MB/s    0:00:00 (xfr#127, to-chk=80/211)
+MiasHealthy/train/mdb284.pgm
+         32,768   7%  299.07kB/s    0:00:01          416,377 100%    3.58MB/s    0:00:00 (xfr#128, to-chk=79/211)
+MiasHealthy/train/mdb285.pgm
+         32,768   6%  273.50kB/s    0:00:01          504,847 100%    3.91MB/s    0:00:00 (xfr#129, to-chk=78/211)
+MiasHealthy/train/mdb286.pgm
+         32,768   7%  251.97kB/s    0:00:01          458,016 100%    3.31MB/s    0:00:00 (xfr#130, to-chk=77/211)
+MiasHealthy/train/mdb288.pgm
+         32,768  12%  230.22kB/s    0:00:00          256,789 100%    1.74MB/s    0:00:00 (xfr#131, to-chk=76/211)
+MiasHealthy/train/mdb289.pgm
+         32,768   8%  220.69kB/s    0:00:01          366,415 100%    2.35MB/s    0:00:00 (xfr#132, to-chk=75/211)
+MiasHealthy/train/mdb291.pgm
+         32,768   5%  209.15kB/s    0:00:02          564,993 100%    3.37MB/s    0:00:00 (xfr#133, to-chk=74/211)
+MiasHealthy/train/mdb292.pgm
+         32,768   6%  192.77kB/s    0:00:02          515,608 100%    2.86MB/s    0:00:00 (xfr#134, to-chk=73/211)
+MiasHealthy/train/mdb295.pgm
+         32,768   4%  179.78kB/s    0:00:03          664,966 100%    3.37MB/s    0:00:00 (xfr#135, to-chk=72/211)
+MiasHealthy/train/mdb296.pgm
+         32,768   5%  164.95kB/s    0:00:03          596,359 100%    2.82MB/s    0:00:00 (xfr#136, to-chk=71/211)
+MiasHealthy/train/mdb297.pgm
+         32,768   5%  155.34kB/s    0:00:03          640,915 100%    2.86MB/s    0:00:00 (xfr#137, to-chk=70/211)
+MiasHealthy/train/mdb298.pgm
+         32,768   6%  145.45kB/s    0:00:03          499,965 100%    2.12MB/s    0:00:00 (xfr#138, to-chk=69/211)
+MiasHealthy/train/mdb299.pgm
+         32,768   4%  139.13kB/s    0:00:04          663,016 100%    2.65MB/s    0:00:00 (xfr#139, to-chk=68/211)
+MiasHealthy/train/mdb300.pgm
+         32,768   4%  131.15kB/s    0:00:04          663,943 100%    2.50MB/s    0:00:00 (xfr#140, to-chk=67/211)
+MiasHealthy/train/mdb301.pgm
+         32,768   5%  124.03kB/s    0:00:04          601,231 100%    2.16MB/s    0:00:00 (xfr#141, to-chk=66/211)
+MiasHealthy/train/mdb302.pgm
+         32,768   9%  118.08kB/s    0:00:02          338,855 100%    1.18MB/s    0:00:00 (xfr#142, to-chk=65/211)
+MiasHealthy/train/mdb303.pgm
+         32,768   6%  115.11kB/s    0:00:04          504,847 100%    1.70MB/s    0:00:00 (xfr#143, to-chk=64/211)
+MiasHealthy/train/mdb304.pgm
+         32,768   7%  110.73kB/s    0:00:03          448,576 100%    1.45MB/s    0:00:00 (xfr#144, to-chk=63/211)
+MiasHealthy/train/mdb306.pgm
+         32,768   6%  106.31kB/s    0:00:04          491,056 100%    1.52MB/s    0:00:00 (xfr#145, to-chk=62/211)
+MiasHealthy/train/mdb308.pgm
+         32,768   5%  102.56kB/s    0:00:05          549,351 100%    1.64MB/s    0:00:00 (xfr#146, to-chk=61/211)
+MiasHealthy/train/mdb309.pgm
+         32,768   4%   97.86kB/s    0:00:06          664,966 100%    1.88MB/s    0:00:00 (xfr#147, to-chk=60/211)
+MiasHealthy/train/mdb311.pgm
+         32,768   4%   93.29kB/s    0:00:06          664,966 100%    1.80MB/s    0:00:00 (xfr#148, to-chk=59/211)
+MiasHealthy/train/mdb313.pgm
+         32,768   5%   88.64kB/s    0:00:06          624,458 100%    1.61MB/s    0:00:00 (xfr#149, to-chk=58/211)
+MiasHealthy/train/mdb316.pgm
+         32,768   5%   85.11kB/s    0:00:06          590,287 100%    1.47MB/s    0:00:00 (xfr#150, to-chk=57/211)
+MiasHealthy/train/mdb317.pgm
+         32,768   9%   81.84kB/s    0:00:03          330,975 100%  820.35kB/s    0:00:00 (xfr#151, to-chk=56/211)
+MiasHealthy/train/mdb319.pgm
+         32,768   5%   79.80kB/s    0:00:07          632,230 100%    1.47MB/s    0:00:00 (xfr#152, to-chk=55/211)
+MiasHealthy/train/mdb320.pgm
+         32,768   5%   76.92kB/s    0:00:07          643,483 100%    1.45MB/s    0:00:00 (xfr#153, to-chk=54/211)
+MiasHealthy/train/mdb321.pgm
+         32,768   5%   74.25kB/s    0:00:07          594,379 100%    1.29MB/s    0:00:00 (xfr#154, to-chk=53/211)
+MiasHealthy/train/mdb322.pgm
+         32,768   6%   72.07kB/s    0:00:06          487,987 100%    1.03MB/s    0:00:00 (xfr#155, to-chk=52/211)
+MiasHealthy/val/
+MiasHealthy/val/mdb003.pgm
+         32,768   5%   40.71kB/s    0:00:14          638,315 100%  782.13kB/s    0:00:00 (xfr#156, to-chk=51/211)
+MiasHealthy/val/mdb007.pgm
+         32,768   5%   39.85kB/s    0:00:15          640,915 100%  770.80kB/s    0:00:00 (xfr#157, to-chk=50/211)
+MiasHealthy/val/mdb029.pgm
+         32,768   5%   39.07kB/s    0:00:15          640,915 100%  755.00kB/s    0:00:00 (xfr#158, to-chk=49/211)
+MiasHealthy/val/mdb031.pgm
+         32,768   5%   38.14kB/s    0:00:13          552,600 100%  637.13kB/s    0:00:00 (xfr#159, to-chk=48/211)
+MiasHealthy/val/mdb034.pgm
+         32,768  10%   37.38kB/s    0:00:07          306,916 100%  348.92kB/s    0:00:00 (xfr#160, to-chk=47/211)
+MiasHealthy/val/mdb039.pgm
+         32,768   9%   37.04kB/s    0:00:08          330,815 100%  372.19kB/s    0:00:00 (xfr#161, to-chk=46/211)
+MiasHealthy/val/mdb040.pgm
+         32,768  11%   36.66kB/s    0:00:06          273,157 100%  304.86kB/s    0:00:00 (xfr#162, to-chk=45/211)
+MiasHealthy/val/mdb041.pgm
+         32,768   6%   36.32kB/s    0:00:13          517,665 100%  569.93kB/s    0:00:00 (xfr#163, to-chk=44/211)
+MiasHealthy/val/mdb051.pgm
+         32,768   6%   35.79kB/s    0:00:12          483,650 100%  524.21kB/s    0:00:00 (xfr#164, to-chk=43/211)
+MiasHealthy/val/mdb052.pgm
+         32,768   8%   35.09kB/s    0:00:09          379,467 100%  405.00kB/s    0:00:00 (xfr#165, to-chk=42/211)
+MiasHealthy/val/mdb053.pgm
+         32,768   7%   34.71kB/s    0:00:12          449,631 100%  473.67kB/s    0:00:00 (xfr#166, to-chk=41/211)
+MiasHealthy/val/mdb067.pgm
+         32,768   5%   34.22kB/s    0:00:16          594,379 100%  615.53kB/s    0:00:00 (xfr#167, to-chk=40/211)
+MiasHealthy/val/mdb073.pgm
+         32,768   7%   33.72kB/s    0:00:12          449,631 100%  460.26kB/s    0:00:00 (xfr#168, to-chk=39/211)
+MiasHealthy/val/mdb077.pgm
+         32,768   4%   33.33kB/s    0:00:18          663,943 100%  667.75kB/s    0:00:00 (xfr#169, to-chk=38/211)
+MiasHealthy/val/mdb078.pgm
+         32,768   6%   32.79kB/s    0:00:14          521,746 100%  518.86kB/s    0:00:00 (xfr#170, to-chk=37/211)
+MiasHealthy/val/mdb086.pgm
+         32,768   7%   32.39kB/s    0:00:12          453,205 100%  444.81kB/s    0:00:00 (xfr#171, to-chk=36/211)
+MiasHealthy/val/mdb087.pgm
+         32,768   7%   32.00kB/s    0:00:11           65,536  15%   63.94kB/s    0:00:05          416,670 100%  404.88kB/s    0:00:01 (xfr#172, to-chk=35/211)
+MiasHealthy/val/mdb089.pgm
+         32,768   9%    2.23MB/s    0:00:00          344,487 100%   19.33MB/s    0:00:00 (xfr#173, to-chk=34/211)
+MiasHealthy/val/mdb106.pgm
+         32,768   5%    1.36MB/s    0:00:00          618,931 100%   19.04MB/s    0:00:00 (xfr#174, to-chk=33/211)
+MiasHealthy/val/mdb118.pgm
+         32,768   7%  888.89kB/s    0:00:00          424,545 100%    9.88MB/s    0:00:00 (xfr#175, to-chk=32/211)
+MiasHealthy/val/mdb119.pgm
+         32,768   5%  711.11kB/s    0:00:00          634,415 100%   11.42MB/s    0:00:00 (xfr#176, to-chk=31/211)
+MiasHealthy/val/mdb128.pgm
+         32,768   8%  561.40kB/s    0:00:00          409,216 100%    6.40MB/s    0:00:00 (xfr#177, to-chk=30/211)
+MiasHealthy/val/mdb129.pgm
+         32,768   5%  470.59kB/s    0:00:01          579,490 100%    7.37MB/s    0:00:00 (xfr#178, to-chk=29/211)
+MiasHealthy/val/mdb131.pgm
+         32,768   4%  385.54kB/s    0:00:01          694,633 100%    7.05MB/s    0:00:00 (xfr#179, to-chk=28/211)
+MiasHealthy/val/mdb138.pgm
+         32,768   5%  320.00kB/s    0:00:01          562,666 100%    5.01MB/s    0:00:00 (xfr#180, to-chk=27/211)
+MiasHealthy/val/mdb159.pgm
+         32,768   5%  285.71kB/s    0:00:01          594,379 100%    4.72MB/s    0:00:00 (xfr#181, to-chk=26/211)
+MiasHealthy/val/mdb174.pgm
+         32,768   4%  256.00kB/s    0:00:02          663,943 100%    4.76MB/s    0:00:00 (xfr#182, to-chk=25/211)
+MiasHealthy/val/mdb177.pgm
+         32,768   8%  226.95kB/s    0:00:01          370,743 100%    2.46MB/s    0:00:00 (xfr#183, to-chk=24/211)
+MiasHealthy/val/mdb180.pgm
+         32,768   9%  210.53kB/s    0:00:01          361,135 100%    2.22MB/s    0:00:00 (xfr#184, to-chk=23/211)
+MiasHealthy/val/mdb192.pgm
+         32,768   9%  200.00kB/s    0:00:01          336,555 100%    1.97MB/s    0:00:00 (xfr#185, to-chk=22/211)
+MiasHealthy/val/mdb203.pgm
+         32,768   4%  187.13kB/s    0:00:03          664,966 100%    3.52MB/s    0:00:00 (xfr#186, to-chk=21/211)
+MiasHealthy/val/mdb210.pgm
+         32,768   6%  172.97kB/s    0:00:02          538,114 100%    2.67MB/s    0:00:00 (xfr#187, to-chk=20/211)
+MiasHealthy/val/mdb221.pgm
+         32,768   5%  159.20kB/s    0:00:03          594,379 100%    2.73MB/s    0:00:00 (xfr#188, to-chk=19/211)
+MiasHealthy/val/mdb228.pgm
+         32,768   8%  148.15kB/s    0:00:02          397,711 100%    1.72MB/s    0:00:00 (xfr#189, to-chk=18/211)
+MiasHealthy/val/mdb232.pgm
+         32,768   5%  141.59kB/s    0:00:04          615,862 100%    2.52MB/s    0:00:00 (xfr#190, to-chk=17/211)
+MiasHealthy/val/mdb234.pgm
+         32,768   9%  132.78kB/s    0:00:02          343,744 100%    1.35MB/s    0:00:00 (xfr#191, to-chk=16/211)
+MiasHealthy/val/mdb235.pgm
+         32,768   5%  126.48kB/s    0:00:04          548,479 100%    2.00MB/s    0:00:00 (xfr#192, to-chk=15/211)
+MiasHealthy/val/mdb242.pgm
+         32,768   8%  118.52kB/s    0:00:03          404,101 100%    1.40MB/s    0:00:00 (xfr#193, to-chk=14/211)
+MiasHealthy/val/mdb246.pgm
+         32,768   9%  114.70kB/s    0:00:02          353,335 100%    1.19MB/s    0:00:00 (xfr#194, to-chk=13/211)
+MiasHealthy/val/mdb254.pgm
+         32,768   5%  111.50kB/s    0:00:05          604,609 100%    1.96MB/s    0:00:00 (xfr#195, to-chk=12/211)
+MiasHealthy/val/mdb260.pgm
+         32,768   5%  107.02kB/s    0:00:05          642,460 100%    2.00MB/s    0:00:00 (xfr#196, to-chk=11/211)
+MiasHealthy/val/mdb262.pgm
+         32,768  10%  102.24kB/s    0:00:02          309,555 100%  956.64kB/s    0:00:00 (xfr#197, to-chk=10/211)
+MiasHealthy/val/mdb266.pgm
+         32,768   8%   99.69kB/s    0:00:03          392,064 100%    1.15MB/s    0:00:00 (xfr#198, to-chk=9/211)
+MiasHealthy/val/mdb269.pgm
+         32,768   5%   96.10kB/s    0:00:06          610,075 100%    1.71MB/s    0:00:00 (xfr#199, to-chk=8/211)
+MiasHealthy/val/mdb275.pgm
+         32,768   4%   91.95kB/s    0:00:08          813,465 100%    2.16MB/s    0:00:00 (xfr#200, to-chk=7/211)
+MiasHealthy/val/mdb283.pgm
+         32,768   6%   86.49kB/s    0:00:05          497,167 100%    1.26MB/s    0:00:00 (xfr#201, to-chk=6/211)
+MiasHealthy/val/mdb287.pgm
+         32,768   7%   83.12kB/s    0:00:05          449,631 100%    1.10MB/s    0:00:00 (xfr#202, to-chk=5/211)
+MiasHealthy/val/mdb293.pgm
+         32,768   4%   80.81kB/s    0:00:07          664,966 100%    1.57MB/s    0:00:00 (xfr#203, to-chk=4/211)
+MiasHealthy/val/mdb294.pgm
+         32,768   5%   78.05kB/s    0:00:07          600,489 100%    1.37MB/s    0:00:00 (xfr#204, to-chk=3/211)
+MiasHealthy/val/mdb305.pgm
+         32,768   6%   75.65kB/s    0:00:06          522,256 100%    1.16MB/s    0:00:00 (xfr#205, to-chk=2/211)
+MiasHealthy/val/mdb310.pgm
+         32,768   5%   73.56kB/s    0:00:07          592,915 100%    1.28MB/s    0:00:00 (xfr#206, to-chk=1/211)
+MiasHealthy/val/mdb318.pgm
+         32,768   9%   70.95kB/s    0:00:04          338,629 100%  728.40kB/s    0:00:00 (xfr#207, to-chk=0/211)
+use 4 GPU(s)
+[('continue_from_epoch', '-1'), ('seed', '0'), ('task', 'regression'), ('use_gpu', 'True'), ('gpu_id', '0,1,3,4'), ('model_name', 'context_encoder'), ('kernel_size', '4'), ('num_layers_enc', '6'), ('num_channels_enc', '64'), ('num_channels_progression_enc', '[1, 1, 2, 4, 8]'), ('num_channels_bottleneck', '4000'), ('num_layers_dec', '5'), ('num_channels_dec', '64'), ('num_channels_progression_dec', '[8, 4, 2, 1]'), ('dataset_name', 'MiasHealthy'), ('num_image_channels', '1'), ('image_height', '128'), ('image_width', '128'), ('normalisation', 'range-11'), ('debug_mode', 'False'), ('num_workers', '4'), ('augment', 'False'), ('gamma_factor', '1'), ('rot_angle', '0'), ('translate_factor', '[0, 0]'), ('scale_factor', '1'), ('shear_angle', '0'), ('patch_mode', 'False'), ('patch_size', '[128, 128]'), ('patch_location_during_training', 'central'), ('patch_rejection_threshold', '10'), ('mask_size', '[64, 64]'), ('batch_size', '100'), ('loss', 'L2'), ('num_epochs', '100'), ('learning_rate', '0.0002'), ('betas', '[0.5, 0.999]'), ('weight_decay_coefficient', '0'), ('experiment_name', 'CE_Mias_resize_test_1')]
+Loading data from:  /disk/scratch/s1890594/data/MiasHealthy
+Traceback (most recent call last):
+  File "main.py", line 30, in <module>
+    train_data, val_data, test_data, num_output_classes = data_providers.create_dataset(args, augmentations, rng)
+  File "/mnt/mscteach_home/s1890594/mlp_framework/data_providers.py", line 1172, in create_dataset
+    trainset = MiasHealthy(which_set='train', transformer=transform_train, **kwargs_dataset)#, patch_rejection_threshold=patch_rejection_threshold)
+  File "/mnt/mscteach_home/s1890594/mlp_framework/data_providers.py", line 743, in __init__
+    debug_mode=debug_mode, patch_mode=patch_mode, patch_size=patch_size, patch_location=patch_location, mask_size=mask_size) #, patch_rejection_threshold):
+  File "/mnt/mscteach_home/s1890594/mlp_framework/data_providers.py", line 660, in __init__
+    self.image_list = os.listdir(self.image_path) #directory may only contain the image files, no other files or directories
+FileNotFoundError: [Errno 2] No such file or directory: '/disk/scratch/s1890594/data/MiasHealthy/train'

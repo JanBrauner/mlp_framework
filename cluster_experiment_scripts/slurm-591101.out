@@ -1,0 +1,11 @@
+mkdir: cannot create directory ‘/disk/scratch/s1890594/data/MiasHealthy’: No such file or directory
+sending incremental file list
+rsync: mkdir "/disk/scratch/s1890594/data/MiasHealty" failed: No such file or directory (2)
+rsync error: error in file IO (code 11) at main.c(657) [Receiver=3.1.2]
+Traceback (most recent call last):
+  File "main.py", line 5, in <module>
+    import data_providers as data_providers
+  File "/mnt/mscteach_home/s1890594/mlp_framework/data_providers.py", line 838
+    "pos_0"}
+           ^
+SyntaxError: invalid syntax

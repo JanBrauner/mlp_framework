@@ -1,0 +1,3 @@
+mkdir: cannot create directory ‘/disk/scratch/s1890594/data/GoogleStreetView’: File exists
+sending incremental file list
+slurmstepd: error: *** JOB 591148 ON landonia15 CANCELLED AT 2019-07-15T21:28:26 ***
