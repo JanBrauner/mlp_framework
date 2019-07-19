@@ -8,7 +8,7 @@ from arg_extractor import get_args
 from experiment_builder import ExperimentBuilder
 
 
-args, device = get_args()  # get arguments from command line. Run local debugging with settings as specified in CE_cpu_dev
+args, device = get_args()  # get arguments from command line/json config. Run local debugging with settings as specified in CE_cpu_dev
 #args, device = get_args("CE_test") # for local debugging
 
 if args.augment:
@@ -27,7 +27,7 @@ rng = np.random.RandomState(seed=args.seed)
 torch.manual_seed(seed=args.seed)
 
 # create datasets
-train_data, val_data, test_data, num_output_classes = data_providers.create_dataset(args, augmentations, rng)
+train_data, val_data, test_data, num_output_classes = data_providers.create_dataset_with_anomalies(args, augmentations, rng)
 
 # create model
 model = model_architectures.create_model(args)

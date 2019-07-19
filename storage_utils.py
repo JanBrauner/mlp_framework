@@ -1,7 +1,8 @@
 import pickle
 import os
 import csv
-
+import torch
+from collections import OrderedDict
 
 def save_to_stats_pkl_file(experiment_log_filepath, filename, stats_dict):
     summary_filename = os.path.join(experiment_log_filepath, filename)
@@ -68,3 +69,40 @@ def load_statistics(experiment_log_dir, filename):
             stats[keys[idx]].append(value)
 
     return stats
+
+
+def update_state_dict_keys(state_dict):
+    # Modify keys in a model state dict to use a model that was serialised as a nn.DataParallel module:
+    # delete the .model prefix from the keys in the state dict
+
+    new_state_dict = OrderedDict()
+    for k, v in state_dict.items():
+        if k != "network":
+            new_state_dict[k] = v
+    new_state_dict["network"] = {}
+    for k, v in state_dict["network"].items():
+        name = k.replace("model.", "") # remove `model.`
+        name = name.replace("module.", "") # remove `module.`
+        new_state_dict["network"][name] = v
+    return new_state_dict
+
+def load_best_model_state_dict(model_dir, is_gpu):
+    # load the state dict of the model with the best validation performance (file name ends in _best)
+    
+    # find best model
+    model_list = os.listdir(model_dir)
+    for model_name in model_list:
+        if model_name.endswith("_best"):
+            best_model_name = model_name
+            
+    # load best model's state dict
+    if is_gpu: # this flag probably shouldn't be called "is_gpu", since it really rather is about moving from GPU to CPU
+        state_dict = torch.load(f = os.path.join(model_dir, best_model_name))
+    else: # if loading on cpu, specify map location and modify keys to account for the fact taht we won't use nn.DataParallel
+        state_dict = torch.load(f = os.path.join(model_dir, best_model_name), map_location="cpu")
+        state_dict = update_state_dict_keys(state_dict)
+    
+    return state_dict
+
+
+
