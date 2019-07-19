@@ -84,10 +84,25 @@ default_args = {
 # training parameters: optimiser
 "learning_rate": 0.0002,
 "betas": [0.5, 0.999],
-"weight_decay_coefficient": 0
+"weight_decay_coefficient": 0,
 
 # =============================================================================
+### Parameters related to anomaly detection process
+# Experiment parameters
+"anomaly_dataset_name" : "DTPathologicalIrreg1", # Name of the dataset with anomalies
+"anomaly_detection_experiment_name": "AD1", # name of the anomaly detection experiment, since I will likely want to do several AD experiments with one model
 
+# Anomaly detection parameters
+"AD_patch_stride": 10, # stride of the sliding window
+"measure_of_anomaly": "absolute distance", # current options: "absolute distance"
+"window_aggregation_method": "mean", # How to aggregate the results from overlapping sliding windows. Current option: "mean"
+"save_anomaly_maps": True, # whether to save the anomaly score heat maps
+
+# computational parameters
+"AD_batch_size": 100 # batch size for anomaly detection: how many sliding windows to load at the same time
+
+
+# =============================================================================
 }
 
 default_script = """#!/bin/sh
@@ -130,7 +145,7 @@ mkdir -p /disk/scratch/${{STUDENT_ID}}/data/{3}/
 rsync -ua --progress /home/${{STUDENT_ID}}/mlp_framework/data/{3}/ /disk/scratch/${{STUDENT_ID}}/data/{3}/
 export DATASET_DIR=/disk/scratch/${{STUDENT_ID}}/data/
 
-python main.py --experiment_name {4}
+{4}
 """
 
 ### functions
@@ -142,13 +157,22 @@ def create_shell_script(experiment_name, experiment_path, partition, args, time=
     global default_script
     assert partition in ["Interactive","Standard"]
     assert type(args["gpu_id"]) == str
+    assert experiment_type in ["train", "AD", "train+AD"]
     num_gpus = len(args["gpu_id"].split(","))
+    
     if time == None:
         if partition == "Interactive":
             time = "0-02:00:00"
         elif partition == "Standard":
             time = "0-08:00:00"
-    script_str = default_script.format(partition, num_gpus, time, args["dataset_name"], experiment_name)
+    
+    if experiment_type == "train":
+        last_line = "python main.py --experiment_name " + experiment_name
+    elif experiment_type == "AD":
+        last_line = "python anomaly_detection.py --experiment_name " + experiment_name
+    elif experiment_type == "train+AD":
+        last_line = "python main.py --experiment_name {}\npython anomaly_detection.py --experiment_name {}".format((experiment_name,experiment_name))
+    script_str = default_script.format(partition, num_gpus, time, args["dataset_name"], last_line)
     with open("{}.sh".format(experiment_name), "w") as f:
         f.write(script_str)
         
@@ -183,7 +207,10 @@ def DescribableTextures_theme(args):
     
     
 #%% A list of independent experiment 
-experiment_names = ["CE_cpu_dev"]
+experiment_names = ["CE_DTD_random_patch_test_1--AD1"] # Note: For experiments that include anomaly detection, the experiment name needs to be original_experiment_name + "--" + AD_experiment_name, where original_experiment_name is the name of the eperiment in which the model that we want to use for AD was trained.
+experiment_type = "AD", # options: "train" for training (including evaluation on val and test set); "AD" for anomaly detection (using the best validation model from "experiment_name"); "train+AD" for both.
+
+# slurm options
 partition = "Standard"
 time = None
 

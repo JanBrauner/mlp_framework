@@ -1275,13 +1275,12 @@ def create_dataset(args, augmentations, rng):
             transformer = transforms.Compose([transforms.ToTensor(), transforms.Normalize(mn, sd)])
 
             # NOTE: currently only the test-set is implemented
-            data = DescribableTexturesPathological(which_set=which_set, transformer=transformer, debug_mode=debug_mode, patch_size=patch_size, patch_stride=patch_stride, mask_size=mask_size, version=anomaly_dataset_name)
-        image_list = data.image_list
-        image_sizes = data.image_sizes
+            dataset = DescribableTexturesPathological(which_set=which_set, transformer=transformer, debug_mode=debug_mode, patch_size=patch_size, patch_stride=patch_stride, mask_size=mask_size, version=anomaly_dataset_name)
+
             
             
         ### data_loader
-        data_loader = torch.utils.data.DataLoader(data, shuffle=False, batch_size=batch_size, num_workers=num_workers)
+        data_loader = torch.utils.data.DataLoader(dataset, shuffle=False, batch_size=batch_size, num_workers=num_workers)
         
-        return data_loader, image_list, image_sizes
+        return data_loader, dataset
 
