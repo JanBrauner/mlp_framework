@@ -7,6 +7,9 @@ data/GoogleStreetView
 data/DescribableTextures/raw
 data/downloads
 
+# anomaly maps
+results/anomaly_detection
+
 #dropbox stuff
 *.dropbox*
 
