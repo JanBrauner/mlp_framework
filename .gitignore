@@ -1,6 +1,5 @@
 # models
 results/*/saved_models
-exp1/*/saved_models
 
 # most datasets (that are not sufficiently small)
 data/GoogleStreetView
