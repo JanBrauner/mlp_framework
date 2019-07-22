@@ -10,7 +10,7 @@ from experiment_builder import AnomalyDetectionExperiment
 
 
 # load args
-args, device = get_args("CE_DTD_random_patch_test_1")  # get arguments from command line/json config.
+args, device = get_args()  # get arguments from command line/json config.
 train_experiment_name = args.experiment_name.split("___")[0] # name of the experiment in which the model that we want to use for anomaly detection was trained
 anomaly_detection_experiment_name = args.experiment_name.split("___")[1] # name of the anomaly detection experiment
 

@@ -2,7 +2,7 @@
 results/*/saved_models
 exp1/*/saved_models
 
-# most data (not Mias, that is sufficiently small)
+# most datasets (that are not sufficiently small)
 data/GoogleStreetView
 data/DescribableTextures/raw
 data/downloads
