@@ -403,6 +403,7 @@ class AnomalyDetectionExperiment(nn.Module):
                 if self.measure_of_anomaly == "absolute distance":
                     anomaly_score = torch.abs(outputs - targets) # pixelwise anomaly score, for each of the images in the batch
                     anomaly_score = torch.mean(anomaly_score, dim=1, keepdim=True) # take the mean over the channels
+                    anomaly_score = anomaly_score.cpu().detach()
                 
                 # the following for-loop deals with translating the pixelwise anomaly for one sliding window position (and thus a score relative to an image patch) into an anomaly score for the full image
                 for batch_idx in range(len(image_idxs)): # for each image in the batch. "in range(batch_size)" leads to error, because the last batch is smaller that the batch size
