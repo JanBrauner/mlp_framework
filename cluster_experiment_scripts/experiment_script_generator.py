@@ -134,10 +134,10 @@ args_to_keep_from_AD_experiment = [# all other args will get copied over from th
 default_script = """#!/bin/sh
 #SBATCH -N 1	  # nodes requested
 #SBATCH -n 1	  # tasks requested
-#SBATCH --partition={0}
-#SBATCH --gres=gpu:{1}
+#SBATCH --partition={partition}
+#SBATCH --gres=gpu:{num_gpus}
 #SBATCH --mem=12000  # memory in Mb
-#SBATCH --time={2}
+#SBATCH --time={time}
 
 export CUDA_HOME=/opt/cuda-9.0.176.1/
 
@@ -167,12 +167,23 @@ export DATASET_DIR=${{TMP}}/datasets/
 source /home/${{STUDENT_ID}}/miniconda3/bin/activate mlp
 cd ..
 
-mkdir -p /disk/scratch/${{STUDENT_ID}}/data/{3}/
-rsync -ua --progress /home/${{STUDENT_ID}}/mlp_framework/data/{3}/ /disk/scratch/${{STUDENT_ID}}/data/{3}/
+
+"""
+
+script_block_to_transfer_dataset = """mkdir -p /disk/scratch/${{STUDENT_ID}}/data/{dataset_name}/
+rsync -ua --progress /home/${{STUDENT_ID}}/mlp_framework/data/{dataset_name}/ /disk/scratch/${{STUDENT_ID}}/data/{dataset_name}/
 export DATASET_DIR=/disk/scratch/${{STUDENT_ID}}/data/
 
-{4}
 """
+
+script_block_to_transfer_anomaly_dataset = """mkdir -p /disk/scratch/${{STUDENT_ID}}/data/{anomaly_dataset_name}/
+rsync -ua --progress /home/${{STUDENT_ID}}/mlp_framework/data/{anomaly_dataset_name}/ /disk/scratch/${{STUDENT_ID}}/data/{anomaly_dataset_name}/
+export DATASET_DIR=/disk/scratch/${{STUDENT_ID}}/data/
+
+"""
+
+script_block_to_execute_training = "python main.py --experiment_name {experiment_name}"
+script_block_to_execute_AD = "python anomaly_detection.py --experiment_name {experiment_name}"
 
 ### functions
 def create_config_file(experiment_path, args):
@@ -186,19 +197,30 @@ def create_shell_script(experiment_name, experiment_type, experiment_path, parti
     assert experiment_type in ["train", "AD", "train+AD"]
     num_gpus = len(args["gpu_id"].split(","))
     
+    # use default times if time is not given
     if time == None:
         if partition == "Interactive":
             time = "0-02:00:00"
         elif partition == "Standard":
             time = "0-08:00:00"
     
+    # fill arguments into default string
+    script_str = default_script.format(partition=partition, num_gpus=num_gpus, time=time, dataset_name=args["dataset_name"])
+    
+    # Depending on experiment type, choose the correct data to copy to computational node, and the correct python file to execute    
     if experiment_type == "train":
-        last_line = "python main.py --experiment_name " + experiment_name
+        script_str = script_str + script_block_to_transfer_dataset.format(dataset_name=args["dataset_name"])
+        script_str = script_str + script_block_to_execute_training.format(experiment_name=experiment_name)
     elif experiment_type == "AD":
-        last_line = "python anomaly_detection.py --experiment_name " + experiment_name
+        script_str = script_str + script_block_to_transfer_anomaly_dataset.format(anomaly_dataset_name=args["anomaly_dataset_name"])
+        script_str = script_str + script_block_to_execute_AD.format(experiment_name=experiment_name)
     elif experiment_type == "train+AD":
-        last_line = "python main.py --experiment_name {}\npython anomaly_detection.py --experiment_name {}".format(experiment_name,experiment_name)
-    script_str = default_script.format(partition, num_gpus, time, args["dataset_name"], last_line)
+        script_str = script_str + script_block_to_transfer_dataset.format(dataset_name=args["dataset_name"])
+        script_str = script_str + script_block_to_transfer_anomaly_dataset.format(anomaly_dataset_name=args["anomaly_dataset_name"])
+        script_str = script_str + script_block_to_execute_training.format(experiment_name=experiment_name) + "\n"
+        script_str = script_str + script_block_to_execute_AD.format(experiment_name=experiment_name)
+       
+        
     with open("{}.sh".format(experiment_name), "w") as f:
         f.write(script_str)
         
@@ -240,16 +262,16 @@ def AD_theme(args):
     
 #%% A list of independent experiment 
 experiment_names = ["CE_DTD_random_patch_test_1___AD1"] # Note: For experiments that include anomaly detection, the experiment name needs to be original_experiment_name + "___" + AD_experiment_name, where original_experiment_name is the name of the eperiment in which the model that we want to use for AD was trained.
-experiment_type = "train" # options: "train" for training (including evaluation on val and test set); "AD" for anomaly detection (using the best validation model from "experiment_name"); "train+AD" for both.
+experiment_type = "AD" # options: "train" for training (including evaluation on val and test set); "AD" for anomaly detection (using the best validation model from "experiment_name"); "train+AD" for both.
 
 # slurm options
 partition = "Standard"
 time = None
 
 # Commonly used themes
-cpu = True
+cpu = False
 GoogleStreetView = False
-DescribableTextures = False
+DescribableTextures = True
 
 
 # arguments to update from default, each inner dict has the items for one experiment:
