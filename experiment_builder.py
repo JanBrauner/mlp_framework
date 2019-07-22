@@ -355,7 +355,8 @@ class AnomalyDetectionExperiment(nn.Module):
                  model, device,
                  test_data_loader, test_dataset,
                  measure_of_anomaly, window_aggregation_method, save_anomaly_maps, use_gpu):
-                  
+        
+        super(ExperimentBuilder, self).__init__()          
         
         self.measure_of_anomaly=measure_of_anomaly
         self.window_aggregation_method=window_aggregation_method
