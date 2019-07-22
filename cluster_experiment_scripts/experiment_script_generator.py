@@ -6,6 +6,12 @@ import itertools
 import numpy as np
 import copy
 
+import sys,inspect
+currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+parentdir = os.path.dirname(currentdir)
+sys.path.insert(0,parentdir) 
+
+from arg_extractor import get_args
 #%% Run this cell once at the beginning
 
 ### default settings
@@ -89,7 +95,7 @@ default_args = {
 # =============================================================================
 ### Parameters related to anomaly detection process
 # Experiment parameters
-"anomaly_dataset_name" : "DTPathologicalIrreg1", # Name of the dataset with anomalies
+"anomaly_dataset_name" : "MiasPathological", # Name of the dataset with anomalies
 "anomaly_detection_experiment_name": "AD1", # name of the anomaly detection experiment, since I will likely want to do several AD experiments with one model
 
 # Anomaly detection parameters
@@ -104,6 +110,26 @@ default_args = {
 
 # =============================================================================
 }
+
+
+args_to_keep_from_AD_experiment = [# all other args will get copied over from the train experiment
+        # anomaly detection specific args
+        "anomaly_dataset_name", 
+        "anomaly_detection_experiment_name", 
+        "AD_patch_stride",
+        "measure_of_anomaly",
+        "window_aggregation_method",
+        "save_anomaly_maps",
+        "AD_batch_size",
+        # computational args:
+        "seed",
+        "use_gpu",
+        "gpu_id",
+        "debug_mode",
+        "num_workers"] 
+
+
+
 
 default_script = """#!/bin/sh
 #SBATCH -N 1	  # nodes requested
@@ -153,7 +179,7 @@ def create_config_file(experiment_path, args):
     with open('{}.json'.format(experiment_path), 'w') as f:
         json.dump(args, f, indent=1)
 
-def create_shell_script(experiment_name, experiment_path, partition, args, time=None):
+def create_shell_script(experiment_name, experiment_type, experiment_path, partition, args, time=None):
     global default_script
     assert partition in ["Interactive","Standard"]
     assert type(args["gpu_id"]) == str
@@ -171,7 +197,7 @@ def create_shell_script(experiment_name, experiment_path, partition, args, time=
     elif experiment_type == "AD":
         last_line = "python anomaly_detection.py --experiment_name " + experiment_name
     elif experiment_type == "train+AD":
-        last_line = "python main.py --experiment_name {}\npython anomaly_detection.py --experiment_name {}".format((experiment_name,experiment_name))
+        last_line = "python main.py --experiment_name {}\npython anomaly_detection.py --experiment_name {}".format(experiment_name,experiment_name)
     script_str = default_script.format(partition, num_gpus, time, args["dataset_name"], last_line)
     with open("{}.sh".format(experiment_name), "w") as f:
         f.write(script_str)
@@ -188,6 +214,7 @@ def cpu_theme(args):
     args["debug_mode"] = True
     args["batch_size"] = 5
     args["num_epochs"] = 2
+    args["AD_batch_size"] = 5
     return args
 
 def GoogleStreetView_theme(args):
@@ -201,14 +228,19 @@ def GoogleStreetView_theme(args):
 def DescribableTextures_theme(args):
     args["num_image_channels"] = 3
     args["dataset_name"] = "DescribableTextures"
+    args["anomaly_dataset_name"] = "DTPathologicalIrreg1"
     args["gpu_id"] ="0,1,2,3,4,5"
     args["num_workers"] = 6
     return args
     
+def AD_theme(args):
+    args["gpu_id"] ="0,1,2"
+    args["num_workers"] = 6
+    return args
     
 #%% A list of independent experiment 
-experiment_names = ["CE_DTD_random_patch_test_1--AD1"] # Note: For experiments that include anomaly detection, the experiment name needs to be original_experiment_name + "--" + AD_experiment_name, where original_experiment_name is the name of the eperiment in which the model that we want to use for AD was trained.
-experiment_type = "AD", # options: "train" for training (including evaluation on val and test set); "AD" for anomaly detection (using the best validation model from "experiment_name"); "train+AD" for both.
+experiment_names = ["CE_DTD_random_patch_test_1___AD1"] # Note: For experiments that include anomaly detection, the experiment name needs to be original_experiment_name + "___" + AD_experiment_name, where original_experiment_name is the name of the eperiment in which the model that we want to use for AD was trained.
+experiment_type = "train" # options: "train" for training (including evaluation on val and test set); "AD" for anomaly detection (using the best validation model from "experiment_name"); "train+AD" for both.
 
 # slurm options
 partition = "Standard"
@@ -228,10 +260,24 @@ update_dicts = [{}]
 for idx, experiment_name in enumerate(experiment_names):
     # update args
     args = copy.copy(default_args)
+    
+    if experiment_type == "AD": # load the args from the experiment that trained the model we want to use. Use that to overwrite most of the current args. (Purpose of this block is that we don't have to look up e.g. the model architecture of the model we trained, but can import from old json files)
+        train_experiment_name = experiment_name.split("___")[0] # name of the experiment in which the model that we want to use for anomaly detection was trained
+        anomaly_detection_experiment_name = experiment_name.split("___")[1] # name of the anomaly detection experiment
+
+        train_experiment_config_path = os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir, "configs", train_experiment_name + ".json"))
+        with open(train_experiment_config_path) as f:
+            args_train_experiment = json.load(f)
+    
+        args_to_update = {key:value for (key,value) in args_train_experiment.items() if key not in args_to_keep_from_AD_experiment}
+        args.update(args_to_update)
+    
     if GoogleStreetView:
         args = GoogleStreetView_theme(args)
     if DescribableTextures:
         args = DescribableTextures_theme(args)
+    if experiment_type == "AD": # you need less GPUs and workers if you don't train
+        args = AD_theme(args)
     if cpu: # it's important that this one is last, because it needs to overwrite num_workers and use_gpu
         args = cpu_theme(args)
 
@@ -243,7 +289,7 @@ for idx, experiment_name in enumerate(experiment_names):
 
     # create files        
     create_config_file(os.path.join(config_path, experiment_name), args)
-    create_shell_script(experiment_name=experiment_name,
+    create_shell_script(experiment_name=experiment_name, experiment_type=experiment_type,
                         experiment_path=os.path.join(shell_script_path, experiment_name), 
                                          partition=partition, args=args, time=time)
 # =============================================================================

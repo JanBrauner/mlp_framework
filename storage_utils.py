@@ -96,9 +96,9 @@ def load_best_model_state_dict(model_dir, is_gpu):
             best_model_name = model_name
             
     # load best model's state dict
-    if is_gpu: # this flag probably shouldn't be called "is_gpu", since it really rather is about moving from GPU to CPU
+    if is_gpu: # The models were all trained on GPU with DataParallel. When loading the state_dict on a CPU, we need to specify the map_location, and also rename the keys to handle the fact that this is not a DataParallel model any more.
         state_dict = torch.load(f = os.path.join(model_dir, best_model_name))
-    else: # if loading on cpu, specify map location and modify keys to account for the fact taht we won't use nn.DataParallel
+    else: # if loading on cpu, specify map location and modify keys to account for the fact that we won't use nn.DataParallel
         state_dict = torch.load(f = os.path.join(model_dir, best_model_name), map_location="cpu")
         state_dict = update_state_dict_keys(state_dict)
     

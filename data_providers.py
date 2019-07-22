@@ -776,7 +776,7 @@ class DescribableTextures(InpaintingDataset):
              debug_mode=debug_mode, patch_mode=patch_mode, patch_size=patch_size, patch_location=patch_location, mask_size=mask_size) #, patch_rejection_threshold):
 
 
-class DatasetWithAnomalies(InpaintingDataset):
+class DatasetWithAnomalies(InpaintingDataset): # the only thing it inherits is get_central_region_slice
 
     def __init__(self, which_set, transformer, debug_mode=False, 
                  patch_size=(256,256), patch_stride = (1,1), mask_size=(64,64)):
@@ -787,8 +787,6 @@ class DatasetWithAnomalies(InpaintingDataset):
             'Got {0}'.format(which_set)
         )
         self.which_set = which_set  # train, val or test set
-
-        # DATASET_DIR should point to root directory of data
         
         print("Loading data from: ", self.image_base_path)
         self.image_path = os.path.join(self.image_base_path, which_set, "images")
@@ -802,7 +800,7 @@ class DatasetWithAnomalies(InpaintingDataset):
         self.transformer = transformer
         self.patch_stride = patch_stride
 
-        self.label_image_transformer = transforms.ToTensor()
+        self.label_image_transformer = transforms.ToTensor() # this is the only transformation label images need
         
         # debugging mode sets the dataset size to around 10, so we can run the whole experiment locally.
         if debug_mode:
@@ -817,11 +815,12 @@ class DatasetWithAnomalies(InpaintingDataset):
 
     def create_sample_list(self):
         """
-        Number of samples in the dataset: sum of valid sliding window positions in every image
+        Creates a list of all "samples" in the dataset: all valid sliding window positions in every image. Also determine the slice of the patch (relative to the ful image) that corresponds to every sample.
+        Additionally, returns a list of the image sizes (of the full images) of every image.
         """
-        num_samples_2 = 0
         sample_list = []
         full_image_sizes = []
+        
         for image_idx, image_name in enumerate(self.image_list):
                 
             # load image
@@ -845,14 +844,9 @@ class DatasetWithAnomalies(InpaintingDataset):
                     sample_position = {
                             "image_idx": image_idx, 
                             "image_name": image_name, # maybe this isn't even needed
-                            "pos_0": pos_0, # prolly I don't actually use this
-                            "pos_1": pos_1, # prolly I don't actually use this
                             "slice": current_slice}
                     sample_list.append(sample_position)
-            
-            # just try this for testing once, should be the same as num_samples
-            num_windows = num_windows_0 * num_windows_1
-            num_samples_2 += num_windows
+
         num_samples = len(sample_list)
             
         return sample_list, num_samples, full_image_sizes
@@ -864,6 +858,7 @@ class DatasetWithAnomalies(InpaintingDataset):
         Returns:
         """
         
+        # load the information about the next sample (not full image) from sample_list
         sample_info = self.sample_list[index]
         
         # load image
@@ -872,7 +867,7 @@ class DatasetWithAnomalies(InpaintingDataset):
         # transform image
         full_image = self.transformer(full_image)
         
-        # create patch (called "image" here, for consistency)
+        # create patch (called "image" here, for consistency with other data providers)
         image = full_image[sample_info["slice"]]
         
         # create target image
@@ -883,7 +878,8 @@ class DatasetWithAnomalies(InpaintingDataset):
         
         # create mask slice relative to full image
         # Note: axis labels 0, 1, 2 are relatitve to 3-D tensor, not 2-D image
-        slice_dict = {} # torch Dataloader doesn't deal with slices, but can work with dicts
+        # Note: PyTorch Dataloader doesn't deal with slices, but can work with dicts, so we will pass the relevant information in form of a dictionary
+        slice_dict = {} 
         slice_1 = np.s_[sample_info["slice"][1].start + self.mask_slice[1].start : sample_info["slice"][1].start + self.mask_slice[1].stop]
         slice_dict["1_start"] = slice_1.start
         slice_dict["1_stop"] = slice_1.stop
@@ -891,9 +887,6 @@ class DatasetWithAnomalies(InpaintingDataset):
         slice_2 = np.s_[sample_info["slice"][2].start + self.mask_slice[2].start : sample_info["slice"][2].start + self.mask_slice[2].stop]
         slice_dict["2_start"] = slice_2.start
         slice_dict["2_stop"] = slice_2.stop
-        
-#        mask_slice_relative_to_full_image = np.s_[:, slice_1, slice_2]
-        
 
         return image, target_image, sample_info["image_idx"], slice_dict
     

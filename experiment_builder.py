@@ -353,7 +353,7 @@ class AnomalyDetectionExperiment(object):
     def __init__(self, experiment_name, anomaly_detection_experiment_name,
                  model, device,
                  test_data_loader, test_dataset, test_image_list, test_image_sizes, 
-                 measure_of_anomaly, window_aggregation_method, save_anomaly_maps):
+                 measure_of_anomaly, window_aggregation_method, save_anomaly_maps, is_gpu):
                   
         
         self.measure_of_anomaly=measure_of_anomaly
@@ -366,17 +366,15 @@ class AnomalyDetectionExperiment(object):
         self.model = model
         self.device = device
         
-        # Load state dict from  best epoch of that experiment
-        model_dir = os.path.join("results", experiment_name, "saved_models")
-        state_dict = load_best_model_state_dict(model_dir=model_dir, is_gpu=False) # this flag probably shouldn't be called "is_gpu", since it really rather is about moving from GPU to CPU
-        
         if torch.cuda.device_count() > 1:
             self.model.to(self.device)
             self.model = nn.DataParallel(module=self.model)
         else:
             self.model.to(self.device)  # sends the model from the cpu to the gpu
-          # re-initialize network parameters
         
+        # Load state dict from  best epoch of that experiment
+        model_dir = os.path.join("results", experiment_name, "saved_models")
+        state_dict = load_best_model_state_dict(model_dir=model_dir, is_gpu=is_gpu)
         self.model.load_state_dict(state_dict=state_dict["network"])
         
         self.anomaly_map_dir = os.path.join("results", "anomaly_detection", experiment_name + "-" + anomaly_detection_experiment_name, "anomaly_maps")
@@ -503,7 +501,7 @@ class AnomalyDetectionExperiment(object):
     def calculate_agreement_between_anomaly_score_and_labels(self, image_idx, anomaly_map):
     
         # load ground truth segmentation label image
-        label_image = self.test_dataset.get_label_image(image_idx) # For example, when current_image_idx just jumped from 3 to 4, that means that image "3" is finished.
+        label_image = self.test_dataset.get_label_image(image_idx)
         
         ### calculate measures of agreement 
         # AUC: currently the only measure of agreement
