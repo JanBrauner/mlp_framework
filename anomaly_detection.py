@@ -32,12 +32,10 @@ test_data_loader, test_dataset = data_providers.create_dataset_with_anomalies(
         patch_size=args.patch_size, patch_stride=args.AD_patch_stride, mask_size=args.mask_size, 
         num_workers=args.num_workers, debug_mode=args.debug_mode)
 
-# =============================================================================
-# 
-# # create model
-# model = model_architectures.create_model(args)
-# 
-# =============================================================================
+
+# create model
+model = model_architectures.create_model(args)
+
 # create experiment
 experiment = AnomalyDetectionExperiment(experiment_name=train_experiment_name, 
                                         anomaly_detection_experiment_name=anomaly_detection_experiment_name,
