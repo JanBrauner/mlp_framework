@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 import torch.nn.functional as F
+import torchvision.transforms as transforms
 import tqdm
 import os
 import numpy as np
@@ -415,12 +416,12 @@ class AnomalyDetectionExperiment(object):
                             self.calculate_agreement_between_anomaly_score_and_labels(
                                     image_idx=current_image_idx-1, anomaly_map=anomaly_map)
                             
-                            save_statistics(experiment_log_dir=self.result_tables_dir, filename='summary.csv',
-                            stats_dict=self.stats_dict, current_epoch=current_image_idx-1, continue_from_mode=False, save_full_dict=True) # save statistics to stats file.
+#                            save_statistics(experiment_log_dir=self.result_tables_dir, filename='summary.csv',
+#                            stats_dict=self.stats_dict, current_epoch=current_image_idx-1, continue_from_mode=True, save_full_dict=False) # save statistics to stats file.
 
                             
                             if self.save_anomaly_maps:
-                                anomaly_map = F.to_pil_image(anomaly_map)
+                                anomaly_map = transforms.functional.to_pil_image(anomaly_map)
                                 anomaly_map.save(os.path.join(self.anomaly_map_dir,self.test_image_list[current_image_idx -1]))
                             
                         # Upon starting the with the first patch, or whenever we have moved on to the next image, create new anomaly maps and normalisation maps
@@ -449,15 +450,15 @@ class AnomalyDetectionExperiment(object):
                     image_idx=current_image_idx, anomaly_map=anomaly_map)
             
             save_statistics(experiment_log_dir=self.result_tables_dir, filename='summary.csv',
-                            stats_dict=self.stats_dict, current_epoch=current_image_idx-1, continue_from_mode=False, save_full_dict=True) # save statistics to stats file.
+                            stats_dict=self.stats_dict, current_epoch=current_image_idx, continue_from_mode=False, save_full_dict=True) # save statistics to stats file.
 
             if self.save_anomaly_maps:
-                anomaly_map = F.to_pil_image(anomaly_map)
+                anomaly_map = transforms.functional.to_pil_image(anomaly_map)
                 anomaly_map.save(os.path.join(self.anomaly_map_dir,self.test_image_list[current_image_idx]))
                             
             # print mean results:
             print("Results:")
-            for key, list_of_values in self.stats_dict.items:
+            for key, list_of_values in self.stats_dict.items():
                 mean_value = sum(list_of_values)/len(list_of_values)
                 print("Mean ", key, ": ", "{:.4f}".format(mean_value))
         

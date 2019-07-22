@@ -18,7 +18,7 @@ anomaly_detection_experiment_name = args.experiment_name.split("___")[1] # name 
 # args.use_gpu = False
 # args.num_workers = 0
 # args.debug_mode = True
-# args.patch_stride = (100,100)
+# args.AD_patch_stride = (100,100)
 # =============================================================================
 
 # set random seeds
@@ -32,10 +32,12 @@ test_data_loader, test_dataset = data_providers.create_dataset_with_anomalies(
         patch_size=args.patch_size, patch_stride=args.AD_patch_stride, mask_size=args.mask_size, 
         num_workers=args.num_workers, debug_mode=args.debug_mode)
 
-
-# create model
-model = model_architectures.create_model(args)
-
+# =============================================================================
+# 
+# # create model
+# model = model_architectures.create_model(args)
+# 
+# =============================================================================
 # create experiment
 experiment = AnomalyDetectionExperiment(experiment_name=train_experiment_name, 
                                         anomaly_detection_experiment_name=anomaly_detection_experiment_name,

@@ -31,7 +31,7 @@ def save_statistics(experiment_log_dir, filename, stats_dict, current_epoch, con
     """
     summary_filename = os.path.join(experiment_log_dir, filename)
     mode = 'a' if continue_from_mode else 'w'
-    with open(summary_filename, mode) as f:
+    with open(summary_filename, mode, newline='') as f:
         writer = csv.writer(f)
         if not continue_from_mode:
             writer.writerow(list(stats_dict.keys()))

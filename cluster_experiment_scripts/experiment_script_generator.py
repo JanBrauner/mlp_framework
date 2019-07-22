@@ -104,7 +104,7 @@ default_args = {
 "save_anomaly_maps": True, # whether to save the anomaly score heat maps
 
 # computational parameters
-"AD_batch_size": 100 # batch size for anomaly detection: how many sliding windows to load at the same time
+"AD_batch_size": 50 # batch size for anomaly detection: how many sliding windows to load at the same time
 
 
 # =============================================================================
