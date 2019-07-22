@@ -1,7 +1,6 @@
 ### prepare
 import torch
 import numpy as np
-import math
 
 import data_providers as data_providers
 import model_architectures
@@ -10,10 +9,14 @@ from experiment_builder import AnomalyDetectionExperiment
 
 
 # load args
-args, device = get_args()  # get arguments from command line/json config.
+args, device = get_args("CE_DTD_random_patch_test_1___AD1")  # get arguments from command line/json config.
 train_experiment_name = args.experiment_name.split("___")[0] # name of the experiment in which the model that we want to use for anomaly detection was trained
 anomaly_detection_experiment_name = args.experiment_name.split("___")[1] # name of the anomaly detection experiment
 
+# for debugging
+args.use_gpu = False
+args.num_workers = 0
+args.debug_mode = True
 
 # set random seeds
 rng = np.random.RandomState(seed=args.seed)
@@ -40,7 +43,7 @@ experiment = AnomalyDetectionExperiment(experiment_name=train_experiment_name,
                                         measure_of_anomaly=args.measure_of_anomaly, 
                                         window_aggregation_method=args.window_aggregation_method, 
                                         save_anomaly_maps=args.save_anomaly_maps,
-                                        is_gpu = args.is_gpu)
+                                        use_gpu = args.use_gpu)
 
 # run experiment
 experiment.run_experiment()

@@ -61,8 +61,10 @@
  ],
  "weight_decay_coefficient": 0,
  "anomaly_dataset_name": "DTPathologicalIrreg1",
- "anomaly_detection_experiment_name": "AD1",
- "AD_patch_stride": 10,
+ "AD_patch_stride": [
+  10,
+  10
+ ],
  "measure_of_anomaly": "absolute distance",
  "window_aggregation_method": "mean",
  "save_anomaly_maps": true,

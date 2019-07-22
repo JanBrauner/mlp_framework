@@ -96,10 +96,9 @@ default_args = {
 ### Parameters related to anomaly detection process
 # Experiment parameters
 "anomaly_dataset_name" : "MiasPathological", # Name of the dataset with anomalies
-"anomaly_detection_experiment_name": "AD1", # name of the anomaly detection experiment, since I will likely want to do several AD experiments with one model
 
 # Anomaly detection parameters
-"AD_patch_stride": 10, # stride of the sliding window
+"AD_patch_stride": (10,10), # stride of the sliding window in image dimensions 0 and 1.
 "measure_of_anomaly": "absolute distance", # current options: "absolute distance"
 "window_aggregation_method": "mean", # How to aggregate the results from overlapping sliding windows. Current option: "mean"
 "save_anomaly_maps": True, # whether to save the anomaly score heat maps
@@ -114,8 +113,7 @@ default_args = {
 
 args_to_keep_from_AD_experiment = [# all other args will get copied over from the train experiment
         # anomaly detection specific args
-        "anomaly_dataset_name", 
-        "anomaly_detection_experiment_name", 
+        "anomaly_dataset_name",
         "AD_patch_stride",
         "measure_of_anomaly",
         "window_aggregation_method",
@@ -237,6 +235,7 @@ def cpu_theme(args):
     args["batch_size"] = 5
     args["num_epochs"] = 2
     args["AD_batch_size"] = 5
+    args["AD_patch_stride"] = (30,30)
     return args
 
 def GoogleStreetView_theme(args):

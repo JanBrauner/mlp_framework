@@ -911,11 +911,11 @@ class DatasetWithAnomalies(InpaintingDataset): # the only thing it inherits is g
 class DescribableTexturesPathological(DatasetWithAnomalies):
     
     def __init__(self, which_set, transformer, debug_mode=False, 
-                 patch_size=(256,256), patch_stride = (1,1), mask_size=(64,64), version = "DTPathologicalIrreg1"):    
+                 patch_size=(256,256), patch_stride=(10,10), mask_size=(64,64), version = "DTPathologicalIrreg1"):    
         self.image_base_path = os.path.join(os.environ['DATASET_DIR'], version) # path of the data set images
         
         super(DescribableTexturesPathological, self).__init__(which_set=which_set, transformer=transformer,
-             debug_mode=debug_mode, patch_size=patch_size, patch_stride = patch_stride, mask_size=mask_size)
+             debug_mode=debug_mode, patch_size=patch_size, patch_stride=patch_stride, mask_size=mask_size)
 
 
 class MiasPathological(data.Dataset):
@@ -1255,25 +1255,25 @@ def create_dataset(args, augmentations, rng):
         
         return train_data, val_data, test_data, num_output_classes
     
-    def create_dataset_with_anomalies(anomaly_dataset_name, which_set, normalisation, batch_size, patch_size, patch_stride, mask_size, num_workers, debug_mode):
+def create_dataset_with_anomalies(anomaly_dataset_name, which_set, normalisation, batch_size, patch_size, patch_stride, mask_size, num_workers, debug_mode):
 
-        if "DTPathological" in anomaly_dataset_name: # there are several versions of DTPathological with different lesions 
-            # calculate mean and SD for normalisation
-            if normalisation == "mn0sd1":
-                raise NotImplementedError
-            elif normalisation == "range-11":
-                mn = [0.5, 0.5, 0.5]
-                sd = [0.5, 0.5, 0.5]
-                
-            transformer = transforms.Compose([transforms.ToTensor(), transforms.Normalize(mn, sd)])
-
-            # NOTE: currently only the test-set is implemented
-            dataset = DescribableTexturesPathological(which_set=which_set, transformer=transformer, debug_mode=debug_mode, patch_size=patch_size, patch_stride=patch_stride, mask_size=mask_size, version=anomaly_dataset_name)
-
+    if "DTPathological" in anomaly_dataset_name: # there are several versions of DTPathological with different lesions 
+        # calculate mean and SD for normalisation
+        if normalisation == "mn0sd1":
+            raise NotImplementedError
+        elif normalisation == "range-11":
+            mn = [0.5, 0.5, 0.5]
+            sd = [0.5, 0.5, 0.5]
             
-            
-        ### data_loader
-        data_loader = torch.utils.data.DataLoader(dataset, shuffle=False, batch_size=batch_size, num_workers=num_workers)
+        transformer = transforms.Compose([transforms.ToTensor(), transforms.Normalize(mn, sd)])
+
+        # NOTE: currently only the test-set is implemented
+        dataset = DescribableTexturesPathological(which_set=which_set, transformer=transformer, debug_mode=debug_mode, patch_size=patch_size, patch_stride=patch_stride, mask_size=mask_size, version=anomaly_dataset_name)
+
         
-        return data_loader, dataset
+        
+    ### data_loader
+    data_loader = torch.utils.data.DataLoader(dataset, shuffle=False, batch_size=batch_size, num_workers=num_workers)
+    
+    return data_loader, dataset
 

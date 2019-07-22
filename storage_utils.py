@@ -86,7 +86,7 @@ def update_state_dict_keys(state_dict):
         new_state_dict["network"][name] = v
     return new_state_dict
 
-def load_best_model_state_dict(model_dir, is_gpu):
+def load_best_model_state_dict(model_dir, use_gpu):
     # load the state dict of the model with the best validation performance (file name ends in _best)
     
     # find best model
@@ -96,7 +96,7 @@ def load_best_model_state_dict(model_dir, is_gpu):
             best_model_name = model_name
             
     # load best model's state dict
-    if is_gpu: # The models were all trained on GPU with DataParallel. When loading the state_dict on a CPU, we need to specify the map_location, and also rename the keys to handle the fact that this is not a DataParallel model any more.
+    if use_gpu: # The models were all trained on GPU with DataParallel. When loading the state_dict on a CPU, we need to specify the map_location, and also rename the keys to handle the fact that this is not a DataParallel model any more.
         state_dict = torch.load(f = os.path.join(model_dir, best_model_name))
     else: # if loading on cpu, specify map location and modify keys to account for the fact that we won't use nn.DataParallel
         state_dict = torch.load(f = os.path.join(model_dir, best_model_name), map_location="cpu")

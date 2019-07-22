@@ -352,8 +352,8 @@ class AnomalyDetectionExperiment(object):
     
     def __init__(self, experiment_name, anomaly_detection_experiment_name,
                  model, device,
-                 test_data_loader, test_dataset, test_image_list, test_image_sizes, 
-                 measure_of_anomaly, window_aggregation_method, save_anomaly_maps, is_gpu):
+                 test_data_loader, test_dataset,
+                 measure_of_anomaly, window_aggregation_method, save_anomaly_maps, use_gpu):
                   
         
         self.measure_of_anomaly=measure_of_anomaly
@@ -374,16 +374,16 @@ class AnomalyDetectionExperiment(object):
         
         # Load state dict from  best epoch of that experiment
         model_dir = os.path.join("results", experiment_name, "saved_models")
-        state_dict = load_best_model_state_dict(model_dir=model_dir, is_gpu=is_gpu)
+        state_dict = load_best_model_state_dict(model_dir=model_dir, use_gpu=use_gpu)
         self.model.load_state_dict(state_dict=state_dict["network"])
         
         self.anomaly_map_dir = os.path.join("results", "anomaly_detection", experiment_name + "___" + anomaly_detection_experiment_name, "anomaly_maps")
         if not os.path.exists(self.anomaly_map_dir):
-            os.mkdir(self.anomaly_map_dir)
+            os.makedirs(self.anomaly_map_dir)
 
         self.result_tables_dir = os.path.join("results", "anomaly_detection", experiment_name + "___" + anomaly_detection_experiment_name, "tables")
         if not os.path.exists(self.result_tables_dir):
-            os.mkdir(self.result_tables_dir)
+            os.makedirs(self.result_tables_dir)
 
 
     def run_experiment(self):        
