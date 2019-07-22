@@ -11,9 +11,7 @@ import numpy as np
 import os
 DEFAULT_SEED = 20112018
 from PIL import Image
-import os
 import os.path
-import numpy as np
 import sys
 if sys.version_info[0] == 2:
     import cPickle as pickle
@@ -668,6 +666,24 @@ class InpaintingDataset(data.Dataset):
         # self.patch_slice = self.create_central_region_slice((1,1024,1024), self.patch_size) ### this can be done if images have all equal size
         self.mask_slice = self.create_central_region_slice((1,)+tuple(self.patch_size), self.mask_size)
 
+        # Precompute the patch positions for val and test set. The patch positions in the val set and the test set should always be the same, so the vval/test set is not easier/harder on certain epochs
+        if self.which_set == "val" or self.which_set == "test":
+            self.rng = np.random.RandomState(seed=0)
+            self.compute_patch_positions()
+
+    def compute_patch_positions(self):
+        # Compute a random patch location for every image in the dataset
+        self.top_left_corners = []
+        for image_name in self.image_list:
+            # load image
+            full_image = Image.open(os.path.join(self.image_path, image_name))
+            # transform image            
+            full_image = self.transformer(full_image)
+            
+            top_left_corner = (self.rng.randint(0,full_image.size(1)-self.patch_size[0]), 
+                       self.rng.randint(0,full_image.size(2)-self.patch_size[1]))
+            self.top_left_corners.append(top_left_corner) # location of top-left corner of patch in dimensions 1 and 2 of the input tensor
+
 
     def __getitem__(self, index):
         """
@@ -696,12 +712,17 @@ class InpaintingDataset(data.Dataset):
             if self.patch_location == "random":
     #            comment these things back in if rejection of dark patches is still desired
     #            image_mean = -100000
-    #            while image_mean <= patch_rejection_threshold:
-                top_left_corner = (self.rng.randint(0,full_image.size(1)-self.patch_size[0]), 
-                                   self.rng.randint(0,full_image.size(2)-self.patch_size[1])) # location of top-left corner of patch in dimensions 1 and 2 of the input tensor
+    #            while image_mean <= patch_rejection_threshold:    
+                if self.which_set == "train": # choose a new random patch position at every epoch
+                    top_left_corner = (self.rng.randint(0,full_image.size(1)-self.patch_size[0]), 
+                                       self.rng.randint(0,full_image.size(2)-self.patch_size[1])) # location of top-left corner of patch in dimensions 1 and 2 of the input tensor
+
+                elif self.which_set == "val" or self.which_set == "test": # take precomputed patch position that is constant over the epochs
+                    top_left_corner = self.top_left_corners[index]
+                    
                 image = full_image[:,
-                                   top_left_corner[0]:top_left_corner[0]+self.patch_size[0],
-                                   top_left_corner[1]:top_left_corner[1]+self.patch_size[1]]
+                   top_left_corner[0]:top_left_corner[0]+self.patch_size[0],
+                   top_left_corner[1]:top_left_corner[1]+self.patch_size[1]]
     #                image_mean = torch.mean(image)
         else:
             image = full_image

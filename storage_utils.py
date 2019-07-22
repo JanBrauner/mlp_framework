@@ -73,7 +73,7 @@ def load_statistics(experiment_log_dir, filename):
 
 def update_state_dict_keys(state_dict):
     # Modify keys in a model state dict to use a model that was serialised as a nn.DataParallel module:
-    # delete the .model prefix from the keys in the state dict
+    # delete the .module prefix from the keys in the state dict
 
     new_state_dict = OrderedDict()
     for k, v in state_dict.items():
@@ -81,12 +81,13 @@ def update_state_dict_keys(state_dict):
             new_state_dict[k] = v
     new_state_dict["network"] = {}
     for k, v in state_dict["network"].items():
-        name = k.replace("model.", "") # remove `model.`
+        name = k
+#        name = name.replace("model.", "") # remove `model.`
         name = name.replace("module.", "") # remove `module.`
         new_state_dict["network"][name] = v
     return new_state_dict
 
-def load_best_model_state_dict(model_dir, use_gpu):
+def load_best_model_state_dict(model_dir, use_gpu, trained_as_parallel_AD_single_process):
     # load the state dict of the model with the best validation performance (file name ends in _best)
     
     # find best model
@@ -100,6 +101,7 @@ def load_best_model_state_dict(model_dir, use_gpu):
         state_dict = torch.load(f = os.path.join(model_dir, best_model_name))
     else: # if loading on cpu, specify map location and modify keys to account for the fact that we won't use nn.DataParallel
         state_dict = torch.load(f = os.path.join(model_dir, best_model_name), map_location="cpu")
+    if trained_as_parallel_AD_single_process: # The models were all trained on GPU with DataParallel. When loading the state_dict on a CPU or a single GPU, we need to rename the keys to handle the fact that this is not a DataParallel model any more.
         state_dict = update_state_dict_keys(state_dict)
     
     return state_dict

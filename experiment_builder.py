@@ -356,7 +356,7 @@ class AnomalyDetectionExperiment(nn.Module):
                  test_data_loader, test_dataset,
                  measure_of_anomaly, window_aggregation_method, save_anomaly_maps, use_gpu):
         
-        super(ExperimentBuilder, self).__init__()          
+        super(AnomalyDetectionExperiment, self).__init__()          
         
         self.measure_of_anomaly=measure_of_anomaly
         self.window_aggregation_method=window_aggregation_method
@@ -376,7 +376,8 @@ class AnomalyDetectionExperiment(nn.Module):
         
         # Load state dict from  best epoch of that experiment
         model_dir = os.path.abspath(os.path.join("results", experiment_name, "saved_models"))
-        state_dict = load_best_model_state_dict(model_dir=model_dir, use_gpu=use_gpu)
+        trained_as_parallel_AD_single_process = True if torch.cuda.device_count() < 1 else False
+        state_dict = load_best_model_state_dict(model_dir=model_dir, use_gpu=use_gpu, trained_as_parallel_AD_single_process=trained_as_parallel_AD_single_process)
         self.load_state_dict(state_dict=state_dict["network"]) # Note: You need to load the state dict for the whole AnomalyDetection object, not just the model, since that is the format the state dict was saved in
         
         self.anomaly_map_dir = os.path.abspath(os.path.join("results", "anomaly_detection", experiment_name + "___" + anomaly_detection_experiment_name, "anomaly_maps"))
