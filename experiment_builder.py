@@ -377,40 +377,14 @@ class AnomalyDetectionExperiment(object):
         state_dict = load_best_model_state_dict(model_dir=model_dir, is_gpu=is_gpu)
         self.model.load_state_dict(state_dict=state_dict["network"])
         
-        self.anomaly_map_dir = os.path.join("results", "anomaly_detection", experiment_name + "-" + anomaly_detection_experiment_name, "anomaly_maps")
+        self.anomaly_map_dir = os.path.join("results", "anomaly_detection", experiment_name + "___" + anomaly_detection_experiment_name, "anomaly_maps")
         if not os.path.exists(self.anomaly_map_dir):
             os.mkdir(self.anomaly_map_dir)
 
-        self.result_tables_dir = os.path.join("results", "anomaly_detection", experiment_name + "-" + anomaly_detection_experiment_name, "tables")
+        self.result_tables_dir = os.path.join("results", "anomaly_detection", experiment_name + "___" + anomaly_detection_experiment_name, "tables")
         if not os.path.exists(self.result_tables_dir):
             os.mkdir(self.result_tables_dir)
 
-#        self.experiment_logs = os.path.abspath(os.path.join(self.experiment_folder, "result_outputs"))
-
-
-#transformations = [transforms.ToTensor(), transforms.Normalize((0.5,), (0.5,))]
-# =============================================================================
-# patch_size = (128,128)
-# mask_size = (64,64)
-# patch_stride = (30,30)
-# batch_size = 5
-# =============================================================================
-
-
-# =============================================================================
-# 
-# experiment_name = "CE_DTD_random_patch_test_1"
-# args, device = get_args(experiment_name)  # get arguments from command line. Run local debugging with settings as specified in CE_cpu_dev
-# # args, device = get_args()  # get arguments from command line. Run local debugging with settings as specified in CE_cpu_dev
-# #args, device = get_args("CE_test") # for local debugging
-# =============================================================================
-
-# =============================================================================
-# args.num_image_channels = 3 ### obviously delete this later on!
-# args.use_gpu = False
-# args.num_workers = 0
-# 
-# =============================================================================
 
     def run_experiment(self):        
         self.model.eval()
