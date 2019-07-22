@@ -349,7 +349,7 @@ class ExperimentBuilder(nn.Module):
         
         
         
-class AnomalyDetectionExperiment(object):
+class AnomalyDetectionExperiment(nn.Module):
     
     def __init__(self, experiment_name, anomaly_detection_experiment_name,
                  model, device,
@@ -374,15 +374,15 @@ class AnomalyDetectionExperiment(object):
             self.model.to(self.device)  # sends the model from the cpu to the gpu
         
         # Load state dict from  best epoch of that experiment
-        model_dir = os.path.join("results", experiment_name, "saved_models")
+        model_dir = os.path.abspath(os.path.join("results", experiment_name, "saved_models"))
         state_dict = load_best_model_state_dict(model_dir=model_dir, use_gpu=use_gpu)
-        self.model.load_state_dict(state_dict=state_dict["network"])
+        self.load_state_dict(state_dict=state_dict["network"]) # Note: You need to load the state dict for the whole AnomalyDetection object, not just the model, since that is the format the state dict was saved in
         
-        self.anomaly_map_dir = os.path.join("results", "anomaly_detection", experiment_name + "___" + anomaly_detection_experiment_name, "anomaly_maps")
+        self.anomaly_map_dir = os.path.abspath(os.path.join("results", "anomaly_detection", experiment_name + "___" + anomaly_detection_experiment_name, "anomaly_maps"))
         if not os.path.exists(self.anomaly_map_dir):
             os.makedirs(self.anomaly_map_dir)
 
-        self.result_tables_dir = os.path.join("results", "anomaly_detection", experiment_name + "___" + anomaly_detection_experiment_name, "tables")
+        self.result_tables_dir = os.path.abspath(os.path.join("results", "anomaly_detection", experiment_name + "___" + anomaly_detection_experiment_name, "tables"))
         if not os.path.exists(self.result_tables_dir):
             os.makedirs(self.result_tables_dir)
 
