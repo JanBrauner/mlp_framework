@@ -27,7 +27,7 @@ rng = np.random.RandomState(seed=args.seed)
 torch.manual_seed(seed=args.seed)
 
 # create datasets
-train_data, val_data, test_data, num_output_classes = data_providers.create_dataset_with_anomalies(args, augmentations, rng)
+train_data, val_data, test_data, num_output_classes = data_providers.create_dataset(args, augmentations, rng)
 
 # create model
 model = model_architectures.create_model(args)

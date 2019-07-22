@@ -14,13 +14,17 @@ train_experiment_name = args.experiment_name.split("___")[0] # name of the exper
 anomaly_detection_experiment_name = args.experiment_name.split("___")[1] # name of the anomaly detection experiment
 
 # =============================================================================
-# # for debugging
+# ### for debugging
+# args, device = get_args("CE_DTD_random_patch_test_1___AD1")  # get arguments from command line/json config.
+# train_experiment_name = args.experiment_name.split("___")[0] # name of the experiment in which the model that we want to use for anomaly detection was trained
+# anomaly_detection_experiment_name = args.experiment_name.split("___")[1] # name of the anomaly detection experiment
+# 
 # args.use_gpu = False
 # args.num_workers = 0
 # args.debug_mode = True
 # args.AD_patch_stride = (100,100)
-# 
 # =============================================================================
+
 # set random seeds
 rng = np.random.RandomState(seed=args.seed)
 torch.manual_seed(seed=args.seed)
