@@ -353,7 +353,8 @@ class AnomalyDetectionExperiment(nn.Module):
     
     def __init__(self, experiment_name, anomaly_detection_experiment_name,
                  model, device,
-                 test_data_loader, test_dataset,
+                 val_dataset, val_data_loader,
+                 test_dataset, test_data_loader,
                  measure_of_anomaly, window_aggregation_method, save_anomaly_maps, use_gpu):
         
         super(AnomalyDetectionExperiment, self).__init__()          
@@ -361,10 +362,17 @@ class AnomalyDetectionExperiment(nn.Module):
         self.measure_of_anomaly=measure_of_anomaly
         self.window_aggregation_method=window_aggregation_method
         self.save_anomaly_maps=save_anomaly_maps
+        
+        self.val_data_loader = val_data_loader
+        self.val_dataset = val_dataset # This is needed to get the full size ground truth images
+        self.val_image_list = val_dataset.image_list 
+        self.val_image_sizes = val_dataset.image_sizes
+        
         self.test_data_loader=test_data_loader
         self.test_dataset = test_dataset # This is needed to get the full size ground truth images
         self.test_image_list = test_dataset.image_list 
         self.test_image_sizes = test_dataset.image_sizes
+        
         self.model = model
         self.device = device
         
@@ -380,9 +388,13 @@ class AnomalyDetectionExperiment(nn.Module):
         state_dict = load_best_model_state_dict(model_dir=model_dir, use_gpu=use_gpu, trained_as_parallel_AD_single_process=trained_as_parallel_AD_single_process)
         self.load_state_dict(state_dict=state_dict["network"]) # Note: You need to load the state dict for the whole AnomalyDetection object, not just the model, since that is the format the state dict was saved in
         
-        self.anomaly_map_dir = os.path.abspath(os.path.join("results", "anomaly_detection", experiment_name + "___" + anomaly_detection_experiment_name, "anomaly_maps"))
-        if not os.path.exists(self.anomaly_map_dir):
-            os.makedirs(self.anomaly_map_dir)
+        self.anomaly_map_dir_val = os.path.abspath(os.path.join("results", "anomaly_detection", experiment_name + "___" + anomaly_detection_experiment_name, "anomaly_maps", "val"))
+        if not os.path.exists(self.anomaly_map_dir_val):
+            os.makedirs(self.anomaly_map_dir_val)
+        
+        self.anomaly_map_dir_test = os.path.abspath(os.path.join("results", "anomaly_detection", experiment_name + "___" + anomaly_detection_experiment_name, "anomaly_maps", "test"))
+        if not os.path.exists(self.anomaly_map_dir_test):
+            os.makedirs(self.anomaly_map_dir_test)
 
         self.result_tables_dir = os.path.abspath(os.path.join("results", "anomaly_detection", experiment_name + "___" + anomaly_detection_experiment_name, "tables"))
         if not os.path.exists(self.result_tables_dir):
@@ -392,79 +404,162 @@ class AnomalyDetectionExperiment(nn.Module):
     def run_experiment(self):        
         self.model.eval()
        
-        num_finished_images = -1 # the data loader works through the test set images in order. num_finished_images is a counter that ticks up everytime one image is finished
-        self.stats_dict = {"aucroc":[]} # a dict that keeps the measures of agreement between pixel-wise anomaly score and ground-truth labels, for each image. Current,y AUC is the only measure.
+       
+        for which_set in ["val", "test"]:
+            num_finished_images = -1 # the data loader works through the test set images in order. num_finished_images is a counter that ticks up everytime one image is finished
+            self.stats_dict = {"aucroc":[]} # a dict that keeps the measures of agreement between pixel-wise anomaly score and ground-truth labels, for each image. Current,y AUC is the only measure.
         
-        with tqdm.tqdm(total=len(self.test_data_loader)) as pbar:
-            for inputs, targets, image_idxs, slices in self.test_data_loader:
-                inputs = inputs.to(self.device)
-                targets = targets.to(self.device)
-                outputs = self.model.forward(inputs)
-                if self.measure_of_anomaly == "absolute distance":
-                    anomaly_score = torch.abs(outputs - targets) # pixelwise anomaly score, for each of the images in the batch
-                    anomaly_score = torch.mean(anomaly_score, dim=1, keepdim=True) # take the mean over the channels
-                    anomaly_score = anomaly_score.cpu().detach()
+            if which_set == "val":
+                data_loader = self.val_data_loader
+                anomaly_map_dir = self.anomaly_map_dir_val
+                image_list = self.val_image_list
+                image_sizes = self.val_image_sizes
+            elif which_set == "test":
+                data_loader = self.test_data_loader
+                anomaly_map_dir = self.anomaly_map_dir_test
+                image_list = self.test_image_list
+                image_sizes = self.test_image_sizes
+            with tqdm.tqdm(total=len(data_loader)) as pbar:
+                for inputs, targets, image_idxs, slices in data_loader:
+                    # calculate "partial" anomaly maps for all patches (not full images!) in the current batch
+                    anomaly_maps_current_batch = self.calculate_anomaly_maps(inputs, targets) 
+              
+                    # the following for-loop deals with translating the pixelwise anomaly for one sliding window position (and thus a score relative to an image patch) into an anomaly score for the full image
+                    for batch_idx in range(len(image_idxs)): # for each image in the batch. "in range(batch_size)" leads to error, because the last batch is smaller that the batch size
+                        # Get the index of the full image that the current patch was taken from. The index is relative to image_list and image_sizes
+                        current_image_idx = int(image_idxs[batch_idx].detach().numpy())
+                        assert num_finished_images <= current_image_idx, "This assertion fails if the dataloader does not strucutre the batches so that the order of images/patches WITHIN the batch does still correspond to image_list" # Basically, I am sure that __getitem__() gets items in the right order, but I am unsure if the order gets imxed up within the minibatch by the DataLoader. Probably best to leave that assertion in, since this will throw a bug if the behaviour of DataLoader is changed in future PyTorch versions.
                 
-                # the following for-loop deals with translating the pixelwise anomaly for one sliding window position (and thus a score relative to an image patch) into an anomaly score for the full image
-                for batch_idx in range(len(image_idxs)): # for each image in the batch. "in range(batch_size)" leads to error, because the last batch is smaller that the batch size
-                    # Get the index of the full image that the current patch was taken from. The index is relative to image_list and image_sizes
-                    current_image_idx = int(image_idxs[batch_idx].detach().numpy())
-                    assert num_finished_images <= current_image_idx, "This assertion fails if the dataloader does not strucutre the batches so that the order of images/patches WITHIN the batch does still correspond to image_list" # Basically, I am sure that __getitem__() gets items in the right order, but I am unsure if the order gets imxed up within the minibatch by the DataLoader. Probably best to leave that assertion in, since this will throw a bug if the behaviour of DataLoader is changed in future PyTorch versions.
-            
-                    
-                    if current_image_idx > num_finished_images: # Upon starting the with the first patch, or whenever we have moved on to the next image
-                        num_finished_images += 1
-                        if num_finished_images > 0: # Whenever we have moved to the next image, calculate agreement between our anomaly score and the ground truth segmentation. (Obviously don't do this when we are jstus tarting with the first patch)
-                            anomaly_map = self.normalise_anomaly_map(anomaly_map,normalisation_map)
-                            self.calculate_agreement_between_anomaly_score_and_labels(
-                                    image_idx=current_image_idx-1, anomaly_map=anomaly_map)
-                            
-#                            save_statistics(experiment_log_dir=self.result_tables_dir, filename='summary.csv',
-#                            stats_dict=self.stats_dict, current_epoch=current_image_idx-1, continue_from_mode=True, save_full_dict=False) # save statistics to stats file.
-
-                            
-                            if self.save_anomaly_maps:
-                                anomaly_map = transforms.functional.to_pil_image(anomaly_map)
-                                anomaly_map.save(os.path.join(self.anomaly_map_dir,self.test_image_list[current_image_idx -1]))
-                            
-                        # Upon starting the with the first patch, or whenever we have moved on to the next image, create new anomaly maps and normalisation maps
-                        current_image_height = self.test_image_sizes[current_image_idx][1]
-                        current_image_width = self.test_image_sizes[current_image_idx][2]
                         
-                        anomaly_map = torch.zeros((1,current_image_height, current_image_width)) # anomaly score heat maps for every image. Initialise as constant zero tensor of the same size as the full image
-                        normalisation_map = torch.zeros((1,current_image_height, current_image_width)) # for every image, keep score of how often a given pixel has appeared in a sliding window, for calculation of average scores. Initialise as constant zero tensor of the same size as the full image
-                    
-                    # Now the part that happens for every image-patch(!): update the relevant part of the current anomaly_score map:
-                    current_slice = np.s_[:,
-                                          np.s_[slices["1_start"][batch_idx]:slices["1_stop"][batch_idx]],
-                                          np.s_[slices["2_start"][batch_idx]:slices["2_stop"][batch_idx]]]
-            
-                    if self.window_aggregation_method == "mean":
-                        anomaly_map[current_slice] += anomaly_score[batch_idx,:,:,:]
-                        normalisation_map[current_slice] += 1
-                
-                # update progress bar
-                pbar.update(1)
-            
-            
-            # also calculate results and save anomaly map for the last image
-            anomaly_map = self.normalise_anomaly_map(anomaly_map,normalisation_map)
-            self.calculate_agreement_between_anomaly_score_and_labels(
-                    image_idx=current_image_idx, anomaly_map=anomaly_map)
-            
-            save_statistics(experiment_log_dir=self.result_tables_dir, filename='summary.csv',
-                            stats_dict=self.stats_dict, current_epoch=current_image_idx, continue_from_mode=False, save_full_dict=True) # save statistics to stats file.
+                        if current_image_idx > num_finished_images: # Upon starting the with the first patch, or whenever we have moved on to the next image
+                            num_finished_images += 1
+                            if num_finished_images > 0: # Whenever we have moved to the next image, calculate agreement between our anomaly score and the ground truth segmentation. (Obviously don't do this when we are jstus tarting with the first patch)
+                                anomaly_map = self.normalise_anomaly_map(anomaly_map,normalisation_map)
+                                self.calculate_agreement_between_anomaly_score_and_labels(
+                                        image_idx=current_image_idx-1, anomaly_map=anomaly_map, which_set=which_set)
+#                                
+#                                If I want to use this, I have to include the which_set thing
+    #                            save_statistics(experiment_log_dir=self.result_tables_dir, filename='summary.csv',
+    #                            stats_dict=self.stats_dict, current_epoch=current_image_idx-1, continue_from_mode=True, save_full_dict=False) # save statistics to stats file.
+    
+                                
+                                if self.save_anomaly_maps:
+                                    anomaly_map = transforms.functional.to_pil_image(anomaly_map)
+                                    anomaly_map.save(os.path.join(anomaly_map_dir, image_list[current_image_idx -1]))
 
-            if self.save_anomaly_maps:
-                anomaly_map = transforms.functional.to_pil_image(anomaly_map)
-                anomaly_map.save(os.path.join(self.anomaly_map_dir,self.test_image_list[current_image_idx]))
+                            # Upon starting the with the first patch, or whenever we have moved on to the next image, create new anomaly maps and normalisation maps
+                            current_image_height = image_sizes[current_image_idx][1]
+                            current_image_width = image_sizes[current_image_idx][2]
+
                             
-            # print mean results:
-            print("Results:")
-            for key, list_of_values in self.stats_dict.items():
-                mean_value = sum(list_of_values)/len(list_of_values)
-                print("Mean ", key, ": ", "{:.4f}".format(mean_value))
-        
+                            anomaly_map = torch.zeros((1,current_image_height, current_image_width)) # anomaly score heat maps for every image. Initialise as constant zero tensor of the same size as the full image
+                            normalisation_map = torch.zeros((1,current_image_height, current_image_width)) # for every image, keep score of how often a given pixel has appeared in a sliding window, for calculation of average scores. Initialise as constant zero tensor of the same size as the full image
+                        
+                        # Now the part that happens for every image-patch(!): update the relevant part of the current anomaly_score map:
+                        current_slice = np.s_[:,
+                                              np.s_[slices["1_start"][batch_idx]:slices["1_stop"][batch_idx]],
+                                              np.s_[slices["2_start"][batch_idx]:slices["2_stop"][batch_idx]]]
+                
+                        if self.window_aggregation_method == "mean":
+                            anomaly_map[current_slice] += anomaly_maps_current_batch[batch_idx,:,:,:]
+                            normalisation_map[current_slice] += 1
+                    
+                    # update progress bar
+                    pbar.update(1)
+                
+                
+                # also calculate results and save anomaly map for the last image
+                anomaly_map = self.normalise_anomaly_map(anomaly_map,normalisation_map)
+                self.calculate_agreement_between_anomaly_score_and_labels(
+                        image_idx=current_image_idx, anomaly_map=anomaly_map, which_set=which_set)
+                
+                save_statistics(experiment_log_dir=self.result_tables_dir, filename=which_set +'_summary.csv',
+                                stats_dict=self.stats_dict, current_epoch=current_image_idx, continue_from_mode=False, save_full_dict=True) # save statistics to stats file.
+    
+                if self.save_anomaly_maps:
+                    anomaly_map = transforms.functional.to_pil_image(anomaly_map)
+                    anomaly_map.save(os.path.join(anomaly_map_dir, image_list[current_image_idx]))
+                                
+                # print mean results:
+                print("{} set results:".format(which_set))
+                for key, list_of_values in self.stats_dict.items():
+                    mean_value = sum(list_of_values)/len(list_of_values)
+                    print("Mean ", key, ": ", "{:.4f}".format(mean_value))
+            
+# =============================================================================
+#         with tqdm.tqdm(total=len(self.test_data_loader)) as pbar:
+#             for inputs, targets, image_idxs, slices in self.test_data_loader:
+#                 def process_batch(self, inputs, targets, image_idxs, slices, num_finished_images, which_set)
+#                 
+#                 inputs = inputs.to(self.device)
+#                 targets = targets.to(self.device)
+#                 outputs = self.model.forward(inputs)
+#                 if self.measure_of_anomaly == "absolute distance":
+#                     anomaly_score = torch.abs(outputs - targets) # pixelwise anomaly score, for each of the images in the batch
+#                     anomaly_score = torch.mean(anomaly_score, dim=1, keepdim=True) # take the mean over the channels
+#                     anomaly_score = anomaly_score.cpu().detach()
+#                 
+#                 # the following for-loop deals with translating the pixelwise anomaly for one sliding window position (and thus a score relative to an image patch) into an anomaly score for the full image
+#                 for batch_idx in range(len(image_idxs)): # for each image in the batch. "in range(batch_size)" leads to error, because the last batch is smaller that the batch size
+#                     # Get the index of the full image that the current patch was taken from. The index is relative to image_list and image_sizes
+#                     current_image_idx = int(image_idxs[batch_idx].detach().numpy())
+#                     assert num_finished_images <= current_image_idx, "This assertion fails if the dataloader does not strucutre the batches so that the order of images/patches WITHIN the batch does still correspond to image_list" # Basically, I am sure that __getitem__() gets items in the right order, but I am unsure if the order gets imxed up within the minibatch by the DataLoader. Probably best to leave that assertion in, since this will throw a bug if the behaviour of DataLoader is changed in future PyTorch versions.
+#             
+#                     
+#                     if current_image_idx > num_finished_images: # Upon starting the with the first patch, or whenever we have moved on to the next image
+#                         num_finished_images += 1
+#                         if num_finished_images > 0: # Whenever we have moved to the next image, calculate agreement between our anomaly score and the ground truth segmentation. (Obviously don't do this when we are jstus tarting with the first patch)
+#                             anomaly_map = self.normalise_anomaly_map(anomaly_map,normalisation_map)
+#                             self.calculate_agreement_between_anomaly_score_and_labels(
+#                                     image_idx=current_image_idx-1, anomaly_map=anomaly_map)
+#                             
+# #                            save_statistics(experiment_log_dir=self.result_tables_dir, filename='summary.csv',
+# #                            stats_dict=self.stats_dict, current_epoch=current_image_idx-1, continue_from_mode=True, save_full_dict=False) # save statistics to stats file.
+# 
+#                             
+#                             if self.save_anomaly_maps:
+#                                 anomaly_map = transforms.functional.to_pil_image(anomaly_map)
+#                                 anomaly_map.save(os.path.join(self.anomaly_map_dir,self.test_image_list[current_image_idx -1]))
+#                             
+#                         # Upon starting the with the first patch, or whenever we have moved on to the next image, create new anomaly maps and normalisation maps
+#                         current_image_height = self.test_image_sizes[current_image_idx][1]
+#                         current_image_width = self.test_image_sizes[current_image_idx][2]
+#                         
+#                         anomaly_map = torch.zeros((1,current_image_height, current_image_width)) # anomaly score heat maps for every image. Initialise as constant zero tensor of the same size as the full image
+#                         normalisation_map = torch.zeros((1,current_image_height, current_image_width)) # for every image, keep score of how often a given pixel has appeared in a sliding window, for calculation of average scores. Initialise as constant zero tensor of the same size as the full image
+#                     
+#                     # Now the part that happens for every image-patch(!): update the relevant part of the current anomaly_score map:
+#                     current_slice = np.s_[:,
+#                                           np.s_[slices["1_start"][batch_idx]:slices["1_stop"][batch_idx]],
+#                                           np.s_[slices["2_start"][batch_idx]:slices["2_stop"][batch_idx]]]
+#             
+#                     if self.window_aggregation_method == "mean":
+#                         anomaly_map[current_slice] += anomaly_score[batch_idx,:,:,:]
+#                         normalisation_map[current_slice] += 1
+#                 
+#                 # update progress bar
+#                 pbar.update(1)
+#             
+#             
+#             # also calculate results and save anomaly map for the last image
+#             anomaly_map = self.normalise_anomaly_map(anomaly_map,normalisation_map)
+#             self.calculate_agreement_between_anomaly_score_and_labels(
+#                     image_idx=current_image_idx, anomaly_map=anomaly_map)
+#             
+#             save_statistics(experiment_log_dir=self.result_tables_dir, filename='summary.csv',
+#                             stats_dict=self.stats_dict, current_epoch=current_image_idx, continue_from_mode=False, save_full_dict=True) # save statistics to stats file.
+# 
+#             if self.save_anomaly_maps:
+#                 anomaly_map = transforms.functional.to_pil_image(anomaly_map)
+#                 anomaly_map.save(os.path.join(self.anomaly_map_dir,self.test_image_list[current_image_idx]))
+#                             
+#             # print mean results:
+#             print("Results:")
+#             for key, list_of_values in self.stats_dict.items():
+#                 mean_value = sum(list_of_values)/len(list_of_values)
+#                 print("Mean ", key, ": ", "{:.4f}".format(mean_value))
+#         
+# =============================================================================
             
 
     
@@ -476,10 +571,13 @@ class AnomalyDetectionExperiment(nn.Module):
             anomaly_map = anomaly_map / normalisation_map
         return anomaly_map
     
-    def calculate_agreement_between_anomaly_score_and_labels(self, image_idx, anomaly_map):
+    def calculate_agreement_between_anomaly_score_and_labels(self, image_idx, anomaly_map, which_set):
     
         # load ground truth segmentation label image
-        label_image = self.test_dataset.get_label_image(image_idx)
+        if which_set == "val":
+            label_image = self.val_dataset.get_label_image(image_idx)
+        elif which_set == "test":
+            label_image = self.test_dataset.get_label_image(image_idx)
         
         ### calculate measures of agreement 
         # AUC: currently the only measure of agreement
@@ -489,6 +587,20 @@ class AnomalyDetectionExperiment(nn.Module):
         self.stats_dict["aucroc"].append(aucroc)
 
     
+          
+    def calculate_anomaly_maps(self, inputs, targets):
+        # calculate the anomaly map for the patches in the current batch
+        inputs = inputs.to(self.device)
+        targets = targets.to(self.device)
+        outputs = self.model.forward(inputs)
+        
+        if self.measure_of_anomaly == "absolute distance":
+            anomaly_maps = torch.abs(outputs - targets) # pixelwise anomaly score, for each of the images in the batch
+            anomaly_maps = torch.mean(anomaly_maps, dim=1, keepdim=True) # take the mean over the channels
+            anomaly_maps = anomaly_maps.cpu().detach()
+        
+        return anomaly_maps
+
 
 # =============================================================================
 # 

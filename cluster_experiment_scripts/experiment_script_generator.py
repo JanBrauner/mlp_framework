@@ -260,7 +260,7 @@ def AD_theme(args):
     return args
     
 #%% A list of independent experiment 
-experiment_names = ["CE_DTD_random_patch_test_1___AD1"] # Note: For experiments that include anomaly detection, the experiment name needs to be original_experiment_name + "___" + AD_experiment_name, where original_experiment_name is the name of the eperiment in which the model that we want to use for AD was trained.
+experiment_names = ["CE_DTD_random_patch_test_1___AD_test"] # Note: For experiments that include anomaly detection, the experiment name needs to be original_experiment_name + "___" + AD_experiment_name, where original_experiment_name is the name of the eperiment in which the model that we want to use for AD was trained.
 experiment_type = "AD" # options: "train" for training (including evaluation on val and test set); "AD" for anomaly detection (using the best validation model from "experiment_name"); "train+AD" for both.
 
 # slurm options

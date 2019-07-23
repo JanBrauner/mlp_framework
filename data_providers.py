@@ -1283,7 +1283,7 @@ def create_dataset(args, augmentations, rng, precompute_patches=True):
         
         return train_data, val_data, test_data, num_output_classes
     
-def create_dataset_with_anomalies(anomaly_dataset_name, which_set, normalisation, batch_size, patch_size, patch_stride, mask_size, num_workers, debug_mode):
+def create_dataset_with_anomalies(anomaly_dataset_name, normalisation, batch_size, patch_size, patch_stride, mask_size, num_workers, debug_mode):
 
     if "DTPathological" in anomaly_dataset_name: # there are several versions of DTPathological with different lesions 
         # calculate mean and SD for normalisation
@@ -1295,13 +1295,20 @@ def create_dataset_with_anomalies(anomaly_dataset_name, which_set, normalisation
             
         transformer = transforms.Compose([transforms.ToTensor(), transforms.Normalize(mn, sd)])
 
-        # NOTE: currently only the test-set is implemented
-        dataset = DescribableTexturesPathological(which_set=which_set, transformer=transformer, debug_mode=debug_mode, patch_size=patch_size, patch_stride=patch_stride, mask_size=mask_size, version=anomaly_dataset_name)
+        kwargs_dataset = {"transformer":transformer, 
+                          "debug_mode":debug_mode, 
+                          "patch_size":patch_size, 
+                          "patch_stride":patch_stride, 
+                          "mask_size":mask_size, 
+                          "version":anomaly_dataset_name}
+        val_dataset = DescribableTexturesPathological(which_set="val", **kwargs_dataset)
+        test_dataset = DescribableTexturesPathological(which_set="test", **kwargs_dataset)
 
         
         
     ### data_loader
-    data_loader = torch.utils.data.DataLoader(dataset, shuffle=False, batch_size=batch_size, num_workers=num_workers)
+    val_data_loader = torch.utils.data.DataLoader(val_dataset, shuffle=False, batch_size=batch_size, num_workers=num_workers)
+    test_data_loader = torch.utils.data.DataLoader(test_dataset, shuffle=False, batch_size=batch_size, num_workers=num_workers)
     
-    return data_loader, dataset
+    return val_dataset, val_data_loader, test_dataset, test_data_loader 
 
