@@ -634,7 +634,7 @@ class CIFAR100(CIFAR10):
 class InpaintingDataset(data.Dataset):
     
     def __init__(self, which_set, transformer, rng, patch_mode, debug_mode=False, 
-                 patch_size=(256,256), patch_location="central", mask_size=(64,64)): #, patch_rejection_threshold):
+                 patch_size=(256,256), patch_location="central", mask_size=(64,64), precompute_patches=True): #, patch_rejection_threshold):
 
         # check a valid which_set was provided
         assert which_set in ['train', 'val', 'test'], (
@@ -651,6 +651,7 @@ class InpaintingDataset(data.Dataset):
         self.transformer = transformer
         self.rng = rng
         self.patch_mode = patch_mode
+        self.precompute_patches = precompute_patches # this is only required to make visualisation of val and test set faster
 #        self.patch_rejection_threshold = patch_rejection_threshold
 
         # create list of all images in current dataset
@@ -667,7 +668,7 @@ class InpaintingDataset(data.Dataset):
         self.mask_slice = self.create_central_region_slice((1,)+tuple(self.patch_size), self.mask_size)
 
         # Precompute the patch positions for val and test set. The patch positions in the val set and the test set should always be the same, so the vval/test set is not easier/harder on certain epochs
-        if self.which_set == "val" or self.which_set == "test":
+        if (self.which_set == "val" or self.which_set == "test") and self.patch_mode and self.precompute_patches:
             self.rng = np.random.RandomState(seed=0)
             self.compute_patch_positions()
 
@@ -713,11 +714,11 @@ class InpaintingDataset(data.Dataset):
     #            comment these things back in if rejection of dark patches is still desired
     #            image_mean = -100000
     #            while image_mean <= patch_rejection_threshold:    
-                if self.which_set == "train": # choose a new random patch position at every epoch
+                if self.which_set == "train" or (not self.precompute_patches): # choose a new random patch position at every epoch
                     top_left_corner = (self.rng.randint(0,full_image.size(1)-self.patch_size[0]), 
                                        self.rng.randint(0,full_image.size(2)-self.patch_size[1])) # location of top-left corner of patch in dimensions 1 and 2 of the input tensor
 
-                elif self.which_set == "val" or self.which_set == "test": # take precomputed patch position that is constant over the epochs
+                elif (self.which_set == "val" or self.which_set == "test") and self.precompute_patches: # take precomputed patch position that is constant over the epochs
                     top_left_corner = self.top_left_corners[index]
                     
                 image = full_image[:,
@@ -754,14 +755,14 @@ class MiasHealthy(InpaintingDataset):
     """    
     
     def __init__(self, which_set, transformer, rng, patch_mode, debug_mode=False, 
-                 patch_size=(256,256), patch_location="central", mask_size=(64,64)):
+                 patch_size=(256,256), patch_location="central", mask_size=(64,64), precompute_patches=True):
 
         # DATASET_DIR should point to root directory of data
         self.image_base_path = os.path.join(os.environ['DATASET_DIR'], "MiasHealthy") # path of the data set images
         print("Loading data from: ", self.image_base_path)
 
         super(MiasHealthy, self).__init__(which_set=which_set, transformer=transformer, rng=rng, 
-             debug_mode=debug_mode, patch_mode=patch_mode, patch_size=patch_size, patch_location=patch_location, mask_size=mask_size) #, patch_rejection_threshold):
+             debug_mode=debug_mode, patch_mode=patch_mode, patch_size=patch_size, patch_location=patch_location, mask_size=mask_size, precompute_patches=precompute_patches) #, patch_rejection_threshold):
 
 
 class GoogleStreetView(InpaintingDataset):
@@ -770,7 +771,7 @@ class GoogleStreetView(InpaintingDataset):
     """
     
     def __init__(self, which_set, transformer, rng, patch_mode, debug_mode=False, 
-                 patch_size=(256,256), patch_location="central", mask_size=(64,64)):
+                 patch_size=(256,256), patch_location="central", mask_size=(64,64), precompute_patches=True):
 
 
         # DATASET_DIR should point to root directory of data
@@ -778,7 +779,7 @@ class GoogleStreetView(InpaintingDataset):
         print("Loading data from: ", self.image_base_path)
 
         super(GoogleStreetView, self).__init__(which_set=which_set, transformer=transformer, rng=rng, 
-             debug_mode=debug_mode, patch_mode=patch_mode, patch_size=patch_size, patch_location=patch_location, mask_size=mask_size) #, patch_rejection_threshold):
+             debug_mode=debug_mode, patch_mode=patch_mode, patch_size=patch_size, patch_location=patch_location, mask_size=mask_size, precompute_patches=precompute_patches) #, patch_rejection_threshold):
 
 class DescribableTextures(InpaintingDataset):
     """
@@ -786,7 +787,7 @@ class DescribableTextures(InpaintingDataset):
     """
     
     def __init__(self, which_set, transformer, rng, patch_mode, debug_mode=False, 
-                 patch_size=(256,256), patch_location="central", mask_size=(64,64)):
+                 patch_size=(256,256), patch_location="central", mask_size=(64,64), precompute_patches=True):
 
 
         # DATASET_DIR should point to root directory of data
@@ -794,7 +795,7 @@ class DescribableTextures(InpaintingDataset):
         print("Loading data from: ", self.image_base_path)
 
         super(DescribableTextures, self).__init__(which_set=which_set, transformer=transformer, rng=rng, 
-             debug_mode=debug_mode, patch_mode=patch_mode, patch_size=patch_size, patch_location=patch_location, mask_size=mask_size) #, patch_rejection_threshold):
+             debug_mode=debug_mode, patch_mode=patch_mode, patch_size=patch_size, patch_location=patch_location, mask_size=mask_size, precompute_patches=precompute_patches) #, patch_rejection_threshold):
 
 
 class DatasetWithAnomalies(InpaintingDataset): # the only thing it inherits is get_central_region_slice
@@ -1053,7 +1054,10 @@ class MiasPathological(data.Dataset):
 
         
 
-def create_dataset(args, augmentations, rng):
+def create_dataset(args, augmentations, rng, precompute_patches=True):
+    """
+    precompute_patches=True is only used during visualisation of val and test set (because it is faster not to precompute), but not during training.
+    """
     if args.dataset_name == 'emnist':
         train_data = EMNISTDataProvider('train', batch_size=args.batch_size,
                                                        rng=rng, flatten=False)  # initialize our rngs using the argument set seed
@@ -1159,7 +1163,8 @@ def create_dataset(args, augmentations, rng):
                          "debug_mode" : args.debug_mode,
                          "patch_size" : (args.image_height, args.image_width),
                          "patch_location" : args.patch_location_during_training,
-                         "mask_size" : args.mask_size}
+                         "mask_size" : args.mask_size,
+                         "precompute_patches" : precompute_patches}
         kwargs_dataloader = {"batch_size": args.batch_size,
                              "num_workers": args.num_workers}
         
@@ -1208,7 +1213,8 @@ def create_dataset(args, augmentations, rng):
                          "debug_mode" : args.debug_mode,
                          "patch_size" : (args.image_height, args.image_width),
                          "patch_location" : args.patch_location_during_training,
-                         "mask_size" : args.mask_size}
+                         "mask_size" : args.mask_size,
+                         "precompute_patches" : precompute_patches}
         kwargs_dataloader = {"batch_size": args.batch_size,
                              "num_workers": args.num_workers}
         
@@ -1259,7 +1265,8 @@ def create_dataset(args, augmentations, rng):
                          "debug_mode" : args.debug_mode,
                          "patch_size" : (args.image_height, args.image_width),
                          "patch_location" : args.patch_location_during_training,
-                         "mask_size" : args.mask_size}
+                         "mask_size" : args.mask_size,
+                         "precompute_patches" : precompute_patches}
         kwargs_dataloader = {"batch_size": args.batch_size,
                              "num_workers": args.num_workers}
         

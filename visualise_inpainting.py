@@ -15,15 +15,16 @@ import torchvision
 import data_providers as data_providers
 import model_architectures
 from arg_extractor import get_args
+from visualisation_utils import show
 
 #%%
 # parameters:
-experiment_name = "CE_DTD_random_patch_test_1" #  "CE_DTD_random_patch_test_1"
+experiment_name = "CE_DTD_resize_test_1" #  "CE_DTD_random_patch_test_1"
 batch_size = 8 # number of images per row
 image_batch_idx = 0 # use different number to see different images
 seed = 0 # to see different regions of the images
-set_to_visualise = "train"
-force_patch_location = "central" # "False": every model gets visualised with patches from the location it was trained with. Otherwise, specify the patch_location the models should be tested with
+set_to_visualise = "test"
+force_patch_location = False # "False": every model gets visualised with patches from the location it was trained with. Otherwise, specify the patch_location the models should be tested with
 force_dataset = False # "False": every model gets visualised with dataset it was trained. Otherwise, specify the dataset the models should be tested with. !Of course, you can't force a model that was trained on gray-scale images to work on RGB images
 
 # add new parameters to older experiments that were run when that argument didn't yet exist and thus don't hove that argument in their config files
@@ -121,9 +122,10 @@ else:
 rng = np.random.RandomState(seed=args.seed)
 torch.manual_seed(seed=args.seed)
 
+
 # create datasets
 args.batch_size = 100 # this is just for a super weird way to randomise the order of images shown in train and val set, without having to adjust the code for the data provider. I first draw a batch with batchsize 100, and then randomly choose "batch_size" from it. See (*1) below
-train_data, val_data, test_data, num_output_classes = data_providers.create_dataset(args, augmentations, rng)
+train_data, val_data, test_data, num_output_classes = data_providers.create_dataset(args, augmentations, rng, precompute_patches=False)
 args.batch_size = batch_size
 
 # load batch for visualisation
@@ -142,7 +144,7 @@ for inputs, targets in data_loader:
         break
 
 # randomise images shown (*1)
-image_idx = rng.choice(100, args.batch_size, replace=False)
+image_idx = rng.choice(inputs.shape[0], args.batch_size, replace=False)
 inputs = inputs[image_idx,:,:,:]
 targets = targets[image_idx,:,:,:]
 

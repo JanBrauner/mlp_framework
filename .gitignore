@@ -1,6 +1,5 @@
 # models
 results/*/saved_models
-exp1/*/saved_models
 
 # most datasets (that are not sufficiently small)
 data/GoogleStreetView
@@ -8,7 +7,7 @@ data/DescribableTextures/raw
 data/downloads
 
 # anomaly maps
-results/anomaly_detection
+results/anomaly_detection/*/anomaly_maps
 
 #dropbox stuff
 *.dropbox*
