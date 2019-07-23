@@ -57,7 +57,14 @@ def random_blob(img_size, num_iter, threshold, maximum_blob_size, fixed_init=Non
 #                    if blob_size >= maximum_blob_size:
 #                        return mask
         seed_positions = next_seed_positions
-    return mask
+    
+    # Calculate stats about mask size: How far does the mask extent across dimensions 0 and 1 of the image?
+    mask_sum_0 = torch.sum(mask[0,0,:,:], dim = 0)
+    mask_sum_1 = torch.sum(mask[0,0,:,:], dim = 1)
+    mask_size_1 = torch.max(mask_sum_0) - torch.min(mask_sum_0)
+    mask_size_0 = torch.max(mask_sum_1) - torch.min(mask_sum_1)
+    mask_size = (mask_size_0, mask_size_1)
+    return mask, mask_size
 
 
 def multi_random_blobs(img_size, max_num_blobs, iter_range, threshold, maximum_blob_size):
@@ -74,19 +81,24 @@ def multi_random_blobs(img_size, max_num_blobs, iter_range, threshold, maximum_b
         Number between 0 and 1. Probability of keeping a pixel hidden.
     """
     mask = torch.zeros(1, 1, *img_size[1:])
+    mask_sizes = []
     # Sample number of blobs
     num_blobs = np.random.randint(1, max_num_blobs + 1)
     for _ in range(num_blobs):
         num_iter = np.random.randint(iter_range[0], iter_range[1])
-        mask += random_blob(img_size, num_iter, threshold, maximum_blob_size)
+        temp_mask, mask_size = random_blob(img_size, num_iter, threshold, maximum_blob_size)
+        mask += temp_mask
+        mask_sizes.append(mask_size)
     mask[mask > 0] = 1.
-    return mask
+    return mask, mask_sizes
 
 
 def batch_multi_random_blobs(img_size, max_num_blobs, iter_range, threshold,
                              batch_size, maximum_blob_size):
     """Generates batch of masks with multiple random connected blobs."""
     mask = torch.zeros(batch_size, 1, *img_size[1:])
+    mask_sizes = []
     for i in range(batch_size):
-        mask[i] = multi_random_blobs(img_size, max_num_blobs, iter_range, threshold, maximum_blob_size)
-    return mask
+        mask[i], current_mask_sizes = multi_random_blobs(img_size, max_num_blobs, iter_range, threshold, maximum_blob_size)
+        mask_sizes = mask_sizes + current_mask_sizes
+    return mask, mask_sizes

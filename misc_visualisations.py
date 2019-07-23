@@ -71,50 +71,69 @@ for image_name in image_names_to_load:
 grid = torchvision.utils.make_grid(images, nrow=5, padding=10)
 show(grid)
 
-#%% visualise anomaly maps and original images
+#%% visualise anomaly maps, ground truth segmentations, and original images
 batch_size = 8
-target_size = (300,300)
-random = False
+target_size = None # choose image size to resize all images to (for grid view). If None, no resizing happens.
+random = True
+seed = 2
 
-input_path = os.path.join("data","DTPathologicalIrreg1","test","images")
-label_path = os.path.join("data","DTPathologicalIrreg1","test","label_images")
-anomaly_path = os.path.join("results","CE_DTD_random_patch_test_1","anomaly_maps")
-image_names = os.listdir(anomaly_path)
-if random:
-    image_names_to_load = np.random.choice(image_names, batch_size)
-else:
-    image_names_to_load = image_names[:batch_size]
+def display_one_figure(batch_size, target_size, random, seed, index=None):
+    """
+    Usually, display batch_size iamges in one figure. Unless index is specified, then only display that image.
+    """
+    input_path = os.path.join("data","DTPathologicalIrreg1","test","images")
+    label_path = os.path.join("data","DTPathologicalIrreg1","test","label_images")
+    anomaly_path = os.path.join("results","anomaly_detection","CE_DTD_random_patch_test_1___AD1","anomaly_maps")
+    image_names = os.listdir(anomaly_path)
+    if random:
+        rng = np.random.RandomState(seed=seed)
+        image_names_to_load = rng.choice(image_names, batch_size)
+    else:
+        image_names_to_load = image_names[:batch_size]
+      
+    if index is not None:
+        image_names_to_load = [image_names_to_load[index]]
+
+    input_images = []
+    label_images = []
+    anomaly_maps = []
+
+    for image_name in image_names_to_load:
+        input_image = Image.open(os.path.join(input_path,image_name))
+        if target_size is not None:
+            input_image = input_image.resize(target_size)
+        input_image = transforms.functional.to_tensor(input_image)
+        input_images.append(input_image)
+        
+        label_image = Image.open(os.path.join(label_path,image_name))
+        if target_size is not None:
+            label_image = label_image.resize(target_size)
+        label_image = transforms.functional.to_tensor(label_image)
+        label_images.append(label_image)
+        
+        anomaly_map = Image.open(os.path.join(anomaly_path,image_name))
+        if target_size is not None:
+            anomaly_map = anomaly_map.resize(target_size)
+        anomaly_map = transforms.functional.to_tensor(anomaly_map)
+        anomaly_maps.append(anomaly_map)
     
-input_images = []
-label_images = []
-anomaly_maps = []
-for image_name in image_names_to_load:
-    input_image = Image.open(os.path.join(input_path,image_name))
-    input_image = input_image.resize(target_size)
-    input_image = transforms.functional.to_tensor(input_image)
-    input_images.append(input_image)
+    inputs_grid = torchvision.utils.make_grid(input_images, nrow=batch_size, padding=10, pad_value = 0.5)
+    label_images_grid = torchvision.utils.make_grid(label_images, nrow=batch_size, padding=10, pad_value = 0.5)
+    anomaly_maps_grid = torchvision.utils.make_grid(anomaly_maps, nrow=batch_size, padding=10, pad_value = 0.5)
     
-    label_image = Image.open(os.path.join(label_path,image_name))
-    label_image = label_image.resize(target_size)
-    label_image = transforms.functional.to_tensor(label_image)
-    label_images.append(label_image)
+    fig = plt.figure()
     
-    anomaly_map = Image.open(os.path.join(anomaly_path,image_name))
-    anomaly_map = anomaly_map.resize(target_size)
-    anomaly_map = transforms.functional.to_tensor(anomaly_map)
-    anomaly_maps.append(anomaly_map)
+    cax = fig.add_subplot(311)
+    show(inputs_grid,cax)
+    
+    cax = fig.add_subplot(312)
+    show(anomaly_maps_grid,cax)
+    
+    cax = fig.add_subplot(313)
+    show(label_images_grid,cax)
 
-inputs_grid = torchvision.utils.make_grid(input_images, nrow=8, padding=10, pad_value = 0.5)
-label_images_grid = torchvision.utils.make_grid(label_images, nrow=8, padding=10, pad_value = 0.5)
-anomaly_maps_grid = torchvision.utils.make_grid(anomaly_maps, nrow=8, padding=10, pad_value = 0.5)
-
-fig = plt.figure()
-
-cax = fig.add_subplot(311)
-show(inputs_grid,cax)
-
-cax = fig.add_subplot(312)
-show(anomaly_maps_grid,cax)
-
-cax = fig.add_subplot(313)
-show(label_images_grid,cax)
+if target_size is not None: # display all in one figure
+    display_one_figure(batch_size, target_size, random, seed)
+else: # display batch_size separate figures
+    for i in range(batch_size):
+        display_one_figure(batch_size, target_size, random, seed, index=i)
