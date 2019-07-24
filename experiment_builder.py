@@ -169,7 +169,7 @@ class ExperimentBuilder(nn.Module):
         x = x.to(self.device)
         y = y.to(self.device)
         out = self.model.forward(x)  # forward the data in the model
-        
+
         if self.task == "classification":
             if self.loss == "cross_entropy":
                 loss = F.cross_entropy(out, y)  # compute loss

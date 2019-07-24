@@ -311,7 +311,7 @@ class CE_netG(nn.Module): # generator of a context encoder
     
                 
 
-# =============================================================================
+# =================Description of layer sizes (in the base version):============================================================
 # 
 #         self.main = nn.Sequential(
 #             # input is (nc) x 128 x 128
