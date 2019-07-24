@@ -690,12 +690,18 @@ class InpaintingDataset(data.Dataset):
             if self.scale_image != None:
                 scaled_image_size = tuple(int(x*self.scale_image[dim]) for dim, x in enumerate(full_image.size))
                 full_image = full_image.resize(scaled_image_size)
+                
+                # if full image is too small now to house even one patch, make it bigger again: This shouldn't happen as long as the images have a certain size, but I saw a bug on the cluster that indicated that is does happen....
+                min_ratio_full_image_to_patch = min(full_image.size[0]/self.patch_size[0], full_image.size[1]/self.patch_size[1])
+                if min_ratio_full_image_to_patch <= 1:
+                    scaled_image_size = tuple(int(x/min_ratio_full_image_to_patch + 1) for x in full_image.size)
+                    full_image = full_image.resize(scaled_image_size)
             
             # transform image            
             full_image = self.transformer(full_image)
             
-            top_left_corner = (self.rng.randint(0,full_image.size(1)-self.patch_size[0]), 
-                       self.rng.randint(0,full_image.size(2)-self.patch_size[1]))
+            top_left_corner = (self.rng.randint(0,full_image.shape[1]-self.patch_size[0]), 
+                       self.rng.randint(0,full_image.shape[2]-self.patch_size[1]))
             self.top_left_corners.append(top_left_corner) # location of top-left corner of patch in dimensions 1 and 2 of the input tensor
 
 
@@ -713,6 +719,12 @@ class InpaintingDataset(data.Dataset):
         if self.scale_image != None:
             scaled_image_size = tuple(int(x*self.scale_image[dim]) for dim, x in enumerate(full_image.size))
             full_image = full_image.resize(scaled_image_size)
+        
+            # if full image is too small now to house even one patch, make it bigger again: This shouldn't happen as long as the images have a certain size, but I saw a bug on the cluster that indicated that is does happen....
+            min_ratio_full_image_to_patch = min(full_image.size[0]/self.patch_size[0], full_image.size[1]/self.patch_size[1])
+            if min_ratio_full_image_to_patch <= 1:
+                scaled_image_size = tuple(int(x/min_ratio_full_image_to_patch + 1) for x in full_image.size)
+                full_image = full_image.resize(scaled_image_size)           
 
 
         # transform image
@@ -734,8 +746,9 @@ class InpaintingDataset(data.Dataset):
     #            image_mean = -100000
     #            while image_mean <= patch_rejection_threshold:    
                 if self.which_set == "train" or (not self.precompute_patches): # choose a new random patch position at every epoch
-                    top_left_corner = (self.rng.randint(0,full_image.size(1)-self.patch_size[0]), 
-                                       self.rng.randint(0,full_image.size(2)-self.patch_size[1])) # location of top-left corner of patch in dimensions 1 and 2 of the input tensor
+
+                    top_left_corner = (self.rng.randint(0,full_image.shape[1]-self.patch_size[0]), 
+                                       self.rng.randint(0,full_image.shape[2]-self.patch_size[1])) # location of top-left corner of patch in dimensions 1 and 2 of the input tensor
 
                 elif (self.which_set == "val" or self.which_set == "test") and self.precompute_patches: # take precomputed patch position that is constant over the epochs
                     top_left_corner = self.top_left_corners[index]
@@ -914,7 +927,13 @@ class DatasetWithAnomalies(InpaintingDataset): # the only thing it inherits is g
             if self.scale_image != None:
                 scaled_image_size = tuple(int(x*self.scale_image[dim]) for dim, x in enumerate(full_image.size))
                 full_image = full_image.resize(scaled_image_size)
-    
+                
+                # if full image is too small now to house even one patch, make it bigger again: This shouldn't happen as long as the images have a certain size, but I saw a bug on the cluster that indicated that is does happen....
+                min_ratio_full_image_to_patch = min(full_image.size[0]/self.patch_size[0], full_image.size[1]/self.patch_size[1])
+                if min_ratio_full_image_to_patch <= 1:
+                    scaled_image_size = tuple(int(x/min_ratio_full_image_to_patch + 1) for x in full_image.size)
+                    full_image = full_image.resize(scaled_image_size)           
+
             # transform image
             full_image = self.transformer(full_image)
             full_image_sizes.append(full_image.shape)
@@ -956,7 +975,13 @@ class DatasetWithAnomalies(InpaintingDataset): # the only thing it inherits is g
         if self.scale_image != None:
             scaled_image_size = tuple(int(x*self.scale_image[dim]) for dim, x in enumerate(full_image.size))
             full_image = full_image.resize(scaled_image_size)
-        
+
+            # if full image is too small now to house even one patch, make it bigger again: This shouldn't happen as long as the images have a certain size, but I saw a bug on the cluster that indicated that is does happen....
+            min_ratio_full_image_to_patch = min(full_image.size[0]/self.patch_size[0], full_image.size[1]/self.patch_size[1])
+            if min_ratio_full_image_to_patch <= 1:
+                scaled_image_size = tuple(int(x/min_ratio_full_image_to_patch + 1) for x in full_image.size)
+                full_image = full_image.resize(scaled_image_size)  
+                    
         # transform image
         full_image = self.transformer(full_image)
         

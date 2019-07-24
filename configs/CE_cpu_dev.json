@@ -1,9 +1,9 @@
 {
  "continue_from_epoch": -1,
  "seed": 0,
- "task": "classification",
+ "task": "regression",
  "use_gpu": false,
- "gpu_id": "0,1,2,3,4,5",
+ "gpu_id": "0,1,2,3",
  "model_name": "context_encoder",
  "kernel_size": 4,
  "num_layers_enc": 6,
@@ -24,12 +24,15 @@
   2,
   1
  ],
- "dataset_name": "DescribableTextures",
- "num_image_channels": 3,
+ "dataset_name": "MiasHealthy",
+ "num_image_channels": 1,
  "image_height": 128,
  "image_width": 128,
  "normalisation": "range-11",
- "scale_image": null,
+ "scale_image": [
+  0.5,
+  0.5
+ ],
  "debug_mode": true,
  "num_workers": 0,
  "augment": false,
@@ -53,7 +56,7 @@
   64
  ],
  "batch_size": 5,
- "loss": "cross_entropy",
+ "loss": "L2",
  "num_epochs": 2,
  "learning_rate": 0.0002,
  "betas": [
@@ -61,12 +64,12 @@
   0.999
  ],
  "weight_decay_coefficient": 0,
- "anomaly_dataset_name": "DTPathologicalIrreg1",
+ "anomaly_dataset_name": "MiasPathological",
  "AD_patch_stride": [
   30,
   30
  ],
- "measure_of_anomaly": "likelihood",
+ "measure_of_anomaly": "absolute distance",
  "window_aggregation_method": "mean",
  "save_anomaly_maps": true,
  "AD_batch_size": 5

@@ -2,7 +2,7 @@
 #SBATCH -N 1	  # nodes requested
 #SBATCH -n 1	  # tasks requested
 #SBATCH --partition=Standard
-#SBATCH --gres=gpu:6
+#SBATCH --gres=gpu:4
 #SBATCH --mem=12000  # memory in Mb
 #SBATCH --time=0-08:00:00
 
@@ -35,8 +35,8 @@ source /home/${STUDENT_ID}/miniconda3/bin/activate mlp
 cd ..
 
 
-mkdir -p /disk/scratch/${STUDENT_ID}/data/DescribableTextures/
-rsync -ua --progress /home/${STUDENT_ID}/mlp_framework/data/DescribableTextures/ /disk/scratch/${STUDENT_ID}/data/DescribableTextures/
+mkdir -p /disk/scratch/${STUDENT_ID}/data/MiasHealthy/
+rsync -ua --progress /home/${STUDENT_ID}/mlp_framework/data/MiasHealthy/ /disk/scratch/${STUDENT_ID}/data/MiasHealthy/
 export DATASET_DIR=/disk/scratch/${STUDENT_ID}/data/
 
 python main.py --experiment_name CE_cpu_dev
