@@ -52,7 +52,7 @@
   64,
   64
  ],
- "batch_size": 100,
+ "batch_size": 50,
  "loss": "cross_entropy",
  "num_epochs": 200,
  "learning_rate": 0.0002,

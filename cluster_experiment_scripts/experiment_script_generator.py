@@ -84,7 +84,7 @@ default_args = {
 # =============================================================================
 ### training parameters
 # training parameters: general
-"batch_size": 100,
+"batch_size": 50,
 "loss": "L2", #  currently implemented: "L2" for regression, "cross_entropy" for classification
 "num_epochs": 200,
 
@@ -260,6 +260,7 @@ def large_context_theme(args):
     args["image_height"] = 220
     args["image_width"] = 220
     args["patch_size"] = (220,220)
+    args["batch_size"] = 25
     return args
 
 # Dataset themes

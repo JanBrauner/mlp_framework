@@ -55,7 +55,7 @@
   64,
   64
  ],
- "batch_size": 100,
+ "batch_size": 50,
  "loss": "L2",
  "num_epochs": 200,
  "learning_rate": 0.0002,
