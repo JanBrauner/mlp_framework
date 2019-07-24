@@ -282,13 +282,13 @@ def DescribableTextures_theme(args):
 
 #%% A list of independent experiment 
 # experiment names
-experiment_names = ["CE_cpu_dev"] # Note: For experiments that include anomaly detection, the experiment name needs to be original_experiment_name + "___" + AD_experiment_name, where original_experiment_name is the name of the eperiment in which the model that we want to use for AD was trained.
+experiment_names = ['CE_DTD_r2_prob_large_context___AD_window_mean', 'CE_DTD_r2_prob_large_context___AD_window_min', 'CE_DTD_r2_prob_large_context___AD_window_max'] # Note: For experiments that include anomaly detection, the experiment name needs to be original_experiment_name + "___" + AD_experiment_name, where original_experiment_name is the name of the eperiment in which the model that we want to use for AD was trained.
 
 # type of experiment
-experiment_type = "train" # options: "train" for training (including evaluation on val and test set); "AD" for anomaly detection (using the best validation model from "experiment_name"); "train+AD" for both.
+experiment_type = "AD" # options: "train" for training (including evaluation on val and test set); "AD" for anomaly detection (using the best validation model from "experiment_name"); "train+AD" for both.
 
 # Commonly used themes
-cpu = True
+cpu = False
 probabilistic_inpainting = True
 small_mask = False
 large_context = False
@@ -303,13 +303,11 @@ time = None
 
 
 # arguments to update from default, each inner dict has the items for one experiment:
-update_dicts = [{}]
-# =============================================================================
-# update_dicts = [{"window_aggregation_method":"mean"},
-#                 {"window_aggregation_method":"min"},
-#                 {"window_aggregation_method":"max"}]
-# 
-# =============================================================================
+
+update_dicts = [{"window_aggregation_method":"mean"},
+                {"window_aggregation_method":"min"},
+                {"window_aggregation_method":"max"}]
+
 
 # for each experiment
 for idx, experiment_name in enumerate(experiment_names):

@@ -3,7 +3,7 @@
  "seed": 0,
  "task": "regression",
  "use_gpu": true,
- "gpu_id": "0,1,2,3,4,5",
+ "gpu_id": "0,1,2",
  "model_name": "context_encoder",
  "kernel_size": 4,
  "num_layers_enc": 6,
@@ -29,7 +29,10 @@
  "image_height": 128,
  "image_width": 128,
  "normalisation": "range-11",
- "scale_image": null,
+ "scale_image": [
+  0.5,
+  0.5
+ ],
  "debug_mode": false,
  "num_workers": 6,
  "augment": false,

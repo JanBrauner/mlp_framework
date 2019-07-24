@@ -1,9 +1,9 @@
 {
  "continue_from_epoch": -1,
  "seed": 0,
- "task": "regression",
+ "task": "classification",
  "use_gpu": true,
- "gpu_id": "0,1,2,3,4,5",
+ "gpu_id": "0,1,2",
  "model_name": "context_encoder",
  "kernel_size": 4,
  "num_layers_enc": 6,
@@ -26,8 +26,8 @@
  ],
  "dataset_name": "DescribableTextures",
  "num_image_channels": 3,
- "image_height": 128,
- "image_width": 128,
+ "image_height": 220,
+ "image_width": 220,
  "normalisation": "range-11",
  "scale_image": null,
  "debug_mode": false,
@@ -43,8 +43,8 @@
  "shear_angle": 0,
  "patch_mode": true,
  "patch_size": [
-  128,
-  128
+  220,
+  220
  ],
  "patch_location_during_training": "random",
  "patch_rejection_threshold": 10,
@@ -53,7 +53,7 @@
   64
  ],
  "batch_size": 100,
- "loss": "L2",
+ "loss": "cross_entropy",
  "num_epochs": 200,
  "learning_rate": 0.0002,
  "betas": [
@@ -66,7 +66,7 @@
   10,
   10
  ],
- "measure_of_anomaly": "absolute distance",
+ "measure_of_anomaly": "likelihood",
  "window_aggregation_method": "max",
  "save_anomaly_maps": true,
  "AD_batch_size": 50

@@ -3,7 +3,7 @@
  "seed": 0,
  "task": "regression",
  "use_gpu": true,
- "gpu_id": "0,1,2,3,4,5",
+ "gpu_id": "0,1,2",
  "model_name": "context_encoder",
  "kernel_size": 4,
  "num_layers_enc": 6,
@@ -16,13 +16,12 @@
   8
  ],
  "num_channels_bottleneck": 4000,
- "num_layers_dec": 5,
+ "num_layers_dec": 4,
  "num_channels_dec": 64,
  "num_channels_progression_dec": [
   8,
   4,
-  2,
-  1
+  2
  ],
  "dataset_name": "DescribableTextures",
  "num_image_channels": 3,
@@ -49,8 +48,8 @@
  "patch_location_during_training": "random",
  "patch_rejection_threshold": 10,
  "mask_size": [
-  64,
-  64
+  32,
+  32
  ],
  "batch_size": 100,
  "loss": "L2",
