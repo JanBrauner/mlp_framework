@@ -2,7 +2,7 @@
  "continue_from_epoch": -1,
  "seed": 0,
  "task": "regression",
- "use_gpu": false,
+ "use_gpu": true,
  "gpu_id": "0,1,2,3,4,5",
  "model_name": "context_encoder",
  "kernel_size": 4,
@@ -30,8 +30,8 @@
  "image_width": 220,
  "normalisation": "range-11",
  "scale_image": null,
- "debug_mode": true,
- "num_workers": 0,
+ "debug_mode": false,
+ "num_workers": 6,
  "augment": false,
  "gamma_factor": 1,
  "rot_angle": 0,
@@ -52,9 +52,9 @@
   64,
   64
  ],
- "batch_size": 5,
+ "batch_size": 100,
  "loss": "L2",
- "num_epochs": 2,
+ "num_epochs": 200,
  "learning_rate": 0.0002,
  "betas": [
   0.5,
@@ -63,11 +63,11 @@
  "weight_decay_coefficient": 0,
  "anomaly_dataset_name": "DTPathologicalIrreg1",
  "AD_patch_stride": [
-  30,
-  30
+  10,
+  10
  ],
  "measure_of_anomaly": "absolute distance",
  "window_aggregation_method": "mean",
  "save_anomaly_maps": true,
- "AD_batch_size": 5
+ "AD_batch_size": 50
 }

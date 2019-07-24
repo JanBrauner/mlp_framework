@@ -75,7 +75,7 @@ default_args = {
 # data parameters: image patches
 "patch_mode": True, # if true, patches of patch_size will be extracted from the image for training. If false, the whole image will be rescaled and cropped to (image_height,image_height)
 "patch_size": [128, 128],
-"patch_location_during_training": "central", # Can be "central" or "random"
+"patch_location_during_training": "random", # Can be "central" or "random"
 "patch_rejection_threshold": 10, # CURRENTLY NOT USED!.threshold, on a 8-bit scale. Patches sampled from the data loader with a mean below this threshold get rejected because they show only background
 
 # data parameters: masking
@@ -86,7 +86,7 @@ default_args = {
 # training parameters: general
 "batch_size": 100,
 "loss": "L2", #  currently implemented: "L2" for regression, "cross_entropy" for classification
-"num_epochs": 100,
+"num_epochs": 200,
 
 # training parameters: optimiser
 "learning_rate": 0.0002,
@@ -106,7 +106,6 @@ default_args = {
 
 # computational parameters
 "AD_batch_size": 50 # batch size for anomaly detection: how many sliding windows to load at the same time
-
 
 # =============================================================================
 }
@@ -229,6 +228,7 @@ config_path = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir,
 shell_script_path = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, "cluster_experiment_scripts"))
 
 ### Commonly used themes
+# Misc themes
 def cpu_theme(args):
     args["use_gpu"] = False
     args["num_workers"] = 0
@@ -239,6 +239,30 @@ def cpu_theme(args):
     args["AD_patch_stride"] = (30,30)
     return args
 
+def AD_theme(args):
+    args["gpu_id"] ="0,1,2"
+    args["num_workers"] = 6
+    return args
+
+def probabilistic_inpainting_theme(args):
+    args["task"] = "classification"
+    args["loss"] = "cross_entropy"
+    args["measure_of_anomaly"] = "likelihood"
+    return args
+
+def small_mask_theme(args):
+    args["num_layers_dec"] = 4
+    args["num_channels_progression_dec"] = [8,4,2]
+    args["mask_size"] = (32,32)
+    return args
+
+def large_context_theme(args):
+    args["image_height"] = 220
+    args["image_width"] = 220
+    args["patch_size"] = (220,220)
+    return args
+
+# Dataset themes
 def GoogleStreetView_theme(args):
     args["num_image_channels"] = 3
     args["dataset_name"] = "GoogleStreetView"
@@ -255,34 +279,27 @@ def DescribableTextures_theme(args):
     args["num_workers"] = 6
     return args
     
-def AD_theme(args):
-    args["gpu_id"] ="0,1,2"
-    args["num_workers"] = 6
-    return args
 
-def probabilistic_inpainting_theme(args):
-    args["task"] = "classification"
-    args["loss"] = "cross_entropy"
-    args["measure_of_anomaly"] = "likelihood"
-    return args
-    
 #%% A list of independent experiment 
-experiment_names = ["CE_DTD_random_patch_test_1___AD_test"] # Note: For experiments that include anomaly detection, the experiment name needs to be original_experiment_name + "___" + AD_experiment_name, where original_experiment_name is the name of the eperiment in which the model that we want to use for AD was trained.
-experiment_type = "AD" # options: "train" for training (including evaluation on val and test set); "AD" for anomaly detection (using the best validation model from "experiment_name"); "train+AD" for both.
+experiment_names = ["CE_DTD_r2_prob_large_context"] # Note: For experiments that include anomaly detection, the experiment name needs to be original_experiment_name + "___" + AD_experiment_name, where original_experiment_name is the name of the eperiment in which the model that we want to use for AD was trained.
+experiment_type = "train" # options: "train" for training (including evaluation on val and test set); "AD" for anomaly detection (using the best validation model from "experiment_name"); "train+AD" for both.
 
 # slurm options
 partition = "Standard"
 time = None
 
 # Commonly used themes
-cpu = True
+cpu = False
+probabilistic_inpainting = True
+small_mask = False
+large_context = True
 GoogleStreetView = False
 DescribableTextures = True
-probabilistic_inpainting = False
+
 
 
 # arguments to update from default, each inner dict has the items for one experiment:
-update_dicts = [{"window_aggregation_method":"max"}]
+update_dicts = [{}]
 
 
 # for each experiment
@@ -298,6 +315,10 @@ for idx, experiment_name in enumerate(experiment_names):
         args = DescribableTextures_theme(args)
     if probabilistic_inpainting:
         args = probabilistic_inpainting_theme(args)
+    if small_mask:
+        args = small_mask_theme(args)
+    if large_context:
+        args = large_context_theme(args)
     if experiment_type == "AD": # load the args from the experiment that trained the model we want to use. Use that to overwrite most of the current args. (Purpose of this block is that we don't have to look up e.g. the model architecture of the model we trained, but can import from old json files)
         train_experiment_name = experiment_name.split("___")[0] # name of the experiment in which the model that we want to use for anomaly detection was trained
         anomaly_detection_experiment_name = experiment_name.split("___")[1] # name of the anomaly detection experiment
