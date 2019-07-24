@@ -227,6 +227,10 @@ class CE_netG(nn.Module): # generator of a context encoder
         self.num_layers_dec = args.num_layers_dec
         self.num_channels_dec = args.num_channels_dec
         self.num_channels_progression_dec = args.num_channels_progression_dec
+        try: # this is a super clumsy way to set a default value
+            self.output_softmax = True if args.task == "classification" else False# to have the output give 255 units for every channel, to go into a softmax
+        except:
+            self.output_softmax = False
         
         self.build_module()
         
@@ -273,9 +277,15 @@ class CE_netG(nn.Module): # generator of a context encoder
                             out_channels = self.num_channels_dec*self.num_channels_progression_dec[ind_dec],
                             kernel_size=self.kernel_size, stride=2, padding=1, bias=False)
             else: #last layer needs to go back to same number of channels as input
+                if not self.output_softmax:
+                    out_channels = self.input_shape[1] # output pixel values directly, to be used with e.g. MSE
+                else:
+                    out_channels = self.input_shape[1]*256 # output units to go into softmax, to be used with likelihood based training
+            
                 self.layer_dict["conv_t_{}".format(i)] = nn.ConvTranspose2d(in_channels=out.shape[1], 
-                            out_channels = self.input_shape[1],
+                            out_channels = out_channels,
                             kernel_size=self.kernel_size, stride=2, padding=1, bias=False)
+            
             out = self.layer_dict["conv_t_{}".format(i)](out)
             
             # batch norm layer
@@ -287,12 +297,16 @@ class CE_netG(nn.Module): # generator of a context encoder
                 self.layer_dict["ReLU_{}".format(i)] = nn.ReLU(inplace=True)
                 out = self.layer_dict["ReLU_{}".format(i)](out)
             else:
-                self.layer_dict["tanh_{}".format(i)] = nn.Tanh()
-                out = self.layer_dict["tanh_{}".format(i)](out)
+                if not self.output_softmax: # if the model is supposed to output the units for softmax, softmax will be applied later (during loss function)
+                    self.layer_dict["tanh_{}".format(i)] = nn.Tanh()
+                    out = self.layer_dict["tanh_{}".format(i)](out)
 
     def forward(self, x):
         for layer in self.layer_dict.values():
             x = layer(x)
+        if self.output_softmax: # reshape for multidim cross-entropy loss
+            new_shape = (x.shape[0], 256, self.input_shape[1], x.shape[2], x.shape[3]) # batch size x classes x channels x output height x output width
+            x = x.view(new_shape)
         return x
     
                 

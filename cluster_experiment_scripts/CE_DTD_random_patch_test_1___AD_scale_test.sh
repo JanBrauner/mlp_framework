@@ -39,4 +39,4 @@ mkdir -p /disk/scratch/${STUDENT_ID}/data/DescribableTextures/
 rsync -ua --progress /home/${STUDENT_ID}/mlp_framework/data/DescribableTextures/ /disk/scratch/${STUDENT_ID}/data/DescribableTextures/
 export DATASET_DIR=/disk/scratch/${STUDENT_ID}/data/
 
-python main.py --experiment_name CE_cpu_dev
+python main.py --experiment_name CE_DTD_random_patch_test_1___AD_scale_test

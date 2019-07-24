@@ -1,7 +1,7 @@
 {
  "continue_from_epoch": -1,
  "seed": 0,
- "task": "regression",
+ "task": "classification",
  "use_gpu": false,
  "gpu_id": "0,1,2",
  "model_name": "context_encoder",
@@ -46,14 +46,14 @@
   128,
   128
  ],
- "patch_location_during_training": "random",
+ "patch_location_during_training": "central",
  "patch_rejection_threshold": 10,
  "mask_size": [
   64,
   64
  ],
  "batch_size": 5,
- "loss": "L2",
+ "loss": "cross_entropy",
  "num_epochs": 2,
  "learning_rate": 0.0002,
  "betas": [
@@ -66,8 +66,8 @@
   30,
   30
  ],
- "measure_of_anomaly": "absolute distance",
- "window_aggregation_method": "max",
+ "measure_of_anomaly": "likelihood",
+ "window_aggregation_method": "mean",
  "save_anomaly_maps": true,
  "AD_batch_size": 5
 }

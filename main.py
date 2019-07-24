@@ -12,9 +12,10 @@ args, device = get_args()  # get arguments from command line/json config. Run lo
 #args, device = get_args("CE_test") # for local debugging
 
 if args.augment:
-    augmentations = [transforms.RandomAffine(degrees=args.rot_angle, translate=args.translate_factor, 
-                                        scale=(1/args.scale_factor, args.scale_factor),
-                                        shear=args.shear_angle)]
+    augmentations = [transforms.RandomAffine(degrees=args.rot_angle, 
+                                             translate=args.translate_factor, 
+                                             scale=(1/args.scale_factor, args.scale_factor),
+                                             shear=args.shear_angle)]
     # these augmentations are often used apparently:
 #                transforms.RandomCrop(32, padding=4),
 #                transforms.RandomHorizontalFlip(),
@@ -34,8 +35,11 @@ model = model_architectures.create_model(args)
 
 # build experiment
 experiment = ExperimentBuilder(network_model=model,
-                                    train_data=train_data, val_data=val_data,
-                                    test_data=test_data, device=device, args=args)
+                               train_data=train_data, 
+                               val_data=val_data,
+                               test_data=test_data, 
+                               device=device, 
+                               args=args)
 
 # run experiment and return experiment metrics
 experiment_metrics, test_metrics = experiment.run_experiment()  

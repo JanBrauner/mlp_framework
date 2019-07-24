@@ -124,7 +124,7 @@ class ExperimentBuilder(nn.Module):
         # return metrics
         if self.task == "classification":
             _, predicted = torch.max(out.data, 1)  # get argmax of predictions
-            accuracy = np.mean(list(predicted.eq(y.data).cpu()))  # compute accuracy
+            accuracy = torch.mean(predicted.eq(y.data).cpu().type(torch.float32))  # compute accuracy
             return loss.data.detach().cpu().numpy(), accuracy
         elif self.task == "regression":
             return loss.data.detach().cpu().numpy()
@@ -143,7 +143,7 @@ class ExperimentBuilder(nn.Module):
         # return metrics        
         if self.task == "classification":
             _, predicted = torch.max(out.data, 1)  # get argmax of predictions
-            accuracy = np.mean(list(predicted.eq(y.data).cpu()))  # compute accuracy
+            accuracy = torch.mean(predicted.eq(y.data).cpu().type(torch.float32))  # compute accuracy
             return loss.data.detach().cpu().numpy(), accuracy
         elif self.task == "regression":
             return loss.data.detach().cpu().numpy()
@@ -151,23 +151,27 @@ class ExperimentBuilder(nn.Module):
     
     def forward_prop_and_loss(self, x, y):
         # reshape inputs and targets
-        if self.task == "classification":
-            if len(y.shape) > 1:
-                y = np.argmax(y, axis=1)  # convert one hot encoded labels to single integer labels
-            if type(x) is np.ndarray:
-                x, y = torch.Tensor(x).float().to(device=self.device), torch.Tensor(y).long().to(
-                device=self.device)  # convert data to pytorch tensors and send to the computation device
-        elif self.task == "regression":
-            if type(x) is np.ndarray:
-                x, y = torch.Tensor(x).float().to(device=self.device), torch.Tensor(y).float().to(
-                device=self.device)  # convert data to pytorch tensors and send to the computation device
+# =============================================================================
+#         if self.task == "classification":
+# # =============================================================================
+# #             if len(y.shape) > 1:
+# #                 y = np.argmax(y, axis=1)  # convert one hot encoded labels to single integer labels
+# #             if type(x) is np.ndarray:
+# #                 x, y = torch.Tensor(x).float().to(device=self.device), torch.Tensor(y).long().to(
+# #                 device=self.device)  # convert data to pytorch tensors and send to the computation device
+# # =============================================================================
+#         elif self.task == "regression":
+#             if type(x) is np.ndarray:
+#                 x, y = torch.Tensor(x).float().to(device=self.device), torch.Tensor(y).float().to(
+#                 device=self.device)  # convert data to pytorch tensors and send to the computation device
+# =============================================================================
 
         x = x.to(self.device)
         y = y.to(self.device)
         out = self.model.forward(x)  # forward the data in the model
         
         if self.task == "classification":
-            if self.loss == "cross-entropy":
+            if self.loss == "cross_entropy":
                 loss = F.cross_entropy(out, y)  # compute loss
         elif self.task == "regression":
             if self.loss == "L2":
@@ -317,7 +321,7 @@ class ExperimentBuilder(nn.Module):
         
         # rename best validation model file for easy access
         path_best = os.path.join(self.experiment_saved_models, "{}_{}".format("train_model", str(self.best_val_model_idx)))
-        os.rename(path_best, path_best + "_best")
+        os.replace(path_best, path_best + "_best")
         
         return total_losses, test_losses
     
@@ -434,7 +438,8 @@ class AnomalyDetectionExperiment(nn.Module):
                         if current_image_idx > num_finished_images: # Upon starting the with the first patch, or whenever we have moved on to the next image
                             num_finished_images += 1
                             if num_finished_images > 0: # Whenever we have moved to the next image, calculate agreement between our anomaly score and the ground truth segmentation. (Obviously don't do this when we are jstus tarting with the first patch)
-                                anomaly_map = self.normalise_anomaly_map(anomaly_map,normalisation_map)
+                                if self.window_aggregation_method == "mean": # how we normalise the anomaly_map might depend on the window aggregation method
+                                    anomaly_map = self.normalise_anomaly_map(anomaly_map,normalisation_map)
                                 self.calculate_agreement_between_anomaly_score_and_labels(
                                         image_idx=current_image_idx-1, anomaly_map=anomaly_map, which_set=which_set)
 #                                
@@ -460,16 +465,26 @@ class AnomalyDetectionExperiment(nn.Module):
                                               np.s_[slices["1_start"][batch_idx]:slices["1_stop"][batch_idx]],
                                               np.s_[slices["2_start"][batch_idx]:slices["2_stop"][batch_idx]]]
                 
+                        normalisation_map[current_slice] += 1 # it isn't actually used for all window_aggregation_methods
+                        
                         if self.window_aggregation_method == "mean":
                             anomaly_map[current_slice] += anomaly_maps_current_batch[batch_idx,:,:,:]
-                            normalisation_map[current_slice] += 1
+                        elif self.window_aggregation_method == "min":
+                            # here we need to da some acrobatic because we want to minimum anomaly score, but the anomaly maps are initialised with zeros.
+                            first_time_pixels = torch.eq(normalisation_map[current_slice], 1).type(torch.float) # pixel that appear in a sliding window mask for the first time
+                            min_current_and_aggregated_map = torch.min(anomaly_map[current_slice], anomaly_maps_current_batch[batch_idx,:,:,:]) # pixelwise minimum between anomaly map of the current sample and the respective slice of the aggregated, image-wide anomaly map
+                            anomaly_map[current_slice] = first_time_pixels * anomaly_maps_current_batch[batch_idx,:,:,:] + (1-first_time_pixels) * min_current_and_aggregated_map # for the pixels that appear in a sliding window mask for the first time, simply copy over the anomaly map. If the pixel was seen before, take the minimum between the previous and the current anomaly score.
+                        elif self.window_aggregation_method == "max":
+                            anomaly_map[current_slice] = torch.max(anomaly_map[current_slice], anomaly_maps_current_batch[batch_idx,:,:,:])
+                            
                     
                     # update progress bar
                     pbar.update(1)
                 
                 
                 # also calculate results and save anomaly map for the last image
-                anomaly_map = self.normalise_anomaly_map(anomaly_map,normalisation_map)
+                if self.window_aggregation_method == "mean": # how we normalise the anomaly_map might depend on the window aggregation method
+                    anomaly_map = self.normalise_anomaly_map(anomaly_map,normalisation_map)
                 self.calculate_agreement_between_anomaly_score_and_labels(
                         image_idx=current_image_idx, anomaly_map=anomaly_map, which_set=which_set)
                 
@@ -484,95 +499,15 @@ class AnomalyDetectionExperiment(nn.Module):
                 print("{} set results:".format(which_set))
                 for key, list_of_values in self.stats_dict.items():
                     mean_value = sum(list_of_values)/len(list_of_values)
-                    print("Mean ", key, ": ", "{:.4f}".format(mean_value))
-            
-# =============================================================================
-#         with tqdm.tqdm(total=len(self.test_data_loader)) as pbar:
-#             for inputs, targets, image_idxs, slices in self.test_data_loader:
-#                 def process_batch(self, inputs, targets, image_idxs, slices, num_finished_images, which_set)
-#                 
-#                 inputs = inputs.to(self.device)
-#                 targets = targets.to(self.device)
-#                 outputs = self.model.forward(inputs)
-#                 if self.measure_of_anomaly == "absolute distance":
-#                     anomaly_score = torch.abs(outputs - targets) # pixelwise anomaly score, for each of the images in the batch
-#                     anomaly_score = torch.mean(anomaly_score, dim=1, keepdim=True) # take the mean over the channels
-#                     anomaly_score = anomaly_score.cpu().detach()
-#                 
-#                 # the following for-loop deals with translating the pixelwise anomaly for one sliding window position (and thus a score relative to an image patch) into an anomaly score for the full image
-#                 for batch_idx in range(len(image_idxs)): # for each image in the batch. "in range(batch_size)" leads to error, because the last batch is smaller that the batch size
-#                     # Get the index of the full image that the current patch was taken from. The index is relative to image_list and image_sizes
-#                     current_image_idx = int(image_idxs[batch_idx].detach().numpy())
-#                     assert num_finished_images <= current_image_idx, "This assertion fails if the dataloader does not strucutre the batches so that the order of images/patches WITHIN the batch does still correspond to image_list" # Basically, I am sure that __getitem__() gets items in the right order, but I am unsure if the order gets imxed up within the minibatch by the DataLoader. Probably best to leave that assertion in, since this will throw a bug if the behaviour of DataLoader is changed in future PyTorch versions.
-#             
-#                     
-#                     if current_image_idx > num_finished_images: # Upon starting the with the first patch, or whenever we have moved on to the next image
-#                         num_finished_images += 1
-#                         if num_finished_images > 0: # Whenever we have moved to the next image, calculate agreement between our anomaly score and the ground truth segmentation. (Obviously don't do this when we are jstus tarting with the first patch)
-#                             anomaly_map = self.normalise_anomaly_map(anomaly_map,normalisation_map)
-#                             self.calculate_agreement_between_anomaly_score_and_labels(
-#                                     image_idx=current_image_idx-1, anomaly_map=anomaly_map)
-#                             
-# #                            save_statistics(experiment_log_dir=self.result_tables_dir, filename='summary.csv',
-# #                            stats_dict=self.stats_dict, current_epoch=current_image_idx-1, continue_from_mode=True, save_full_dict=False) # save statistics to stats file.
-# 
-#                             
-#                             if self.save_anomaly_maps:
-#                                 anomaly_map = transforms.functional.to_pil_image(anomaly_map)
-#                                 anomaly_map.save(os.path.join(self.anomaly_map_dir,self.test_image_list[current_image_idx -1]))
-#                             
-#                         # Upon starting the with the first patch, or whenever we have moved on to the next image, create new anomaly maps and normalisation maps
-#                         current_image_height = self.test_image_sizes[current_image_idx][1]
-#                         current_image_width = self.test_image_sizes[current_image_idx][2]
-#                         
-#                         anomaly_map = torch.zeros((1,current_image_height, current_image_width)) # anomaly score heat maps for every image. Initialise as constant zero tensor of the same size as the full image
-#                         normalisation_map = torch.zeros((1,current_image_height, current_image_width)) # for every image, keep score of how often a given pixel has appeared in a sliding window, for calculation of average scores. Initialise as constant zero tensor of the same size as the full image
-#                     
-#                     # Now the part that happens for every image-patch(!): update the relevant part of the current anomaly_score map:
-#                     current_slice = np.s_[:,
-#                                           np.s_[slices["1_start"][batch_idx]:slices["1_stop"][batch_idx]],
-#                                           np.s_[slices["2_start"][batch_idx]:slices["2_stop"][batch_idx]]]
-#             
-#                     if self.window_aggregation_method == "mean":
-#                         anomaly_map[current_slice] += anomaly_score[batch_idx,:,:,:]
-#                         normalisation_map[current_slice] += 1
-#                 
-#                 # update progress bar
-#                 pbar.update(1)
-#             
-#             
-#             # also calculate results and save anomaly map for the last image
-#             anomaly_map = self.normalise_anomaly_map(anomaly_map,normalisation_map)
-#             self.calculate_agreement_between_anomaly_score_and_labels(
-#                     image_idx=current_image_idx, anomaly_map=anomaly_map)
-#             
-#             save_statistics(experiment_log_dir=self.result_tables_dir, filename='summary.csv',
-#                             stats_dict=self.stats_dict, current_epoch=current_image_idx, continue_from_mode=False, save_full_dict=True) # save statistics to stats file.
-# 
-#             if self.save_anomaly_maps:
-#                 anomaly_map = transforms.functional.to_pil_image(anomaly_map)
-#                 anomaly_map.save(os.path.join(self.anomaly_map_dir,self.test_image_list[current_image_idx]))
-#                             
-#             # print mean results:
-#             print("Results:")
-#             for key, list_of_values in self.stats_dict.items():
-#                 mean_value = sum(list_of_values)/len(list_of_values)
-#                 print("Mean ", key, ": ", "{:.4f}".format(mean_value))
-#         
-# =============================================================================
-            
-
-    
+                    print("Mean ", key, ": ", "{:.4f}".format(mean_value)) 
         
     def normalise_anomaly_map(self, anomaly_map, normalisation_map):
-        if self.window_aggregation_method == "mean": # how we normalise the anomaly_map might depend on the window aggregation method
         # normalise anomaly score maps
-            normalisation_map[normalisation_map == 0] = 1 # change zeros in the normalisation factor to 1
-            anomaly_map = anomaly_map / normalisation_map
+        normalisation_map[normalisation_map == 0] = 1 # change zeros in the normalisation factor to 1
+        anomaly_map = anomaly_map / normalisation_map
         return anomaly_map
     
     def calculate_agreement_between_anomaly_score_and_labels(self, image_idx, anomaly_map, which_set):
-    
         # load ground truth segmentation label image
         if which_set == "val":
             label_image = self.val_dataset.get_label_image(image_idx)
@@ -581,24 +516,28 @@ class AnomalyDetectionExperiment(nn.Module):
         
         ### calculate measures of agreement 
         # AUC: currently the only measure of agreement
-        if self.measure_of_anomaly == "absolute distance": #then all anomly scores will be in [0,1], so no further preprocessing is needed to calculate AUC:
-            aucroc = get_aucroc(label_image, anomaly_map)
+        if self.measure_of_anomaly == "absolute distance" or self.measure_of_anomaly == "likelihood": #then all anomly scores will be in [0,infinity], and higher scores will mean more anomaly, so no further preprocessing is needed to calculate AUC:
+            aucroc = get_aucroc(label_image, anomaly_map)            
         
         self.stats_dict["aucroc"].append(aucroc)
 
     
           
     def calculate_anomaly_maps(self, inputs, targets):
-        # calculate the anomaly map for the patches in the current batch
+        # calculate the anomaly map (pixel-wise anomaly score) for the patches in the current batch
         inputs = inputs.to(self.device)
         targets = targets.to(self.device)
         outputs = self.model.forward(inputs)
         
         if self.measure_of_anomaly == "absolute distance":
-            anomaly_maps = torch.abs(outputs - targets) # pixelwise anomaly score, for each of the images in the batch
+            anomaly_maps = torch.abs(outputs - targets)
             anomaly_maps = torch.mean(anomaly_maps, dim=1, keepdim=True) # take the mean over the channels
             anomaly_maps = anomaly_maps.cpu().detach()
-        
+        elif self.measure_of_anomaly == "likelihood":
+#            outputs = F.log_softmax(outputs, dim=1) # outputs have shape batch_size x classes x channels x mask_height x mask_width
+            anomaly_maps = F.cross_entropy(outputs, targets, reduction="none")  # pixelwise NLL, dimensions batch_size x channels x mask_height x mask_width
+            anomaly_maps = torch.sum(anomaly_maps, dim=1, keepdim=True) # Sum the NLL over the channels
+            anomaly_maps = anomaly_maps.cpu().detach()
         return anomaly_maps
 
 

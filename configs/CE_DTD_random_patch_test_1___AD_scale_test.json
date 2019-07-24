@@ -3,7 +3,7 @@
  "seed": 0,
  "task": "regression",
  "use_gpu": false,
- "gpu_id": "0,1,2",
+ "gpu_id": "0,1,2,3,4,5",
  "model_name": "context_encoder",
  "kernel_size": 4,
  "num_layers_enc": 6,
@@ -29,7 +29,10 @@
  "image_height": 128,
  "image_width": 128,
  "normalisation": "range-11",
- "scale_image": null,
+ "scale_image": [
+  0.5,
+  0.5
+ ],
  "debug_mode": true,
  "num_workers": 0,
  "augment": false,
@@ -46,7 +49,7 @@
   128,
   128
  ],
- "patch_location_during_training": "random",
+ "patch_location_during_training": "central",
  "patch_rejection_threshold": 10,
  "mask_size": [
   64,
@@ -67,7 +70,7 @@
   30
  ],
  "measure_of_anomaly": "absolute distance",
- "window_aggregation_method": "max",
+ "window_aggregation_method": "mean",
  "save_anomaly_maps": true,
  "AD_batch_size": 5
 }

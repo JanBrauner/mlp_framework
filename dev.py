@@ -221,3 +221,8 @@ show(reloaded_ori_grid, cax)
 
 #%% Visualise dataset samples
 from data_loaders import 
+
+
+#%% working space
+from misc_utils import get_aucroc
+get_aucroc(torch.tensor([0,0,1,0]),torch.tensor([1,2,3,4]))

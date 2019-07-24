@@ -55,9 +55,10 @@ default_args = {
 # data parameters: dataset
 "dataset_name": "MiasHealthy",
 "num_image_channels": 1,
-"image_height": 128,# "Height of input images. If patches are used as input, this is the patch height, not the full image height."
-"image_width": 128, #"Width of input images. If patches are used as input, this is the patch width, not the full image width."
+"image_height": 128,# Height of input images. If patches are used as input, this is the patch height, not the full image height.
+"image_width": 128, # Width of input images. If patches are used as input, this is the patch width, not the full image width.
 "normalisation": "range-11", # "mn0sd1" normalises to mean=0, std=1. "range-11" normalises to range [-1,1] 
+"scale_image": None, # Set None for no adaptive scaling, otherwise specify the tuple of scaling factors for the image dimensions. Allows for adaptive scaling of the images. E.g. (0.5,0.5) shrinks every image dimension to half of its original size (using Image.resize). Can be useful if input images have variable size and I don't want to bring them all to a fixed size, e.g. because patch mode is used). Was not intended to be used with InpaintingDataset but patch_mode=False, probably causes some funny bugs if used like that
 
 # data parameters: misc
 "debug_mode": False,
@@ -72,7 +73,7 @@ default_args = {
 "shear_angle": 0,
 
 # data parameters: image patches
-"patch_mode": True, # if true, patches of patch_size will be extracted from the image for training. If false, the whole image will be rescaled and cropped to image_size
+"patch_mode": True, # if true, patches of patch_size will be extracted from the image for training. If false, the whole image will be rescaled and cropped to (image_height,image_height)
 "patch_size": [128, 128],
 "patch_location_during_training": "central", # Can be "central" or "random"
 "patch_rejection_threshold": 10, # CURRENTLY NOT USED!.threshold, on a 8-bit scale. Patches sampled from the data loader with a mean below this threshold get rejected because they show only background
@@ -84,7 +85,7 @@ default_args = {
 ### training parameters
 # training parameters: general
 "batch_size": 100,
-"loss": "L2",
+"loss": "L2", #  currently implemented: "L2" for regression, "cross_entropy" for classification
 "num_epochs": 100,
 
 # training parameters: optimiser
@@ -99,8 +100,8 @@ default_args = {
 
 # Anomaly detection parameters
 "AD_patch_stride": (10,10), # stride of the sliding window in image dimensions 0 and 1.
-"measure_of_anomaly": "absolute distance", # current options: "absolute distance"
-"window_aggregation_method": "mean", # How to aggregate the results from overlapping sliding windows. Current option: "mean"
+"measure_of_anomaly": "absolute distance", # current options: "absolute distance" (for regression models), "likelihood"(for model trained on cliassification)
+"window_aggregation_method": "mean", # How to aggregate the results from overlapping sliding windows. Current option: "mean", "min", "max"
 "save_anomaly_maps": True, # whether to save the anomaly score heat maps
 
 # computational parameters
@@ -258,6 +259,12 @@ def AD_theme(args):
     args["gpu_id"] ="0,1,2"
     args["num_workers"] = 6
     return args
+
+def probabilistic_inpainting_theme(args):
+    args["task"] = "classification"
+    args["loss"] = "cross_entropy"
+    args["measure_of_anomaly"] = "likelihood"
+    return args
     
 #%% A list of independent experiment 
 experiment_names = ["CE_DTD_random_patch_test_1___AD_test"] # Note: For experiments that include anomaly detection, the experiment name needs to be original_experiment_name + "___" + AD_experiment_name, where original_experiment_name is the name of the eperiment in which the model that we want to use for AD was trained.
@@ -268,13 +275,14 @@ partition = "Standard"
 time = None
 
 # Commonly used themes
-cpu = False
+cpu = True
 GoogleStreetView = False
 DescribableTextures = True
+probabilistic_inpainting = False
 
 
 # arguments to update from default, each inner dict has the items for one experiment:
-update_dicts = [{}]
+update_dicts = [{"window_aggregation_method":"max"}]
 
 
 # for each experiment
@@ -282,21 +290,26 @@ for idx, experiment_name in enumerate(experiment_names):
     # update args
     args = copy.copy(default_args)
     
+
+    
+    if GoogleStreetView:
+        args = GoogleStreetView_theme(args)
+    if DescribableTextures:
+        args = DescribableTextures_theme(args)
+    if probabilistic_inpainting:
+        args = probabilistic_inpainting_theme(args)
     if experiment_type == "AD": # load the args from the experiment that trained the model we want to use. Use that to overwrite most of the current args. (Purpose of this block is that we don't have to look up e.g. the model architecture of the model we trained, but can import from old json files)
         train_experiment_name = experiment_name.split("___")[0] # name of the experiment in which the model that we want to use for anomaly detection was trained
         anomaly_detection_experiment_name = experiment_name.split("___")[1] # name of the anomaly detection experiment
-
+    
         train_experiment_config_path = os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir, "configs", train_experiment_name + ".json"))
         with open(train_experiment_config_path) as f:
             args_train_experiment = json.load(f)
     
         args_to_update = {key:value for (key,value) in args_train_experiment.items() if key not in args_to_keep_from_AD_experiment}
         args.update(args_to_update)
-    
-    if GoogleStreetView:
-        args = GoogleStreetView_theme(args)
-    if DescribableTextures:
-        args = DescribableTextures_theme(args)
+    if probabilistic_inpainting: # after having collected to args from the training experiment
+        args["measure_of_anomaly"] = "likelihood"
     if experiment_type == "AD": # you need less GPUs and workers if you don't train
         args = AD_theme(args)
     if cpu: # it's important that this one is last, because it needs to overwrite num_workers and use_gpu

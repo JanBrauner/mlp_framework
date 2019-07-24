@@ -634,7 +634,8 @@ class CIFAR100(CIFAR10):
 class InpaintingDataset(data.Dataset):
     
     def __init__(self, which_set, transformer, rng, patch_mode, debug_mode=False, 
-                 patch_size=(256,256), patch_location="central", mask_size=(64,64), precompute_patches=True): #, patch_rejection_threshold):
+                 patch_size=(256,256), patch_location="central", mask_size=(64,64), 
+                 scale_image=None, target_format_for_classification=False, inv_normalisation_transform=None, precompute_patches=True): #, patch_rejection_threshold):
 
         # check a valid which_set was provided
         assert which_set in ['train', 'val', 'test'], (
@@ -651,6 +652,12 @@ class InpaintingDataset(data.Dataset):
         self.transformer = transformer
         self.rng = rng
         self.patch_mode = patch_mode
+        self.target_format_for_classification = target_format_for_classification # returns the target (content of mask) as (CxHxW) tensor with integer values between 0 and 255
+        self.inv_normalisation_transform = inv_normalisation_transform # transform that undoes the normalisation. Needed if target images should be created for classification (256 classes)
+        
+        self.scale_image = scale_image # tuple that contains the scaling factors for each of the two image dimensions. None if no scaling is used.
+
+        
         self.precompute_patches = precompute_patches # this is only required to make visualisation of val and test set faster
 #        self.patch_rejection_threshold = patch_rejection_threshold
 
@@ -678,6 +685,12 @@ class InpaintingDataset(data.Dataset):
         for image_name in self.image_list:
             # load image
             full_image = Image.open(os.path.join(self.image_path, image_name))
+            
+            # potentially scale image
+            if self.scale_image != None:
+                scaled_image_size = tuple(int(x*self.scale_image[dim]) for dim, x in enumerate(full_image.size))
+                full_image = full_image.resize(scaled_image_size)
+            
             # transform image            
             full_image = self.transformer(full_image)
             
@@ -695,6 +708,12 @@ class InpaintingDataset(data.Dataset):
         
         # load image
         full_image = Image.open(os.path.join(self.image_path, self.image_list[index]))
+        
+        # potentially scale image
+        if self.scale_image != None:
+            scaled_image_size = tuple(int(x*self.scale_image[dim]) for dim, x in enumerate(full_image.size))
+            full_image = full_image.resize(scaled_image_size)
+
 
         # transform image
         full_image = self.transformer(full_image)
@@ -731,6 +750,12 @@ class InpaintingDataset(data.Dataset):
         # create target image
         target_image = image[self.mask_slice].clone().detach()
         
+        # format target image for classification task: (dimensions stay CxHxW,but every pixel needs to be an integer between 0 and 255)
+        if self.target_format_for_classification:
+            target_image = self.inv_normalisation_transform(target_image) # scales image to [0, 1]
+            target_image = target_image*255 # scales image to [0, 255]
+            target_image = target_image.type(torch.long)
+        
         # mask out central region in input image
         image[self.mask_slice] = 0 # note that zero is the dataset-wide mean value as images are centered
        
@@ -755,15 +780,25 @@ class MiasHealthy(InpaintingDataset):
     """    
     
     def __init__(self, which_set, transformer, rng, patch_mode, debug_mode=False, 
-                 patch_size=(256,256), patch_location="central", mask_size=(64,64), precompute_patches=True):
+                 patch_size=(256,256), patch_location="central", mask_size=(64,64), scale_image=None, target_format_for_classification=False,inv_normalisation_transform=False, precompute_patches=True):
 
         # DATASET_DIR should point to root directory of data
         self.image_base_path = os.path.join(os.environ['DATASET_DIR'], "MiasHealthy") # path of the data set images
         print("Loading data from: ", self.image_base_path)
 
-        super(MiasHealthy, self).__init__(which_set=which_set, transformer=transformer, rng=rng, 
-             debug_mode=debug_mode, patch_mode=patch_mode, patch_size=patch_size, patch_location=patch_location, mask_size=mask_size, precompute_patches=precompute_patches) #, patch_rejection_threshold):
-
+        super(MiasHealthy, self).__init__(
+                which_set=which_set, 
+                transformer=transformer, 
+                rng=rng, 
+                debug_mode=debug_mode, 
+                patch_mode=patch_mode, 
+                patch_size=patch_size, 
+                patch_location=patch_location, 
+                mask_size=mask_size, 
+                scale_image=scale_image,
+                inv_normalisation_transform=inv_normalisation_transform,
+                target_format_for_classification=target_format_for_classification,
+                precompute_patches=precompute_patches) #, patch_rejection_threshold):
 
 class GoogleStreetView(InpaintingDataset):
     """
@@ -771,37 +806,58 @@ class GoogleStreetView(InpaintingDataset):
     """
     
     def __init__(self, which_set, transformer, rng, patch_mode, debug_mode=False, 
-                 patch_size=(256,256), patch_location="central", mask_size=(64,64), precompute_patches=True):
+                 patch_size=(256,256), patch_location="central", mask_size=(64,64), scale_image=None, target_format_for_classification=False,inv_normalisation_transform=False, precompute_patches=True):
 
 
         # DATASET_DIR should point to root directory of data
         self.image_base_path = os.path.join(os.environ['DATASET_DIR'], "GoogleStreetView") # path of the data set images
         print("Loading data from: ", self.image_base_path)
 
-        super(GoogleStreetView, self).__init__(which_set=which_set, transformer=transformer, rng=rng, 
-             debug_mode=debug_mode, patch_mode=patch_mode, patch_size=patch_size, patch_location=patch_location, mask_size=mask_size, precompute_patches=precompute_patches) #, patch_rejection_threshold):
-
+        super(GoogleStreetView, self).__init__(
+                which_set=which_set, 
+                transformer=transformer, 
+                rng=rng, 
+                debug_mode=debug_mode, 
+                patch_mode=patch_mode, 
+                patch_size=patch_size, 
+                patch_location=patch_location, 
+                mask_size=mask_size, 
+                scale_image=scale_image,
+                inv_normalisation_transform=inv_normalisation_transform,
+                target_format_for_classification=target_format_for_classification,
+                precompute_patches=precompute_patches) #, patch_rejection_threshold):
+                
 class DescribableTextures(InpaintingDataset):
     """
 
     """
     
     def __init__(self, which_set, transformer, rng, patch_mode, debug_mode=False, 
-                 patch_size=(256,256), patch_location="central", mask_size=(64,64), precompute_patches=True):
+                 patch_size=(256,256), patch_location="central", mask_size=(64,64), scale_image=None, target_format_for_classification=False,inv_normalisation_transform=False, precompute_patches=True):
 
 
         # DATASET_DIR should point to root directory of data
         self.image_base_path = os.path.join(os.environ['DATASET_DIR'], "DescribableTextures") # path of the data set images
         print("Loading data from: ", self.image_base_path)
 
-        super(DescribableTextures, self).__init__(which_set=which_set, transformer=transformer, rng=rng, 
-             debug_mode=debug_mode, patch_mode=patch_mode, patch_size=patch_size, patch_location=patch_location, mask_size=mask_size, precompute_patches=precompute_patches) #, patch_rejection_threshold):
-
+        super(DescribableTextures, self).__init__(
+                which_set=which_set, 
+                transformer=transformer, 
+                rng=rng, 
+                debug_mode=debug_mode, 
+                patch_mode=patch_mode, 
+                patch_size=patch_size, 
+                patch_location=patch_location, 
+                mask_size=mask_size,
+                scale_image=scale_image,
+                inv_normalisation_transform=inv_normalisation_transform,
+                target_format_for_classification=target_format_for_classification,
+                precompute_patches=precompute_patches) #, patch_rejection_threshold):
 
 class DatasetWithAnomalies(InpaintingDataset): # the only thing it inherits is get_central_region_slice
 
     def __init__(self, which_set, transformer, debug_mode=False, 
-                 patch_size=(256,256), patch_stride = (1,1), mask_size=(64,64)):
+                 patch_size=(256,256), patch_stride = (1,1), mask_size=(64,64), scale_image=None, target_format_for_classification=False, inv_normalisation_transform=None):
 
         # check a valid which_set was provided
         assert which_set in ['train', 'val', 'test'], (
@@ -821,7 +877,13 @@ class DatasetWithAnomalies(InpaintingDataset): # the only thing it inherits is g
         self.mask_size = mask_size
         self.transformer = transformer
         self.patch_stride = patch_stride
+        
+        self.scale_image = scale_image
+        
+        self.target_format_for_classification=target_format_for_classification # returns the target (content of mask) as (CxHxW) tensor with integer values between 0 and 255
+        self.inv_normalisation_transform = inv_normalisation_transform # transform that undoes the normalisation. Needed if target images should be created for classification (256 classes)
 
+        
         self.label_image_transformer = transforms.ToTensor() # this is the only transformation label images need
         
         # debugging mode sets the dataset size to around 10, so we can run the whole experiment locally.
@@ -848,6 +910,10 @@ class DatasetWithAnomalies(InpaintingDataset): # the only thing it inherits is g
             # load image
             full_image = Image.open(os.path.join(self.image_path, image_name))
 
+            # potentially scale image
+            if self.scale_image != None:
+                scaled_image_size = tuple(int(x*self.scale_image[dim]) for dim, x in enumerate(full_image.size))
+                full_image = full_image.resize(scaled_image_size)
     
             # transform image
             full_image = self.transformer(full_image)
@@ -886,6 +952,11 @@ class DatasetWithAnomalies(InpaintingDataset): # the only thing it inherits is g
         # load image
         full_image = Image.open(os.path.join(self.image_path, sample_info["image_name"]))
 
+        # potentially scale image
+        if self.scale_image != None:
+            scaled_image_size = tuple(int(x*self.scale_image[dim]) for dim, x in enumerate(full_image.size))
+            full_image = full_image.resize(scaled_image_size)
+        
         # transform image
         full_image = self.transformer(full_image)
         
@@ -894,6 +965,12 @@ class DatasetWithAnomalies(InpaintingDataset): # the only thing it inherits is g
         
         # create target image
         target_image = image[self.mask_slice].clone().detach()
+        
+        # format target image for classification task: (dimensions stay CxHxW,but every pixel needs to be an integer between 0 and 255)
+        if self.target_format_for_classification:
+            target_image = self.inv_normalisation_transform(target_image) # scales image to [0, 1]
+            target_image = target_image*255 # scales image to [0, 255]
+            target_image = target_image.type(torch.long)
         
         # mask out central region in input image
         image[self.mask_slice] = 0 # note that zero is the dataset-wide mean value as images are centered
@@ -919,12 +996,16 @@ class DatasetWithAnomalies(InpaintingDataset): # the only thing it inherits is g
         
         # load image
         full_label_image = Image.open(os.path.join(self.label_image_path, self.image_list[index]))
+        
+        # potentially scale image
+        if self.scale_image != None:
+            scaled_image_size = tuple(int(x*self.scale_image[dim]) for dim, x in enumerate(full_label_image.size))
+            full_label_image = full_label_image.resize(scaled_image_size)
 
         # transform image
         full_label_image = self.label_image_transformer(full_label_image)
     
         return full_label_image
-    
     
     
     def __len__(self):
@@ -933,126 +1014,167 @@ class DatasetWithAnomalies(InpaintingDataset): # the only thing it inherits is g
 class DescribableTexturesPathological(DatasetWithAnomalies):
     
     def __init__(self, which_set, transformer, debug_mode=False, 
-                 patch_size=(256,256), patch_stride=(10,10), mask_size=(64,64), version = "DTPathologicalIrreg1"):    
+                 patch_size=(256,256), patch_stride=(10,10), mask_size=(64,64), version = "DTPathologicalIrreg1", scale_image=None, target_format_for_classification=False, inv_normalisation_transform=None):    
+       
         self.image_base_path = os.path.join(os.environ['DATASET_DIR'], version) # path of the data set images
         
-        super(DescribableTexturesPathological, self).__init__(which_set=which_set, transformer=transformer,
-             debug_mode=debug_mode, patch_size=patch_size, patch_stride=patch_stride, mask_size=mask_size)
-
-
-class MiasPathological(data.Dataset):
-    """
-
-    """
-
-    # Handling cluster data migration to scratch folder - use this when running on cluster
-    #image_path_base = os.path.join(os.environ['DATASET_DIR'], "RSNA_working_set") # path of the data set images
-
-# =============================================================================
-#     # Use this for your local PC
-    image_base_path = os.path.join("data", "pathological_1") # path of the data set images
+        super(DescribableTexturesPathological, self).__init__(
+                which_set=which_set, 
+                transformer=transformer,
+                debug_mode=debug_mode,
+                patch_size=patch_size, 
+                patch_stride=patch_stride, 
+                mask_size=mask_size, 
+                scale_image=scale_image, 
+                target_format_for_classification=target_format_for_classification, 
+                inv_normalisation_transform=inv_normalisation_transform)
 
 # =============================================================================
-
-
-    def __init__(self, which_set, # task,
-                 transformer,
-                 debug_mode=False, 
-                 patch_size=(256,256), mask_size=(64,64)):
-
-        # check a valid which_set was provided
-        assert which_set in ['train', 'val', 'test'], (
-            'Expected which_set to be either train, val or test '
-            'Got {0}'.format(which_set)
-        )
-#        assert task in ["regression"], "Please enter valid task"
-        
-        self.which_set = which_set  # train, val or test set
-#        self.task = task
-        
-        self.patch_size = patch_size
-        self.mask_size = mask_size
-        self.transformer = transformer
-
-        # create list of all images in current dataset
-        self.image_path = os.path.join(self.image_base_path, which_set, "images")
-        self.target_image_path = os.path.join(self.image_base_path, which_set, "target_images")
-        self.image_list = os.listdir(self.image_path).sort() #directory may only contain the image files, no other files or directories
-        self.target_image_list = os.listdir(self.target_image_path).sort() #directory may only contain the image files, no other files or directories
-        
-        assert len(self.image_list) > 0, "source directory doesn't contain image files"
-        assert len(self.image_list) == len(self.target_image_list)
-        for i,t in zip(self.image_list, self.target_image_list):
-            assert i[-6:-1] == t[-6:-1] # check that the last few symbols of the filenames are equal
-
-
-        # debugging mode sets the dataset size to 50, so we can run the whole experiment locally.
-        if debug_mode:
-            self.image_list = self.image_list[0:50]
-            self.target_image_list = self.target_image_list[0:50]
-
-
-    def get_input_patch(self, index, patch_location="central"):
-        """
-        Args:
-            index (int): Index
-            patch_location: can be the string "central" or a tupel of 2-D coordinates of the top-left corner
-        Returns:
-        """
-        
-        # load image
-        full_image = Image.open(os.path.join(self.image_path, self.image_list[index]))
-#        full_target_image = Image.open(os.path.join(self.target_image_path, self.target_image_list[index]))
-
-        # transform image
-        full_image = self.transformer(full_image)
-#        full_target_image = self.transformer(full_target_image)
-        
-        # create patch, but the patch will be called "image" for consistency with other Dataset classes
-        if self.patch_location == "central":
-            central_region_slice = self.create_central_region_slice(full_image.size(), self.patch_size)
-            image = full_image[central_region_slice]      
-        
-        else:
-            top_left_corner = patch_location
-            image = full_image[:,
-                               top_left_corner[0]:top_left_corner[0]+self.patch_size[0],
-                               top_left_corner[1]:top_left_corner[1]+self.patch_size[1]]
-        
-        # create coordinates of central region of the image, to be masked out
-        central_region_slice = self.create_central_region_slice(image.size(), self.mask_size)
-        
-#        # create target image
-#        target_image = image[central_region_slice].clone().detach()
+# 
+# class MiasPathological(data.Dataset):
+#     """
+# 
+#     """
+# 
+#     # Handling cluster data migration to scratch folder - use this when running on cluster
+#     #image_path_base = os.path.join(os.environ['DATASET_DIR'], "RSNA_working_set") # path of the data set images
+# 
+# # =============================================================================
+# #     # Use this for your local PC
+#     image_base_path = os.path.join("data", "pathological_1") # path of the data set images
+# 
+# # =============================================================================
+# 
+# 
+#     def __init__(self, which_set, # task,
+#                  transformer,
+#                  debug_mode=False, 
+#                  patch_size=(256,256), mask_size=(64,64)):
+# 
+#         # check a valid which_set was provided
+#         assert which_set in ['train', 'val', 'test'], (
+#             'Expected which_set to be either train, val or test '
+#             'Got {0}'.format(which_set)
+#         )
+# #        assert task in ["regression"], "Please enter valid task"
+#         
+#         self.which_set = which_set  # train, val or test set
+# #        self.task = task
+#         
+#         self.patch_size = patch_size
+#         self.mask_size = mask_size
+#         self.transformer = transformer
+# 
+#         # create list of all images in current dataset
+#         self.image_path = os.path.join(self.image_base_path, which_set, "images")
+#         self.target_image_path = os.path.join(self.image_base_path, which_set, "target_images")
+#         self.image_list = os.listdir(self.image_path).sort() #directory may only contain the image files, no other files or directories
+#         self.target_image_list = os.listdir(self.target_image_path).sort() #directory may only contain the image files, no other files or directories
+#         
+#         assert len(self.image_list) > 0, "source directory doesn't contain image files"
+#         assert len(self.image_list) == len(self.target_image_list)
+#         for i,t in zip(self.image_list, self.target_image_list):
+#             assert i[-6:-1] == t[-6:-1] # check that the last few symbols of the filenames are equal
+# 
+# 
+#         # debugging mode sets the dataset size to 50, so we can run the whole experiment locally.
+#         if debug_mode:
+#             self.image_list = self.image_list[0:50]
+#             self.target_image_list = self.target_image_list[0:50]
+# 
+# 
+#     def get_input_patch(self, index, patch_location="central"):
+#         """
+#         Args:
+#             index (int): Index
+#             patch_location: can be the string "central" or a tupel of 2-D coordinates of the top-left corner
+#         Returns:
+#         """
+#         
+#         # load image
+#         full_image = Image.open(os.path.join(self.image_path, self.image_list[index]))
+# #        full_target_image = Image.open(os.path.join(self.target_image_path, self.target_image_list[index]))
+# 
+#         # transform image
+#         full_image = self.transformer(full_image)
+# #        full_target_image = self.transformer(full_target_image)
+#         
+#         # create patch, but the patch will be called "image" for consistency with other Dataset classes
+#         if self.patch_location == "central":
+#             central_region_slice = self.create_central_region_slice(full_image.size(), self.patch_size)
+#             image = full_image[central_region_slice]      
+#         
+#         else:
+#             top_left_corner = patch_location
+#             image = full_image[:,
+#                                top_left_corner[0]:top_left_corner[0]+self.patch_size[0],
+#                                top_left_corner[1]:top_left_corner[1]+self.patch_size[1]]
+#         
+#         # create coordinates of central region of the image, to be masked out
+#         central_region_slice = self.create_central_region_slice(image.size(), self.mask_size)
+#         
+# #        # create target image
+# #        target_image = image[central_region_slice].clone().detach()
+# #        
+#         # mask out central region in input image
+#         image[central_region_slice] = 0
 #        
-        # mask out central region in input image
-        image[central_region_slice] = 0
-       
-        return image # , target_image
+#         return image # , target_image
+#     
+#     def get_target(self, index):
+#         '''
+#         Get target segmentation of full image
+#         '''
+#         full_target_image = Image.open(os.path.join(self.target_image_path, self.target_image_list[index]))
+#         full_target_image = self.transformer(full_target_image)
+#         return full_target_image
+# 
+#     def create_central_region_slice(self, image_size, size_central_region):
+#         margins = ((image_size[1]-size_central_region[0])/2, 
+#                    (image_size[2]-size_central_region[1])/2) # size of margins in dimensions 1 and 2 (relative to the 3-D tensor) between the image borders and the patch borders
+#         
+#         central_region_slice = np.s_[:, 
+#                           math.ceil(margins[0]):math.ceil(image_size[1]-margins[0]), 
+#                           math.ceil(margins[1]):math.ceil(image_size[2]-margins[1])]
+#         return central_region_slice
+# 
+# 
+#     def __len__(self):
+#         return len(self.image_list)
+# 
+# =============================================================================
+
+
+
+        
+def create_transforms(mn, sd, augmentations, args):
+    # returns a list of standard transformations that get applied to the images of each set (train, val, test)  
+    if args.patch_mode: # patches get extracted within the Datset class, no need to resize images here
+        standard_transforms = [transforms.ToTensor(),
+                               transforms.Normalize(mn, sd)]
+    else:
+        standard_transforms = [transforms.Resize(args.image_height), # resize the image to approximately image_height x image_height
+                               transforms.CenterCrop(args.image_height), # then crop the image to exactly image_height x image_height
+                               transforms.ToTensor(),
+                               transforms.Normalize(mn, sd)]
     
-    def get_target(self, index):
-        '''
-        Get target segmentation of full image
-        '''
-        full_target_image = Image.open(os.path.join(self.target_image_path, self.target_image_list[index]))
-        full_target_image = self.transformer(full_target_image)
-        return full_target_image
+    if augmentations is not None:
+        transform_train = transforms.Compose(augmentations + standard_transforms)
+    else:
+        transform_train = transforms.Compose(standard_transforms)
 
-    def create_central_region_slice(self, image_size, size_central_region):
-        margins = ((image_size[1]-size_central_region[0])/2, 
-                   (image_size[2]-size_central_region[1])/2) # size of margins in dimensions 1 and 2 (relative to the 3-D tensor) between the image borders and the patch borders
-        
-        central_region_slice = np.s_[:, 
-                          math.ceil(margins[0]):math.ceil(image_size[1]-margins[0]), 
-                          math.ceil(margins[1]):math.ceil(image_size[2]-margins[1])]
-        return central_region_slice
+    transform_test = transforms.Compose(standard_transforms)
+    
+    return transform_train, transform_test
 
-
-    def __len__(self):
-        return len(self.image_list)
+def create_inv_normalise_transform(mn, sd):
+    # for a given mean and sd, create transform that  undoes the normalisatin
+    neg_of_mn_over_SD = [-x/y for x,y in zip(mn,sd)] # this has a bit weird syntax because it needs to deal with tupels and lists, since that's what transforms.normalise expects as input
+    one_over_SD = [1./x for x in sd]
+    inv_normalise = transforms.Normalize(neg_of_mn_over_SD, one_over_SD)
+    return inv_normalise
 
 
-        
 
 def create_dataset(args, augmentations, rng, precompute_patches=True):
     """
@@ -1139,22 +1261,9 @@ def create_dataset(args, augmentations, rng, precompute_patches=True):
                 sd = (0.30890,)
         
         # transformations and augmentations        
-        if args.patch_mode: # patches get extracted within the Datset class, no need to resize images here
-            standard_transforms = [transforms.ToTensor(),
-                                   transforms.Normalize(mn, sd)] 
-        else:
-            standard_transforms = [transforms.Resize(args.image_height), # resize the image to approximately image_height x image_height
-                                   transforms.CenterCrop(args.image_height), # then crop the image to exactly image_height x image_height
-                                   transforms.ToTensor(),
-                                   transforms.Normalize(mn, sd)] 
-         
-        if augmentations is not None:
-            transform_train = transforms.Compose(augmentations + standard_transforms)
-        else:
-            transform_train = transforms.Compose(standard_transforms)
-    
-        transform_test = transforms.Compose(standard_transforms)
-        
+        transform_train, transform_test = create_transforms(mn, sd, augmentations, args)
+
+        inv_normalisation_transform = create_inv_normalise_transform(mn, sd) # required for creating target images for classification, see InpaintingDataset
 #        # patches with mean value below this get rejected (so we don't sample too many black images)
 #        patch_rejection_threshold = (args.patch_rejection_treshold/255 - mn)/sd
         
@@ -1164,6 +1273,9 @@ def create_dataset(args, augmentations, rng, precompute_patches=True):
                          "patch_size" : (args.image_height, args.image_width),
                          "patch_location" : args.patch_location_during_training,
                          "mask_size" : args.mask_size,
+                         "scale_image" : args.scale_image,
+                         "target_format_for_classification": True if args.task == "classification" else False,
+                         "inv_normalisation_transform": inv_normalisation_transform,
                          "precompute_patches" : precompute_patches}
         kwargs_dataloader = {"batch_size": args.batch_size,
                              "num_workers": args.num_workers}
@@ -1192,28 +1304,19 @@ def create_dataset(args, augmentations, rng, precompute_patches=True):
             sd = [0.5, 0.5, 0.5]
 
         # transformations and augmentations        
-        if args.patch_mode: # patches get extracted within the Datset class, no need to resize images here
-            standard_transforms = [transforms.ToTensor(),
-                                   transforms.Normalize(mn, sd)] 
-        else:
-            standard_transforms = [transforms.Resize(args.image_height), # resize the image to approximately image_height x image_height
-                                   transforms.CenterCrop(args.image_height), # then crop the image to exactly image_height x image_height
-                                   transforms.ToTensor(),
-                                   transforms.Normalize(mn, sd)] 
-         
-        if augmentations is not None:
-            transform_train = transforms.Compose(augmentations + standard_transforms)
-        else:
-            transform_train = transforms.Compose(standard_transforms)
-    
-        transform_test = transforms.Compose(standard_transforms)
-        
+        transform_train, transform_test = create_transforms(mn, sd, augmentations, args)
+                
+        inv_normalisation_transform = create_inv_normalise_transform(mn, sd) # required for creating target images for classification, see InpaintingDataset
+
         kwargs_dataset= {"rng":rng, 
                          "patch_mode" : args.patch_mode, 
                          "debug_mode" : args.debug_mode,
                          "patch_size" : (args.image_height, args.image_width),
                          "patch_location" : args.patch_location_during_training,
                          "mask_size" : args.mask_size,
+                         "scale_image" : args.scale_image,
+                         "target_format_for_classification": True if args.task == "classification" else False,
+                         "inv_normalisation_transform": inv_normalisation_transform,
                          "precompute_patches" : precompute_patches}
         kwargs_dataloader = {"batch_size": args.batch_size,
                              "num_workers": args.num_workers}
@@ -1244,21 +1347,10 @@ def create_dataset(args, augmentations, rng, precompute_patches=True):
             sd = [0.5, 0.5, 0.5]
 
         # transformations and augmentations        
-        if args.patch_mode: # patches get extracted within the Datset class, no need to resize images here
-            standard_transforms = [transforms.ToTensor(),
-                                   transforms.Normalize(mn, sd)] 
-        else:
-            standard_transforms = [transforms.Resize(args.image_height), # resize the image to approximately image_height x image_height
-                                   transforms.CenterCrop(args.image_height), # then crop the image to exactly image_height x image_height
-                                   transforms.ToTensor(),
-                                   transforms.Normalize(mn, sd)] 
-         
-        if augmentations is not None:
-            transform_train = transforms.Compose(augmentations + standard_transforms)
-        else:
-            transform_train = transforms.Compose(standard_transforms)
-    
-        transform_test = transforms.Compose(standard_transforms)
+        transform_train, transform_test = create_transforms(mn, sd, augmentations, args)
+        
+        inv_normalisation_transform = create_inv_normalise_transform(mn, sd) # required for creating target images for classification, see InpaintingDataset
+
         
         kwargs_dataset= {"rng":rng, 
                          "patch_mode" : args.patch_mode, 
@@ -1266,6 +1358,9 @@ def create_dataset(args, augmentations, rng, precompute_patches=True):
                          "patch_size" : (args.image_height, args.image_width),
                          "patch_location" : args.patch_location_during_training,
                          "mask_size" : args.mask_size,
+                         "scale_image" : args.scale_image,
+                         "target_format_for_classification": True if args.task == "classification" else False,
+                         "inv_normalisation_transform": inv_normalisation_transform,
                          "precompute_patches" : precompute_patches}
         kwargs_dataloader = {"batch_size": args.batch_size,
                              "num_workers": args.num_workers}
@@ -1283,7 +1378,7 @@ def create_dataset(args, augmentations, rng, precompute_patches=True):
         
         return train_data, val_data, test_data, num_output_classes
     
-def create_dataset_with_anomalies(anomaly_dataset_name, normalisation, batch_size, patch_size, patch_stride, mask_size, num_workers, debug_mode):
+def create_dataset_with_anomalies(anomaly_dataset_name, normalisation, batch_size, patch_size, patch_stride, mask_size, num_workers, debug_mode, scale_image, target_image_for_classification):
 
     if "DTPathological" in anomaly_dataset_name: # there are several versions of DTPathological with different lesions 
         # calculate mean and SD for normalisation
@@ -1294,13 +1389,17 @@ def create_dataset_with_anomalies(anomaly_dataset_name, normalisation, batch_siz
             sd = [0.5, 0.5, 0.5]
             
         transformer = transforms.Compose([transforms.ToTensor(), transforms.Normalize(mn, sd)])
+        inv_normalisation_transform = create_inv_normalise_transform(mn, sd) # required for creating target images for classification, see InpaintingDataset
 
         kwargs_dataset = {"transformer":transformer, 
                           "debug_mode":debug_mode, 
                           "patch_size":patch_size, 
                           "patch_stride":patch_stride, 
                           "mask_size":mask_size, 
-                          "version":anomaly_dataset_name}
+                          "version":anomaly_dataset_name,
+                          "target_format_for_classification": target_image_for_classification,
+                          "inv_normalisation_transform": inv_normalisation_transform,
+                          "scale_image": scale_image}
         val_dataset = DescribableTexturesPathological(which_set="val", **kwargs_dataset)
         test_dataset = DescribableTexturesPathological(which_set="test", **kwargs_dataset)
 
@@ -1311,4 +1410,6 @@ def create_dataset_with_anomalies(anomaly_dataset_name, normalisation, batch_siz
     test_data_loader = torch.utils.data.DataLoader(test_dataset, shuffle=False, batch_size=batch_size, num_workers=num_workers)
     
     return val_dataset, val_data_loader, test_dataset, test_data_loader 
+
+
 
