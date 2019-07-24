@@ -1,2 +1,2 @@
-test_loss
-0.2711547
+test_accuracy,test_loss,test_map_mse_range11
+0.005779622,5.545057,0.9988438

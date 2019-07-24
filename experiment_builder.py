@@ -58,7 +58,7 @@ class ExperimentBuilder(nn.Module):
         self.best_val_model_idx = 0
         
         if self.task == "classification":
-            self.best_val_model_measure = 0. # performance measure for choosing best epoch: accuracy
+            self.best_val_model_measure = 1000000000 # performance measure for choosing best epoch: loss
         elif self.task == "regression":
             self.best_val_model_measure = 1000000000 # performance measure for choosing best epoch: loss
 
@@ -125,7 +125,13 @@ class ExperimentBuilder(nn.Module):
         if self.task == "classification":
             _, predicted = torch.max(out.data, 1)  # get argmax of predictions
             accuracy = torch.mean(predicted.eq(y.data).cpu().type(torch.float32))  # compute accuracy
-            return loss.data.detach().cpu().numpy(), accuracy
+            
+            normalised_predictions = ((predicted.cpu().type(torch.float32)/255)-0.5)/0.5
+            normalised_targets = ((y.type(torch.float32)/255)-0.5)/0.5
+            map_mse_range11 = F.mse_loss(normalised_predictions, normalised_targets)# MSE of maximum a posterior predictions, when targets are scaled to range [-1,1] (for consisteny with the regression setting) 
+            
+            return loss.data.detach().cpu().numpy(), accuracy, map_mse_range11
+        
         elif self.task == "regression":
             return loss.data.detach().cpu().numpy()
 
@@ -144,7 +150,13 @@ class ExperimentBuilder(nn.Module):
         if self.task == "classification":
             _, predicted = torch.max(out.data, 1)  # get argmax of predictions
             accuracy = torch.mean(predicted.eq(y.data).cpu().type(torch.float32))  # compute accuracy
-            return loss.data.detach().cpu().numpy(), accuracy
+            
+            normalised_predictions = ((predicted.cpu().type(torch.float32)/255)-0.5)/0.5
+            normalised_targets = ((y.type(torch.float32)/255)-0.5)/0.5
+            map_mse_range11 = F.mse_loss(normalised_predictions, normalised_targets)# MSE of maximum a posterior predictions, when targets are scaled to range [-1,1] (for consisteny with the regression setting) 
+            
+            return loss.data.detach().cpu().numpy(), accuracy, map_mse_range11
+        
         elif self.task == "regression":
             return loss.data.detach().cpu().numpy()
 
@@ -216,8 +228,9 @@ class ExperimentBuilder(nn.Module):
         """
         # initialize a dict to keep the per-epoch metrics
         if self.task == "classification":
-            total_losses = {"train_accuracy": [], "train_loss": [], "val_accuracy": [],
-                            "val_loss": [], "curr_epoch": []}
+            total_losses = {"train_accuracy": [], "train_loss": [], "train_map_mse_range11": [],
+                            "val_accuracy": [], "val_loss": [], "val_map_mse_range11": [],
+                            "curr_epoch": []}
         elif self.task == "regression":
             total_losses = {"train_loss": [],
                         "val_loss": [], "curr_epoch": []}
@@ -226,7 +239,8 @@ class ExperimentBuilder(nn.Module):
             epoch_start_time = time.time()
             
             if self.task == "classification":
-                current_epoch_losses = {"train_accuracy": [], "train_loss": [], "val_accuracy": [], "val_loss": []}
+                current_epoch_losses = {"train_accuracy": [], "train_loss": [], "train_map_mse_range11": [],
+                                        "val_accuracy": [], "val_loss": [], "val_map_mse_range11": []}
             elif self.task == "regression":
                 current_epoch_losses = {"train_loss": [], "val_loss": []}
 
@@ -234,8 +248,8 @@ class ExperimentBuilder(nn.Module):
             with tqdm.tqdm(total=len(self.train_data)) as pbar_train:  # create a progress bar for training
                 for idx, (x, y) in enumerate(self.train_data):  # get data batches
                     if self.task == "classification":
-                        loss, accuracy = self.run_train_iter(x=x, y=y)  # take a training iter step
-                        self.update_current_epoch_stats(current_epoch_losses, current_dataset="train", loss=loss,accuracy=accuracy)
+                        loss, accuracy, map_mse_range11 = self.run_train_iter(x=x, y=y)  # take a training iter step
+                        self.update_current_epoch_stats(current_epoch_losses, current_dataset="train", loss=loss,accuracy=accuracy, map_mse_range11=map_mse_range11)
                         pbar_train.update(1)
                         pbar_train.set_description("loss: {:.4f}, accuracy: {:.4f}".format(loss, accuracy))
                     elif self.task == "regression":
@@ -248,8 +262,8 @@ class ExperimentBuilder(nn.Module):
             with tqdm.tqdm(total=len(self.val_data)) as pbar_val:  # create a progress bar for validation
                 for x, y in self.val_data:  # get data batches
                     if self.task == "classification":
-                        loss, accuracy = self.run_evaluation_iter(x=x, y=y)  # run a validation iter
-                        self.update_current_epoch_stats(current_epoch_losses, current_dataset="val", loss=loss,accuracy=accuracy)
+                        loss, accuracy, map_mse_range11 = self.run_evaluation_iter(x=x, y=y)  # run a validation iter
+                        self.update_current_epoch_stats(current_epoch_losses, current_dataset="val", loss=loss,accuracy=accuracy, map_mse_range11=map_mse_range11)
                         pbar_val.update(1)  # add 1 step to the progress bar
                         pbar_train.set_description("loss: {:.4f}, accuracy: {:.4f}".format(loss, accuracy))
                     elif self.task == "regression":
@@ -294,7 +308,7 @@ class ExperimentBuilder(nn.Module):
                         model_save_name="train_model")
         
         if self.task == "classification":
-            current_epoch_losses = {"test_accuracy": [], "test_loss": []}  # initialize a statistics dict
+            current_epoch_losses = {"test_accuracy": [], "test_loss": [], "test_map_mse_range11": []}  # initialize a statistics dict
         elif self.task == "regression":
             current_epoch_losses = {"test_loss": []}  # initialize a statistics dict
 
@@ -302,8 +316,8 @@ class ExperimentBuilder(nn.Module):
         with tqdm.tqdm(total=len(self.test_data)) as pbar_test:  # ini a progress bar
             for x, y in self.test_data:  # sample batch
                 if self.task == "classification":
-                    loss, accuracy = self.run_evaluation_iter(x=x, y=y)  # run a validation iter
-                    self.update_current_epoch_stats(current_epoch_losses, current_dataset="test", loss=loss,accuracy=accuracy)
+                    loss, accuracy, map_mse_range11 = self.run_evaluation_iter(x=x, y=y)  # run a validation iter
+                    self.update_current_epoch_stats(current_epoch_losses, current_dataset="test", loss=loss,accuracy=accuracy, map_mse_range11=map_mse_range11)
                     pbar_test.update(1)  # add 1 step to the progress bar
                     pbar_test.set_description("loss: {:.4f}, accuracy: {:.4f}".format(loss, accuracy))
                 elif self.task == "regression":
@@ -326,10 +340,11 @@ class ExperimentBuilder(nn.Module):
         return total_losses, test_losses
     
     
-    def update_current_epoch_stats(self, current_epoch_losses, current_dataset, loss=[], accuracy = []):
+    def update_current_epoch_stats(self, current_epoch_losses, current_dataset, loss=[], accuracy = [], map_mse_range11 = []):
         if self.task == "classification":
             current_epoch_losses["{}_loss".format(current_dataset)].append(loss)  # add current iter loss to the train loss list
             current_epoch_losses["{}_accuracy".format(current_dataset)].append(accuracy)  # add current iter accuracy to the train accuracy list
+            current_epoch_losses["{}_map_mse_range11".format(current_dataset)].append(map_mse_range11)  # add current iter accuracy to the train accuracy list
         elif self.task == "regression":
             current_epoch_losses["{}_loss".format(current_dataset)].append(loss)  # add current iter loss to the train loss list
 
@@ -339,8 +354,8 @@ class ExperimentBuilder(nn.Module):
         Updates statistics for best epoch, if the current epoch is the best epoch so far
         """
         if self.task == "classification":
-            val_mean_performance_measure = np.mean(current_epoch_losses['val_accuracy']) # measure that determines which is the best epoch. For classification: accuracy                    
-            if val_mean_performance_measure > self.best_val_model_measure:  # if current epoch's mean performance measure is better than the saved best one then
+            val_mean_performance_measure = np.mean(current_epoch_losses['val_loss']) # measure that determines which is the best epoch. For classification: accuracy                    
+            if val_mean_performance_measure < self.best_val_model_measure:  # if current epoch's mean performance measure is better than the saved best one then
                 self.best_val_model_measure = val_mean_performance_measure  # set the best val model accuracy to be current epoch's val accuracy
                 self.best_val_model_idx = epoch_idx  # set the experiment-wise best val idx to be the current epoch's idx
                 
