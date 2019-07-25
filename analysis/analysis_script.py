@@ -20,6 +20,16 @@ min_keywords = ["loss","mse"] # if these keywords appear in the variable name, t
 max_keywords = ["auc", "acc"]
 
 #%%
+def show_traces_multi_exp(experiment_names, ns, variables_to_show="all", logy=False, results_base_dir=results_base_dir):
+    """ Just show the traces of several experiments, so that I don't have to type it all indivdually.
+    variables_to_show can be just one list of variables, in which case these variables count for every experiment
+    Or it can be a list of list.
+    
+    
+    """
+    for experiment_name, n in zip(experiment_names, ns):
+        show_traces(experiment_name, n, variables_to_show, logy=logy, results_base_dir=results_base_dir)
+
 
 def show_traces(experiment_name, n, variables_to_show, logy=False, results_base_dir=results_base_dir):
     """ show traces over the course of training and print peak values """ 
@@ -27,16 +37,21 @@ def show_traces(experiment_name, n, variables_to_show, logy=False, results_base_
     df = load_summary_file(experiment_name, n, results_base_dir)
     peak_value_df, peak_epoch_df = create_peak_value_df(df)
 
+    if variables_to_show == "all":
+        variables_to_show = list(df.columns)
+
+
     plt.figure()
     for variable in variables_to_show:
-        (df.loc[:,variable]).plot(legend=True, logy=logy)
-
+        (df.loc[:,variable]).plot(legend=True, logy=logy, title=experiment_name)
         # print peak stats
         peak_value = peak_value_df.loc[0,variable]
         peak_epoch = peak_epoch_df.loc[0,variable]
 
         print("peak " + variable + ": {:.4f}".format(peak_value) + " in epoch: " + str(peak_epoch))
 
+    display(plt.gcf())
+    plt.close()
 
 def print_table_peak_values(experiment_names, ns, variables_to_show="all", results_base_dir=results_base_dir):    
     for experiment_name,n in zip(experiment_names, ns):            
