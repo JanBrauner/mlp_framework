@@ -1,0 +1,23 @@
+sending incremental file list
+./
+train/flecked_0082.jpg
+         32,768   5%    0.00kB/s    0:00:00          643,388 100%   41.60MB/s    0:00:00 (xfr#1, to-chk=3714/5644)
+use 6 GPU(s)
+  0%|          | 0/38 [00:00<?, ?it/s][('continue_from_epoch', '-1'), ('seed', '0'), ('task', 'regression'), ('use_gpu', 'True'), ('gpu_id', '0,1,2,3,4,5'), ('model_name', 'context_encoder'), ('kernel_size', '4'), ('num_layers_enc', '6'), ('num_channels_enc', '64'), ('num_channels_progression_enc', '[1, 1, 2, 4, 8]'), ('num_channels_bottleneck', '4000'), ('num_layers_dec', '4'), ('num_channels_dec', '64'), ('num_channels_progression_dec', '[8, 4, 2]'), ('dataset_name', 'DescribableTextures'), ('num_image_channels', '3'), ('image_height', '128'), ('image_width', '128'), ('normalisation', 'range-11'), ('scale_image', 'None'), ('debug_mode', 'False'), ('num_workers', '6'), ('augment', 'False'), ('gamma_factor', '1'), ('rot_angle', '0'), ('translate_factor', '[0, 0]'), ('scale_factor', '1'), ('shear_angle', '0'), ('patch_mode', 'True'), ('patch_size', '[128, 128]'), ('patch_location_during_training', 'random'), ('patch_rejection_threshold', '10'), ('mask_size', '[32, 32]'), ('batch_size', '100'), ('loss', 'L2'), ('num_epochs', '200'), ('learning_rate', '0.0002'), ('betas', '[0.5, 0.999]'), ('weight_decay_coefficient', '0'), ('anomaly_dataset_name', 'DTPathologicalIrreg1'), ('AD_patch_stride', '[10, 10]'), ('measure_of_anomaly', 'absolute distance'), ('window_aggregation_method', 'mean'), ('save_anomaly_maps', 'True'), ('AD_batch_size', '50'), ('experiment_name', 'CE_DTD_r2_stand_small_mask')]
+Loading data from:  /disk/scratch/s1890594/data/DescribableTextures
+Loading data from:  /disk/scratch/s1890594/data/DescribableTextures
+Loading data from:  /disk/scratch/s1890594/data/DescribableTextures
+/mnt/mscteach_home/s1890594/mlp_framework/results/CE_DTD_r2_stand_small_mask /mnt/mscteach_home/s1890594/mlp_framework/results/CE_DTD_r2_stand_small_mask/result_outputs
+
+Traceback (most recent call last):
+  File "main.py", line 45, in <module>
+    experiment_metrics, test_metrics = experiment.run_experiment()  
+  File "/mnt/mscteach_home/s1890594/mlp_framework/experiment_builder.py", line 256, in run_experiment
+    loss = self.run_train_iter(x=x, y=y)  # take a training iter step
+  File "/mnt/mscteach_home/s1890594/mlp_framework/experiment_builder.py", line 121, in run_train_iter
+    loss.backward()  # backpropagate to compute gradients for current iter loss
+  File "/home/s1890594/miniconda3/envs/mlp/lib/python3.7/site-packages/torch/tensor.py", line 107, in backward
+    torch.autograd.backward(self, gradient, retain_graph, create_graph)
+  File "/home/s1890594/miniconda3/envs/mlp/lib/python3.7/site-packages/torch/autograd/__init__.py", line 93, in backward
+    allow_unreachable=True)  # allow_unreachable flag
+RuntimeError: CUDA out of memory. Tried to allocate 126.00 MiB (GPU 0; 5.94 GiB total capacity; 462.04 MiB already allocated; 4.90 GiB free; 135.96 MiB cached)
