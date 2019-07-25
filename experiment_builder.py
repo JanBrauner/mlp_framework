@@ -374,13 +374,15 @@ class AnomalyDetectionExperiment(nn.Module):
                  model, device,
                  val_dataset, val_data_loader,
                  test_dataset, test_data_loader,
-                 measure_of_anomaly, window_aggregation_method, save_anomaly_maps, use_gpu):
+                 args):
         
         super(AnomalyDetectionExperiment, self).__init__()          
         
-        self.measure_of_anomaly=measure_of_anomaly
-        self.window_aggregation_method=window_aggregation_method
-        self.save_anomaly_maps=save_anomaly_maps
+        self.measure_of_anomaly=args.measure_of_anomaly
+        self.window_aggregation_method=args.window_aggregation_method
+        self.save_anomaly_maps=args.save_anomaly_maps
+        use_gpu = args.use_gpu
+        self.resize_anomaly_maps = True if args.scale_image is not None else False # if images during training were scaled (mostly to be smaller), then anomaly detection automatically happens on the appropriately scaled images. However, the anomaly maps need to be reshaped to the size of the label images before calculating agreement between anomaly maps and ground truth segmentation
         
         self.val_data_loader = val_data_loader
         self.val_dataset = val_dataset # This is needed to get the full size ground truth images
@@ -528,6 +530,9 @@ class AnomalyDetectionExperiment(nn.Module):
             label_image = self.val_dataset.get_label_image(image_idx)
         elif which_set == "test":
             label_image = self.test_dataset.get_label_image(image_idx)
+
+        if self.resize_anomaly_maps:
+            anomaly_map = nn.functional.interpolate(anomaly_map.unsqueeze(0), size=(label_image.shape[1], label_image.shape[2]))
         
         ### calculate measures of agreement 
         # AUC: currently the only measure of agreement
