@@ -15,7 +15,7 @@ anomaly_detection_experiment_name = args.experiment_name.split("___")[1] # name 
 
 # =============================================================================
 # ### for debugging
-# args, device = get_args("CE_DTD_random_patch_test_1___AD_test")  # get arguments from command line/json config.
+# args, device = get_args("CE_DTD_r2_stand_scale_0p5___AD_window_mean_TEST")  # get arguments from command line/json config.
 # train_experiment_name = args.experiment_name.split("___")[0] # name of the experiment in which the model that we want to use for anomaly detection was trained
 # anomaly_detection_experiment_name = args.experiment_name.split("___")[1] # name of the anomaly detection experiment
 # 
@@ -23,8 +23,8 @@ anomaly_detection_experiment_name = args.experiment_name.split("___")[1] # name 
 # args.num_workers = 0
 # args.debug_mode = True
 # args.AD_patch_stride = (200,200)
+# 
 # =============================================================================
-
 # some assertions to make sure to arguments match
 assert not (args.task == "classification" and args.measure_of_anomaly == "absolute distance"), "Model was train with likelihood (classification), but anomaly detection method is 'absolute distance'"
 assert not (args.task == "regression" and args.measure_of_anomaly == "likelihood"), "Model was train with regression, but anomaly detection method is 'likelihood'"
@@ -50,10 +50,7 @@ experiment = AnomalyDetectionExperiment(experiment_name=train_experiment_name,
                                         val_dataset=val_dataset,
                                         test_data_loader=test_data_loader, 
                                         test_dataset=test_dataset,
-                                        measure_of_anomaly=args.measure_of_anomaly, 
-                                        window_aggregation_method=args.window_aggregation_method, 
-                                        save_anomaly_maps=args.save_anomaly_maps,
-                                        use_gpu = args.use_gpu)
+                                        args = args)
 
 # run experiment
 experiment.run_experiment()
