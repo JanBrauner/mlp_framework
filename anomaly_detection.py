@@ -35,17 +35,7 @@ rng = np.random.RandomState(seed=args.seed)
 torch.manual_seed(seed=args.seed)
 
 # create dataset:
-val_dataset, val_data_loader, test_dataset, test_data_loader = data_providers.create_dataset_with_anomalies(
-                                                                anomaly_dataset_name=args.anomaly_dataset_name, 
-                                                                normalisation=args.normalisation, 
-                                                                batch_size=args.AD_batch_size, 
-                                                                patch_size=args.patch_size, 
-                                                                patch_stride=args.AD_patch_stride, 
-                                                                mask_size=args.mask_size, 
-                                                                num_workers=args.num_workers, 
-                                                                debug_mode=args.debug_mode,
-                                                                scale_image=args.scale_image,
-                                                                target_image_for_classification=True if args.task == "classification" else False)
+val_dataset, val_data_loader, test_dataset, test_data_loader = data_providers.create_dataset_with_anomalies(args)
 
 
 # create model

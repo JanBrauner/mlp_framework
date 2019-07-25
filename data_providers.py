@@ -633,9 +633,7 @@ class CIFAR100(CIFAR10):
 
 class InpaintingDataset(data.Dataset):
     
-    def __init__(self, which_set, transformer, rng, patch_mode, debug_mode=False, 
-                 patch_size=(256,256), patch_location="central", mask_size=(64,64), 
-                 scale_image=None, target_format_for_classification=False, inv_normalisation_transform=None, precompute_patches=True): #, patch_rejection_threshold):
+    def __init__(self, which_set, transformer, rng, args, inv_normalisation_transform, precompute_patches=True): #, patch_rejection_threshold):
 
         # check a valid which_set was provided
         assert which_set in ['train', 'val', 'test'], (
@@ -643,20 +641,25 @@ class InpaintingDataset(data.Dataset):
             'Got {0}'.format(which_set)
         )
 
-        
         self.which_set = which_set  # train, val or test set
-        
-        self.patch_size = patch_size
-        self.patch_location = patch_location
-        self.mask_size = mask_size
+        self.rng = rng       
         self.transformer = transformer
-        self.rng = rng
-        self.patch_mode = patch_mode
-        self.target_format_for_classification = target_format_for_classification # returns the target (content of mask) as (CxHxW) tensor with integer values between 0 and 255
         self.inv_normalisation_transform = inv_normalisation_transform # transform that undoes the normalisation. Needed if target images should be created for classification (256 classes)
         
-        self.scale_image = scale_image # tuple that contains the scaling factors for each of the two image dimensions. None if no scaling is used.
+        self.patch_size = args.patch_size
+        self.patch_location = args.patch_location_during_training
+        self.mask_size = args.mask_size
 
+        self.patch_mode = args.patch_mode
+        self.target_format_for_classification = True if args.task == "classification" else False # returns the target (content of mask) as (CxHxW) tensor with integer values between 0 and 255
+        
+        self.scale_image = args.scale_image # tuple that contains the scaling factors for each of the two image dimensions. None if no scaling is used.
+
+        self.data_format = args.data_format # Options: 
+                            # "inpainting": input image/patch is masked out, and the target is the content of the masked image. 
+                            # "autoencoding": input image/patch == output image, no masking.
+        # Note: this should definitely be a separate class :-)
+        
         
         self.precompute_patches = precompute_patches # this is only required to make visualisation of val and test set faster
 #        self.patch_rejection_threshold = patch_rejection_threshold
@@ -667,6 +670,7 @@ class InpaintingDataset(data.Dataset):
         assert len(self.image_list) > 0, "source directory doesn't contain image files"
 
         # debugging mode sets the dataset size to 50, so we can run the whole experiment locally.
+        debug_mode = args.debug_mode
         if debug_mode:
             self.image_list = self.image_list[0:50]
             
@@ -759,19 +763,22 @@ class InpaintingDataset(data.Dataset):
     #                image_mean = torch.mean(image)
         else:
             image = full_image
-            
-        # create target image
-        target_image = image[self.mask_slice].clone().detach()
+        
+        if self.data_format == "inpainting":
+            # create target image
+            target_image = image[self.mask_slice].clone().detach()
+                        
+            # mask out central region in input image
+            image[self.mask_slice] = 0 # note that zero is the dataset-wide mean value as images are centered
+        elif self.data_format == "autoencoding":
+            target_image = image.clone().detach()
         
         # format target image for classification task: (dimensions stay CxHxW,but every pixel needs to be an integer between 0 and 255)
         if self.target_format_for_classification:
             target_image = self.inv_normalisation_transform(target_image) # scales image to [0, 1]
             target_image = target_image*255 # scales image to [0, 255]
             target_image = target_image.type(torch.long)
-        
-        # mask out central region in input image
-        image[self.mask_slice] = 0 # note that zero is the dataset-wide mean value as images are centered
-       
+           
         return image, target_image
 
     def create_central_region_slice(self, image_size, size_central_region):
@@ -791,26 +798,18 @@ class MiasHealthy(InpaintingDataset):
     """
 
     """    
+    def __init__(self, which_set, transformer, rng, args, inv_normalisation_transform, precompute_patches=True): #, patch_rejection_threshold):
     
-    def __init__(self, which_set, transformer, rng, patch_mode, debug_mode=False, 
-                 patch_size=(256,256), patch_location="central", mask_size=(64,64), scale_image=None, target_format_for_classification=False,inv_normalisation_transform=False, precompute_patches=True):
-
         # DATASET_DIR should point to root directory of data
         self.image_base_path = os.path.join(os.environ['DATASET_DIR'], "MiasHealthy") # path of the data set images
         print("Loading data from: ", self.image_base_path)
-
+        
         super(MiasHealthy, self).__init__(
                 which_set=which_set, 
                 transformer=transformer, 
-                rng=rng, 
-                debug_mode=debug_mode, 
-                patch_mode=patch_mode, 
-                patch_size=patch_size, 
-                patch_location=patch_location, 
-                mask_size=mask_size, 
-                scale_image=scale_image,
+                rng=rng,
+                args = args,
                 inv_normalisation_transform=inv_normalisation_transform,
-                target_format_for_classification=target_format_for_classification,
                 precompute_patches=precompute_patches) #, patch_rejection_threshold):
 
 class GoogleStreetView(InpaintingDataset):
@@ -818,8 +817,7 @@ class GoogleStreetView(InpaintingDataset):
 
     """
     
-    def __init__(self, which_set, transformer, rng, patch_mode, debug_mode=False, 
-                 patch_size=(256,256), patch_location="central", mask_size=(64,64), scale_image=None, target_format_for_classification=False,inv_normalisation_transform=False, precompute_patches=True):
+    def __init__(self, which_set, transformer, rng, args, inv_normalisation_transform, precompute_patches=True): #, patch_rejection_threshold):
 
 
         # DATASET_DIR should point to root directory of data
@@ -829,15 +827,9 @@ class GoogleStreetView(InpaintingDataset):
         super(GoogleStreetView, self).__init__(
                 which_set=which_set, 
                 transformer=transformer, 
-                rng=rng, 
-                debug_mode=debug_mode, 
-                patch_mode=patch_mode, 
-                patch_size=patch_size, 
-                patch_location=patch_location, 
-                mask_size=mask_size, 
-                scale_image=scale_image,
+                rng=rng,
+                args = args,
                 inv_normalisation_transform=inv_normalisation_transform,
-                target_format_for_classification=target_format_for_classification,
                 precompute_patches=precompute_patches) #, patch_rejection_threshold):
                 
 class DescribableTextures(InpaintingDataset):
@@ -845,8 +837,7 @@ class DescribableTextures(InpaintingDataset):
 
     """
     
-    def __init__(self, which_set, transformer, rng, patch_mode, debug_mode=False, 
-                 patch_size=(256,256), patch_location="central", mask_size=(64,64), scale_image=None, target_format_for_classification=False,inv_normalisation_transform=False, precompute_patches=True):
+    def __init__(self, which_set, transformer, rng, args, inv_normalisation_transform, precompute_patches=True): #, patch_rejection_threshold):
 
 
         # DATASET_DIR should point to root directory of data
@@ -856,21 +847,14 @@ class DescribableTextures(InpaintingDataset):
         super(DescribableTextures, self).__init__(
                 which_set=which_set, 
                 transformer=transformer, 
-                rng=rng, 
-                debug_mode=debug_mode, 
-                patch_mode=patch_mode, 
-                patch_size=patch_size, 
-                patch_location=patch_location, 
-                mask_size=mask_size,
-                scale_image=scale_image,
+                rng=rng,
+                args = args,
                 inv_normalisation_transform=inv_normalisation_transform,
-                target_format_for_classification=target_format_for_classification,
                 precompute_patches=precompute_patches) #, patch_rejection_threshold):
 
 class DatasetWithAnomalies(InpaintingDataset): # the only thing it inherits is get_central_region_slice
 
-    def __init__(self, which_set, transformer, debug_mode=False, 
-                 patch_size=(256,256), patch_stride = (1,1), mask_size=(64,64), scale_image=None, target_format_for_classification=False, inv_normalisation_transform=None):
+    def __init__(self, which_set, transformer, args, inv_normalisation_transform=None):
 
         # check a valid which_set was provided
         assert which_set in ['train', 'val', 'test'], (
@@ -886,20 +870,26 @@ class DatasetWithAnomalies(InpaintingDataset): # the only thing it inherits is g
 
         self.label_image_path = os.path.join(self.image_base_path, which_set, "label_images") # folder is supposed to contain the binary label images, same names as the input images
 
-        self.patch_size = patch_size
-        self.mask_size = mask_size
-        self.transformer = transformer
-        self.patch_stride = patch_stride
-        
-        self.scale_image = scale_image
-        
-        self.target_format_for_classification=target_format_for_classification # returns the target (content of mask) as (CxHxW) tensor with integer values between 0 and 255
-        self.inv_normalisation_transform = inv_normalisation_transform # transform that undoes the normalisation. Needed if target images should be created for classification (256 classes)
 
-        
+        self.transformer = transformer
+        self.inv_normalisation_transform = inv_normalisation_transform # transform that undoes the normalisation. Needed if target images should be created for classification (256 classes)        
+
         self.label_image_transformer = transforms.ToTensor() # this is the only transformation label images need
         
+        self.patch_size = args.patch_size
+        self.mask_size = args.mask_size
+        self.patch_stride = args.AD_patch_stride        
+        self.scale_image = args.scale_image
+        
+        self.data_format = args.data_format # Options: 
+                    # "inpainting": input image/patch is masked out, and the target is the content of the masked image. 
+                    # "autoencoding": input image/patch == output image, no masking.
+        # Note: this should definitely be a separate class :-)
+        
+        self.target_format_for_classification = True if args.task == "classification" else False # returns the target (content of mask) as (CxHxW) tensor with integer values between 0 and 255
+
         # debugging mode sets the dataset size to around 10, so we can run the whole experiment locally.
+        debug_mode = args.debug_mode
         if debug_mode:
             debug_image_idxs = list(range(0,len(self.image_list),int(len(self.image_list)/10))) # I want images from across the dataset (if it is order), but the same ones every time
             self.image_list = [self.image_list[debug_image_idx] for debug_image_idx in debug_image_idxs]
@@ -988,17 +978,22 @@ class DatasetWithAnomalies(InpaintingDataset): # the only thing it inherits is g
         # create patch (called "image" here, for consistency with other data providers)
         image = full_image[sample_info["slice"]]
         
-        # create target image
-        target_image = image[self.mask_slice].clone().detach()
+        
+        if self.data_format == "inpainting":
+            # create target image
+            target_image = image[self.mask_slice].clone().detach()
+                        
+            # mask out central region in input image
+            image[self.mask_slice] = 0 # note that zero is the dataset-wide mean value as images are centered
+        elif self.data_format == "autoencoding":
+            target_image = image.clone().detach()
+        
         
         # format target image for classification task: (dimensions stay CxHxW,but every pixel needs to be an integer between 0 and 255)
         if self.target_format_for_classification:
             target_image = self.inv_normalisation_transform(target_image) # scales image to [0, 1]
             target_image = target_image*255 # scales image to [0, 255]
             target_image = target_image.type(torch.long)
-        
-        # mask out central region in input image
-        image[self.mask_slice] = 0 # note that zero is the dataset-wide mean value as images are centered
         
         # create mask slice relative to full image
         # Note: axis labels 0, 1, 2 are relatitve to 3-D tensor, not 2-D image
@@ -1038,20 +1033,15 @@ class DatasetWithAnomalies(InpaintingDataset): # the only thing it inherits is g
 
 class DescribableTexturesPathological(DatasetWithAnomalies):
     
-    def __init__(self, which_set, transformer, debug_mode=False, 
-                 patch_size=(256,256), patch_stride=(10,10), mask_size=(64,64), version = "DTPathologicalIrreg1", scale_image=None, target_format_for_classification=False, inv_normalisation_transform=None):    
+    def __init__(self, which_set, transformer, args, inv_normalisation_transform=None):    
        
+        version = args.anomaly_dataset_name # there are several versions of DTPathological with different lesions 
         self.image_base_path = os.path.join(os.environ['DATASET_DIR'], version) # path of the data set images
         
         super(DescribableTexturesPathological, self).__init__(
                 which_set=which_set, 
                 transformer=transformer,
-                debug_mode=debug_mode,
-                patch_size=patch_size, 
-                patch_stride=patch_stride, 
-                mask_size=mask_size, 
-                scale_image=scale_image, 
-                target_format_for_classification=target_format_for_classification, 
+                args = args, 
                 inv_normalisation_transform=inv_normalisation_transform)
 
 # =============================================================================
@@ -1174,12 +1164,15 @@ class DescribableTexturesPathological(DatasetWithAnomalies):
         
 def create_transforms(mn, sd, augmentations, args):
     # returns a list of standard transformations that get applied to the images of each set (train, val, test)  
-    if args.patch_mode: # patches get extracted within the Datset class, no need to resize images here
+    patch_mode = args.patch_mode
+    image_height = args.image_height
+    image_width = args.image_width
+    
+    if patch_mode: # patches get extracted within the Datset class, no need to resize images here
         standard_transforms = [transforms.ToTensor(),
                                transforms.Normalize(mn, sd)]
     else:
-        standard_transforms = [transforms.Resize(args.image_height), # resize the image to approximately image_height x image_height
-                               transforms.CenterCrop(args.image_height), # then crop the image to exactly image_height x image_height
+        standard_transforms = [transforms.Resize((image_height, image_width)), # resize the image to image_height x image_width
                                transforms.ToTensor(),
                                transforms.Normalize(mn, sd)]
     
@@ -1291,15 +1284,9 @@ def create_dataset(args, augmentations, rng, precompute_patches=True):
         inv_normalisation_transform = create_inv_normalise_transform(mn, sd) # required for creating target images for classification, see InpaintingDataset
 #        # patches with mean value below this get rejected (so we don't sample too many black images)
 #        patch_rejection_threshold = (args.patch_rejection_treshold/255 - mn)/sd
-        
-        kwargs_dataset= {"rng":rng, 
-                         "patch_mode" : args.patch_mode, 
-                         "debug_mode" : args.debug_mode,
-                         "patch_size" : (args.image_height, args.image_width),
-                         "patch_location" : args.patch_location_during_training,
-                         "mask_size" : args.mask_size,
-                         "scale_image" : args.scale_image,
-                         "target_format_for_classification": True if args.task == "classification" else False,
+
+        kwargs_dataset= {"rng":rng,
+                         "args":args,
                          "inv_normalisation_transform": inv_normalisation_transform,
                          "precompute_patches" : precompute_patches}
         kwargs_dataloader = {"batch_size": args.batch_size,
@@ -1333,14 +1320,8 @@ def create_dataset(args, augmentations, rng, precompute_patches=True):
                 
         inv_normalisation_transform = create_inv_normalise_transform(mn, sd) # required for creating target images for classification, see InpaintingDataset
 
-        kwargs_dataset= {"rng":rng, 
-                         "patch_mode" : args.patch_mode, 
-                         "debug_mode" : args.debug_mode,
-                         "patch_size" : (args.image_height, args.image_width),
-                         "patch_location" : args.patch_location_during_training,
-                         "mask_size" : args.mask_size,
-                         "scale_image" : args.scale_image,
-                         "target_format_for_classification": True if args.task == "classification" else False,
+        kwargs_dataset= {"rng":rng,
+                         "args":args,
                          "inv_normalisation_transform": inv_normalisation_transform,
                          "precompute_patches" : precompute_patches}
         kwargs_dataloader = {"batch_size": args.batch_size,
@@ -1377,14 +1358,8 @@ def create_dataset(args, augmentations, rng, precompute_patches=True):
         inv_normalisation_transform = create_inv_normalise_transform(mn, sd) # required for creating target images for classification, see InpaintingDataset
 
         
-        kwargs_dataset= {"rng":rng, 
-                         "patch_mode" : args.patch_mode, 
-                         "debug_mode" : args.debug_mode,
-                         "patch_size" : (args.image_height, args.image_width),
-                         "patch_location" : args.patch_location_during_training,
-                         "mask_size" : args.mask_size,
-                         "scale_image" : args.scale_image,
-                         "target_format_for_classification": True if args.task == "classification" else False,
+        kwargs_dataset= {"rng":rng,
+                         "args":args,
                          "inv_normalisation_transform": inv_normalisation_transform,
                          "precompute_patches" : precompute_patches}
         kwargs_dataloader = {"batch_size": args.batch_size,
@@ -1403,8 +1378,12 @@ def create_dataset(args, augmentations, rng, precompute_patches=True):
         
         return train_data, val_data, test_data, num_output_classes
     
-def create_dataset_with_anomalies(anomaly_dataset_name, normalisation, batch_size, patch_size, patch_stride, mask_size, num_workers, debug_mode, scale_image, target_image_for_classification):
-
+def create_dataset_with_anomalies(args):
+    anomaly_dataset_name = args.anomaly_dataset_name
+    normalisation = args.normalisation
+    batch_size = args.AD_batch_size
+    num_workers = args.num_workers
+    
     if "DTPathological" in anomaly_dataset_name: # there are several versions of DTPathological with different lesions 
         # calculate mean and SD for normalisation
         if normalisation == "mn0sd1":
@@ -1417,18 +1396,10 @@ def create_dataset_with_anomalies(anomaly_dataset_name, normalisation, batch_siz
         inv_normalisation_transform = create_inv_normalise_transform(mn, sd) # required for creating target images for classification, see InpaintingDataset
 
         kwargs_dataset = {"transformer":transformer, 
-                          "debug_mode":debug_mode, 
-                          "patch_size":patch_size, 
-                          "patch_stride":patch_stride, 
-                          "mask_size":mask_size, 
-                          "version":anomaly_dataset_name,
-                          "target_format_for_classification": target_image_for_classification,
-                          "inv_normalisation_transform": inv_normalisation_transform,
-                          "scale_image": scale_image}
+                          "inv_normalisation_transform": inv_normalisation_transform}
         val_dataset = DescribableTexturesPathological(which_set="val", **kwargs_dataset)
         test_dataset = DescribableTexturesPathological(which_set="test", **kwargs_dataset)
 
-        
         
     ### data_loader
     val_data_loader = torch.utils.data.DataLoader(val_dataset, shuffle=False, batch_size=batch_size, num_workers=num_workers)
