@@ -148,18 +148,14 @@ image_idx = rng.choice(inputs.shape[0], args.batch_size, replace=False)
 inputs = inputs[image_idx,:,:,:]
 targets = targets[image_idx,:,:,:]
 
-# create original images by combining inputs (masked out) and targets
-central_region_slice = create_central_region_slice(inputs.shape, args.mask_size)
-original_images = inputs.clone().detach()
-original_images[central_region_slice] = targets
-
 
 
 ### Send data through model and create outputs
 outputs = model.forward(inputs)
-
-filled_in_images = inputs.clone().detach()
-filled_in_images[central_region_slice] = outputs.detach()
+if args.task == "classification": # this is only the case if we trained a probabilistic CE, at least atm.
+    # in this case, outputs has shape B x classes x channel x H x W
+    _, outputs = torch.max(outputs, dim=1)  # get argmax of predictions
+#    Antreas' version, just in case my modification doesn't work:     _, predicted = torch.max(out.data, 1)  # get argmax of prediction
 
 
 ### inverse normalization of all images
@@ -193,10 +189,21 @@ neg_of_mn_over_SD = [-x/y for x,y in zip(mn,SD)] # this has a bit weird syntax b
 one_over_SD = [1./x for x in SD]
 inv_normalize = transforms.Normalize(neg_of_mn_over_SD, one_over_SD)
 
-for images in [inputs,filled_in_images,original_images]:
-    for idx,image in enumerate(images): # since these are a batch of images, but transforms work on indivdual images
-        images[idx,:,:,:] = inv_normalize(image)
+if args.task == "regression": # all images are within range [-1,1], or have zero mean and unit variance. So all images need to go through inverse normalisation
+    for images in [inputs,outputs,targets]:
+        for idx,image in enumerate(images): # since these are a batch of images, but transforms work on indivdual images
+            images[idx,:,:,:] = inv_normalize(image)
+elif args.task == "classification": # inputs are within range [-1,1], or have zero mean and unit variance. But outputs and targets are in [0,255]
+    for idx,image in enumerate(inputs): # since these are a batch of images, but transforms work on indivdual images
+        inputs[idx,:,:,:] = inv_normalize(image)*255 # first bring to range [0,1], then to range [0,255]
 
+# create original images by combining inputs (masked out) and targets
+central_region_slice = create_central_region_slice(inputs.shape, args.mask_size)
+original_images = inputs.clone().detach()
+original_images[central_region_slice] = targets
+
+filled_in_images = inputs.clone().detach()
+filled_in_images[central_region_slice] = outputs.detach()
 
 #%% Display images
 ### create image grid
