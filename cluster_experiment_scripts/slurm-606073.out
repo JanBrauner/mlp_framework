@@ -1,0 +1,10 @@
+sending incremental file list
+test/smeared_0079.jpg
+         32,768  87%    0.00kB/s    0:00:00           37,315 100%    4.34MB/s    0:00:00 (xfr#1, ir-chk=4010/4705)
+use 6 GPU(s)
+  0%|          | 0/38 [00:00<?, ?it/s][('continue_from_epoch', '-1'), ('seed', '0'), ('task', 'classification'), ('use_gpu', 'True'), ('gpu_id', '0,1,2,3,4,5'), ('model_name', 'context_encoder'), ('kernel_size', '4'), ('num_layers_enc', '6'), ('num_channels_enc', '64'), ('num_channels_progression_enc', '[1, 1, 2, 4, 8]'), ('num_channels_bottleneck', '4000'), ('num_layers_dec', '5'), ('num_channels_dec', '64'), ('num_channels_progression_dec', '[8, 4, 2, 1]'), ('dataset_name', 'DescribableTextures'), ('num_image_channels', '3'), ('image_height', '128'), ('image_width', '128'), ('normalisation', 'range-11'), ('scale_image', 'None'), ('debug_mode', 'False'), ('num_workers', '6'), ('augment', 'False'), ('gamma_factor', '1'), ('rot_angle', '0'), ('translate_factor', '[0, 0]'), ('scale_factor', '1'), ('shear_angle', '0'), ('patch_mode', 'True'), ('patch_size', '[128, 128]'), ('patch_location_during_training', 'random'), ('patch_rejection_threshold', '10'), ('mask_size', '[64, 64]'), ('batch_size', '100'), ('loss', 'cross_entropy'), ('num_epochs', '200'), ('learning_rate', '0.0002'), ('betas', '[0.5, 0.999]'), ('weight_decay_coefficient', '0'), ('anomaly_dataset_name', 'DTPathologicalIrreg1'), ('AD_patch_stride', '[10, 10]'), ('measure_of_anomaly', 'likelihood'), ('window_aggregation_method', 'mean'), ('save_anomaly_maps', 'True'), ('AD_batch_size', '50'), ('experiment_name', 'CE_DTD_r2_prob_scale_1')]
+Loading data from:  /disk/scratch/s1890594/data/DescribableTextures
+Loading data from:  /disk/scratch/s1890594/data/DescribableTextures
+Loading data from:  /disk/scratch/s1890594/data/DescribableTextures
+/mnt/mscteach_home/s1890594/mlp_framework/results/CE_DTD_r2_prob_scale_1 /mnt/mscteach_home/s1890594/mlp_framework/results/CE_DTD_r2_prob_scale_1/result_outputs
+/var/spool/slurmd/job606073/slurm_script: line 42: 20755 Segmentation fault      python main.py --experiment_name CE_DTD_r2_prob_scale_1
