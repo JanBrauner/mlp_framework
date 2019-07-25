@@ -655,11 +655,13 @@ class InpaintingDataset(data.Dataset):
         
         self.scale_image = args.scale_image # tuple that contains the scaling factors for each of the two image dimensions. None if no scaling is used.
 
-        self.data_format = args.data_format # Options: 
+        try:
+            self.data_format = args.data_format # Options: 
                             # "inpainting": input image/patch is masked out, and the target is the content of the masked image. 
                             # "autoencoding": input image/patch == output image, no masking.
         # Note: this should definitely be a separate class :-)
-        
+        except: # default value if the config doesn't have a value for this
+            self.data_format = "inpainting"
         
         self.precompute_patches = precompute_patches # this is only required to make visualisation of val and test set faster
 #        self.patch_rejection_threshold = patch_rejection_threshold
@@ -881,10 +883,13 @@ class DatasetWithAnomalies(InpaintingDataset): # the only thing it inherits is g
         self.patch_stride = args.AD_patch_stride        
         self.scale_image = args.scale_image
         
-        self.data_format = args.data_format # Options: 
-                    # "inpainting": input image/patch is masked out, and the target is the content of the masked image. 
-                    # "autoencoding": input image/patch == output image, no masking.
+        try:
+            self.data_format = args.data_format # Options: 
+                            # "inpainting": input image/patch is masked out, and the target is the content of the masked image. 
+                            # "autoencoding": input image/patch == output image, no masking.
         # Note: this should definitely be a separate class :-)
+        except: # default value if the config doesn't have a value for this
+            self.data_format = "inpainting"
         
         self.target_format_for_classification = True if args.task == "classification" else False # returns the target (content of mask) as (CxHxW) tensor with integer values between 0 and 255
 
