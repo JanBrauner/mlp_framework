@@ -15,19 +15,74 @@ from matplotlib.lines import Line2D
 #%% Paths
 results_base_dir = os.path.join(os.path.dirname(__file__), os.pardir, "results")
 
+# parameters
+min_keywords = ["loss","mse"] # if these keywords appear in the variable name, then less is better
+max_keywords = ["auc", "acc"]
 
 #%%
+
 def show_traces(experiment_name, n, variables_to_show, logy=False, results_base_dir=results_base_dir):
+    """ show traces over the course of training and print peak values """ 
+
+    df = load_summary_file(experiment_name, n, results_base_dir)
+    peak_value_df, peak_epoch_df = create_peak_value_df(df)
+
+    plt.figure()
+    for variable in variables_to_show:
+        (df.loc[:,variable]).plot(legend=True, logy=logy)
+
+        # print peak stats
+        peak_value = peak_value_df.loc[0,variable]
+        peak_epoch = peak_epoch_df.loc[0,variable]
+
+        print("peak " + variable + ": {:.4f}".format(peak_value) + " in epoch: " + str(peak_epoch))
+
+
+def print_table_peak_values(experiment_names, n, variables_to_show="all", results_base_dir=results_base_dir):
+    if variables_to_show == "all":
+        variables_to_show = list(df.columns)
     
+    peak_values = 
+    for experiment_name in experiment_names:
+        try: # create peak_values if it doesn't exist yet
+            peak_values
+        except:
+            peak_values = pd.DataFrame(columns=list(df.columns))
+            
+        df = load_summary_file(experiment_name, n, results_base_dir)
+        peak_value_df, peak_epoch_df = create_peak_value_df(df)
+
+    
+    print(peak_)
+    
+    
+def create_peak_value_df(df,min_keywords=min_keywords, max_keywords=max_keywords):
+    peak_value_df = pd.DataFrame(columns=list(df.columns))
+    peak_epoch_df = pd.DataFrame(columns=list(df.columns)) # epochs where these peak values occur
+    for variable in list(df.columns):
+        peak_at_min = any([keyword in variable for keyword in min_keywords])
+        peak_at_max = any([keyword in variable for keyword in max_keywords])
+        if peak_at_min:
+            peak_value = df.loc[:,variable].min(axis=0)
+            peak_epoch = df.loc[:,variable].idxmin(axis=0)        
+        if peak_at_max:
+            peak_value = df.loc[:,variable].max(axis=0)
+            peak_epoch = df.loc[:,variable].idxmax(axis=0)
+        peak_value_df.loc[0,variable] = peak_value
+        peak_epoch_df.loc[0,variable] = peak_epoch
+    
+    return peak_value_df, peak_epoch_df
+
+    
+def load_summary_file(experiment_name, n, results_base_dir):
     # read summary file
     if n == 1: # only one seed
         summary_path = os.path.join(results_base_dir, experiment_name, "result_outputs", "summary.csv")
         df = pd.read_csv(summary_path, index_col="curr_epoch")
-        
-    plt.figure()
-    for variable in variables_to_show:
-        (df.loc[:,variable]).plot(legend=True, logy=logy)
-        
+    
+    return df
+
+
 # =============================================================================
 # #%% dev
 # show_traces(experiment_name, n, variables_to_show, results_base_dir)
