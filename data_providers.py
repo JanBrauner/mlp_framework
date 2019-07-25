@@ -1017,15 +1017,15 @@ class DatasetWithAnomalies(InpaintingDataset): # the only thing it inherits is g
     def get_label_image(self, index):
         """
         Get binary label index that corresponds to the image image_list(index)
+        
+        Note: label image doesn't get scaled even if self.scale_image==True, that is on purpose (the evaluation is fairer if the anomaly maps get scaled to the size of the label image, not the other way around)
         """
         
         # load image
         full_label_image = Image.open(os.path.join(self.label_image_path, self.image_list[index]))
         
         # potentially scale image
-        if self.scale_image != None:
-            scaled_image_size = tuple(int(x*self.scale_image[dim]) for dim, x in enumerate(full_label_image.size))
-            full_label_image = full_label_image.resize(scaled_image_size)
+
 
         # transform image
         full_label_image = self.label_image_transformer(full_label_image)
@@ -1401,6 +1401,7 @@ def create_dataset_with_anomalies(args):
         inv_normalisation_transform = create_inv_normalise_transform(mn, sd) # required for creating target images for classification, see InpaintingDataset
 
         kwargs_dataset = {"transformer":transformer, 
+                          "args": args,
                           "inv_normalisation_transform": inv_normalisation_transform}
         val_dataset = DescribableTexturesPathological(which_set="val", **kwargs_dataset)
         test_dataset = DescribableTexturesPathological(which_set="test", **kwargs_dataset)
