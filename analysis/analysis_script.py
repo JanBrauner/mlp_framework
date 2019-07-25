@@ -20,6 +20,16 @@ min_keywords = ["loss","mse"] # if these keywords appear in the variable name, t
 max_keywords = ["auc", "acc"]
 
 #%%
+def show_traces_multi_exp(experiment_names, ns, variables_to_show="all", logy=False, results_base_dir=results_base_dir):
+    """ Just show the traces of several experiments, so that I don't have to type it all indivdually.
+    variables_to_show can be just one list of variables, in which case these variables count for every experiment
+    Or it can be a list of list.
+    
+    
+    """
+    for experiment_name, n in zip(experiment_names, ns):
+        show_traces(experiment_name, n, variables_to_show, logy=logy, results_base_dir=results_base_dir)
+
 
 def show_traces(experiment_name, n, variables_to_show, logy=False, results_base_dir=results_base_dir):
     """ show traces over the course of training and print peak values """ 
@@ -27,33 +37,44 @@ def show_traces(experiment_name, n, variables_to_show, logy=False, results_base_
     df = load_summary_file(experiment_name, n, results_base_dir)
     peak_value_df, peak_epoch_df = create_peak_value_df(df)
 
+    if variables_to_show == "all":
+        variables_to_show = list(df.columns)
+
+
     plt.figure()
     for variable in variables_to_show:
-        (df.loc[:,variable]).plot(legend=True, logy=logy)
-
+        (df.loc[:,variable]).plot(legend=True, logy=logy, title=experiment_name)
         # print peak stats
         peak_value = peak_value_df.loc[0,variable]
         peak_epoch = peak_epoch_df.loc[0,variable]
 
         print("peak " + variable + ": {:.4f}".format(peak_value) + " in epoch: " + str(peak_epoch))
 
+    display(plt.gcf())
+    plt.close()
 
-def print_table_peak_values(experiment_names, n, variables_to_show="all", results_base_dir=results_base_dir):
-    if variables_to_show == "all":
-        variables_to_show = list(df.columns)
-    
-    peak_values = 
-    for experiment_name in experiment_names:
-        try: # create peak_values if it doesn't exist yet
-            peak_values
-        except:
-            peak_values = pd.DataFrame(columns=list(df.columns))
-            
+def print_table_peak_values(experiment_names, ns, variables_to_show="all", results_base_dir=results_base_dir):    
+    for experiment_name,n in zip(experiment_names, ns):            
         df = load_summary_file(experiment_name, n, results_base_dir)
         peak_value_df, peak_epoch_df = create_peak_value_df(df)
+        peak_value_df.insert(0, "experiment", experiment_name)
 
+#        print(peak_value_df)
+        try: # create peak_values if it doesn't exist yet
+            peak_values_df
+        except:
+            peak_values_df = pd.DataFrame(columns= ["experiment"] + list(df.columns))
+        
+#        print(peak_values_df)
+        peak_values_df = peak_values_df.append(peak_value_df)
+#        print(peak_values_df)
+
+    if variables_to_show == "all":
+        variables_to_show = list(peak_values_df.columns)
+    else:
+        variables_to_show = ["experiment"] + variables_to_show
     
-    print(peak_)
+    display(peak_values_df.loc[:,variables_to_show])
     
     
 def create_peak_value_df(df,min_keywords=min_keywords, max_keywords=max_keywords):

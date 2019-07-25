@@ -115,7 +115,6 @@ default_args = {
 
 args_to_keep_from_AD_experiment = [# all other args will get copied over from the train experiment
         # anomaly detection specific args
-        "anomaly_dataset_name",
         "AD_patch_stride",
         "measure_of_anomaly",
         "window_aggregation_method",
@@ -301,10 +300,10 @@ def DescribableTextures_theme(args):
 
 #%% A list of independent experiment 
 # experiment names
-experiment_names = ["CE_cpu_dev"] # Note: For experiments that include anomaly detection, the experiment name needs to be original_experiment_name + "___" + AD_experiment_name, where original_experiment_name is the name of the eperiment in which the model that we want to use for AD was trained.
+experiment_names = ["CE_DTD_r2_stand_scale_0p5___AD_window_mean_TEST"] # Note: For experiments that include anomaly detection, the experiment name needs to be original_experiment_name + "___" + AD_experiment_name, where original_experiment_name is the name of the eperiment in which the model that we want to use for AD was trained.
 
 # type of experiment
-experiment_type = "train" # options: "train" for training (including evaluation on val and test set); "AD" for anomaly detection (using the best validation model from "experiment_name"); "train+AD" for both.
+experiment_type = "AD" # options: "train" for training (including evaluation on val and test set); "AD" for anomaly detection (using the best validation model from "experiment_name"); "train+AD" for both.
 
 # Commonly used themes
 cpu = True
@@ -313,7 +312,7 @@ small_mask = False
 large_context = False
 GoogleStreetView = False
 DescribableTextures = False
-autoencoder = True
+autoencoder = False
 autoencoder_small = False
 
 # slurm options
