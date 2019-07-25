@@ -34,7 +34,7 @@ default_args = {
 
 # =============================================================================
 ### model parameters
-"model_name": "context_encoder",
+"model_name": "context_encoder", # current options: context_encoder: Note that the context encoder can also be used as an autoencoder, when "num_layers_enc" == "num_layers_dec", and the input images are not masked out.
 
 # model parameters: convolutions
 "kernel_size": 4,
@@ -59,7 +59,9 @@ default_args = {
 "image_width": 128, # Width of input images. If patches are used as input, this is the patch width, not the full image width.
 "normalisation": "range-11", # "mn0sd1" normalises to mean=0, std=1. "range-11" normalises to range [-1,1] 
 "scale_image": None, # Set None for no adaptive scaling, otherwise specify the tuple of scaling factors for the image dimensions. Allows for adaptive scaling of the images. E.g. (0.5,0.5) shrinks every image dimension to half of its original size (using Image.resize). Can be useful if input images have variable size and I don't want to bring them all to a fixed size, e.g. because patch mode is used). Was not intended to be used with InpaintingDataset but patch_mode=False, probably causes some funny bugs if used like that
-
+"data_format": "inpainting", # Options: 
+                            # "inpainting": input image/patch is masked out, and the target is the content of the masked image. 
+                            # "autoencoding": input image/patch == output image, no masking.
 # data parameters: misc
 "debug_mode": False,
 "num_workers": 4, 
@@ -73,7 +75,7 @@ default_args = {
 "shear_angle": 0,
 
 # data parameters: image patches
-"patch_mode": True, # if true, patches of patch_size will be extracted from the image for training. If false, the whole image will be rescaled and cropped to (image_height,image_height)
+"patch_mode": True, # if true, patches of patch_size will be extracted from the image for training. If false, the whole image will be resized (possibly warping height/width relations) to (image_height,image_width)
 "patch_size": [128, 128],
 "patch_location_during_training": "random", # Can be "central" or "random"
 "patch_rejection_threshold": 10, # CURRENTLY NOT USED!.threshold, on a 8-bit scale. Patches sampled from the data loader with a mean below this threshold get rejected because they show only background
@@ -99,7 +101,7 @@ default_args = {
 "anomaly_dataset_name" : "MiasPathological", # Name of the dataset with anomalies
 
 # Anomaly detection parameters
-"AD_patch_stride": (10,10), # stride of the sliding window in image dimensions 0 and 1.
+"AD_patch_stride": [10,10], # stride of the sliding window in image dimensions 0 and 1.
 "measure_of_anomaly": "absolute distance", # current options: "absolute distance" (for regression models), "likelihood"(for model trained on cliassification)
 "window_aggregation_method": "mean", # How to aggregate the results from overlapping sliding windows. Current option: "mean", "min", "max"
 "save_anomaly_maps": True, # whether to save the anomaly score heat maps
@@ -263,7 +265,23 @@ def large_context_theme(args):
     args["batch_size"] = 25
     return args
 
-# Dataset themes
+### Themes regarding autoencoders (might not be combinable with other themes):
+def autoencoder_theme(args): # autoencoder on 128x128 patches
+    args["num_layers_dec"] = 6
+    args["num_channels_progression_dec"] = [8,4,2,1,1]
+    args["data_format"] = "autoencoding"
+    return args
+
+def autoencoder_small_theme(args): # autoencoder on 64x64 patches
+    args["image_height"] = 64 
+    args["image_width"] = 64 
+    args["patch_size"] = [64,64]
+    args["num_layers_enc"] = 5
+    args["num_channels_progression_enc"] = [1,2,4,8]
+    args["data_format"] = "autoencoding"
+    return args
+
+### Dataset themes
 def GoogleStreetView_theme(args):
     args["num_image_channels"] = 3
     args["dataset_name"] = "GoogleStreetView"
@@ -295,6 +313,8 @@ small_mask = False
 large_context = False
 GoogleStreetView = False
 DescribableTextures = False
+autoencoder = True
+autoencoder_small = False
 
 # slurm options
 partition = "Standard"
@@ -302,11 +322,13 @@ time = None
 
 
 
-
 # arguments to update from default, each inner dict has the items for one experiment:
 
-update_dicts = [{"scale_image": (0.5,0.5)}]
+update_dicts = [{"patch_mode": False}]
 
+
+assert len(experiment_names) == len(update_dicts)
+assert not (autoencoder and autoencoder_small)
 
 # for each experiment
 for idx, experiment_name in enumerate(experiment_names):
@@ -325,6 +347,10 @@ for idx, experiment_name in enumerate(experiment_names):
         args = small_mask_theme(args)
     if large_context:
         args = large_context_theme(args)
+    if autoencoder:
+        args = autoencoder_theme(args)
+    if autoencoder_small:
+        args = autoencoder_small_theme(args)        
     if experiment_type == "AD": # load the args from the experiment that trained the model we want to use. Use that to overwrite most of the current args. (Purpose of this block is that we don't have to look up e.g. the model architecture of the model we trained, but can import from old json files)
         train_experiment_name = experiment_name.split("___")[0] # name of the experiment in which the model that we want to use for anomaly detection was trained
         anomaly_detection_experiment_name = experiment_name.split("___")[1] # name of the anomaly detection experiment
