@@ -124,7 +124,7 @@ class ExperimentBuilder(nn.Module):
         # return metrics
         if self.task == "classification":
             _, predicted = torch.max(out.data, 1)  # get argmax of predictions
-            accuracy = torch.mean(predicted.eq(y.data).cpu().type(torch.float32))  # compute accuracy
+            accuracy = torch.mean(predicted.cpu().eq(y.data).type(torch.float32))  # compute accuracy
             
             normalised_predictions = ((predicted.cpu().type(torch.float32)/255)-0.5)/0.5
             normalised_targets = ((y.type(torch.float32)/255)-0.5)/0.5
@@ -149,7 +149,7 @@ class ExperimentBuilder(nn.Module):
         # return metrics        
         if self.task == "classification":
             _, predicted = torch.max(out.data, 1)  # get argmax of predictions
-            accuracy = torch.mean(predicted.eq(y.data).cpu().type(torch.float32))  # compute accuracy
+            accuracy = torch.mean(predicted.cpu().eq(y.data).type(torch.float32))  # compute accuracy
             
             normalised_predictions = ((predicted.cpu().type(torch.float32)/255)-0.5)/0.5
             normalised_targets = ((y.type(torch.float32)/255)-0.5)/0.5
