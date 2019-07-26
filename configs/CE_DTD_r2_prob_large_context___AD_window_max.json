@@ -69,5 +69,9 @@
  "measure_of_anomaly": "likelihood",
  "window_aggregation_method": "max",
  "save_anomaly_maps": true,
- "AD_batch_size": 50
+ "AD_batch_size": 50,
+ "AD_margins": [
+  128,
+  128
+ ]
 }
