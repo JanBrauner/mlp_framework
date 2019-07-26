@@ -663,7 +663,7 @@ class InpaintingDataset(data.Dataset):
         except: # default value if the config doesn't have a value for this
             self.data_format = "inpainting"
         
-        self.precompute_patches = precompute_patches # this is only required to make visualisation of val and test set faster
+        self.precompute_patches = precompute_patches # This is true by default. False is only required to make visualisation of val and test set faster
 #        self.patch_rejection_threshold = patch_rejection_threshold
 
         # create list of all images in current dataset

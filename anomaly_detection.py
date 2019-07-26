@@ -22,9 +22,9 @@ anomaly_detection_experiment_name = args.experiment_name.split("___")[1] # name 
 # args.use_gpu = False
 # args.num_workers = 0
 # args.debug_mode = True
-# args.AD_patch_stride = (200,200)
-# 
+# args.AD_patch_stride = (30,30)
 # =============================================================================
+
 # some assertions to make sure to arguments match
 assert not (args.task == "classification" and args.measure_of_anomaly == "absolute distance"), "Model was train with likelihood (classification), but anomaly detection method is 'absolute distance'"
 assert not (args.task == "regression" and args.measure_of_anomaly == "likelihood"), "Model was train with regression, but anomaly detection method is 'likelihood'"

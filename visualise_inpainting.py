@@ -20,10 +20,10 @@ from visualisation_utils import show
 
 #%%
 # parameters:
-experiment_name = "CE_DTD_r2_stand_scale_1"  # "CE_DTD_random_patch_test_1"  #
+experiment_name = "CE_DTD_r2_prob_scale_1"  # "CE_DTD_random_patch_test_1"  #
 batch_size = 8 # number of images per row
 image_batch_idx = 0 # use different number to see different images
-seed = 0 # to see different regions of the images
+seed = 1 # to see different regions of the images
 set_to_visualise = "test"
 force_patch_location = False # "False": every model gets visualised with patches from the location it was trained with. Otherwise, specify the patch_location the models should be tested with
 force_dataset = False # "False": every model gets visualised with dataset it was trained. Otherwise, specify the dataset the models should be tested with. !Of course, you can't force a model that was trained on gray-scale images to work on RGB images

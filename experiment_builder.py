@@ -383,6 +383,10 @@ class AnomalyDetectionExperiment(nn.Module):
         self.save_anomaly_maps=args.save_anomaly_maps
         use_gpu = args.use_gpu
         self.resize_anomaly_maps = True if args.scale_image is not None else False # if images during training were scaled (mostly to be smaller), then anomaly detection automatically happens on the appropriately scaled images. However, the anomaly maps need to be reshaped to the size of the label images before calculating agreement between anomaly maps and ground truth segmentation
+        try:
+            self.AD_margins = args.AD_margins # Tupel of image margins in image dimensions 1 and 2 that should not be considered for calculating agreement between anomaly map and label image
+        except: # None by default
+            self.AD_margins = None
         
         self.val_data_loader = val_data_loader
         self.val_dataset = val_dataset # This is needed to get the full size ground truth images
@@ -432,11 +436,13 @@ class AnomalyDetectionExperiment(nn.Module):
         
             if which_set == "val":
                 data_loader = self.val_data_loader
+                dataset = self.val_dataset
                 anomaly_map_dir = self.anomaly_map_dir_val
                 image_list = self.val_image_list
                 image_sizes = self.val_image_sizes
             elif which_set == "test":
                 data_loader = self.test_data_loader
+                dataset = self.test_dataset
                 anomaly_map_dir = self.anomaly_map_dir_test
                 image_list = self.test_image_list
                 image_sizes = self.test_image_sizes
@@ -457,17 +463,35 @@ class AnomalyDetectionExperiment(nn.Module):
                             if num_finished_images > 0: # Whenever we have moved to the next image, calculate agreement between our anomaly score and the ground truth segmentation. (Obviously don't do this when we are jstus tarting with the first patch)
                                 if self.window_aggregation_method == "mean": # how we normalise the anomaly_map might depend on the window aggregation method
                                     anomaly_map = self.normalise_anomaly_map(anomaly_map,normalisation_map)
-                                self.calculate_agreement_between_anomaly_score_and_labels(
-                                        image_idx=current_image_idx-1, anomaly_map=anomaly_map, which_set=which_set)
-#                                
+                                
+                                # load ground truth segmentation label image
+                                label_image = dataset.get_label_image(current_image_idx-1)
+                                
+                                # if scale_image was used during training, resize anomaly map to original image scale
+                                if self.resize_anomaly_maps:
+                                    anomaly_map = nn.functional.interpolate(anomaly_map.unsqueeze(0), size=(label_image.shape[1], label_image.shape[2])) # introduce batch_size dimension (as required by interpolate) and then scale tensor
+                                    anomaly_map = anomaly_map.squeeze(0) # remove batch-size dimension again, to shape C x H x W
+                                
+                                if self.save_anomaly_maps: # save anomaly map, in same dimensions as original image
+                                    anomaly_map_pil = transforms.functional.to_pil_image(anomaly_map)
+                                    anomaly_map_pil.save(os.path.join(anomaly_map_dir, image_list[current_image_idx -1]))
+                                
+                                # remove margin that should not be considered for calculation of AUC and other scores, if desired
+                                if self.AD_margins is not None:
+                                    slice_considered_for_AD = np.s_[:,
+                                                                    self.AD_margins[0]:anomaly_map.shape[1]-self.AD_margins[0],
+                                                                    self.AD_margins[1]:anomaly_map.shape[2]-self.AD_margins[1]]
+                                    anomaly_map = anomaly_map[slice_considered_for_AD]
+                                    label_image = label_image[slice_considered_for_AD]
+                                
+                                self.calculate_agreement_between_anomaly_score_and_labels(anomaly_map, label_image)
+
+                                
 #                                If I want to use this, I have to include the which_set thing
     #                            save_statistics(experiment_log_dir=self.result_tables_dir, filename='summary.csv',
     #                            stats_dict=self.stats_dict, current_epoch=current_image_idx-1, continue_from_mode=True, save_full_dict=False) # save statistics to stats file.
     
                                 
-                                if self.save_anomaly_maps:
-                                    anomaly_map = transforms.functional.to_pil_image(anomaly_map)
-                                    anomaly_map.save(os.path.join(anomaly_map_dir, image_list[current_image_idx -1]))
 
                             # Upon starting the with the first patch, or whenever we have moved on to the next image, create new anomaly maps and normalisation maps
                             current_image_height = image_sizes[current_image_idx][1]
@@ -502,16 +526,29 @@ class AnomalyDetectionExperiment(nn.Module):
                 # also calculate results and save anomaly map for the last image
                 if self.window_aggregation_method == "mean": # how we normalise the anomaly_map might depend on the window aggregation method
                     anomaly_map = self.normalise_anomaly_map(anomaly_map,normalisation_map)
-                self.calculate_agreement_between_anomaly_score_and_labels(
-                        image_idx=current_image_idx, anomaly_map=anomaly_map, which_set=which_set)
-                
-                save_statistics(experiment_log_dir=self.result_tables_dir, filename=which_set +'_summary.csv',
-                                stats_dict=self.stats_dict, current_epoch=current_image_idx, continue_from_mode=False, save_full_dict=True) # save statistics to stats file.
-    
-                if self.save_anomaly_maps:
-                    anomaly_map = transforms.functional.to_pil_image(anomaly_map)
-                    anomaly_map.save(os.path.join(anomaly_map_dir, image_list[current_image_idx]))
                                 
+                # load ground truth segmentation label image
+                label_image = dataset.get_label_image(current_image_idx)
+                                
+                # if scale_image was used during training, resize anomaly map to original image scale
+                if self.resize_anomaly_maps:
+                    anomaly_map = nn.functional.interpolate(anomaly_map.unsqueeze(0), size=(label_image.shape[1], label_image.shape[2])) # introduce batch_size dimension (as required by interpolate) and then scale tensor
+                    anomaly_map = anomaly_map.squeeze(0) # remove batch-size dimension again, to shape C x H x W
+                
+                if self.save_anomaly_maps: # save anomaly map, in same dimensions as original image
+                    anomaly_map_pil = transforms.functional.to_pil_image(anomaly_map)
+                    anomaly_map_pil.save(os.path.join(anomaly_map_dir, image_list[current_image_idx]))
+                
+                # remove margin that should not be considered for calculation of AUC and other scores, if desired
+                if self.AD_margins is not None:
+                    slice_considered_for_AD = np.s_[:,
+                                                    self.AD_margins[0]:anomaly_map.shape[1]-self.AD_margins[0],
+                                                    self.AD_margins[1]:anomaly_map.shape[2]-self.AD_margins[1]]
+                    anomaly_map = anomaly_map[slice_considered_for_AD]
+                    label_image = label_image[slice_considered_for_AD]
+                
+                self.calculate_agreement_between_anomaly_score_and_labels(anomaly_map, label_image)
+             
                 # print mean results:
                 print("{} set results:".format(which_set))
                 for key, list_of_values in self.stats_dict.items():
@@ -523,17 +560,9 @@ class AnomalyDetectionExperiment(nn.Module):
         normalisation_map[normalisation_map == 0] = 1 # change zeros in the normalisation factor to 1
         anomaly_map = anomaly_map / normalisation_map
         return anomaly_map
-    
-    def calculate_agreement_between_anomaly_score_and_labels(self, image_idx, anomaly_map, which_set):
-        # load ground truth segmentation label image
-        if which_set == "val":
-            label_image = self.val_dataset.get_label_image(image_idx)
-        elif which_set == "test":
-            label_image = self.test_dataset.get_label_image(image_idx)
 
-        if self.resize_anomaly_maps:
-            anomaly_map = nn.functional.interpolate(anomaly_map.unsqueeze(0), size=(label_image.shape[1], label_image.shape[2]))
-        
+
+    def calculate_agreement_between_anomaly_score_and_labels(self, anomaly_map, label_image):
         ### calculate measures of agreement 
         # AUC: currently the only measure of agreement
         if self.measure_of_anomaly == "absolute distance" or self.measure_of_anomaly == "likelihood": #then all anomly scores will be in [0,infinity], and higher scores will mean more anomaly, so no further preprocessing is needed to calculate AUC:
@@ -541,7 +570,6 @@ class AnomalyDetectionExperiment(nn.Module):
         
         self.stats_dict["aucroc"].append(aucroc)
 
-    
           
     def calculate_anomaly_maps(self, inputs, targets):
         # calculate the anomaly map (pixel-wise anomaly score) for the patches in the current batch
