@@ -1004,11 +1004,15 @@ class DatasetWithAnomalies(InpaintingDataset): # the only thing it inherits is g
         # Note: axis labels 0, 1, 2 are relatitve to 3-D tensor, not 2-D image
         # Note: PyTorch Dataloader doesn't deal with slices, but can work with dicts, so we will pass the relevant information in form of a dictionary
         slice_dict = {} 
-        slice_1 = np.s_[sample_info["slice"][1].start + self.mask_slice[1].start : sample_info["slice"][1].start + self.mask_slice[1].stop]
+        if self.data_format == "inpainting":
+            slice_1 = np.s_[sample_info["slice"][1].start + self.mask_slice[1].start : sample_info["slice"][1].start + self.mask_slice[1].stop]
+            slice_2 = np.s_[sample_info["slice"][2].start + self.mask_slice[2].start : sample_info["slice"][2].start + self.mask_slice[2].stop]
+        elif self.data_format == "autoencoding": # for autoencoding, there is no mask, so the slice of the patch is the slice ot the output
+            slice_1 = sample_info["slice"][1]
+            slice_2 = sample_info["slice"][2]
+
         slice_dict["1_start"] = slice_1.start
         slice_dict["1_stop"] = slice_1.stop
-        
-        slice_2 = np.s_[sample_info["slice"][2].start + self.mask_slice[2].start : sample_info["slice"][2].start + self.mask_slice[2].stop]
         slice_dict["2_start"] = slice_2.start
         slice_dict["2_stop"] = slice_2.stop
 
