@@ -23,35 +23,75 @@ max_keywords = ["auc", "acc"]
 def show_traces_multi_exp(experiment_names, ns, variables_to_show="all", logy=False, results_base_dir=results_base_dir):
     """ Just show the traces of several experiments, so that I don't have to type it all indivdually.
     variables_to_show can be just one list of variables, in which case these variables count for every experiment
-    Or it can be a list of list.
+    Or it can be a list of list, in which case different variables are shown for each experiment
     
     
     """
-    for experiment_name, n in zip(experiment_names, ns):
-        show_traces(experiment_name, n, variables_to_show, logy=logy, results_base_dir=results_base_dir)
+    different_variables_for_each_experiment = type(variables_to_show[0]) == list
+    
+    for idx, (experiment_name, n) in enumerate(zip(experiment_names, ns)):
+        if different_variables_for_each_experiment:
+            variables_to_show_now = variables_to_show[idx]
+        else:
+            variables_to_show_now = variables_to_show
+        
+        show_traces(experiment_name, n, variables_to_show_now, logy=logy, results_base_dir=results_base_dir)
+        print("------------------------------------------------------------------")
 
+
+
+#    variable_name = variables_to_show[0].split("_")[1]
+#    
 
 def show_traces(experiment_name, n, variables_to_show, logy=False, results_base_dir=results_base_dir):
-    """ show traces over the course of training and print peak values """ 
+    """ show traces (train and val values) over the course of training and print peak values """ 
 
     df = load_summary_file(experiment_name, n, results_base_dir)
     peak_value_df, peak_epoch_df = create_peak_value_df(df)
 
-    if variables_to_show == "all":
-        variables_to_show = list(df.columns)
+    if variables_to_show == "all" or variables_to_show == ["all"]: # extract all variable names from df
+        variables_to_show = list(df.columns) # extract all column names
+        for idx, variable in enumerate(variables_to_show): # remove "train_", "val_" from the column names
+            variable = variable.replace("train_","")
+            variables_to_show[idx] = variable.replace("val_","")
+        variables_to_show = list(dict.fromkeys(variables_to_show)) # creat unique list (that retains order)
+    
+    
 
+    # prepare all train-val value pairs
+    fig, ax = plt.subplots(ncols=len(variables_to_show),figsize=(15,5))
+    for idx, variable_name in enumerate(variables_to_show):
+        train_var = "train_" + variable_name
+        val_var = "val_" + variable_name
+        
+        if len(variables_to_show) > 1: # then ax is a list of axes
+            cax = ax[idx]
+        else:
+            cax = ax
+        
+        plot_traces_to_cax(cax=cax,
+                           df=df, 
+                           peak_value_df=peak_value_df, 
+                           peak_epoch_df=peak_epoch_df, 
+                           variables_to_show=[train_var, val_var], 
+                           logy=logy, 
+                           title=experiment_name)
 
-    plt.figure()
+    display(plt.gcf())
+    plt.close()
+
+    
+def plot_traces_to_cax(cax, df, peak_value_df, peak_epoch_df, variables_to_show, logy, title):
+#    plt.figure()
     for variable in variables_to_show:
-        (df.loc[:,variable]).plot(legend=True, logy=logy, title=experiment_name)
+        (df.loc[:,variable]).plot(legend=True, ax=cax, logy=logy, title=title)
         # print peak stats
         peak_value = peak_value_df.loc[0,variable]
         peak_epoch = peak_epoch_df.loc[0,variable]
 
         print("peak " + variable + ": {:.4f}".format(peak_value) + " in epoch: " + str(peak_epoch))
 
-    display(plt.gcf())
-    plt.close()
+
 
 def print_table_peak_values(experiment_names, ns, variables_to_show="all", results_base_dir=results_base_dir):    
     for experiment_name,n in zip(experiment_names, ns):            
