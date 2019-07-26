@@ -105,7 +105,7 @@ default_args = {
 "measure_of_anomaly": "absolute distance", # current options: "absolute distance" (for regression models), "likelihood"(for model trained on cliassification)
 "window_aggregation_method": "mean", # How to aggregate the results from overlapping sliding windows. Current option: "mean", "min", "max"
 "save_anomaly_maps": True, # whether to save the anomaly score heat maps
-
+"AD_margins" : None, # Tupel of image margins in image dimensions 1 and 2 that should not be considered for calculating agreement between anomaly map and label image
 # computational parameters
 "AD_batch_size": 50 # batch size for anomaly detection: how many sliding windows to load at the same time
 
@@ -295,6 +295,7 @@ def DescribableTextures_theme(args):
     args["anomaly_dataset_name"] = "DTPathologicalIrreg1"
     args["gpu_id"] ="0,1,2,3,4,5"
     args["num_workers"] = 6
+    args["AD_margins"] = [128,128]
     return args
     
 
@@ -323,7 +324,7 @@ time = None
 
 # arguments to update from default, each inner dict has the items for one experiment:
 
-update_dicts = [{"patch_mode": False}]
+update_dicts = [{"AD_margins": (128,128)}]
 
 
 assert len(experiment_names) == len(update_dicts)

@@ -11,6 +11,7 @@ from torchvision import transforms
 import os
 import math
 import torchvision
+from ast import literal_eval
 
 import data_providers as data_providers
 import model_architectures
@@ -19,7 +20,7 @@ from visualisation_utils import show
 
 #%%
 # parameters:
-experiment_name = "CE_DTD_resize_test_1" #  "CE_DTD_random_patch_test_1"
+experiment_name = "CE_DTD_r2_stand_scale_1"  # "CE_DTD_random_patch_test_1"  #
 batch_size = 8 # number of images per row
 image_batch_idx = 0 # use different number to see different images
 seed = 0 # to see different regions of the images
@@ -28,7 +29,9 @@ force_patch_location = False # "False": every model gets visualised with patches
 force_dataset = False # "False": every model gets visualised with dataset it was trained. Otherwise, specify the dataset the models should be tested with. !Of course, you can't force a model that was trained on gray-scale images to work on RGB images
 
 # add new parameters to older experiments that were run when that argument didn't yet exist and thus don't hove that argument in their config files
-patch_mode_default = True
+default_args = {
+"patch_mode" : True,
+"scale_image" : None}
 
 # paths
 results_path = os.path.join("results")
@@ -82,11 +85,11 @@ if force_dataset:
     args.dataset_name = force_dataset
 
 # add new parameters to old experiments for compatibility:
-try:
-    args.patch_mode
-except: # exception is thrown if args has no such attribute
-    args_to_update = {"patch_mode": patch_mode_default}
-    args.__dict__.update(args_to_update)
+for key,value in default_args.items():
+    try:
+        args.literal_eval(key)
+    except: # exception is thrown if args has no such attribute
+        args.__dict__.update({key: value})
 
 
 ### Load model from  best epoch of that experiment
@@ -124,7 +127,7 @@ torch.manual_seed(seed=args.seed)
 
 
 # create datasets
-args.batch_size = 100 # this is just for a super weird way to randomise the order of images shown in train and val set, without having to adjust the code for the data provider. I first draw a batch with batchsize 100, and then randomly choose "batch_size" from it. See (*1) below
+args.batch_size = 500 # this is just for a super weird way to randomise the order of images shown in train and val set, without having to adjust the code for the data provider. I first draw a batch with batchsize 100, and then randomly choose "batch_size" from it. See (*1) below
 train_data, val_data, test_data, num_output_classes = data_providers.create_dataset(args, augmentations, rng, precompute_patches=False)
 args.batch_size = batch_size
 
@@ -196,6 +199,7 @@ if args.task == "regression": # all images are within range [-1,1], or have zero
 elif args.task == "classification": # inputs are within range [-1,1], or have zero mean and unit variance. But outputs and targets are in [0,255]
     for idx,image in enumerate(inputs): # since these are a batch of images, but transforms work on indivdual images
         inputs[idx,:,:,:] = inv_normalize(image)*255 # first bring to range [0,1], then to range [0,255]
+    inputs = inputs.type(torch.uint8)
 
 # create original images by combining inputs (masked out) and targets
 central_region_slice = create_central_region_slice(inputs.shape, args.mask_size)

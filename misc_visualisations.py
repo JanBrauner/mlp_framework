@@ -1,5 +1,6 @@
 #%%
 import torch
+import torch.nn as nn
 import torchvision.transforms as transforms
 import torchvision
 import numpy as np
@@ -73,18 +74,21 @@ show(grid)
 
 #%% visualise anomaly maps, ground truth segmentations, and original images
 batch_size = 8
-target_size = None # choose image size to resize all images to (for grid view). If None, no resizing happens.
-random = True
+target_size = (300,300) # choose image size to resize all images to (for grid view). If None, no resizing happens, and images are displayed in separate figures
+AD_margins = (128,128) # Tupel (x-margin,y-margin). Display only the part of the input and label images that were used for calcalating AUC and other scores (So with the "AD_margins" removed, see experiment_script_generator)
+random = False
 seed = 2
+which_AD_set = "val"
 
-def display_one_figure(batch_size, target_size, random, seed, index=None):
+def display_one_figure(batch_size, target_size, random, seed, AD_margins, which_AD_set, index=None):
     """
     Usually, display batch_size iamges in one figure. Unless index is specified, then only display that image.
     """
-    input_path = os.path.join("data","DTPathologicalIrreg1","test","images")
-    label_path = os.path.join("data","DTPathologicalIrreg1","test","label_images")
-    anomaly_path = os.path.join("results","anomaly_detection","CE_DTD_random_patch_test_1___AD1","anomaly_maps")
+    input_path = os.path.join("data","DTPathologicalIrreg1",which_AD_set,"images")
+    label_path = os.path.join("data","DTPathologicalIrreg1",which_AD_set,"label_images")
+    anomaly_path = os.path.join("results","anomaly_detection","CE_DTD_r2_stand_scale_0p5___AD_window_mean_TEST","anomaly_maps", which_AD_set)
     image_names = os.listdir(anomaly_path)
+    print(image_names)
     if random:
         rng = np.random.RandomState(seed=seed)
         image_names_to_load = rng.choice(image_names, batch_size)
@@ -100,21 +104,31 @@ def display_one_figure(batch_size, target_size, random, seed, index=None):
 
     for image_name in image_names_to_load:
         input_image = Image.open(os.path.join(input_path,image_name))
-        if target_size is not None:
-            input_image = input_image.resize(target_size)
-        input_image = transforms.functional.to_tensor(input_image)
-        input_images.append(input_image)
-        
-        label_image = Image.open(os.path.join(label_path,image_name))
-        if target_size is not None:
-            label_image = label_image.resize(target_size)
-        label_image = transforms.functional.to_tensor(label_image)
-        label_images.append(label_image)
-        
+        label_image = Image.open(os.path.join(label_path,image_name))        
         anomaly_map = Image.open(os.path.join(anomaly_path,image_name))
-        if target_size is not None:
-            anomaly_map = anomaly_map.resize(target_size)
+        
+        input_image = transforms.functional.to_tensor(input_image)
+        label_image = transforms.functional.to_tensor(label_image)
         anomaly_map = transforms.functional.to_tensor(anomaly_map)
+
+        if AD_margins is not None:
+            slice_to_display = np.s_[:,
+                                    AD_margins[0]:input_image.shape[1]-AD_margins[0],
+                                    AD_margins[1]:input_image.shape[2]-AD_margins[1]]
+            input_image = input_image[slice_to_display]
+            label_image = label_image[slice_to_display]
+            anomaly_map = anomaly_map[slice_to_display]
+        
+        if target_size is not None:
+            input_image = nn.functional.interpolate(input_image.unsqueeze(0), size=target_size) # introduce batch_size dimension (as required by interpolate) and then scale tensor
+            input_image = input_image.squeeze(0) # remove batch-size dimension again, to shape C x H x W
+            label_image = nn.functional.interpolate(label_image.unsqueeze(0), size=target_size) # introduce batch_size dimension (as required by interpolate) and then scale tensor
+            label_image = label_image.squeeze(0) # remove batch-size dimension again, to shape C x H x W
+            anomaly_map = nn.functional.interpolate(anomaly_map.unsqueeze(0), size=target_size) # introduce batch_size dimension (as required by interpolate) and then scale tensor
+            anomaly_map = anomaly_map.squeeze(0) # remove batch-size dimension again, to shape C x H x W
+        
+        input_images.append(input_image)
+        label_images.append(label_image)
         anomaly_maps.append(anomaly_map)
     
     inputs_grid = torchvision.utils.make_grid(input_images, nrow=batch_size, padding=10, pad_value = 0.5)
@@ -123,17 +137,25 @@ def display_one_figure(batch_size, target_size, random, seed, index=None):
     
     fig = plt.figure()
     
-    cax = fig.add_subplot(311)
+#    cax = fig.add_subplot(311)
+#    show(inputs_grid,cax)
+#    
+#    cax = fig.add_subplot(312)
+#    show(anomaly_maps_grid,cax)
+#    
+#    cax = fig.add_subplot(313)
+#    show(label_images_grid,cax)
+#    
+    
+    cax = fig.add_subplot(211)
     show(inputs_grid,cax)
     
-    cax = fig.add_subplot(312)
-    show(anomaly_maps_grid,cax)
-    
-    cax = fig.add_subplot(313)
+    cax = fig.add_subplot(212)
     show(label_images_grid,cax)
 
+
 if target_size is not None: # display all in one figure
-    display_one_figure(batch_size, target_size, random, seed)
+    display_one_figure(batch_size, target_size, random, seed, AD_margins=AD_margins, which_AD_set=which_AD_set)
 else: # display batch_size separate figures
     for i in range(batch_size):
-        display_one_figure(batch_size, target_size, random, seed, index=i)
+        display_one_figure(batch_size, target_size, random=False, seed=seed, AD_margins=AD_margins, which_AD_set=which_AD_set, index=i)

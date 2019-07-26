@@ -24,7 +24,7 @@ def random_blob(img_size, num_iter, threshold, maximum_blob_size, fixed_init=Non
     neighbors = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
     if fixed_init is None:
         # Sample random initial position, but not on the fringes of the image
-        init_pos = np.random.randint(64, img_height - 65), np.random.randint(64, img_width - 65)
+        init_pos = np.random.randint(128, img_height - 128), np.random.randint(128, img_width - 128)
     else:
         init_pos = (fixed_init[0], fixed_init[1])
     # Initialize mask and make init_pos visible
