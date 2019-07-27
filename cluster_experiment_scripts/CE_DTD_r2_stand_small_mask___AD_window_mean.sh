@@ -36,7 +36,7 @@ cd ..
 
 
 mkdir -p /disk/scratch/${STUDENT_ID}/data/DTPathologicalIrreg1/
-rsync -ua --progress /home/${STUDENT_ID}/mlp_framework/data/DTPathologicalIrreg1/ /disk/scratch/${STUDENT_ID}/data/DTPathologicalIrreg1/
+rsync -ua --progress --delete /home/${STUDENT_ID}/mlp_framework/data/DTPathologicalIrreg1/ /disk/scratch/${STUDENT_ID}/data/DTPathologicalIrreg1/
 export DATASET_DIR=/disk/scratch/${STUDENT_ID}/data/
 
 python anomaly_detection.py --experiment_name CE_DTD_r2_stand_small_mask___AD_window_mean
