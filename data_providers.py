@@ -880,6 +880,7 @@ class DatasetWithAnomalies(InpaintingDataset): # the only thing it inherits is g
         except: # if the directory doesn't exist
             pass
         
+        
         self.image_list = sorted(self.image_list)
         self.label_image_path = os.path.join(self.image_base_path, which_set, "label_images") # folder is supposed to contain the binary label images, same names as the input images
 
