@@ -410,7 +410,7 @@ class AnomalyDetectionExperiment(nn.Module):
         # Load state dict from  best epoch of that experiment
         model_dir = os.path.abspath(os.path.join("results", experiment_name, "saved_models"))
         trained_as_parallel_AD_single_process = True if torch.cuda.device_count() < 1 else False
-        state_dict = load_best_model_state_dict(model_dir=model_dir, use_gpu=use_gpu, trained_as_parallel_AD_single_process=trained_as_parallel_AD_single_process)
+        state_dict = load_best_model_state_dict(model_dir=model_dir, use_gpu=use_gpu, saved_as_parallel_load_as_single_process=trained_as_parallel_AD_single_process)
         self.load_state_dict(state_dict=state_dict["network"]) # Note: You need to load the state dict for the whole AnomalyDetection object, not just the model, since that is the format the state dict was saved in
         
         self.anomaly_map_dir_val = os.path.abspath(os.path.join("results", "anomaly_detection", experiment_name + "___" + anomaly_detection_experiment_name, "anomaly_maps", "val"))
@@ -502,6 +502,9 @@ class AnomalyDetectionExperiment(nn.Module):
                             normalisation_map = torch.zeros((1,current_image_height, current_image_width)) # for every image, keep score of how often a given pixel has appeared in a sliding window, for calculation of average scores. Initialise as constant zero tensor of the same size as the full image
                         
                         # Now the part that happens for every image-patch(!): update the relevant part of the current anomaly_score map:
+                        
+                        # build the slice of the output (when doing inpainting:predictions of mask region; when doing autoencoding: patch reconstruction) wrt the full input image.
+                        # Note that this has to be done in such an awkward way because the Pyorch DataLoader doesn't pass slices (or lists of slices, ...), but can deal with dicts
                         current_slice = np.s_[:,
                                               np.s_[slices["1_start"][batch_idx]:slices["1_stop"][batch_idx]],
                                               np.s_[slices["2_start"][batch_idx]:slices["2_stop"][batch_idx]]]

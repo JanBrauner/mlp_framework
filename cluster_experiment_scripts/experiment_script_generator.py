@@ -71,6 +71,7 @@ default_args = {
 "gamma_factor": 1,
 "rot_angle": 0,
 "translate_factor": [0, 0],
+
 "scale_factor": 1,
 "shear_angle": 0,
 
@@ -113,10 +114,10 @@ default_args = {
 }
 
 
-args_to_keep_from_AD_experiment = [# all other args will get copied over from the train experiment
+# These are the only args that will be set to the default value listed above. All other args will be copied over from the train experiment. 
+# The reason is that these args don't interact with the train setting. But e.g. anomaly dataset interacts with the train setting (you should choose the dataset you trained on), measure_of_anomaly also does, ...
+args_to_keep_from_AD_experiment = [
         # anomaly detection specific args
-        "AD_patch_stride",
-        "measure_of_anomaly",
         "window_aggregation_method",
         "save_anomaly_maps",
         "AD_batch_size",
@@ -301,7 +302,7 @@ def DescribableTextures_theme(args):
 
 #%% A list of independent experiment 
 # experiment names
-experiment_names = ["CE_DTD_r2_stand_scale_0p5___AD_window_mean_TEST"] # Note: For experiments that include anomaly detection, the experiment name needs to be original_experiment_name + "___" + AD_experiment_name, where original_experiment_name is the name of the eperiment in which the model that we want to use for AD was trained.
+experiment_names = ["AE_DTD_r3_patch_64_bn_128___AD_test_1"] # Note: For experiments that include anomaly detection, the experiment name needs to be original_experiment_name + "___" + AD_experiment_name, where original_experiment_name is the name of the eperiment in which the model that we want to use for AD was trained.
 
 # type of experiment
 experiment_type = "AD" # options: "train" for training (including evaluation on val and test set); "AD" for anomaly detection (using the best validation model from "experiment_name"); "train+AD" for both.
@@ -327,8 +328,7 @@ time = None
 update_dicts = [{"AD_margins": (128,128)}]
 
 
-assert len(experiment_names) == len(update_dicts)
-assert not (autoencoder and autoencoder_small)
+
 
 # for each experiment
 for idx, experiment_name in enumerate(experiment_names):
@@ -361,8 +361,6 @@ for idx, experiment_name in enumerate(experiment_names):
     
         args_to_update = {key:value for (key,value) in args_train_experiment.items() if key not in args_to_keep_from_AD_experiment}
         args.update(args_to_update)
-    if probabilistic_inpainting: # after having collected to args from the training experiment
-        args["measure_of_anomaly"] = "likelihood"
     if experiment_type == "AD": # you need less GPUs and workers if you don't train
         args = AD_theme(args)
     if cpu: # it's important that this one is last, because it needs to overwrite num_workers and use_gpu
@@ -373,7 +371,30 @@ for idx, experiment_name in enumerate(experiment_names):
         assert key in args.keys(), "wrong parameters name"
     args.update(update_dicts[idx])
 
+    ### Just a bunch of assertion that should capture common mistakes (though by no means all things that can go wrong):
+    assert len(experiment_names) == len(update_dicts)
+    assert not (autoencoder and autoencoder_small)
+    assert not ((autoencoder or autoencoder_small) and (small_mask or large_context))
+    
+    assert args["dataset_name"] in ["MiasHealthy", "GoogleStreetView", "DescribableTextures"]
+    assert args["normalisation"] in ["mn0sd1", "range-11"]
+    assert args["data_format"] in ["inpainting", "autoencoding"]
+    assert args["measure_of_anomaly"] in ["absolute distance", "likelihood"] 
+    assert args["window_aggregation_method"] in ["min", "mean", "max"]
+    
+    assert (type(args["translate_factor"]) in [list, tuple] and len(args["translate_factor"])==2)
+    assert (type(args["patch_size"]) in [list, tuple] and len(args["patch_size"])==2)
+    assert (type(args["mask_size"]) in [list, tuple] and len(args["mask_size"])==2)
+    assert (type(args["AD_patch_stride"]) in [list, tuple] and len(args["mask_size"])==2)
+    
+    if args["scale_image"] is not None:
+        assert (type(args["scale_image"]) in [list, tuple] and len(args["scale_image"])==2)
+    if args["AD_margins"] is not None:
+        assert (type(args["AD_margins"]) in [list, tuple] and len(args["AD_margins"])==2)
 
+
+
+    
     # create files        
     create_config_file(os.path.join(config_path, experiment_name), args)
     create_shell_script(experiment_name=experiment_name, experiment_type=experiment_type,

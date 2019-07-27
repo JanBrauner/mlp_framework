@@ -1,6 +1,9 @@
 """
-Visualise context encoder results:
-    Load a trained model, and visualise inputs, outputs, original images, ...
+Visualise outputs of trained models.
+E.g.: context encoder results:
+    Load a trained model, and visualise inputs, outputs (as filled in images), original images, ...
+E.g.: Autoencoder
+    Load a trained model, and visualise inputs, outputs,
 
 """
 
@@ -16,11 +19,13 @@ from ast import literal_eval
 import data_providers as data_providers
 import model_architectures
 from arg_extractor import get_args
-from visualisation_utils import show
+from visualisation_utils import image_grid_with_groups
+from storage_utils import load_best_model_state_dict
+from misc_utils import create_central_region_slice
 
 #%%
 # parameters:
-experiment_name = "CE_DTD_r2_prob_scale_1"  # "CE_DTD_random_patch_test_1"  #
+experiment_name = "AE_DTD_r3_patch_64_bn_128"  # "CE_DTD_random_patch_test_1"  #
 batch_size = 8 # number of images per row
 image_batch_idx = 0 # use different number to see different images
 seed = 1 # to see different regions of the images
@@ -31,7 +36,8 @@ force_dataset = False # "False": every model gets visualised with dataset it was
 # add new parameters to older experiments that were run when that argument didn't yet exist and thus don't hove that argument in their config files
 default_args = {
 "patch_mode" : True,
-"scale_image" : None}
+"scale_image" : None,
+"data_format": "autoencoding"}
 
 # paths
 results_path = os.path.join("results")
@@ -39,36 +45,7 @@ model_dir = os.path.join("results", experiment_name, "saved_models")
 
 
 #%%
-def create_central_region_slice(image_size, size_central_region):
-    # create slice of the central region of an image (dimensions (CxHxW)), when the size of the central region is central_region_size (HxW)
-    margins = ((image_size[2]-size_central_region[0])/2, 
-               (image_size[3]-size_central_region[1])/2) # size of margins in dimensions 1 and 2 (relative to the 3-D tensor) between the image borders and the patch borders
-    
-    central_region_slice = np.s_[:,:, 
-                      math.ceil(margins[0]):math.ceil(image_size[2]-margins[0]), 
-                      math.ceil(margins[1]):math.ceil(image_size[3]-margins[1])]
-    return central_region_slice
-
-
-
-def update_state_dict_keys(state_dict):
-    # Modify keys in a model state dict to use a model that was serialised as a nn.DataParallel module:
-    # delete the .model prefix from the keys in the state dict
-    from collections import OrderedDict
-    new_state_dict = OrderedDict()
-    for k, v in state_dict.items():
-        if k != "network":
-            new_state_dict[k] = v
-    new_state_dict["network"] = {}
-    for k, v in state_dict["network"].items():
-        name = k.replace("model.", "") # remove `model.`
-        name = name.replace("module.", "") # remove `module.`
-        new_state_dict["network"][name] = v
-    return new_state_dict
-
-
-#%%
-### update args
+### get args (for model and dataset) from config, update args as specifified above
 args, device = get_args(experiment_name)
 args.batch_size = batch_size # to display a specified amount of image per figure
 args.use_gpu = False # to run on cpu
@@ -92,16 +69,11 @@ for key,value in default_args.items():
         args.__dict__.update({key: value})
 
 
-### Load model from  best epoch of that experiment
-# find best model
-model_list = os.listdir(model_dir)
-for model_name in model_list:
-    if model_name.endswith("_best"):
-        best_model_name = model_name
 
-# load best model's state dict
-state_dict = torch.load(f = os.path.join(model_dir, best_model_name), map_location="cpu")
-state_dict = update_state_dict_keys(state_dict)
+
+#%%
+### Load model from  best epoch of that experiment
+state_dict = load_best_model_state_dict(model_dir=model_dir, use_gpu=False, saved_as_parallel_load_as_single_process=True, saved_whole_module_load_only_model=True)
 
 # create model
 model = model_architectures.create_model(args)
@@ -109,6 +81,10 @@ model.load_state_dict(state_dict=state_dict["network"])
 model.eval()
 
 
+
+
+
+#%%
 ### Create data
 if args.augment:
     augmentations = [transforms.RandomAffine(degrees=args.rot_angle, translate=args.translate_factor, 
@@ -153,14 +129,21 @@ targets = targets[image_idx,:,:,:]
 
 
 
+
+
+#%%
 ### Send data through model and create outputs
 outputs = model.forward(inputs)
 if args.task == "classification": # this is only the case if we trained a probabilistic CE, at least atm.
     # in this case, outputs has shape B x classes x channel x H x W
     _, outputs = torch.max(outputs, dim=1)  # get argmax of predictions
-#    Antreas' version, just in case my modification doesn't work:     _, predicted = torch.max(out.data, 1)  # get argmax of prediction
 
 
+
+
+
+
+#%%
 ### inverse normalization of all images
 if args.dataset_name == "MiasHealthy":
     if args.normalisation == "mn0sd1":
@@ -201,16 +184,30 @@ elif args.task == "classification": # inputs are within range [-1,1], or have ze
         inputs[idx,:,:,:] = inv_normalize(image)*255 # first bring to range [0,1], then to range [0,255]
     inputs = inputs.type(torch.uint8)
 
-# create original images by combining inputs (masked out) and targets
-central_region_slice = create_central_region_slice(inputs.shape, args.mask_size)
-original_images = inputs.clone().detach()
-original_images[central_region_slice] = targets
 
-filled_in_images = inputs.clone().detach()
-filled_in_images[central_region_slice] = outputs.detach()
 
-#%% Display images
-### create image grid
+
+#%%
+### create composition images
+if args.data_format == "inpainting":
+    # create original images by combining inputs (masked out) and targets
+    central_region_slice = create_central_region_slice(inputs.shape[2:], args.mask_size)
+    central_region_slice = np.s_[:,:, central_region_slice]
+    original_images = inputs.clone().detach()
+    original_images[central_region_slice] = targets
+    
+    filled_in_images = inputs.clone().detach()
+    filled_in_images[central_region_slice] = outputs.detach()
+    
+    
+elif args.data_format == "autoencoding":
+    pass
+
+
+
+
+#%%
+### plot
 grid_parameters = {
         "nrow":args.batch_size, 
         "padding":10, 
@@ -219,18 +216,7 @@ grid_parameters = {
         "scale_each":False, 
         "pad_value":0}
 
-originals_grid = torchvision.utils.make_grid(original_images, **grid_parameters)
-inputs_grid = torchvision.utils.make_grid(inputs, **grid_parameters)
-outputs_grid = torchvision.utils.make_grid(filled_in_images, **grid_parameters)
-
-
-### plot images
-fig = plt.figure()
-cax = fig.add_subplot(311)
-show(inputs_grid, cax)
-
-cax = fig.add_subplot(312)
-show(outputs_grid, cax)
-
-cax = fig.add_subplot(313)
-show(originals_grid, cax)
+if args.data_format == "inpainting":
+    image_grid_with_groups(inputs, filled_in_images, original_images, grid_parameters=grid_parameters)
+elif args.data_format == "autoencoding":
+    image_grid_with_groups(inputs, outputs, grid_parameters=grid_parameters)
