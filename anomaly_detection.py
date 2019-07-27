@@ -15,16 +15,16 @@ anomaly_detection_experiment_name = args.experiment_name.split("___")[1] # name 
 
 # =============================================================================
 # ### for debugging
-# args, device = get_args("AE_DTD_r3_patch_64_bn_128___AD_test_1")  # get arguments from command line/json config.
+# args, device = get_args("CE_DTD_r2_prob_scale_1___AD_window_mean")  # get arguments from command line/json config.
 # train_experiment_name = args.experiment_name.split("___")[0] # name of the experiment in which the model that we want to use for anomaly detection was trained
 # anomaly_detection_experiment_name = args.experiment_name.split("___")[1] # name of the anomaly detection experiment
 # 
 # args.use_gpu = False
 # args.num_workers = 0
 # args.debug_mode = True
-# args.AD_patch_stride = (30,30)
-# 
+# args.AD_patch_stride = (200,200)
 # =============================================================================
+
 # some assertions to make sure to arguments match
 assert not (args.task == "classification" and args.measure_of_anomaly == "absolute distance"), "Model was train with likelihood (classification), but anomaly detection method is 'absolute distance'"
 assert not (args.task == "regression" and args.measure_of_anomaly == "likelihood"), "Model was train with regression, but anomaly detection method is 'likelihood'"

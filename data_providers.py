@@ -870,6 +870,17 @@ class DatasetWithAnomalies(InpaintingDataset): # the only thing it inherits is g
         self.image_list = os.listdir(self.image_path) #directory may only contain the image files, no other files or directories
         assert len(self.image_list) > 0, "source directory doesn't contain image files"
 
+        # exclude anomaly maps already created for this experiment_name
+        experiment_name = args.experiment_name
+        anomaly_map_base_dir = os.path.abspath(os.path.join("results", "anomaly_detection"))
+        anomaly_maps_dir = os.path.join(anomaly_map_base_dir, experiment_name, "anomaly_maps", which_set)
+        try:
+            anomaly_maps_already_created = os.listdir(anomaly_maps_dir)
+            self.image_list = [x for x in self.image_list if not x in anomaly_maps_already_created]
+        except: # if the directory doesn't exist
+            pass
+        
+        self.image_list = sorted(self.image_list)
         self.label_image_path = os.path.join(self.image_base_path, which_set, "label_images") # folder is supposed to contain the binary label images, same names as the input images
 
 
@@ -1027,9 +1038,6 @@ class DatasetWithAnomalies(InpaintingDataset): # the only thing it inherits is g
         
         # load image
         full_label_image = Image.open(os.path.join(self.label_image_path, self.image_list[index]))
-        
-        # potentially scale image
-
 
         # transform image
         full_label_image = self.label_image_transformer(full_label_image)

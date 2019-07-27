@@ -171,13 +171,13 @@ cd ..
 """
 
 script_block_to_transfer_dataset = """mkdir -p /disk/scratch/${{STUDENT_ID}}/data/{dataset_name}/
-rsync -ua --progress /home/${{STUDENT_ID}}/mlp_framework/data/{dataset_name}/ /disk/scratch/${{STUDENT_ID}}/data/{dataset_name}/
+rsync -ua --progress --delete /home/${{STUDENT_ID}}/mlp_framework/data/{dataset_name}/ /disk/scratch/${{STUDENT_ID}}/data/{dataset_name}/
 export DATASET_DIR=/disk/scratch/${{STUDENT_ID}}/data/
 
 """
 
 script_block_to_transfer_anomaly_dataset = """mkdir -p /disk/scratch/${{STUDENT_ID}}/data/{anomaly_dataset_name}/
-rsync -ua --progress /home/${{STUDENT_ID}}/mlp_framework/data/{anomaly_dataset_name}/ /disk/scratch/${{STUDENT_ID}}/data/{anomaly_dataset_name}/
+rsync -ua --progress --delete /home/${{STUDENT_ID}}/mlp_framework/data/{anomaly_dataset_name}/ /disk/scratch/${{STUDENT_ID}}/data/{anomaly_dataset_name}/
 export DATASET_DIR=/disk/scratch/${{STUDENT_ID}}/data/
 
 """
@@ -302,13 +302,13 @@ def DescribableTextures_theme(args):
 
 #%% A list of independent experiment 
 # experiment names
-experiment_names = ["AE_DTD_r3_patch_64_bn_128___AD_test_1"] # Note: For experiments that include anomaly detection, the experiment name needs to be original_experiment_name + "___" + AD_experiment_name, where original_experiment_name is the name of the eperiment in which the model that we want to use for AD was trained.
+experiment_names = ["CE_DTD_r2_stand_scale_1___AD_window_mean"] # Note: For experiments that include anomaly detection, the experiment name needs to be original_experiment_name + "___" + AD_experiment_name, where original_experiment_name is the name of the eperiment in which the model that we want to use for AD was trained.
 
 # type of experiment
 experiment_type = "AD" # options: "train" for training (including evaluation on val and test set); "AD" for anomaly detection (using the best validation model from "experiment_name"); "train+AD" for both.
 
 # Commonly used themes
-cpu = True
+cpu = False
 probabilistic_inpainting = False
 small_mask = False
 large_context = False

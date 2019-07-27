@@ -446,7 +446,11 @@ class AnomalyDetectionExperiment(nn.Module):
                 anomaly_map_dir = self.anomaly_map_dir_test
                 image_list = self.test_image_list
                 image_sizes = self.test_image_sizes
-            with tqdm.tqdm(total=len(data_loader)) as pbar:
+            if len(image_list) == 0:
+                print("All images already have corresponding anomaly maps. No new anomaly maps created.")
+                return
+
+            with tqdm.tqdm(total=len(image_list)) as pbar:
                 for inputs, targets, image_idxs, slices in data_loader:
                     # calculate "partial" anomaly maps for all patches (not full images!) in the current batch
                     anomaly_maps_current_batch = self.calculate_anomaly_maps(inputs, targets) 
@@ -473,8 +477,7 @@ class AnomalyDetectionExperiment(nn.Module):
                                     anomaly_map = anomaly_map.squeeze(0) # remove batch-size dimension again, to shape C x H x W
                                 
                                 if self.save_anomaly_maps: # save anomaly map, in same dimensions as original image
-                                    anomaly_map_pil = transforms.functional.to_pil_image(anomaly_map)
-                                    anomaly_map_pil.save(os.path.join(anomaly_map_dir, image_list[current_image_idx -1]))
+                                    torch.save(anomaly_map, os.path.join(anomaly_map_dir, image_list[current_image_idx -1]))
                                 
                                 # remove margin that should not be considered for calculation of AUC and other scores, if desired
                                 if self.AD_margins is not None:
@@ -486,11 +489,12 @@ class AnomalyDetectionExperiment(nn.Module):
                                 
                                 self.calculate_agreement_between_anomaly_score_and_labels(anomaly_map, label_image)
 
-                                
-#                                If I want to use this, I have to include the which_set thing
-    #                            save_statistics(experiment_log_dir=self.result_tables_dir, filename='summary.csv',
-    #                            stats_dict=self.stats_dict, current_epoch=current_image_idx-1, continue_from_mode=True, save_full_dict=False) # save statistics to stats file.
-    
+                                # save stats                
+                                save_statistics(experiment_log_dir=self.result_tables_dir, filename=which_set +'_summary.csv',
+                                                stats_dict=self.stats_dict, current_epoch=current_image_idx-1, continue_from_mode="if_exists", save_full_dict=False) # save statistics to stats file.
+ 
+                                # update progress bar
+                                pbar.update(1)
                                 
 
                             # Upon starting the with the first patch, or whenever we have moved on to the next image, create new anomaly maps and normalisation maps
@@ -520,13 +524,13 @@ class AnomalyDetectionExperiment(nn.Module):
                             anomaly_map[current_slice] = first_time_pixels * anomaly_maps_current_batch[batch_idx,:,:,:] + (1-first_time_pixels) * min_current_and_aggregated_map # for the pixels that appear in a sliding window mask for the first time, simply copy over the anomaly map. If the pixel was seen before, take the minimum between the previous and the current anomaly score.
                         elif self.window_aggregation_method == "max":
                             anomaly_map[current_slice] = torch.max(anomaly_map[current_slice], anomaly_maps_current_batch[batch_idx,:,:,:])
-                            
+                           
                     
-                    # update progress bar
-                    pbar.update(1)
+
                 
                 
-                # also calculate results and save anomaly map for the last image
+                ### ---------------------------------------
+                ### also calculate results and save anomaly map for the last image
                 if self.window_aggregation_method == "mean": # how we normalise the anomaly_map might depend on the window aggregation method
                     anomaly_map = self.normalise_anomaly_map(anomaly_map,normalisation_map)
                                 
@@ -539,8 +543,7 @@ class AnomalyDetectionExperiment(nn.Module):
                     anomaly_map = anomaly_map.squeeze(0) # remove batch-size dimension again, to shape C x H x W
                 
                 if self.save_anomaly_maps: # save anomaly map, in same dimensions as original image
-                    anomaly_map_pil = transforms.functional.to_pil_image(anomaly_map)
-                    anomaly_map_pil.save(os.path.join(anomaly_map_dir, image_list[current_image_idx]))
+                    torch.save(anomaly_map, os.path.join(anomaly_map_dir, image_list[current_image_idx]))
                 
                 # remove margin that should not be considered for calculation of AUC and other scores, if desired
                 if self.AD_margins is not None:
@@ -551,11 +554,22 @@ class AnomalyDetectionExperiment(nn.Module):
                     label_image = label_image[slice_considered_for_AD]
                 
                 self.calculate_agreement_between_anomaly_score_and_labels(anomaly_map, label_image)
-             
+                # update progress bar
+                pbar.update(1)
+                
+                # save stats                
+                save_statistics(experiment_log_dir=self.result_tables_dir, filename=which_set +'_summary.csv',
+                                stats_dict=self.stats_dict, current_epoch=current_image_idx, continue_from_mode=True, save_full_dict=False) # save statistics to stats file.
+    
+                
+                ### ---------------------------------------
+                
+                
                 # print mean results:
                 print("{} set results:".format(which_set))
                 for key, list_of_values in self.stats_dict.items():
-                    mean_value = sum(list_of_values)/len(list_of_values)
+                    list_of_non_nan_values = [x for x in list_of_values if not np.isnan(x)]
+                    mean_value = sum(list_of_non_nan_values)/len(list_of_non_nan_values)
                     print("Mean ", key, ": ", "{:.4f}".format(mean_value)) 
         
     def normalise_anomaly_map(self, anomaly_map, normalisation_map):

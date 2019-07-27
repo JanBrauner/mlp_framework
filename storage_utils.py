@@ -30,10 +30,14 @@ def save_statistics(experiment_log_dir, filename, stats_dict, current_epoch, con
     :return: The filepath to the summary file
     """
     summary_filename = os.path.join(experiment_log_dir, filename)
+    
+    if continue_from_mode == "if_exists": # if this was specified, check if file exists, and activate continue_form_mode (-> not writing column names, just appending results) if it does 
+        continue_from_mode = True if os.path.exists(summary_filename) else False
+            
     mode = 'a' if continue_from_mode else 'w'
     with open(summary_filename, mode, newline='') as f:
         writer = csv.writer(f)
-        if not continue_from_mode:
+        if not continue_from_mode: # if not continuing, write column headers
             writer.writerow(list(stats_dict.keys()))
 
         if save_full_dict:
@@ -41,7 +45,7 @@ def save_statistics(experiment_log_dir, filename, stats_dict, current_epoch, con
             for idx in range(total_rows):
                 row_to_add = [value[idx] for value in list(stats_dict.values())]
                 writer.writerow(row_to_add)
-        else:
+        else: # append current epoch values to results table
             row_to_add = [value[current_epoch] for value in list(stats_dict.values())]
             writer.writerow(row_to_add)
 
