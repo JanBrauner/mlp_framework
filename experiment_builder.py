@@ -478,6 +478,7 @@ class AnomalyDetectionExperiment(nn.Module):
                                 
                                 if self.save_anomaly_maps: # save anomaly map, in same dimensions as original image
                                     torch.save(anomaly_map, os.path.join(anomaly_map_dir, image_list[current_image_idx -1]))
+                                    ## !! Note that this saves the anomaly maps with the same file extension as the original images, even if the format is a torch tensor in reality....
                                 
                                 # remove margin that should not be considered for calculation of AUC and other scores, if desired
                                 if self.AD_margins is not None:
