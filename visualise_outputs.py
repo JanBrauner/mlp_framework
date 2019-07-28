@@ -25,7 +25,7 @@ from misc_utils import create_central_region_slice
 
 #%%
 # parameters:
-experiment_name = "AE_DTD_r3_patch_64_bn_128"  # "CE_DTD_random_patch_test_1"  #
+experiment_name = "AE_DTD_r3_patch_64_bn_8192"  # "CE_DTD_random_patch_test_1"  #
 batch_size = 8 # number of images per row
 image_batch_idx = 0 # use different number to see different images
 seed = 1 # to see different regions of the images
