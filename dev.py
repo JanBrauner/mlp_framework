@@ -221,8 +221,8 @@
 
 
 
-
 # =============================================================================
+# 
 # #%% counting anomaly maps
 # anomaly_detection_base_dir = os.path.abspath(os.path.join("results", "anomaly_detection"))
 # experiment_names = ['CE_DTD_r2_stand_scale_1___AD_window_mean',
@@ -258,30 +258,77 @@
 #             print("{}, {} set: {}".format(experiment_name, which_set, str(num_anomaly_maps)))
 #         except:
 #             pass
+#         
+# 
 # =============================================================================
-        
-#%% working space
-import numpy as np
-import torch
-import torchvision.transforms as transforms
-from PIL import Image
-s
-npimg = np.arange(9).reshape((3,3)) + 0.5
-image_from_array = Image.fromarray(npimg)
-
-tensor = torch.from_numpy(npimg).type(torch.float)
-image_from_tensor = transforms.functional.to_pil_image(tensor)
-
-print("Image from array: ", np.array(image_from_array))
-print("Image from tensor: ", np.array(image_from_tensor))
-
-array = np.arange(9).reshape((3,3)) + 0.5
-
-tensor = torch.from_numpy(tensor).type(torch.float)
-
-image = transforms.functional.to_pil_image(tensor, mode="F")
-image = np.array(image)
 
 
-print("Tensor: ", tensor)
-print("Image: ", image)
+
+
+
+
+# =============================================================================
+# 
+# #%% working space
+# import numpy as np
+# import torch
+# import torchvision.transforms as transforms
+# from PIL import Image
+# 
+# npimg = np.arange(9).reshape((3,3)) + 0.5
+# image_from_array = Image.fromarray(npimg)
+# 
+# tensor = torch.from_numpy(npimg).type(torch.float)
+# image_from_tensor = transforms.functional.to_pil_image(tensor)
+# 
+# print("Image from array: ", np.array(image_from_array))
+# print("Image from tensor: ", np.array(image_from_tensor))
+# 
+# array = np.arange(9).reshape((3,3)) + 0.5
+# 
+# tensor = torch.from_numpy(tensor).type(torch.float)
+# 
+# image = transforms.functional.to_pil_image(tensor, mode="F")
+# image = np.array(image)
+# 
+# 
+# print("Tensor: ", tensor)
+# print("Image: ", image)
+# 
+# =============================================================================
+#%% extending experiment names
+experiment_names = ["AE_DTD_r3_patch_128_bn_8192",
+                    "AE_DTD_r3_patch_128_bn_4096",
+                    "AE_DTD_r3_patch_128_bn_2048",
+                    "AE_DTD_r3_patch_128_bn_1024",
+                    "AE_DTD_r3_patch_128_bn_512",
+                    "AE_DTD_r3_patch_128_bn_256",
+                    "AE_DTD_r3_patch_128_bn_128",
+					"AE_DTD_r3_patch_64_bn_8192",
+                    "AE_DTD_r3_patch_64_bn_4096",
+                    "AE_DTD_r3_patch_64_bn_2048",
+                    "AE_DTD_r3_patch_64_bn_1024",
+                    "AE_DTD_r3_patch_64_bn_512",
+                    "AE_DTD_r3_patch_64_bn_256",
+                    "AE_DTD_r3_patch_64_bn_128",
+					"AE_DTD_r3_full_image_128_bn_8192",
+                    "AE_DTD_r3_full_image_128_bn_4096",
+                    "AE_DTD_r3_full_image_128_bn_2048",
+                    "AE_DTD_r3_full_image_128_bn_1024",
+                    "AE_DTD_r3_full_image_128_bn_512",
+                    "AE_DTD_r3_full_image_128_bn_256",
+                    "AE_DTD_r3_full_image_128_bn_128"]
+
+linker = "___AD_"
+extensions = ["window_min", "window_mean", "window_max"]
+
+more_names = []
+for experiment_name in experiment_names:
+    for extension in extensions:
+        more_names.append(experiment_name + linker + extension)
+    
+with open(os.path.expanduser(os.path.join("~", "desktop", "automatic_cluster_script.txt")), "w") as f:
+    for name in more_names:
+        f.writelines("'{}',\n".format(name))
+    
+

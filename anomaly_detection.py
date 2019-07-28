@@ -15,7 +15,7 @@ anomaly_detection_experiment_name = args.experiment_name.split("___")[1] # name 
 
 # =============================================================================
 # ### for debugging
-# args, device = get_args("CE_DTD_r2_prob_scale_1___AD_window_mean")  # get arguments from command line/json config.
+# args, device = get_args('AE_DTD_r3_patch_128_bn_8192___AD_window_min')  # get arguments from command line/json config.
 # train_experiment_name = args.experiment_name.split("___")[0] # name of the experiment in which the model that we want to use for anomaly detection was trained
 # anomaly_detection_experiment_name = args.experiment_name.split("___")[1] # name of the anomaly detection experiment
 # 

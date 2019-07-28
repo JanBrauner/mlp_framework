@@ -77,18 +77,19 @@ from visualisation_utils import show
 #%% visualise anomaly maps, ground truth segmentations, and original images
 
 """
-A problem with this visualisation is that show (which uses imshow) clips to anomaly maps to [0,1]
+A problem with this visualisation is that show (which uses imshow) clips to anomaly maps to [0,1]. This is somewhat fixed with anomaly_maps_max
 """
 
-experiment_name = "CE_DTD_r2_prob_scale_1___AD_window_mean"
+experiment_name = "AE_DTD_r3_patch_128_bn_8192___AD_window_min"
 batch_size = 8
 target_size = (300,300) # choose image size to resize all images to (for grid view). If None, no resizing happens, and images are displayed in separate figures
-AD_margins = (128,128) # Tupel (x-margin,y-margin). Display only the part of the input and label images that were used for calcalating AUC and other scores (So with the "AD_margins" removed, see experiment_script_generator)
-random = False
+AD_margins = None # (128,128) # Tupel (x-margin,y-margin). Display only the part of the input and label images that were used for calcalating AUC and other scores (So with the "AD_margins" removed, see experiment_script_generator)
+random = True
 seed = 2
 which_AD_set = "val"
+normalise_each_image_individually = True
 
-def display_one_figure(experiment_name, batch_size, target_size, random, seed, AD_margins, which_AD_set, index=None):
+def display_one_figure(experiment_name, batch_size, target_size, random, seed, AD_margins, which_AD_set, index=None, normalise_each_image_individually=False):
     """
     Usually, display batch_size iamges in one figure. Unless index is specified, then only display that image.
     """
@@ -121,6 +122,9 @@ def display_one_figure(experiment_name, batch_size, target_size, random, seed, A
         
         anomaly_maps_max = max((anomaly_maps_max,anomaly_map.max()))
         
+        if normalise_each_image_individually:
+            anomaly_map = anomaly_map/anomaly_map.max()
+        
         input_image = transforms.functional.to_tensor(input_image)
         label_image = transforms.functional.to_tensor(label_image)
 
@@ -149,7 +153,8 @@ def display_one_figure(experiment_name, batch_size, target_size, random, seed, A
     label_images_grid = torchvision.utils.make_grid(label_images, nrow=batch_size, padding=10, pad_value = 0.5)
     anomaly_maps_grid = torchvision.utils.make_grid(anomaly_maps, nrow=batch_size, padding=10, pad_value = 0.5*anomaly_maps_max)
     
-    anomaly_maps_grid = anomaly_maps_grid/anomaly_maps_max
+    if not normalise_each_image_individually:
+        anomaly_maps_grid = anomaly_maps_grid/anomaly_maps_max
     
     fig = plt.figure()
     
@@ -175,7 +180,7 @@ def display_one_figure(experiment_name, batch_size, target_size, random, seed, A
 
 
 if target_size is not None: # display all in one figure
-    anomaly_map = display_one_figure(experiment_name, batch_size, target_size, random, seed, AD_margins=AD_margins, which_AD_set=which_AD_set)
+    anomaly_map = display_one_figure(experiment_name, batch_size, target_size, random, seed, AD_margins=AD_margins, which_AD_set=which_AD_set, normalise_each_image_individually=normalise_each_image_individually)
 else: # display batch_size separate figures
     for i in range(batch_size):
-        display_one_figure(experiment_name, batch_size, target_size, random=False, seed=seed, AD_margins=AD_margins, which_AD_set=which_AD_set, index=i)
+        display_one_figure(experiment_name, batch_size, target_size, random=False, seed=seed, AD_margins=AD_margins, which_AD_set=which_AD_set, index=i, normalise_each_image_individually=normalise_each_image_individually)
