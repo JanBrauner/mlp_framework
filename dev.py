@@ -243,7 +243,7 @@
 # 'CE_DTD_r2_prob_scale_0p5___AD_window_mean',
 # 'CE_DTD_r2_prob_scale_0p5___AD_window_min',
 # 'CE_DTD_r2_prob_scale_0p5___AD_window_max',
-# 'CE_DTD_r2_prob_small_mask___AD_window_mean',
+# 'CE_DTD_r2_prob_small_mask___AD_window_mean',s
 # 'CE_DTD_r2_prob_small_mask___AD_window_min',
 # 'CE_DTD_r2_prob_small_mask___AD_window_max',
 # 'CE_DTD_r2_prob_large_context___AD_window_mean',
@@ -332,3 +332,12 @@ with open(os.path.expanduser(os.path.join("~", "desktop", "automatic_cluster_scr
         f.writelines("'{}',\n".format(name))
     
 
+#%% working space
+df = pd.DataFrame([['g1','c1',10],['g1','c2',12],['g1','c3',13],['g2','c1',8],
+                   ['g2','c2',10],['g2','c3',12]],columns=['group','column','val'])
+    
+    
+df.pivot("column", "group", "val")
+df.pivot("column", "group", "val").plot(kind='bar')
+
+plt.show()

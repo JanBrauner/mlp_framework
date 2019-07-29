@@ -8,21 +8,38 @@ from PIL import Image
 import torchvision.transforms as transforms
 import torch
 import numpy as np
+import itertools
 
 from arg_extractor import get_args
 from misc_utils import get_aucroc
 from storage_utils import save_statistics
 from visualisation_utils import show
+
+#%% 
+# parameters single example
+	
+experiment_names = ["CE_DTD_r2_prob_scale_1___AD_window_max", 
+                    "CE_DTD_r2_prob_scale_0p5___AD_window_max", 
+                    "CE_DTD_r2_prob_large_context___AD_window_max"]
+save_name = "CE_DTD_r2_prob___ADcomb_Sc1Sc05Lc_win_max_comb_mean_2"
+which_set = "both"
+
+combination_method = "mean"
+AD_margins = [128,128]
+
 # =============================================================================
-# 
-# def calculate_agreement_between_anomaly_score_and_labels(anomaly_map, label_image):
-#     ### calculate measures of agreement 
-#     # AUC: currently the only measure of agreement
-#     if self.measure_of_anomaly == "absolute distance" or self.measure_of_anomaly == "likelihood": #then all anomly scores will be in [0,infinity], and higher scores will mean more anomaly, so no further preprocessing is needed to calculate AUC:
-#         aucroc = get_aucroc(label_image, anomaly_map)            
-#     
-#     self.stats_dict["aucroc"].append(aucroc)
+# # parameters many examples:
+# which_set = "both"
+# AD_margins = [128,128]
 # =============================================================================
+
+# paths
+anomaly_detection_base_dir = os.path.abspath(os.path.join("results", "anomaly_detection"))
+label_image_base_dir = os.path.abspath(os.path.join("data")) 
+save_base_dir = anomaly_detection_base_dir
+
+
+#%%
 class HiddenPrints:
     def __enter__(self):
         self._original_stdout = sys.stdout
@@ -42,27 +59,14 @@ def load_all_anomaly_maps(anomaly_map_dirs, image_name, transformer):
     for anomaly_map_dir in anomaly_map_dirs:
         anomaly_map_path = os.path.join(anomaly_map_dir, image_name)
         anomaly_map = torch.load(anomaly_map_path)
+        
+        # normalise anomaly map (otherwise aggregating doesn't really make sense)
+        anomaly_map = anomaly_map/anomaly_map.max()
         try: # if anomaly_maps already exists
-            anomaly_maps = torch.cat(anomaly_maps, anomaly_map.unsqueeze(0), dim=0)
-        except:
+            anomaly_maps = torch.cat((anomaly_maps, anomaly_map.unsqueeze(0)), dim=0) # continue here. That probably fixed many things. Write down learning here.
+        except UnboundLocalError:
             anomaly_maps = anomaly_map.unsqueeze(0)
     return anomaly_maps
-
-
-#%%
-
-# parameters
-experiment_names = ["CE_DTD_r2_prob_scale_1___AD_window_mean"]
-save_name = "CE_DTD_r2_prob_scale_1___AD_window_mean"
-which_set = "val"
-
-combination_method = "mean"
-AD_margins = [128,128]
-
-# paths
-anomaly_detection_base_dir = os.path.abspath(os.path.join("results", "anomaly_detection"))
-label_image_base_dir = os.path.abspath(os.path.join("data")) 
-save_base_dir = anomaly_detection_base_dir
 
 #
 def combine_anomaly_maps(experiment_names,
@@ -72,11 +76,12 @@ def combine_anomaly_maps(experiment_names,
                          AD_margins, 
                          anomaly_detection_base_dir=anomaly_detection_base_dir,
                          label_image_base_dir=label_image_base_dir,
-                         save_base_dir=save_base_dir):
+                         save_base_dir=save_base_dir,
+                         save_anomaly_maps=False):
     
     if which_set == "both":
-        combine_anomaly_maps(experiment_names, save_name, "val", combination_method, AD_margins, anomaly_detection_base_dir, label_image_base_dir, save_base_dir)
-        combine_anomaly_maps(experiment_names, save_name, "test", combination_method, AD_margins, anomaly_detection_base_dir, label_image_base_dir, save_base_dir)
+        combine_anomaly_maps(experiment_names, save_name, "val", combination_method, AD_margins, anomaly_detection_base_dir, label_image_base_dir, save_base_dir, save_anomaly_maps=save_anomaly_maps)
+        combine_anomaly_maps(experiment_names, save_name, "test", combination_method, AD_margins, anomaly_detection_base_dir, label_image_base_dir, save_base_dir, save_anomaly_maps=save_anomaly_maps)
         return
     
     # Initialize
@@ -95,16 +100,19 @@ def combine_anomaly_maps(experiment_names,
         
         # load anomaly maps
         anomaly_maps = load_all_anomaly_maps(anomaly_map_dirs, image_name, transformer)
-        return anomaly_maps
         
         # combine anomaly maps
         if combination_method == "min":
-            anomaly_map = torch.min(anomaly_maps, dim=0)
-        if combination_method == "mean":
+            anomaly_map, _ = torch.min(anomaly_maps, dim=0)
+        elif combination_method == "mean":
             anomaly_map = torch.mean(anomaly_maps, dim=0)
-        if combination_method == "max":
-            anomaly_map = torch.max(anomaly_maps, dim=0)
+        elif combination_method == "max":
+            anomaly_map, _ = torch.max(anomaly_maps, dim=0)
                     
+        # save new anomaly map
+        if save_anomaly_maps:
+            save_path = os.path.join(save_base_dir, save_name, "anomaly_maps", which_set, image_name)
+            torch.save(anomaly_map, save_path) 
         
         # load label image
         with HiddenPrints():
@@ -137,7 +145,11 @@ def combine_anomaly_maps(experiment_names,
         stats_dict["aucroc"].append(get_aucroc(label_image, anomaly_map))
         
         # save stats
-        save_path = os.path.join(save_base_dir, save_name, "tables") 
+        save_path = os.path.join(save_base_dir, save_name, "tables")
+        try:
+            os.makedirs(save_path)
+        except FileExistsError:
+            pass
         save_statistics(experiment_log_dir=save_path, filename=which_set +'_summary.csv',
                             stats_dict=stats_dict, current_epoch=image_idx, continue_from_mode=True if image_idx>0 else False, save_full_dict=False) # save statistics to stats file.
  
@@ -150,11 +162,79 @@ def combine_anomaly_maps(experiment_names,
             
     return
 
+#%% single example
+
 anomaly_maps = combine_anomaly_maps(experiment_names=experiment_names,
-                     save_name=save_name,
-                     which_set=which_set,
-                     combination_method=combination_method, 
-                     AD_margins=AD_margins, 
-                     anomaly_detection_base_dir=anomaly_detection_base_dir,
-                     label_image_base_dir=label_image_base_dir,
-                     save_base_dir=save_base_dir)
+                                     save_name=save_name,
+                                     which_set=which_set,
+                                     combination_method=combination_method, 
+                                     AD_margins=AD_margins, 
+                                     anomaly_detection_base_dir=anomaly_detection_base_dir,
+                                     label_image_base_dir=label_image_base_dir,
+                                     save_base_dir=save_base_dir,
+                                     save_anomaly_maps=True)
+
+
+# =============================================================================
+# #%% many examples
+# """
+# This loads and combines the anomaly maps from all a range of combinations of experiment settings.
+# Here we use differnt model_combination_methods to aggregate the maps from different model_settings, (while all the models that get aggregated over have then same model_type and window_aggregation_method).
+# """
+# 
+#     
+# 
+# # define templates for the experiment names to load the anomaly maps from, and for the folder to save results to
+# exp_name_string = "CE_DTD_r2_{model_type}_{model_setting}___AD_window_{window_aggregation_method}"
+# save_string = "CE_DTD_r2_{model_type}___ADcomb_{setting_0}{setting_1}{setting_2}{setting_3}_win_{window_aggregation_method}_comb_{model_combination_method}"
+# 
+# # define the possible values for the variables that we will iterate over
+# model_types = ["stand","prob"]
+# window_aggregation_methods = ["mean", "max"]
+# model_combination_methods = ["min", "mean", "max"]
+# 
+# # for the setting of the inpainting model, we will look at all possible combinations of 2 or more models:
+# model_settings = ["Sc1", "Sc05", "Sm", "Lc"] # scale 1, scale 0.5, small mask, large context
+# all_combinations = []
+# for r in range(2,len(model_settings)+1):
+#     all_combinations += itertools.combinations(model_settings, r)
+# 
+# # translator to translate between the string that will be used for the model_settings for saving, and the one that needs to be used for loading
+# translator = {"Sc1": "scale_1",
+#               "Sc05": "scale_0p5", 
+#               "Sm": "small_mask", 
+#               "Lc": "large_context"}
+# 
+# iterator = itertools.product(model_types, all_combinations, window_aggregation_methods, model_combination_methods)
+# save_names = [] # create a list of all the folders that results get saved to, so I can easily find them again
+# for model_type, model_setting_list, window_aggregation_method, model_combination_method in iterator:
+#     experiment_names = []
+#     for model_setting in model_setting_list:
+#         # create the list of experiment_names to load the anomaly maps from
+#         experiment_names.append(exp_name_string.format(model_type=model_type, 
+#                                                        model_setting=translator[model_setting],
+#                                                        window_aggregation_method=window_aggregation_method))
+#     # create save name
+#     save_name = save_string.format(model_type=model_type, 
+#                                    setting_0=model_setting_list[0],
+#                                    setting_1=model_setting_list[1],
+#                                    setting_2=(model_setting_list + ("",""))[2], # just extend list, so that in case the list is only 2 long, empty strings get sampled
+#                                    setting_3=(model_setting_list + ("",""))[3],
+#                                    window_aggregation_method=window_aggregation_method,
+#                                    model_combination_method=model_combination_method)
+#     
+#     save_names.append(save_name) # just a list of all the save names to find them again later
+#     
+#     combine_anomaly_maps(experiment_names=experiment_names,
+#                          save_name=save_name,
+#                          which_set=which_set,
+#                          combination_method=model_combination_method, 
+#                          AD_margins=AD_margins, 
+#                          anomaly_detection_base_dir=anomaly_detection_base_dir,
+#                          label_image_base_dir=label_image_base_dir,
+#                          save_base_dir=save_base_dir)
+# 
+# with open("r2___ADcomb_exp_names.txt", "w") as f:
+#     for name in save_names:
+#         f.writelines("'{}',\n".format(name))
+# =============================================================================

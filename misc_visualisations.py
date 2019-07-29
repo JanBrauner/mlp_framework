@@ -80,7 +80,7 @@ from visualisation_utils import show
 A problem with this visualisation is that show (which uses imshow) clips to anomaly maps to [0,1]. This is somewhat fixed with anomaly_maps_max
 """
 
-experiment_name = "AE_DTD_r3_patch_128_bn_8192___AD_window_min"
+experiment_name = "CE_DTD_r2_prob___ADcomb_Sc1Sc05Lc_win_max_comb_mean_2"
 batch_size = 8
 target_size = (300,300) # choose image size to resize all images to (for grid view). If None, no resizing happens, and images are displayed in separate figures
 AD_margins = None # (128,128) # Tupel (x-margin,y-margin). Display only the part of the input and label images that were used for calcalating AUC and other scores (So with the "AD_margins" removed, see experiment_script_generator)
