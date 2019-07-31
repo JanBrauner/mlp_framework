@@ -36,19 +36,44 @@ def plot_traces_to_cax(cax, df, peak_value_df, peak_epoch_df, variables_to_show,
 
         print("peak " + variable + ": {:.4f}".format(peak_value) + " in epoch: " + str(peak_epoch))
 
+def plot_traces_with_error_bars_to_cax(cax, df, peak_value_df, peak_epoch_df, variables_to_show, logy, title):
+#    plt.figure()
+    for variable in variables_to_show:
+        (df.groupby(df.index).mean().loc[:,variable]).plot(legend=True, ax=cax, logy=logy, title=title)
+        
+        index = df.groupby(df.index).size().index
+        mn = df.groupby(df.index).mean().loc[:,variable]
+        sd = df.groupby(df.index).std().loc[:,variable]
+        cax.fill_between(index, mn-sd, mn+sd, alpha=0.5)
+        
+        # print peak stats
+        peak_value = peak_value_df.loc[0,variable]
+        peak_epoch = peak_epoch_df.loc[0,variable]
+
+        print("peak " + variable + ": {:.4f}".format(peak_value) + " in epoch: " + str(peak_epoch))
+
 
 def show_traces(experiment_name, n, variables_to_show, logy=False, results_base_dir=results_base_dir):
     """ show traces (train and val values) over the course of training and print peak values """ 
 
     df = load_summary_file(experiment_name, n, results_base_dir)
-    peak_value_df, peak_epoch_df = create_peak_value_df(df)
+    if n == 1:
+        peak_value_df, peak_epoch_df = create_peak_value_df(df)
+    elif n >= 1:
+        peak_value_df, peak_epoch_df = create_peak_value_df(df.groupby(df.index).mean())
 
     if variables_to_show == "all" or variables_to_show == ["all"]: # extract all variable names from df
         variables_to_show = list(df.columns) # extract all column names
+        try:
+            variables_to_show.remove("seed") # if there were multiple runs, then there will be a column called seed, but we don't want to show that
+        except ValueError:
+            pass
+            
         for idx, variable in enumerate(variables_to_show): # remove "train_", "val_" from the column names
             variable = variable.replace("train_","")
             variables_to_show[idx] = variable.replace("val_","")
         variables_to_show = list(dict.fromkeys(variables_to_show)) # creat unique list (that retains order)
+
     
     
 
@@ -63,13 +88,22 @@ def show_traces(experiment_name, n, variables_to_show, logy=False, results_base_
         else:
             cax = ax
         
-        plot_traces_to_cax(cax=cax,
-                           df=df, 
-                           peak_value_df=peak_value_df, 
-                           peak_epoch_df=peak_epoch_df, 
-                           variables_to_show=[train_var, val_var], 
-                           logy=logy, 
-                           title=experiment_name)
+        if n == 1:
+            plot_traces_to_cax(cax=cax,
+                               df=df, 
+                               peak_value_df=peak_value_df, 
+                               peak_epoch_df=peak_epoch_df, 
+                               variables_to_show=[train_var, val_var], 
+                               logy=logy, 
+                               title=experiment_name)
+        elif n >= 1:
+            plot_traces_with_error_bars_to_cax(cax=cax,
+                                               df=df, 
+                                               peak_value_df=peak_value_df, 
+                                               peak_epoch_df=peak_epoch_df, 
+                                               variables_to_show=[train_var, val_var], 
+                                               logy=logy, 
+                                               title=experiment_name)            
 
     display(plt.gcf())
     plt.close()
@@ -140,11 +174,21 @@ def create_peak_value_df(df,min_keywords=min_keywords, max_keywords=max_keywords
 
     
 def load_summary_file(experiment_name, n, results_base_dir):
-    # read summary file
+    """ 
+    read summary file, infering column headers from the file
+    If there were several replicates of that experiment, then include an additional column "seed" and concatenate the dataframes
+    """
     if n == 1: # only one seed
         summary_path = os.path.join(results_base_dir, experiment_name, "result_outputs", "summary.csv")
         df = pd.read_csv(summary_path, index_col="curr_epoch")
-    
+    elif n > 1:
+        dfs = []
+        for seed in range(n):
+            summary_path = os.path.join(results_base_dir, experiment_name + "_s{}".format(seed), "result_outputs", "summary.csv")
+            df = pd.read_csv(summary_path, index_col="curr_epoch")
+            df = df.assign(seed=seed)
+            dfs.append(df)
+        df = pd.concat(dfs)
     return df
 
 
