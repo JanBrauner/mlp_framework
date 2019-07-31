@@ -71,15 +71,17 @@ default_args = {
 "gamma_factor": 1,
 "rot_angle": 0,
 "translate_factor": [0, 0],
-
 "scale_factor": 1,
 "shear_angle": 0,
+
 
 # data parameters: image patches
 "patch_mode": True, # if true, patches of patch_size will be extracted from the image for training. If false, the whole image will be resized (possibly warping height/width relations) to (image_height,image_width)
 "patch_size": [128, 128],
 "patch_location_during_training": "random", # Can be "central" or "random"
 "patch_rejection_threshold": 10, # CURRENTLY NOT USED!.threshold, on a 8-bit scale. Patches sampled from the data loader with a mean below this threshold get rejected because they show only background
+"image_padding_mode": None, # Options: "constant", "edge" (different modes of padding, see torchvision.transforms.Pad). None if no padding required. The amount of padding is infered automatically as padding = max((args.patch_size[0] - args.mask_size[0])//2, (args.patch_size[1] - args.mask_size[1])//2) #automatically infer padding from patch and mask size. Padding only really makes sense with patch_mode==True
+
 
 # data parameters: masking
 "mask_size": [64, 64],
@@ -282,11 +284,20 @@ def autoencoder_small_theme(args): # autoencoder on 64x64 patches
     return args
 
 ### Dataset themes
+def Mias_theme(args):
+    args["num_image_channels"] = 1
+    args["dataset_name"] = "MiasHealthy"
+    args["anomaly_dataset_name"] = "MiasPathological"
+    args["gpu_id"] ="0,1,2,4,5,6"
+    args["num_workers"] = 12
+    args["scale_image"] = (0.5, 0.5)
+    return args
+    
 def GoogleStreetView_theme(args):
     args["num_image_channels"] = 3
     args["dataset_name"] = "GoogleStreetView"
     args["gpu_id"] ="0,1,2,3,4,5"
-    args["num_workers"] = 6
+    args["num_workers"] = 12
     return args
 
 
@@ -295,90 +306,51 @@ def DescribableTextures_theme(args):
     args["dataset_name"] = "DescribableTextures"
     args["anomaly_dataset_name"] = "DTPathologicalIrreg1"
     args["gpu_id"] ="0,1,2,3,4,5"
-    args["num_workers"] = 6
+    args["num_workers"] = 12
     args["AD_margins"] = [128,128]
     return args
     
 
 #%% A list of independent experiment 
 # experiment names
-experiment_names = [
-'AE_DTD_r3_patch_128_bn_8192___AD_window_min',
-'AE_DTD_r3_patch_128_bn_8192___AD_window_mean',
-'AE_DTD_r3_patch_128_bn_8192___AD_window_max',
-'AE_DTD_r3_patch_128_bn_4096___AD_window_min',
-'AE_DTD_r3_patch_128_bn_4096___AD_window_mean',
-'AE_DTD_r3_patch_128_bn_4096___AD_window_max',
-'AE_DTD_r3_patch_128_bn_2048___AD_window_min',
-'AE_DTD_r3_patch_128_bn_2048___AD_window_mean',
-'AE_DTD_r3_patch_128_bn_2048___AD_window_max',
-'AE_DTD_r3_patch_128_bn_1024___AD_window_min',
-'AE_DTD_r3_patch_128_bn_1024___AD_window_mean',
-'AE_DTD_r3_patch_128_bn_1024___AD_window_max',
-'AE_DTD_r3_patch_128_bn_512___AD_window_min',
-'AE_DTD_r3_patch_128_bn_512___AD_window_mean',
-'AE_DTD_r3_patch_128_bn_512___AD_window_max',
-'AE_DTD_r3_patch_128_bn_256___AD_window_min',
-'AE_DTD_r3_patch_128_bn_256___AD_window_mean',
-'AE_DTD_r3_patch_128_bn_256___AD_window_max',
-'AE_DTD_r3_patch_128_bn_128___AD_window_min',
-'AE_DTD_r3_patch_128_bn_128___AD_window_mean',
-'AE_DTD_r3_patch_128_bn_128___AD_window_max',
-'AE_DTD_r3_patch_64_bn_8192___AD_window_min',
-'AE_DTD_r3_patch_64_bn_8192___AD_window_mean',
-'AE_DTD_r3_patch_64_bn_8192___AD_window_max',
-'AE_DTD_r3_patch_64_bn_4096___AD_window_min',
-'AE_DTD_r3_patch_64_bn_4096___AD_window_mean',
-'AE_DTD_r3_patch_64_bn_4096___AD_window_max',
-'AE_DTD_r3_patch_64_bn_2048___AD_window_min',
-'AE_DTD_r3_patch_64_bn_2048___AD_window_mean',
-'AE_DTD_r3_patch_64_bn_2048___AD_window_max',
-'AE_DTD_r3_patch_64_bn_1024___AD_window_min',
-'AE_DTD_r3_patch_64_bn_1024___AD_window_mean',
-'AE_DTD_r3_patch_64_bn_1024___AD_window_max',
-'AE_DTD_r3_patch_64_bn_512___AD_window_min',
-'AE_DTD_r3_patch_64_bn_512___AD_window_mean',
-'AE_DTD_r3_patch_64_bn_512___AD_window_max',
-'AE_DTD_r3_patch_64_bn_256___AD_window_min',
-'AE_DTD_r3_patch_64_bn_256___AD_window_mean',
-'AE_DTD_r3_patch_64_bn_256___AD_window_max',
-'AE_DTD_r3_patch_64_bn_128___AD_window_min',
-'AE_DTD_r3_patch_64_bn_128___AD_window_mean',
-'AE_DTD_r3_patch_64_bn_128___AD_window_max',
-'AE_DTD_r3_full_image_128_bn_8192___AD_window_min',
-'AE_DTD_r3_full_image_128_bn_8192___AD_window_mean',
-'AE_DTD_r3_full_image_128_bn_8192___AD_window_max',
-'AE_DTD_r3_full_image_128_bn_4096___AD_window_min',
-'AE_DTD_r3_full_image_128_bn_4096___AD_window_mean',
-'AE_DTD_r3_full_image_128_bn_4096___AD_window_max',
-'AE_DTD_r3_full_image_128_bn_2048___AD_window_min',
-'AE_DTD_r3_full_image_128_bn_2048___AD_window_mean',
-'AE_DTD_r3_full_image_128_bn_2048___AD_window_max',
-'AE_DTD_r3_full_image_128_bn_1024___AD_window_min',
-'AE_DTD_r3_full_image_128_bn_1024___AD_window_mean',
-'AE_DTD_r3_full_image_128_bn_1024___AD_window_max',
-'AE_DTD_r3_full_image_128_bn_512___AD_window_min',
-'AE_DTD_r3_full_image_128_bn_512___AD_window_mean',
-'AE_DTD_r3_full_image_128_bn_512___AD_window_max',
-'AE_DTD_r3_full_image_128_bn_256___AD_window_min',
-'AE_DTD_r3_full_image_128_bn_256___AD_window_mean',
-'AE_DTD_r3_full_image_128_bn_256___AD_window_max',
-'AE_DTD_r3_full_image_128_bn_128___AD_window_min',
-'AE_DTD_r3_full_image_128_bn_128___AD_window_mean',
-'AE_DTD_r3_full_image_128_bn_128___AD_window_max'
-]
+experiment_names = ["r4_CE_Mias_augtest_ctrl",
+                    
+                    "r4_CE_Mias_augtest_flip", 
+                    
+                    "r4_CE_Mias_augtest_gamma_1p05",
+                    "r4_CE_Mias_augtest_gamma_1p2",
+                    "r4_CE_Mias_augtest_gamma_1p5",
+                    "r4_CE_Mias_augtest_gamma_2",
+                    
+                    "r4_CE_Mias_augtest_scale_1p05",
+                    "r4_CE_Mias_augtest_scale_1p2",
+                    "r4_CE_Mias_augtest_scale_1p5",
+                    
+                    "r4_CE_Mias_augtest_rot_6",
+                    "r4_CE_Mias_augtest_rot_15",
+                    "r4_CE_Mias_augtest_rot_30",
+                    
+                    "r4_CE_Mias_augtest_shear_6",
+                    "r4_CE_Mias_augtest_shear_15",
+                    "r4_CE_Mias_augtest_shear_30",
+                    
+                    "r4_CE_Mias_augtest_combo_MLP",]
 # Note: For experiments that include anomaly detection, the experiment name needs to be original_experiment_name + "___" + AD_experiment_name, where original_experiment_name is the name of the eperiment in which the model that we want to use for AD was trained.
 
 # type of experiment
-experiment_type = "AD" # options: "train" for training (including evaluation on val and test set); "AD" for anomaly detection (using the best validation model from "experiment_name"); "train+AD" for both.
+experiment_type = "train" # options: "train" for training (including evaluation on val and test set); "AD" for anomaly detection (using the best validation model from "experiment_name"); "train+AD" for both.
+
+# number of replicates
+num_replicates = 3
 
 # Commonly used themes
 cpu = False
-probabilistic_inpainting = False
+probabilistic_inpainting = True
 small_mask = False
 large_context = False
-GoogleStreetView = False
+Mias = True
 DescribableTextures = False
+GoogleStreetView = False
 autoencoder = False
 autoencoder_small = False
 
@@ -390,14 +362,38 @@ time = None
 
 # arguments to update from default, each inner dict has the items for one experiment:
 
-update_dicts = [{"AD_margins": (128,128), "window_aggregation_method":"min"},
-                 {"AD_margins": (128,128), "window_aggregation_method":"mean"},
-                 {"AD_margins": (128,128), "window_aggregation_method":"max"}]*21
+update_dicts = [{},
+                
+                {"augment":True},
+                
+                {"augment":True, "gamma_factor":1.05},
+                {"augment":True, "gamma_factor":1.2},
+                {"augment":True, "gamma_factor":1.5},
+                {"augment":True, "gamma_factor":2},
+                
+                {"augment":True, "scale_factor":1.05},
+                {"augment":True, "scale_factor":1.2},
+                {"augment":True, "scale_factor":1.5},
+                
+                {"augment":True, "rot_angle": 6},
+                {"augment":True, "rot_angle": 15},
+                {"augment":True, "rot_angle": 30},
+                
+                {"augment":True, "shear_angle": 6},
+                {"augment":True, "shear_angle": 15},
+                {"augment":True, "shear_angle": 30},
+                
+                {"augment":True, "gamma_factor":1.5, "scale_factor": 1.2, "rot_angle": 6, "shear_angle": 6}]
 
 
 
 
 # for each experiment
+if num_replicates == 1:
+    seed_strings = [""]
+else:
+    seed_strings = ["_s{}".format(x) for x in range(num_replicates)] # strings indicating which replicate it is in the experiment_name
+
 for idx, experiment_name in enumerate(experiment_names):
     # update args
     args = copy.copy(default_args)
@@ -408,6 +404,8 @@ for idx, experiment_name in enumerate(experiment_names):
         args = GoogleStreetView_theme(args)
     if DescribableTextures:
         args = DescribableTextures_theme(args)
+    if Mias:
+        args = Mias_theme(args)
     if probabilistic_inpainting:
         args = probabilistic_inpainting_theme(args)
     if small_mask:
@@ -442,8 +440,14 @@ for idx, experiment_name in enumerate(experiment_names):
     assert len(experiment_names) == len(update_dicts)
     assert not (autoencoder and autoencoder_small)
     assert not ((autoencoder or autoencoder_small) and (small_mask or large_context))
+    assert ((args["image_padding_mode"] is None) or args["patch_mode"]) # doesn't make sense to use padding with full image mode
+    
+    assert Mias or GoogleStreetView or DescribableTextures or experiment_type == "AD" # At least one dataset has to be specified if the experiment type is not AD (then the dataset is inferred from the train experiment)
+    assert Mias + GoogleStreetView + DescribableTextures <= 1
+
     
     assert args["dataset_name"] in ["MiasHealthy", "GoogleStreetView", "DescribableTextures"]
+    assert args["anomaly_dataset_name"] in ["MiasPathological", "DTPathologicalIrreg1"]
     assert args["normalisation"] in ["mn0sd1", "range-11"]
     assert args["data_format"] in ["inpainting", "autoencoding"]
     assert args["measure_of_anomaly"] in ["absolute distance", "likelihood"] 
@@ -459,14 +463,15 @@ for idx, experiment_name in enumerate(experiment_names):
     if args["AD_margins"] is not None:
         assert (type(args["AD_margins"]) in [list, tuple] and len(args["AD_margins"])==2)
 
-
-
+    seed_entered = args["seed"]
+    for add_to_seed, seed_string in enumerate(seed_strings):
+        args["seed"] = seed_entered + add_to_seed
     
-    # create files        
-    create_config_file(os.path.join(config_path, experiment_name), args)
-    create_shell_script(experiment_name=experiment_name, experiment_type=experiment_type,
-                        experiment_path=os.path.join(shell_script_path, experiment_name), 
-                                         partition=partition, args=args, time=time)
+        # create files        
+        create_config_file(os.path.join(config_path, experiment_name+seed_string), args)
+        create_shell_script(experiment_name=experiment_name+seed_string, experiment_type=experiment_type,
+                            experiment_path=os.path.join(shell_script_path, experiment_name+seed_string), 
+                                             partition=partition, args=args, time=time)
 # =============================================================================
 # #%% one parameter over a range
 # ### !!!! This is not up to date, update with above example !!!!

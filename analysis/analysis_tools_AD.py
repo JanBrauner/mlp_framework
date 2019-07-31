@@ -137,8 +137,8 @@ def get_features(feature_set_name):
                       "values": ["patch_64", "patch_128", "full_image_128"]},
         
                      {"column_name": "num_bottleneck",
-                      "patterns": ["bn_8192", "bn_2048", "bn_1024", "bn_512", "bn_256", "bn_128"],
-                      "values": [8192, 2048, 1024, 512, 256, 128]},
+                      "patterns": ["bn_8192", "bn_4096", "bn_2048", "bn_1024", "bn_512", "bn_256", "bn_128"],
+                      "values": [8192, 4096, 2048, 1024, 512, 256, 128]},
                       
                      {"column_name": "window_aggregation_method",
                       "patterns": ["window_min", "window_mean", "window_max"],

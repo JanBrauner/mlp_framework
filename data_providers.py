@@ -692,7 +692,7 @@ class InpaintingDataset(data.Dataset):
             # load image
             full_image = Image.open(os.path.join(self.image_path, image_name))
             
-            # potentially scale image
+            # potentially scale image (this could be done much more nicely with a lambda transform)
             if self.scale_image != None:
                 scaled_image_size = tuple(int(x*self.scale_image[dim]) for dim, x in enumerate(full_image.size))
                 full_image = full_image.resize(scaled_image_size)
@@ -721,7 +721,7 @@ class InpaintingDataset(data.Dataset):
         # load image
         full_image = Image.open(os.path.join(self.image_path, self.image_list[index]))
         
-        # potentially scale image
+        # potentially scale image (this could be done much more nicely with a lambda transform)
         if self.scale_image != None:
             scaled_image_size = tuple(int(x*self.scale_image[dim]) for dim, x in enumerate(full_image.size))
             full_image = full_image.resize(scaled_image_size)
@@ -735,7 +735,7 @@ class InpaintingDataset(data.Dataset):
 
         # transform image
         full_image = self.transformer(full_image)
-        
+
         if self.patch_mode: # if a image patch should be returned
             # create patch, but the patch will be called "image" for consistency with other Dataset classes
             if self.patch_location == "central":
@@ -1062,122 +1062,18 @@ class DescribableTexturesPathological(DatasetWithAnomalies):
                 args = args, 
                 inv_normalisation_transform=inv_normalisation_transform)
 
-# =============================================================================
-# 
-# class MiasPathological(data.Dataset):
-#     """
-# 
-#     """
-# 
-#     # Handling cluster data migration to scratch folder - use this when running on cluster
-#     #image_path_base = os.path.join(os.environ['DATASET_DIR'], "RSNA_working_set") # path of the data set images
-# 
-# # =============================================================================
-# #     # Use this for your local PC
-#     image_base_path = os.path.join("data", "pathological_1") # path of the data set images
-# 
-# # =============================================================================
-# 
-# 
-#     def __init__(self, which_set, # task,
-#                  transformer,
-#                  debug_mode=False, 
-#                  patch_size=(256,256), mask_size=(64,64)):
-# 
-#         # check a valid which_set was provided
-#         assert which_set in ['train', 'val', 'test'], (
-#             'Expected which_set to be either train, val or test '
-#             'Got {0}'.format(which_set)
-#         )
-# #        assert task in ["regression"], "Please enter valid task"
-#         
-#         self.which_set = which_set  # train, val or test set
-# #        self.task = task
-#         
-#         self.patch_size = patch_size
-#         self.mask_size = mask_size
-#         self.transformer = transformer
-# 
-#         # create list of all images in current dataset
-#         self.image_path = os.path.join(self.image_base_path, which_set, "images")
-#         self.target_image_path = os.path.join(self.image_base_path, which_set, "target_images")
-#         self.image_list = os.listdir(self.image_path).sort() #directory may only contain the image files, no other files or directories
-#         self.target_image_list = os.listdir(self.target_image_path).sort() #directory may only contain the image files, no other files or directories
-#         
-#         assert len(self.image_list) > 0, "source directory doesn't contain image files"
-#         assert len(self.image_list) == len(self.target_image_list)
-#         for i,t in zip(self.image_list, self.target_image_list):
-#             assert i[-6:-1] == t[-6:-1] # check that the last few symbols of the filenames are equal
-# 
-# 
-#         # debugging mode sets the dataset size to 50, so we can run the whole experiment locally.
-#         if debug_mode:
-#             self.image_list = self.image_list[0:50]
-#             self.target_image_list = self.target_image_list[0:50]
-# 
-# 
-#     def get_input_patch(self, index, patch_location="central"):
-#         """
-#         Args:
-#             index (int): Index
-#             patch_location: can be the string "central" or a tupel of 2-D coordinates of the top-left corner
-#         Returns:
-#         """
-#         
-#         # load image
-#         full_image = Image.open(os.path.join(self.image_path, self.image_list[index]))
-# #        full_target_image = Image.open(os.path.join(self.target_image_path, self.target_image_list[index]))
-# 
-#         # transform image
-#         full_image = self.transformer(full_image)
-# #        full_target_image = self.transformer(full_target_image)
-#         
-#         # create patch, but the patch will be called "image" for consistency with other Dataset classes
-#         if self.patch_location == "central":
-#             central_region_slice = self.create_central_region_slice(full_image.size(), self.patch_size)
-#             image = full_image[central_region_slice]      
-#         
-#         else:
-#             top_left_corner = patch_location
-#             image = full_image[:,
-#                                top_left_corner[0]:top_left_corner[0]+self.patch_size[0],
-#                                top_left_corner[1]:top_left_corner[1]+self.patch_size[1]]
-#         
-#         # create coordinates of central region of the image, to be masked out
-#         central_region_slice = self.create_central_region_slice(image.size(), self.mask_size)
-#         
-# #        # create target image
-# #        target_image = image[central_region_slice].clone().detach()
-# #        
-#         # mask out central region in input image
-#         image[central_region_slice] = 0
-#        
-#         return image # , target_image
-#     
-#     def get_target(self, index):
-#         '''
-#         Get target segmentation of full image
-#         '''
-#         full_target_image = Image.open(os.path.join(self.target_image_path, self.target_image_list[index]))
-#         full_target_image = self.transformer(full_target_image)
-#         return full_target_image
-# 
-#     def create_central_region_slice(self, image_size, size_central_region):
-#         margins = ((image_size[1]-size_central_region[0])/2, 
-#                    (image_size[2]-size_central_region[1])/2) # size of margins in dimensions 1 and 2 (relative to the 3-D tensor) between the image borders and the patch borders
-#         
-#         central_region_slice = np.s_[:, 
-#                           math.ceil(margins[0]):math.ceil(image_size[1]-margins[0]), 
-#                           math.ceil(margins[1]):math.ceil(image_size[2]-margins[1])]
-#         return central_region_slice
-# 
-# 
-#     def __len__(self):
-#         return len(self.image_list)
-# 
-# =============================================================================
+class MiasPathological(DatasetWithAnomalies):
 
-
+    def __init__(self, which_set, transformer, args, inv_normalisation_transform=None):    
+       
+        version = args.anomaly_dataset_name # there are several versions of MiasPathological with different lesions 
+        self.image_base_path = os.path.join(os.environ['DATASET_DIR'], version) # path of the data set images
+        
+        super(DescribableTexturesPathological, self).__init__(
+                which_set=which_set, 
+                transformer=transformer,
+                args = args, 
+                inv_normalisation_transform=inv_normalisation_transform)
 
         
 def create_transforms(mn, sd, augmentations, args):
@@ -1185,6 +1081,9 @@ def create_transforms(mn, sd, augmentations, args):
     patch_mode = args.patch_mode
     image_height = args.image_height
     image_width = args.image_width
+    padding_mode = args.image_padding_mode
+    padding = max((args.patch_size[0] - args.mask_size[0])//2, (args.patch_size[1] - args.mask_size[1])//2) #automatically infer padding from patch and mask size
+
     
     if patch_mode: # patches get extracted within the Datset class, no need to resize images here
         standard_transforms = [transforms.ToTensor(),
@@ -1193,11 +1092,14 @@ def create_transforms(mn, sd, augmentations, args):
         standard_transforms = [transforms.Resize((image_height, image_width)), # resize the image to image_height x image_width
                                transforms.ToTensor(),
                                transforms.Normalize(mn, sd)]
-    
-    if augmentations is not None:
-        transform_train = transforms.Compose(augmentations + standard_transforms)
-    else:
-        transform_train = transforms.Compose(standard_transforms)
+
+    # add elements to train transform
+    transform_train = standard_transforms
+    if padding_mode is not None: # add padding before standard transform. (note that padding only makes sense with patch_mode==True)
+        transform_train = [transforms.Pad(padding, fill=0, padding_mode=padding_mode)] + transform_train # fill only gets used if padding_mode = "constant". Note that the transformation only get added to a list a this point, not by transforms.Compose
+    if augmentations is not None: # the augmentations can contain random scale, so you want to apply the augmentations before the padding 
+        transform_train = augmentations + transform_train
+    transform_train = transforms.Compose(transform_train)
 
     transform_test = transforms.Compose(standard_transforms)
     
@@ -1280,9 +1182,7 @@ def create_dataset(args, augmentations, rng, precompute_patches=True):
         return train_data, val_data, test_data, num_output_classes
     
     
-    
-    
-    
+
     elif args.dataset_name == 'MiasHealthy':
         # normalisation:
         if args.normalisation == "range-11": # if "range-11" is specified, always normalise to [-1,1]
@@ -1315,6 +1215,7 @@ def create_dataset(args, augmentations, rng, precompute_patches=True):
     
         valset = MiasHealthy(which_set='val', transformer=transform_test, **kwargs_dataset) #, patch_rejection_threshold=patch_rejection_threshold)
         val_data = torch.utils.data.DataLoader(valset, shuffle=False, **kwargs_dataloader)
+        
         testset = MiasHealthy(which_set='test', transformer=transform_test, **kwargs_dataset)#, patch_rejection_threshold=patch_rejection_threshold)
         test_data = torch.utils.data.DataLoader(testset, shuffle=False,  **kwargs_dataloader)
     
@@ -1419,6 +1320,27 @@ def create_dataset_with_anomalies(args):
         val_dataset = DescribableTexturesPathological(which_set="val", **kwargs_dataset)
         test_dataset = DescribableTexturesPathological(which_set="test", **kwargs_dataset)
 
+    elif "MiasPathological" in anomaly_dataset_name: # there are several versions of DTPathological with different lesions 
+        # calculate mean and SD for normalisation
+        if normalisation == "mn0sd1": #calculated offline. I do however think that it might have been calculated for the non-preprocessed version. Whatever, I anyway only use "range-11" these days.
+            mn = (0.14581,)
+            sd = (0.25929,)
+        elif normalisation == "range-11":
+            mn = (0.5,)
+            sd = (0.5,)
+            
+        transformer = transforms.Compose([transforms.ToTensor(), transforms.Normalize(mn, sd)])
+        inv_normalisation_transform = create_inv_normalise_transform(mn, sd) # required for creating target images for classification, see InpaintingDataset
+
+        kwargs_dataset = {"transformer":transformer, 
+                          "args": args,
+                          "inv_normalisation_transform": inv_normalisation_transform}
+        val_dataset = DescribableTexturesPathological(which_set="val", **kwargs_dataset)
+        test_dataset = DescribableTexturesPathological(which_set="test", **kwargs_dataset)
+        
+    else:
+        raise Exception
+        
         
     ### data_loader
     val_data_loader = torch.utils.data.DataLoader(val_dataset, shuffle=False, batch_size=batch_size, num_workers=num_workers)

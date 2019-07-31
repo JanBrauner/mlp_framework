@@ -11,8 +11,17 @@ from experiment_builder import ExperimentBuilder
 args, device = get_args()  # get arguments from command line/json config. Run local debugging with settings as specified in CE_cpu_dev
 #args, device = get_args("CE_test") # for local debugging
 
+
+
+
 if args.augment:
-    augmentations = [transforms.RandomAffine(degrees=args.rot_angle, 
+    # create custom gamma adjustment augmentation
+    gamma = np.random.uniform(1/args.gamma_factor, args.gamma_factor)
+    GammaAdjustment = transforms.Lambda(lambda img: transforms.functional.adjust_gamma(img, gamma=gamma))
+
+    augmentations = [transforms.RandomHorizontalFlip(),
+                     GammaAdjustment,
+                     transforms.RandomAffine(degrees=args.rot_angle, 
                                              translate=args.translate_factor, 
                                              scale=(1/args.scale_factor, args.scale_factor),
                                              shear=args.shear_angle)]

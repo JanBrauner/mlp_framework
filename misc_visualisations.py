@@ -49,7 +49,9 @@ from visualisation_utils import show
 # image_list = data.image_list
 # label_im = data.get_label_image(7)
 # print(image_list[7])
-# 
+# =============================================================================
+
+# =============================================================================
 # #%% just visualise a grid of some images in a folder
 # batch_size = 10
 # target_size = (300,300)
@@ -72,7 +74,115 @@ from visualisation_utils import show
 # 
 # grid = torchvision.utils.make_grid(images, nrow=5, padding=10)
 # show(grid)
+# 
+# 
 # =============================================================================
+
+#%% visualise conditional images (a few from each class) of some images in a folder. Also include label images
+# Realistically, this is probably only applicable for Mias :-)
+# !!! it would probably be nicer to show the preprocessed images. However, I don't know up front if a given image is in train, val or test, so that makes this a bit complicated
+
+# parameters
+images_per_class = 3
+target_size = (500,1000)
+random = True
+
+# paths
+raw_path = os.path.abspath(os.path.join("data", "MiasRaw")) # that's the path with the table
+path = os.path.abspath(os.path.join("data", "Mias_all_images_processed")) # that's the path with all processed images
+
+
+# load data table
+header = ["character_background_tissue", "class_of_abnormality", "severity", "x", "y", "radius"] # only 6 elements since the first row is the index
+df = pd.read_csv(os.path.join(raw_path, "table.txt"), sep=" ", header=None, names=header, index_col=0)
+df = df[df.x != "*NOTE"] # delete three images that have widely dispersed calcifications
+
+# after having deleted the outlier columns, convert dtypes. Needs to be float, not int, to account for nan
+df.loc[:,"x"] = df.loc[:,"x"].astype(float)
+df.loc[:,"y"] = df.loc[:,"y"].astype(float)
+df.loc[:,"y"] = df.loc[:,"y"].astype(float)
+
+
+# available classes 
+# classes = list(dict.fromkeys(df.loc[:,"class_of_abnormality"]))
+classes = ["NORM", "CALC", "CIRC", "SPIC", "MISC", "ARCH", "ASYM"] # just hacking them in directly
+
+image_names_to_load = []
+for curr_class in classes:    
+    bool_idx = df.loc[:,"class_of_abnormality"]==curr_class
+    if random:
+        image_names_to_load += list(np.random.choice(df.index[bool_idx], images_per_class)) # df.index are the experiment names
+    else:
+        image_names_to_load += list(df.index[bool_idx][:images_per_class])
+    
+images = []
+label_images = []
+for image_name in image_names_to_load:
+    
+    # load image and transform to tensor
+    image = Image.open(os.path.join(path, "images", image_name + ".pgm"))
+    if target_size is not None:
+        image = image.resize(target_size)
+    image = transforms.functional.to_tensor(image)
+    images.append(image)
+    
+    # load label image and transform to tensor
+    try:
+        label_image = Image.open(os.path.join(path, "label_images", image_name + ".pgm"))
+        if target_size is not None:
+            label_image = label_image.resize(target_size)
+        label_image = transforms.functional.to_tensor(label_image)
+    except FileNotFoundError:
+        label_image = torch.zeros(image.shape)
+    
+    label_images.append(label_image)
+
+fused_list = []
+for input_image, label_image in zip(images, label_images):
+    fused_list.append(input_image)
+    fused_list.append(label_image)
+    
+images_shown = 0# number of images already shown
+if target_size is not None: # if images get resized -> gridview is possible
+    while images_shown <= len(fused_list):
+        final_idx = min(images_shown, len(images))
+        grid = torchvision.utils.make_grid(fused_list[images_shown:images_shown+images_per_class*2], nrow=images_per_class*2, padding=10, pad_value=0.5)
+
+        show(grid)
+        plt.title(classes[images_shown//(images_per_class*2)])
+        plt.axis("off")
+        
+        images_shown += images_per_class*2
+        
+        
+        
+#images_shown = 0# number of images already shown
+#if target_size is not None: # if images get resized -> gridview is possible
+#    while images_shown <= len(images):
+#        final_idx = min(images_shown, len(images))
+#        input_grid = torchvision.utils.make_grid(images[images_shown:images_shown+batch_size], nrow=batch_size, padding=10, pad_value=0.5)
+#        label_grid = torchvision.utils.make_grid(label_images[images_shown:images_shown+batch_size], nrow=batch_size, padding=10, pad_value=0.5)
+#        
+#        fig, ax = plt.subplots(nrows=2)
+#        show(input_grid, cax=ax[0])
+#        show(label_grid, cax=ax[1])
+#        
+#        images_shown += batch_size
+#        
+#
+##else: # no resizing -> have to show images in individual windows:
+#cnt = 0
+#for _ in range(len(classes)):
+#    fig, ax = plt.subplots(ncols=images_per_class*2)
+#    for idx in range(images_per_class):
+#        show(images[cnt], cax=ax[2*idx])        
+#        plt.axis("off")
+#        show(label_images[cnt], cax=ax[2*idx +1])
+#        plt.axis("off")
+#        fig.suptitle(classes[cnt//images_per_class])  
+#        plt.set_cmap("gray")
+#
+#        cnt += 1
 
 #%% visualise anomaly maps, ground truth segmentations, and original images
 
@@ -80,21 +190,22 @@ from visualisation_utils import show
 A problem with this visualisation is that show (which uses imshow) clips to anomaly maps to [0,1]. This is somewhat fixed with anomaly_maps_max
 """
 
-experiment_name = "CE_DTD_r2_prob___ADcomb_Sc1Sc05Lc_win_max_comb_mean_2"
+experiment_name = "CE_random_patch_2_preprocessed___AD_test_local"
 batch_size = 8
 target_size = (300,300) # choose image size to resize all images to (for grid view). If None, no resizing happens, and images are displayed in separate figures
 AD_margins = None # (128,128) # Tupel (x-margin,y-margin). Display only the part of the input and label images that were used for calcalating AUC and other scores (So with the "AD_margins" removed, see experiment_script_generator)
 random = True
 seed = 2
 which_AD_set = "val"
+anomaly_dataset_name = "MiasPathological"
 normalise_each_image_individually = True
 
-def display_one_figure(experiment_name, batch_size, target_size, random, seed, AD_margins, which_AD_set, index=None, normalise_each_image_individually=False):
+def display_one_figure(experiment_name, batch_size, target_size, random, seed, AD_margins, which_AD_set, anomaly_dataset_name, index=None, normalise_each_image_individually=False):
     """
     Usually, display batch_size iamges in one figure. Unless index is specified, then only display that image.
     """
-    input_path = os.path.join("data","DTPathologicalIrreg1",which_AD_set,"images")
-    label_path = os.path.join("data","DTPathologicalIrreg1",which_AD_set,"label_images")
+    input_path = os.path.join("data", anomaly_dataset_name, which_AD_set, "images")
+    label_path = os.path.join("data", anomaly_dataset_name, which_AD_set, "label_images")
     anomaly_path = os.path.join("results","anomaly_detection", experiment_name, "anomaly_maps", which_AD_set)
     image_names = os.listdir(anomaly_path)
 
@@ -180,7 +291,8 @@ def display_one_figure(experiment_name, batch_size, target_size, random, seed, A
 
 
 if target_size is not None: # display all in one figure
-    anomaly_map = display_one_figure(experiment_name, batch_size, target_size, random, seed, AD_margins=AD_margins, which_AD_set=which_AD_set, normalise_each_image_individually=normalise_each_image_individually)
+    anomaly_map = display_one_figure(experiment_name, batch_size, target_size, random, seed, AD_margins=AD_margins, which_AD_set=which_AD_set, anomaly_dataset_name=anomaly_dataset_name, normalise_each_image_individually=normalise_each_image_individually)
 else: # display batch_size separate figures
     for i in range(batch_size):
-        display_one_figure(experiment_name, batch_size, target_size, random=False, seed=seed, AD_margins=AD_margins, which_AD_set=which_AD_set, index=i, normalise_each_image_individually=normalise_each_image_individually)
+        display_one_figure(experiment_name, batch_size, target_size, random=False, seed=seed, AD_margins=AD_margins, which_AD_set=which_AD_set, index=i, anomaly_dataset_name=anomaly_dataset_name, normalise_each_image_individually=normalise_each_image_individually)
+

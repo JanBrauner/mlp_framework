@@ -25,11 +25,11 @@ from misc_utils import create_central_region_slice
 
 #%%
 # parameters:
-experiment_name = "AE_DTD_r3_patch_64_bn_8192"  # "CE_DTD_random_patch_test_1"  #
+experiment_name = "CE_cpu_dev"  # "CE_DTD_random_patch_test_1"  #
 batch_size = 8 # number of images per row
 image_batch_idx = 0 # use different number to see different images
-seed = 1 # to see different regions of the images
-set_to_visualise = "test"
+seed = 6 # to see different regions of the images
+set_to_visualise = "train"
 force_patch_location = False # "False": every model gets visualised with patches from the location it was trained with. Otherwise, specify the patch_location the models should be tested with
 force_dataset = False # "False": every model gets visualised with dataset it was trained. Otherwise, specify the dataset the models should be tested with. !Of course, you can't force a model that was trained on gray-scale images to work on RGB images
 
@@ -37,7 +37,7 @@ force_dataset = False # "False": every model gets visualised with dataset it was
 default_args = {
 "patch_mode" : True,
 "scale_image" : None,
-"data_format": "autoencoding"}
+"data_format": "inpainting"}
 
 # paths
 results_path = os.path.join("results")
@@ -87,13 +87,16 @@ model.eval()
 #%%
 ### Create data
 if args.augment:
-    augmentations = [transforms.RandomAffine(degrees=args.rot_angle, translate=args.translate_factor, 
-                                        scale=(1/args.scale_factor, args.scale_factor),
-                                        shear=args.shear_angle)]
-    # these augmentations are often used apparently:
-#                transforms.RandomCrop(32, padding=4),
-#                transforms.RandomHorizontalFlip(),
+    # create custom gamma adjustment augmentation
     
+    GammaAdjustment = transforms.Lambda(lambda img: transforms.functional.adjust_gamma(img, gamma=args.gamma_factor**np.random.uniform(-1,1)))
+
+    augmentations = [transforms.RandomHorizontalFlip(),
+                     GammaAdjustment,
+                     transforms.RandomAffine(degrees=args.rot_angle, 
+                                             translate=args.translate_factor, 
+                                             scale=(1/args.scale_factor, args.scale_factor),
+                                             shear=args.shear_angle)]
 else:
     augmentations = None
 
@@ -192,7 +195,7 @@ elif args.task == "classification": # inputs are within range [-1,1], or have ze
 if args.data_format == "inpainting":
     # create original images by combining inputs (masked out) and targets
     central_region_slice = create_central_region_slice(inputs.shape[2:], args.mask_size)
-    central_region_slice = np.s_[:,:, central_region_slice]
+    central_region_slice = np.s_[:, :, central_region_slice[0], central_region_slice[1]]
     original_images = inputs.clone().detach()
     original_images[central_region_slice] = targets
     

@@ -15,14 +15,14 @@ anomaly_detection_experiment_name = args.experiment_name.split("___")[1] # name 
 
 # =============================================================================
 # ### for debugging
-# args, device = get_args('AE_DTD_r3_patch_128_bn_8192___AD_window_min')  # get arguments from command line/json config.
+# args, device = get_args("CE_random_patch_2_preprocessed___AD_test_local")  # get arguments from command line/json config.
 # train_experiment_name = args.experiment_name.split("___")[0] # name of the experiment in which the model that we want to use for anomaly detection was trained
 # anomaly_detection_experiment_name = args.experiment_name.split("___")[1] # name of the anomaly detection experiment
 # 
 # args.use_gpu = False
 # args.num_workers = 0
 # args.debug_mode = True
-# args.AD_patch_stride = (200,200)
+# args.AD_patch_stride = (30,30)
 # =============================================================================
 
 # some assertions to make sure to arguments match
