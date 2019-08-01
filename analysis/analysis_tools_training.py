@@ -13,7 +13,7 @@ from matplotlib.lines import Line2D
 # 
 # =============================================================================
 #%% Paths
-results_base_dir = os.path.join(os.path.dirname(__file__), os.pardir, "results")
+results_base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, "results"))
 
 # parameters
 min_keywords = ["loss","mse"] # if these keywords appear in the variable name, then less is better
