@@ -15,7 +15,7 @@
   4,
   8
  ],
- "num_channels_bottleneck": 4000,
+ "num_channels_bottleneck": 8192,
  "num_layers_dec": 5,
  "num_channels_dec": 64,
  "num_channels_progression_dec": [
@@ -36,7 +36,7 @@
  "data_format": "inpainting",
  "debug_mode": false,
  "num_workers": 12,
- "augment": false,
+ "augment": true,
  "gamma_factor": 1,
  "rot_angle": 15,
  "translate_factor": [

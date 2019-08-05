@@ -291,6 +291,13 @@ def Mias_theme(args):
     args["gpu_id"] ="0,1,2,4,5,6"
     args["num_workers"] = 12
     args["scale_image"] = (0.5, 0.5)
+    # default augmentations for this dataset
+    args["augment"] = True
+    args["gamma_factor"] = 1 # no gamma correction by default
+    args["rot_angle"] = 15
+    args["translate_factor"] = [0, 0] # of course no translation, doesn't make sense with patch_mode==True
+    args["scale_factor"] = 1.2
+    args["shear_angle"] = 6
     return args
     
 def GoogleStreetView_theme(args):
@@ -313,28 +320,11 @@ def DescribableTextures_theme(args):
 
 #%% A list of independent experiment 
 # experiment names
-experiment_names = ["r4_CE_Mias_augtest_ctrl",
-                    
-                    "r4_CE_Mias_augtest_flip", 
-                    
-                    "r4_CE_Mias_augtest_gamma_1p05",
-                    "r4_CE_Mias_augtest_gamma_1p2",
-                    "r4_CE_Mias_augtest_gamma_1p5",
-                    "r4_CE_Mias_augtest_gamma_2",
-                    
-                    "r4_CE_Mias_augtest_scale_1p05",
-                    "r4_CE_Mias_augtest_scale_1p2",
-                    "r4_CE_Mias_augtest_scale_1p5",
-                    
-                    "r4_CE_Mias_augtest_rot_6",
-                    "r4_CE_Mias_augtest_rot_15",
-                    "r4_CE_Mias_augtest_rot_30",
-                    
-                    "r4_CE_Mias_augtest_shear_6",
-                    "r4_CE_Mias_augtest_shear_15",
-                    "r4_CE_Mias_augtest_shear_30",
-                    
-                    "r4_CE_Mias_augtest_combo_MLP",]
+experiment_names = [
+"r5_CE_Mias_bn_2000",
+"r5_CE_Mias_bn_4000",
+"r5_CE_Mias_bn_6000",
+"r5_CE_Mias_bn_8192",]
 # Note: For experiments that include anomaly detection, the experiment name needs to be original_experiment_name + "___" + AD_experiment_name, where original_experiment_name is the name of the eperiment in which the model that we want to use for AD was trained.
 
 # type of experiment
@@ -362,29 +352,10 @@ time = None
 
 # arguments to update from default, each inner dict has the items for one experiment:
 
-update_dicts = [{},
-                
-                {"augment":True},
-                
-                {"augment":True, "gamma_factor":1.05},
-                {"augment":True, "gamma_factor":1.2},
-                {"augment":True, "gamma_factor":1.5},
-                {"augment":True, "gamma_factor":2},
-                
-                {"augment":True, "scale_factor":1.05},
-                {"augment":True, "scale_factor":1.2},
-                {"augment":True, "scale_factor":1.5},
-                
-                {"augment":True, "rot_angle": 6},
-                {"augment":True, "rot_angle": 15},
-                {"augment":True, "rot_angle": 30},
-                
-                {"augment":True, "shear_angle": 6},
-                {"augment":True, "shear_angle": 15},
-                {"augment":True, "shear_angle": 30},
-                
-                {"augment":True, "gamma_factor":1.5, "scale_factor": 1.2, "rot_angle": 6, "shear_angle": 6}]
-
+update_dicts = [{"num_channels_bottleneck": 2000},
+				{"num_channels_bottleneck": 4000},
+				{"num_channels_bottleneck": 6000},
+				{"num_channels_bottleneck": 8192}]
 
 
 

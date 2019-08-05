@@ -36,7 +36,7 @@
  "data_format": "inpainting",
  "debug_mode": false,
  "num_workers": 12,
- "augment": false,
+ "augment": true,
  "gamma_factor": 1,
  "rot_angle": 15,
  "translate_factor": [

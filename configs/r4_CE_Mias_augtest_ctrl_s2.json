@@ -38,13 +38,13 @@
  "num_workers": 12,
  "augment": false,
  "gamma_factor": 1,
- "rot_angle": 0,
+ "rot_angle": 15,
  "translate_factor": [
   0,
   0
  ],
- "scale_factor": 1,
- "shear_angle": 0,
+ "scale_factor": 1.2,
+ "shear_angle": 6,
  "patch_mode": true,
  "patch_size": [
   128,

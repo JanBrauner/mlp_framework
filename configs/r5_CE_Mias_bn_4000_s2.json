@@ -1,6 +1,6 @@
 {
  "continue_from_epoch": -1,
- "seed": 0,
+ "seed": 2,
  "task": "classification",
  "use_gpu": true,
  "gpu_id": "0,1,2,4,5,6",
@@ -36,7 +36,7 @@
  "data_format": "inpainting",
  "debug_mode": false,
  "num_workers": 12,
- "augment": false,
+ "augment": true,
  "gamma_factor": 1,
  "rot_angle": 15,
  "translate_factor": [
