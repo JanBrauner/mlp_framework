@@ -320,11 +320,9 @@ def DescribableTextures_theme(args):
 
 #%% A list of independent experiment 
 # experiment names
-experiment_names = [
-"r5_CE_Mias_bn_2000",
-"r5_CE_Mias_bn_4000",
-"r5_CE_Mias_bn_6000",
-"r5_CE_Mias_bn_8192",]
+experiment_names = ["r4_CE_Mias_augtest_ctrl_2",
+                    
+                    "r4_CE_Mias_augtest_best_combo",]
 # Note: For experiments that include anomaly detection, the experiment name needs to be original_experiment_name + "___" + AD_experiment_name, where original_experiment_name is the name of the eperiment in which the model that we want to use for AD was trained.
 
 # type of experiment
@@ -352,10 +350,7 @@ time = None
 
 # arguments to update from default, each inner dict has the items for one experiment:
 
-update_dicts = [{"num_channels_bottleneck": 2000},
-				{"num_channels_bottleneck": 4000},
-				{"num_channels_bottleneck": 6000},
-				{"num_channels_bottleneck": 8192}]
+update_dicts = [{"augment":False},{}]
 
 
 
