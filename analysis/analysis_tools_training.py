@@ -16,7 +16,7 @@ from matplotlib.lines import Line2D
 results_base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, "results"))
 
 # parameters
-min_keywords = ["loss","mse"] # if these keywords appear in the variable name, then less is better
+min_keywords = ["loss","mse", "seed"] # if these keywords appear in the variable name, then less is better
 max_keywords = ["auc", "acc"]
 
 #%% Training traces
@@ -129,33 +129,58 @@ def show_traces_multi_exp(experiment_names, ns, variables_to_show="all", logy=Fa
     
 
 #%% Table of peak values
-def print_table_peak_values(experiment_names, ns, variables_to_show="all", results_base_dir=results_base_dir):    
+def print_table_peak_values(experiment_names, ns, variables_to_show="all", sort_column=None, results_base_dir=results_base_dir):    
+    peak_values_df = pd.DataFrame()
     for experiment_name,n in zip(experiment_names, ns):            
         df = load_summary_file(experiment_name, n, results_base_dir)
-        peak_value_df, peak_epoch_df = create_peak_value_df(df)
-        peak_value_df.insert(0, "experiment", experiment_name)
+        if n == 1:
+            peak_value_df, peak_epoch_df = create_peak_value_df(df)
+        else:
+            peak_value_df, peak_epoch_df, peak_sd_df = create_peak_value_df_multi_runs(df, n)
+#        display(peak_value_df)
+#        peak_value_df = peak_value_df.insert(0, "experiment", experiment_name)
+#        display(peak_value_df)
 
-#        print(peak_value_df)
-        try: # create peak_values if it doesn't exist yet
-            peak_values_df
-        except:
-            peak_values_df = pd.DataFrame(columns= ["experiment"] + list(df.columns))
+
+#        try: # create peak_values if it doesn't exist yet
+#            peak_values_df
+#        except:
+#            peak_values_df = pd.DataFrame(columns= ["experiment"] + list(df.columns))
         
-#        print(peak_values_df)
-        peak_values_df = peak_values_df.append(peak_value_df)
-#        print(peak_values_df)
+        if n > 1: #  this is all so hacky, lol
+            peak_sd_df = peak_sd_df.rename(columns = {x: x+"_sd" for x in peak_sd_df.columns})
+            peak_value_df = pd.concat((peak_value_df, peak_sd_df), axis=1)
+#        peak_value_df = peak_value_df.insert(0, "experiment", experiment_name)
+#        display(peak_value_df)
 
+        peak_values_df = peak_values_df.append(peak_value_df)
+
+    peak_values_df = peak_values_df.assign(experiment=experiment_names) # I also tried "insert" and fiddled around with it a lot, but it didn't work and I dont know why...
+#    experiment_names_df = pd.DataFrame({"experiment": experiment_names}, columns=["experiment"]) 
+#    peak_values_df = pd.concat((experiment_names_df, peak_values_df), axis = 1)    
+
+#    peak_values_df = peak_values_df.insert(0, "experiment", experiment_names)
+#
     if variables_to_show == "all":
         variables_to_show = list(peak_values_df.columns)
     else:
-        variables_to_show = ["experiment"] + variables_to_show
+        variables_to_show_temp = []
+        for var in variables_to_show:
+            variables_to_show_temp.append(var)
+            variables_to_show_temp.append(var + "_sd")
+        variables_to_show = ["experiment"] + variables_to_show_temp
+        print(variables_to_show)
+        
+    if sort_column is not None:
+        peak_values_df = peak_values_df.sort_values(by=sort_column)
+    
     
     display(peak_values_df.loc[:,variables_to_show])
 
 
 
 #%% helpers
-def create_peak_value_df(df,min_keywords=min_keywords, max_keywords=max_keywords):
+def create_peak_value_df(df, min_keywords=min_keywords, max_keywords=max_keywords):
     peak_value_df = pd.DataFrame(columns=list(df.columns))
     peak_epoch_df = pd.DataFrame(columns=list(df.columns)) # epochs where these peak values occur
     for variable in list(df.columns):
@@ -166,13 +191,34 @@ def create_peak_value_df(df,min_keywords=min_keywords, max_keywords=max_keywords
             peak_epoch = df.loc[:,variable].idxmin(axis=0)        
         if peak_at_max:
             peak_value = df.loc[:,variable].max(axis=0)
-            peak_epoch = df.loc[:,variable].idxmax(axis=0)
+            peak_epoch = df.loc[:,variable].idxmax(axis=0)        
         peak_value_df.loc[0,variable] = peak_value
         peak_epoch_df.loc[0,variable] = peak_epoch
     
     return peak_value_df, peak_epoch_df
 
     
+def create_peak_value_df_multi_runs(df, n, min_keywords=min_keywords, max_keywords=max_keywords):
+    peak_value_df = pd.DataFrame(columns=list(df.columns))
+    peak_epoch_df = pd.DataFrame(columns=list(df.columns)) # epochs where these peak values occur
+    peak_sd_df = pd.DataFrame(columns=list(df.columns))
+    for variable in list(df.columns):
+        peak_at_min = any([keyword in variable for keyword in min_keywords])
+        peak_at_max = any([keyword in variable for keyword in max_keywords])
+        if peak_at_min:
+            peak_value = df.groupby(df.index).mean().loc[:,variable].min(axis=0)
+            peak_epoch = df.groupby(df.index).mean().loc[:,variable].idxmin(axis=0)        
+            peak_value_sd = df.groupby(df.index).std().loc[peak_epoch,variable]
+        if peak_at_max:
+            peak_value = df.groupby(df.index).mean().loc[:,variable].max(axis=0)
+            peak_epoch = df.groupby(df.index).mean().loc[:,variable].idxmax(axis=0)        
+            peak_value_sd = df.groupby(df.index).std().loc[peak_epoch,variable]
+        peak_value_df.loc[0,variable] = peak_value
+        peak_epoch_df.loc[0,variable] = peak_epoch
+        peak_sd_df.loc[0,variable] = peak_value_sd
+    
+    return peak_value_df, peak_epoch_df, peak_sd_df
+
 def load_summary_file(experiment_name, n, results_base_dir):
     """ 
     read summary file, infering column headers from the file
