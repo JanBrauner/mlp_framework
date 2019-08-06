@@ -1,9 +1,9 @@
 {
  "continue_from_epoch": -1,
  "seed": 0,
- "task": "regression",
+ "task": "classification",
  "use_gpu": false,
- "gpu_id": "0,1,2",
+ "gpu_id": "0,1,2,4,5,6",
  "model_name": "context_encoder",
  "kernel_size": 4,
  "num_layers_enc": 6,
@@ -30,21 +30,21 @@
  "image_width": 128,
  "normalisation": "range-11",
  "scale_image": [
-  0.5,
-  0.5
+  0.125,
+  0.125
  ],
  "data_format": "inpainting",
  "debug_mode": true,
  "num_workers": 0,
- "augment": false,
+ "augment": true,
  "gamma_factor": 1,
- "rot_angle": 0,
+ "rot_angle": 15,
  "translate_factor": [
   0,
   0
  ],
- "scale_factor": 1,
- "shear_angle": 0,
+ "scale_factor": 1.2,
+ "shear_angle": 6,
  "patch_mode": true,
  "patch_size": [
   128,
@@ -58,7 +58,7 @@
   64
  ],
  "batch_size": 5,
- "loss": "L2",
+ "loss": "cross_entropy",
  "num_epochs": 2,
  "learning_rate": 0.0002,
  "betas": [
@@ -71,12 +71,9 @@
   30,
   30
  ],
- "measure_of_anomaly": "absolute distance",
+ "measure_of_anomaly": "likelihood",
  "window_aggregation_method": "mean",
  "save_anomaly_maps": true,
- "AD_margins": [
-  128,
-  128
- ],
+ "AD_margins": null,
  "AD_batch_size": 5
 }

@@ -291,6 +291,7 @@ def Mias_theme(args):
     args["gpu_id"] ="0,1,2,4,5,6"
     args["num_workers"] = 12
     args["scale_image"] = (0.5, 0.5)
+    args["image_padding_mode"] = "constant"
     # default augmentations for this dataset
     args["augment"] = True
     args["gamma_factor"] = 1 # no gamma correction by default
@@ -320,8 +321,8 @@ def DescribableTextures_theme(args):
 
 #%% A list of independent experiment 
 # experiment names
-experiment_names = ["r6_CE_Mias_padding_const",
-					"r6_CE_Mias_padding_edge"]
+experiment_names = ["r7_CE_Mias_stand_small_mask"]
+
 
 # Note: For experiments that include anomaly detection, the experiment name needs to be original_experiment_name + "___" + AD_experiment_name, where original_experiment_name is the name of the eperiment in which the model that we want to use for AD was trained.
 
@@ -329,12 +330,12 @@ experiment_names = ["r6_CE_Mias_padding_const",
 experiment_type = "train" # options: "train" for training (including evaluation on val and test set); "AD" for anomaly detection (using the best validation model from "experiment_name"); "train+AD" for both.
 
 # number of replicates
-num_replicates = 3
+num_replicates = 1
 
 # Commonly used themes
 cpu = False
-probabilistic_inpainting = True
-small_mask = False
+probabilistic_inpainting = False
+small_mask = True
 large_context = False
 Mias = True
 DescribableTextures = False
@@ -350,8 +351,9 @@ time = None
 
 # arguments to update from default, each inner dict has the items for one experiment:
 
-update_dicts = [{"image_padding_mode":"constant"},
-				{"image_padding_mode":"edge"}]
+
+update_dicts = [{}]
+
 
 
 
@@ -408,6 +410,7 @@ for idx, experiment_name in enumerate(experiment_names):
     assert not (autoencoder and autoencoder_small)
     assert not ((autoencoder or autoencoder_small) and (small_mask or large_context))
     assert ((args["image_padding_mode"] is None) or args["patch_mode"]) # doesn't make sense to use padding with full image mode
+    assert experiment_type != "AD" or num_replicates == 1 # if we are doing anomaly detection, we don't need several seeds (no stochastic element in it)
     
     assert Mias or GoogleStreetView or DescribableTextures or experiment_type == "AD" # At least one dataset has to be specified if the experiment type is not AD (then the dataset is inferred from the train experiment)
     assert Mias + GoogleStreetView + DescribableTextures <= 1

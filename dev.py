@@ -333,11 +333,6 @@ with open(os.path.expanduser(os.path.join("~", "desktop", "automatic_cluster_scr
     
 
 #%% working space
-df = pd.DataFrame([['g1','c1',10],['g1','c2',12],['g1','c3',13],['g2','c1',8],
-                   ['g2','c2',10],['g2','c3',12]],columns=['group','column','val'])
-    
-    
-df.pivot("column", "group", "val")
-df.pivot("column", "group", "val").plot(kind='bar')
-
-plt.show()
+tf1 = transforms.ToTensor()
+tf2 = transforms.Normalize([0.5],[0.5])
+coco = transforms.Compose([tf1, tf2])

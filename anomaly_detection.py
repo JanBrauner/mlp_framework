@@ -15,14 +15,14 @@ anomaly_detection_experiment_name = args.experiment_name.split("___")[1] # name 
 
 # =============================================================================
 # ### for debugging
-# args, device = get_args("CE_random_patch_2_preprocessed___AD_test_local")  # get arguments from command line/json config.
+# args, device = get_args("r6_CE_Mias_padding_const_s1___AD_test_1")  # get arguments from command line/json config.
 # train_experiment_name = args.experiment_name.split("___")[0] # name of the experiment in which the model that we want to use for anomaly detection was trained
 # anomaly_detection_experiment_name = args.experiment_name.split("___")[1] # name of the anomaly detection experiment
 # 
 # args.use_gpu = False
 # args.num_workers = 0
 # args.debug_mode = True
-# args.AD_patch_stride = (30,30)
+# args.AD_patch_stride = (80,80)
 # =============================================================================
 
 # some assertions to make sure to arguments match

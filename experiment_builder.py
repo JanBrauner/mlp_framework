@@ -383,11 +383,23 @@ class AnomalyDetectionExperiment(nn.Module):
         self.save_anomaly_maps=args.save_anomaly_maps
         use_gpu = args.use_gpu
         self.resize_anomaly_maps = True if args.scale_image is not None else False # if images during training were scaled (mostly to be smaller), then anomaly detection automatically happens on the appropriately scaled images. However, the anomaly maps need to be reshaped to the size of the label images before calculating agreement between anomaly maps and ground truth segmentation
+        
         try:
             self.AD_margins = args.AD_margins # Tupel of image margins in image dimensions 1 and 2 that should not be considered for calculating agreement between anomaly map and label image
-        except: # None by default
+        except AttributeError: # None by default
             self.AD_margins = None
         
+        try:
+            self.padding_mode = args.image_padding_mode
+        except AttributeError: # None by default
+            self.padding_mode = None
+        
+        if self.padding_mode is not None:
+            # this is only needed to calculate the amount of padding that was used.
+            # ! This has the match the equation in data_providers.create_transforms(). Of course, that is not ideal....
+            self.padding = max((args.patch_size[0] - args.mask_size[0])//2, (args.patch_size[1] - args.mask_size[1])//2) #automatically infer padding from patch and mask size
+
+            
         self.val_data_loader = val_data_loader
         self.val_dataset = val_dataset # This is needed to get the full size ground truth images
         self.val_image_list = val_dataset.image_list 
@@ -432,7 +444,7 @@ class AnomalyDetectionExperiment(nn.Module):
        
         for which_set in ["val", "test"]:
             num_finished_images = -1 # the data loader works through the test set images in order. num_finished_images is a counter that ticks up everytime one image is finished
-            self.stats_dict = {"aucroc":[]} # a dict that keeps the measures of agreement between pixel-wise anomaly score and ground-truth labels, for each image. Current,y AUC is the only measure.
+            self.stats_dict = {"image_name": [], "aucroc":[]} # a dict that keeps the measures of agreement between pixel-wise anomaly score and ground-truth labels, for each image. Current,y AUC is the only measure.
         
             if which_set == "val":
                 data_loader = self.val_data_loader
@@ -471,6 +483,13 @@ class AnomalyDetectionExperiment(nn.Module):
                                 # load ground truth segmentation label image
                                 label_image = dataset.get_label_image(current_image_idx-1)
                                 
+                                # if padding was used, remove padding from anomaly map, before upscaling or comparing to ground truth
+                                if self.padding_mode is not None:
+                                    slice_wo_padding = np.s_[:,
+                                                             self.padding:-self.padding,
+                                                             self.padding:-self.padding]
+                                    anomaly_map = anomaly_map[slice_wo_padding]
+                                    
                                 # if scale_image was used during training, resize anomaly map to original image scale
                                 if self.resize_anomaly_maps:
                                     anomaly_map = nn.functional.interpolate(anomaly_map.unsqueeze(0), size=(label_image.shape[1], label_image.shape[2])) # introduce batch_size dimension (as required by interpolate) and then scale tensor
@@ -489,6 +508,7 @@ class AnomalyDetectionExperiment(nn.Module):
                                     label_image = label_image[slice_considered_for_AD]
                                 
                                 self.calculate_agreement_between_anomaly_score_and_labels(anomaly_map, label_image)
+                                self.stats_dict["image_name"].append(image_list[current_image_idx -1])
 
                                 # save stats                
                                 save_statistics(experiment_log_dir=self.result_tables_dir, filename=which_set +'_summary.csv',
@@ -537,6 +557,13 @@ class AnomalyDetectionExperiment(nn.Module):
                                 
                 # load ground truth segmentation label image
                 label_image = dataset.get_label_image(current_image_idx)
+
+                # if padding was used, remove padding from anomaly map, before upscaling or comparing to ground truth
+                if self.padding_mode is not None:
+                    slice_wo_padding = np.s_[:,
+                                             self.padding:-self.padding,
+                                             self.padding:-self.padding]
+                    anomaly_map = anomaly_map[slice_wo_padding]
                                 
                 # if scale_image was used during training, resize anomaly map to original image scale
                 if self.resize_anomaly_maps:
@@ -555,13 +582,14 @@ class AnomalyDetectionExperiment(nn.Module):
                     label_image = label_image[slice_considered_for_AD]
                 
                 self.calculate_agreement_between_anomaly_score_and_labels(anomaly_map, label_image)
-                # update progress bar
-                pbar.update(1)
-                
+                self.stats_dict["image_name"].append(image_list[current_image_idx -1])
+                                
                 # save stats                
                 save_statistics(experiment_log_dir=self.result_tables_dir, filename=which_set +'_summary.csv',
                                 stats_dict=self.stats_dict, current_epoch=current_image_idx, continue_from_mode=True, save_full_dict=False) # save statistics to stats file.
     
+                # update progress bar
+                pbar.update(1)
                 
                 ### ---------------------------------------
                 
@@ -569,9 +597,10 @@ class AnomalyDetectionExperiment(nn.Module):
                 # print mean results:
                 print("{} set results:".format(which_set))
                 for key, list_of_values in self.stats_dict.items():
-                    list_of_non_nan_values = [x for x in list_of_values if not np.isnan(x)]
-                    mean_value = sum(list_of_non_nan_values)/len(list_of_non_nan_values)
-                    print("Mean ", key, ": ", "{:.4f}".format(mean_value)) 
+                    if key != "image_name":
+                        list_of_non_nan_values = [x for x in list_of_values if not np.isnan(x)]
+                        mean_value = sum(list_of_non_nan_values)/len(list_of_non_nan_values)
+                        print("Mean ", key, ": ", "{:.4f}".format(mean_value)) 
         
     def normalise_anomaly_map(self, anomaly_map, normalisation_map):
         # normalise anomaly score maps

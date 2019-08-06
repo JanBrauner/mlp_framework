@@ -25,11 +25,11 @@ from misc_utils import create_central_region_slice
 
 #%%
 # parameters:
-experiment_name = "CE_cpu_dev"  # "CE_DTD_random_patch_test_1"  #
+experiment_name = "r4_CE_Mias_augtest_best_combo_s2" # "r6_CE_Mias_padding_const_s1" # "r4_CE_Mias_augtest_best_combo_s0" #  # "r4_CE_Mias_augtest_best_combo_s2"
 batch_size = 8 # number of images per row
 image_batch_idx = 0 # use different number to see different images
-seed = 6 # to see different regions of the images
-set_to_visualise = "train"
+seed = 0 # to see different regions of the images
+set_to_visualise = "test"
 force_patch_location = False # "False": every model gets visualised with patches from the location it was trained with. Otherwise, specify the patch_location the models should be tested with
 force_dataset = False # "False": every model gets visualised with dataset it was trained. Otherwise, specify the dataset the models should be tested with. !Of course, you can't force a model that was trained on gray-scale images to work on RGB images
 
@@ -63,9 +63,7 @@ if force_dataset:
 
 # add new parameters to old experiments for compatibility:
 for key,value in default_args.items():
-    try:
-        args.literal_eval(key)
-    except: # exception is thrown if args has no such attribute
+    if key not in args.__dict__.keys():
         args.__dict__.update({key: value})
 
 

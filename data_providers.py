@@ -666,6 +666,12 @@ class InpaintingDataset(data.Dataset):
         self.precompute_patches = precompute_patches # This is true by default. False is only required to make visualisation of val and test set faster
 #        self.patch_rejection_threshold = patch_rejection_threshold
 
+        # this is only needed to avoid the minimum size for rescaling if we use padding. The padding itself is already included in the transformation
+        try:
+            self.padding_mode = args.image_padding_mode
+        except AttributeError:
+            self.padding_mode = None
+            
         # create list of all images in current dataset
         self.image_path = os.path.join(self.image_base_path, which_set)
         self.image_list = os.listdir(self.image_path) #directory may only contain the image files, no other files or directories
@@ -697,12 +703,23 @@ class InpaintingDataset(data.Dataset):
                 scaled_image_size = tuple(int(x*self.scale_image[dim]) for dim, x in enumerate(full_image.size))
                 full_image = full_image.resize(scaled_image_size)
                 
+# =============================================================================
+#                 # if full image is too small now to house even one patch, make it bigger again: This shouldn't happen as long as the images have a certain size, but I saw a bug on the cluster that indicated that is does happen....
+#                 min_ratio_full_image_to_patch = min(full_image.size[0]/self.patch_size[0], full_image.size[1]/self.patch_size[1])
+#                 if min_ratio_full_image_to_patch <= 1:
+#                     scaled_image_size = tuple(int(x/min_ratio_full_image_to_patch + 1) for x in full_image.size)
+#                     full_image = full_image.resize(scaled_image_size)
+# =============================================================================
                 # if full image is too small now to house even one patch, make it bigger again: This shouldn't happen as long as the images have a certain size, but I saw a bug on the cluster that indicated that is does happen....
-                min_ratio_full_image_to_patch = min(full_image.size[0]/self.patch_size[0], full_image.size[1]/self.patch_size[1])
+                if self.padding_mode is None: # If there is no padding, the remaining image needs to be larger than the patch size
+                    min_ratio_full_image_to_patch = min(full_image.size[0]/self.patch_size[0], full_image.size[1]/self.patch_size[1])
+                else: # if there is padding, the remaining image only needs to be larger than the mask size
+                    min_ratio_full_image_to_patch = min(full_image.size[0]/self.mask_size[0], full_image.size[1]/self.mask_size[1])
+                
                 if min_ratio_full_image_to_patch <= 1:
                     scaled_image_size = tuple(int(x/min_ratio_full_image_to_patch + 1) for x in full_image.size)
                     full_image = full_image.resize(scaled_image_size)
-            
+                
             # transform image            
             full_image = self.transformer(full_image)
             
@@ -726,12 +743,23 @@ class InpaintingDataset(data.Dataset):
             scaled_image_size = tuple(int(x*self.scale_image[dim]) for dim, x in enumerate(full_image.size))
             full_image = full_image.resize(scaled_image_size)
         
+# =============================================================================
+#             # if full image is too small now to house even one patch, make it bigger again: This shouldn't happen as long as the images have a certain size, but I saw a bug on the cluster that indicated that is does happen....
+#             min_ratio_full_image_to_patch = min(full_image.size[0]/self.patch_size[0], full_image.size[1]/self.patch_size[1])
+#             if min_ratio_full_image_to_patch <= 1:
+#                 scaled_image_size = tuple(int(x/min_ratio_full_image_to_patch + 1) for x in full_image.size)
+#                 full_image = full_image.resize(scaled_image_size)           
+# 
+# =============================================================================
             # if full image is too small now to house even one patch, make it bigger again: This shouldn't happen as long as the images have a certain size, but I saw a bug on the cluster that indicated that is does happen....
-            min_ratio_full_image_to_patch = min(full_image.size[0]/self.patch_size[0], full_image.size[1]/self.patch_size[1])
+            if self.padding_mode is None: # If there is no padding, the remaining image needs to be larger than the patch size
+                min_ratio_full_image_to_patch = min(full_image.size[0]/self.patch_size[0], full_image.size[1]/self.patch_size[1])
+            else: # if there is padding, the remaining image only needs to be larger than the mask size
+                min_ratio_full_image_to_patch = min(full_image.size[0]/self.mask_size[0], full_image.size[1]/self.mask_size[1])
+            
             if min_ratio_full_image_to_patch <= 1:
                 scaled_image_size = tuple(int(x/min_ratio_full_image_to_patch + 1) for x in full_image.size)
-                full_image = full_image.resize(scaled_image_size)           
-
+                full_image = full_image.resize(scaled_image_size)
 
         # transform image
         full_image = self.transformer(full_image)
@@ -885,10 +913,18 @@ class DatasetWithAnomalies(InpaintingDataset): # the only thing it inherits is g
         self.label_image_path = os.path.join(self.image_base_path, which_set, "label_images") # folder is supposed to contain the binary label images, same names as the input images
 
 
+        # this is only needed to avoid the minimum size for rescaling if we use padding. The padding itself is already included in the transformation
+        try:
+            self.padding_mode = args.image_padding_mode
+        except AttributeError:
+            self.padding_mode = None
         self.transformer = transformer
         self.inv_normalisation_transform = inv_normalisation_transform # transform that undoes the normalisation. Needed if target images should be created for classification (256 classes)        
-
+        
         self.label_image_transformer = transforms.ToTensor() # this is the only transformation label images need
+        # I think this isn't needed in the way I have the AnomalyDetectionExperiment now
+#        self.label_image_transformer = transforms.Compose(self.transformer.transforms[:-1]) # Apply all the transformations (padding and to_tensor) to label image but exclude the normalisation
+        
         
         self.patch_size = args.patch_size
         self.mask_size = args.mask_size
@@ -936,10 +972,15 @@ class DatasetWithAnomalies(InpaintingDataset): # the only thing it inherits is g
                 full_image = full_image.resize(scaled_image_size)
                 
                 # if full image is too small now to house even one patch, make it bigger again: This shouldn't happen as long as the images have a certain size, but I saw a bug on the cluster that indicated that is does happen....
-                min_ratio_full_image_to_patch = min(full_image.size[0]/self.patch_size[0], full_image.size[1]/self.patch_size[1])
+                if self.padding_mode is None: # If there is no padding, the remaining image needs to be larger than the patch size
+                    min_ratio_full_image_to_patch = min(full_image.size[0]/self.patch_size[0], full_image.size[1]/self.patch_size[1])
+                else: # if there is padding, the remaining image only needs to be larger than the mask size
+                    min_ratio_full_image_to_patch = min(full_image.size[0]/self.mask_size[0], full_image.size[1]/self.mask_size[1])
+                
                 if min_ratio_full_image_to_patch <= 1:
                     scaled_image_size = tuple(int(x/min_ratio_full_image_to_patch + 1) for x in full_image.size)
-                    full_image = full_image.resize(scaled_image_size)           
+                    full_image = full_image.resize(scaled_image_size)
+                    
 
             # transform image
             full_image = self.transformer(full_image)
@@ -983,12 +1024,24 @@ class DatasetWithAnomalies(InpaintingDataset): # the only thing it inherits is g
             scaled_image_size = tuple(int(x*self.scale_image[dim]) for dim, x in enumerate(full_image.size))
             full_image = full_image.resize(scaled_image_size)
 
+# =============================================================================
+#             # if full image is too small now to house even one patch, make it bigger again: This shouldn't happen as long as the images have a certain size, but I saw a bug on the cluster that indicated that is does happen....
+#             min_ratio_full_image_to_patch = min(full_image.size[0]/self.patch_size[0], full_image.size[1]/self.patch_size[1])
+#             if min_ratio_full_image_to_patch <= 1:
+#                 scaled_image_size = tuple(int(x/min_ratio_full_image_to_patch + 1) for x in full_image.size)
+#                 full_image = full_image.resize(scaled_image_size)  
+# =============================================================================
             # if full image is too small now to house even one patch, make it bigger again: This shouldn't happen as long as the images have a certain size, but I saw a bug on the cluster that indicated that is does happen....
-            min_ratio_full_image_to_patch = min(full_image.size[0]/self.patch_size[0], full_image.size[1]/self.patch_size[1])
+            if self.padding_mode is None: # If there is no padding, the remaining image needs to be larger than the patch size
+                min_ratio_full_image_to_patch = min(full_image.size[0]/self.patch_size[0], full_image.size[1]/self.patch_size[1])
+            else: # if there is padding, the remaining image only needs to be larger than the mask size
+                min_ratio_full_image_to_patch = min(full_image.size[0]/self.mask_size[0], full_image.size[1]/self.mask_size[1])
+            
             if min_ratio_full_image_to_patch <= 1:
                 scaled_image_size = tuple(int(x/min_ratio_full_image_to_patch + 1) for x in full_image.size)
-                full_image = full_image.resize(scaled_image_size)  
-                    
+                full_image = full_image.resize(scaled_image_size)
+                
+                
         # transform image
         full_image = self.transformer(full_image)
         
@@ -1095,13 +1148,16 @@ def create_transforms(mn, sd, augmentations, args):
 
     # add elements to train transform
     transform_train = standard_transforms
+    transform_test = standard_transforms
+    
     if padding_mode is not None: # add padding before standard transform. (note that padding only makes sense with patch_mode==True)
         transform_train = [transforms.Pad(padding, fill=0, padding_mode=padding_mode)] + transform_train # fill only gets used if padding_mode = "constant". Note that the transformation only get added to a list a this point, not by transforms.Compose
+        transform_test = [transforms.Pad(padding, fill=0, padding_mode=padding_mode)] + transform_test # fill only gets used if padding_mode = "constant". Note that the transformation only get added to a list a this point, not by transforms.Compose
     if augmentations is not None: # the augmentations can contain random scale, so you want to apply the augmentations before the padding 
         transform_train = augmentations + transform_train
+    
     transform_train = transforms.Compose(transform_train)
-
-    transform_test = transforms.Compose(standard_transforms)
+    transform_test = transforms.Compose(transform_test)
     
     return transform_train, transform_test
 
@@ -1302,6 +1358,9 @@ def create_dataset_with_anomalies(args):
     normalisation = args.normalisation
     batch_size = args.AD_batch_size
     num_workers = args.num_workers
+#    padding_mode = args.image_padding_mode
+#    padding = max((args.patch_size[0] - args.mask_size[0])//2, (args.patch_size[1] - args.mask_size[1])//2) #automatically infer padding from patch and mask size
+
     
     if "DTPathological" in anomaly_dataset_name: # there are several versions of DTPathological with different lesions 
         # calculate mean and SD for normalisation
@@ -1311,7 +1370,13 @@ def create_dataset_with_anomalies(args):
             mn = [0.5, 0.5, 0.5]
             sd = [0.5, 0.5, 0.5]
             
-        transformer = transforms.Compose([transforms.ToTensor(), transforms.Normalize(mn, sd)])
+#        transformer = transforms.Compose([transforms.ToTensor(), transforms.Normalize(mn, sd)])
+#
+#        if padding_mode is not None: # add padding before standard transform. (note that padding only makes sense with patch_mode==True)
+#            transform_train = [transforms.Pad(padding, fill=0, padding_mode=padding_mode)] + transform_train # fill only gets used if padding_mode = "constant". Note that the transformation only get added to a list a this point, not by transforms.Compose
+        # transformations for both val set and test set: padding (if used), to tensor, normalisation. Scaling is done differently within the dataprovider (since that's how I first implemented it...)
+        transformer, _ = create_transforms(mn=mn, sd=sd, augmentations=None, args=args)
+        
         inv_normalisation_transform = create_inv_normalise_transform(mn, sd) # required for creating target images for classification, see InpaintingDataset
 
         kwargs_dataset = {"transformer":transformer, 
@@ -1329,7 +1394,9 @@ def create_dataset_with_anomalies(args):
             mn = (0.5,)
             sd = (0.5,)
             
-        transformer = transforms.Compose([transforms.ToTensor(), transforms.Normalize(mn, sd)])
+#        transformer = transforms.Compose([transforms.ToTensor(), transforms.Normalize(mn, sd)])
+
+        transformer, _ = create_transforms(mn=mn, sd=sd, augmentations=None, args=args)
         inv_normalisation_transform = create_inv_normalise_transform(mn, sd) # required for creating target images for classification, see InpaintingDataset
 
         kwargs_dataset = {"transformer":transformer, 

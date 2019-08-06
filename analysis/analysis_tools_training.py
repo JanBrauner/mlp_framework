@@ -137,39 +137,23 @@ def print_table_peak_values(experiment_names, ns, variables_to_show="all", sort_
             peak_value_df, peak_epoch_df = create_peak_value_df(df)
         else:
             peak_value_df, peak_epoch_df, peak_sd_df = create_peak_value_df_multi_runs(df, n)
-#        display(peak_value_df)
-#        peak_value_df = peak_value_df.insert(0, "experiment", experiment_name)
-#        display(peak_value_df)
-
-
-#        try: # create peak_values if it doesn't exist yet
-#            peak_values_df
-#        except:
-#            peak_values_df = pd.DataFrame(columns= ["experiment"] + list(df.columns))
         
         if n > 1: #  this is all so hacky, lol
             peak_sd_df = peak_sd_df.rename(columns = {x: x+"_sd" for x in peak_sd_df.columns})
             peak_value_df = pd.concat((peak_value_df, peak_sd_df), axis=1)
-#        peak_value_df = peak_value_df.insert(0, "experiment", experiment_name)
-#        display(peak_value_df)
 
         peak_values_df = peak_values_df.append(peak_value_df)
 
     peak_values_df = peak_values_df.assign(experiment=experiment_names) # I also tried "insert" and fiddled around with it a lot, but it didn't work and I dont know why...
-#    experiment_names_df = pd.DataFrame({"experiment": experiment_names}, columns=["experiment"]) 
-#    peak_values_df = pd.concat((experiment_names_df, peak_values_df), axis = 1)    
 
-#    peak_values_df = peak_values_df.insert(0, "experiment", experiment_names)
-#
     if variables_to_show == "all":
         variables_to_show = list(peak_values_df.columns)
-    else:
+    else: # this will probably fail for n == 1 now
         variables_to_show_temp = []
         for var in variables_to_show:
             variables_to_show_temp.append(var)
             variables_to_show_temp.append(var + "_sd")
         variables_to_show = ["experiment"] + variables_to_show_temp
-        print(variables_to_show)
         
     if sort_column is not None:
         peak_values_df = peak_values_df.sort_values(by=sort_column)
@@ -177,8 +161,28 @@ def print_table_peak_values(experiment_names, ns, variables_to_show="all", sort_
     
     display(peak_values_df.loc[:,variables_to_show])
 
+def print_table_test_results(experiment_names, ns, variables_to_show="all", sort_column=None, results_base_dir=results_base_dir):
+    test_results_df = pd.DataFrame()
+    for experiment_name, n in zip(experiment_names, ns):
+        df = load_test_summary_file(experiment_name, n, results_base_dir)
+        if n == 1:
+            test_results_df = test_results_df.append(df)
+    
+    test_results_df = test_results_df.assign(experiment=experiment_names)
+    
+    if variables_to_show == "all":
+        variables_to_show = list(test_results_df.columns)
+    else:
+#        variables_to_show_temp = []
+#        for var in variables_to_show:
+#            variables_to_show_temp.append("test_" + var)
+#        variables_to_show = ["experiment"] + variables_to_show_temp
+        variables_to_show = ["experiment"] + variables_to_show
+        
+    if sort_column is not None:
+        test_results_df = test_results_df.sort_values(by=sort_column)
 
-
+    display(test_results_df.loc[:, variables_to_show])
 #%% helpers
 def create_peak_value_df(df, min_keywords=min_keywords, max_keywords=max_keywords):
     peak_value_df = pd.DataFrame(columns=list(df.columns))
@@ -237,6 +241,11 @@ def load_summary_file(experiment_name, n, results_base_dir):
         df = pd.concat(dfs)
     return df
 
+def load_test_summary_file(experiment_name, n, results_base_dir):
+    if n == 1: # only one seed
+        summary_path = os.path.join(results_base_dir, experiment_name, "result_outputs", "test_summary.csv")
+        df = pd.read_csv(summary_path)
+    return df
 
 # =============================================================================
 # #%% dev
