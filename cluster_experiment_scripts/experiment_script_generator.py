@@ -244,8 +244,8 @@ def cpu_theme(args):
     return args
 
 def AD_theme(args):
-    args["gpu_id"] ="0,1,2"
-    args["num_workers"] = 6
+    args["gpu_id"] ="0,1"
+    args["num_workers"] = 4
     return args
 
 def probabilistic_inpainting_theme(args):
@@ -321,13 +321,39 @@ def DescribableTextures_theme(args):
 
 #%% A list of independent experiment 
 # experiment names
-experiment_names = ["r7_CE_Mias_stand_small_mask"]
+experiment_names = ["r7_CE_Mias_stand_scale_1___AD_win_max",
+					"r7_CE_Mias_stand_scale_0p71___AD_win_max",
+					"r7_CE_Mias_stand_scale_0p5___AD_win_max",
+					"r7_CE_Mias_stand_scale_0p35___AD_win_max",
+					"r7_CE_Mias_stand_scale_0p25___AD_win_max",
+					"r7_CE_Mias_stand_scale_0p18___AD_win_max",
+					"r7_CE_Mias_stand_scale_0p125___AD_win_max",
+					"r7_CE_Mias_stand_small_mask___AD_win_max",
+					"r7_CE_Mias_stand_large_context___AD_win_max",
+					"r7_CE_Mias_stand_scale_1___AD_win_mean",
+					"r7_CE_Mias_stand_scale_0p71___AD_win_mean",
+					"r7_CE_Mias_stand_scale_0p5___AD_win_mean",
+					"r7_CE_Mias_stand_scale_0p35___AD_win_mean",
+					"r7_CE_Mias_stand_scale_0p25___AD_win_mean",
+					"r7_CE_Mias_stand_scale_0p18___AD_win_mean",
+					"r7_CE_Mias_stand_scale_0p125___AD_win_mean",
+					"r7_CE_Mias_stand_small_mask___AD_win_mean",
+					"r7_CE_Mias_stand_large_context___AD_win_mean",
+					"r7_CE_Mias_stand_scale_1___AD_win_min",
+					"r7_CE_Mias_stand_scale_0p71___AD_win_min",
+					"r7_CE_Mias_stand_scale_0p5___AD_win_min",
+					"r7_CE_Mias_stand_scale_0p35___AD_win_min",
+					"r7_CE_Mias_stand_scale_0p25___AD_win_min",
+					"r7_CE_Mias_stand_scale_0p18___AD_win_min",
+					"r7_CE_Mias_stand_scale_0p125___AD_win_min",
+					"r7_CE_Mias_stand_small_mask___AD_win_min",
+					"r7_CE_Mias_stand_large_context___AD_win_min"]
 
 
 # Note: For experiments that include anomaly detection, the experiment name needs to be original_experiment_name + "___" + AD_experiment_name, where original_experiment_name is the name of the eperiment in which the model that we want to use for AD was trained.
 
 # type of experiment
-experiment_type = "train" # options: "train" for training (including evaluation on val and test set); "AD" for anomaly detection (using the best validation model from "experiment_name"); "train+AD" for both.
+experiment_type = "AD" # options: "train" for training (including evaluation on val and test set); "AD" for anomaly detection (using the best validation model from "experiment_name"); "train+AD" for both.
 
 # number of replicates
 num_replicates = 1
@@ -335,9 +361,9 @@ num_replicates = 1
 # Commonly used themes
 cpu = False
 probabilistic_inpainting = False
-small_mask = True
+small_mask = False
 large_context = False
-Mias = True
+Mias = False
 DescribableTextures = False
 GoogleStreetView = False
 autoencoder = False
@@ -352,7 +378,7 @@ time = None
 # arguments to update from default, each inner dict has the items for one experiment:
 
 
-update_dicts = [{}]
+update_dicts = [{"window_aggregation_method":"max"}]*9 + [{"window_aggregation_method":"mean"}]*9 + [{"window_aggregation_method":"min"}]*9
 
 
 
