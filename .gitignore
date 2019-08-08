@@ -8,6 +8,7 @@ data/downloads
 
 # anomaly maps
 results/anomaly_detection/*/anomaly_maps
+results/anomaly_detection/*/*/anomaly_maps
 
 #dropbox stuff
 *.dropbox*
