@@ -209,8 +209,26 @@ class ConvolutionalNetwork(nn.Module):
 
 class CE_netG(nn.Module): # generator of a context encoder
     def __init__(self, args):
+        """
+        Inputs:
+            batch_size: int, number of images in batch
+            num_image_channels, image_height image_width: int, input image dimensions
+            version: str, options are "deterministic" for the standard context encoder 
+                and "probabilistic" for the probabilistic context encoder that ends in an 256 class softmax 
+            num_channels_bottleneck: int, number of channels and thereby units in the bottleneck layer
+            num_layers_decoder: int, number of layers in the decoder. 
+                The default of 5 results in an output of 64x64 pixels, can be set to 4 for output of size 32x32
+            num_channels_progression_dec: list of int. Determines the number of channels in the 
+                decoding layers. Needs to be adjusted if the num_layers_decoder is adjusted. 
+                The numbers are multipliers that are applied to the base number 
+                of channels (64). For example, the default [8,4,2,1] means that the output from the first 
+                deconvolutional layer has 512 channels, the output from the second layer has 256 channels, and so on.
+                The dimension of the output of the last layer is determined by num_image_channels.
+            
+        """
+     
         super(CE_netG, self).__init__()
-        self.layer_dict = nn.ModuleDict()
+
         
         self.input_shape = (args.batch_size, args.num_image_channels, args.image_height, args.image_width)
         
@@ -232,9 +250,14 @@ class CE_netG(nn.Module): # generator of a context encoder
         except:
             self.output_softmax = False
         
+        self.layer_dict = nn.ModuleDict() # this dictionary will store the layers
         self.build_module()
         
     def build_module(self):
+        """
+        Automatically build the model by propagating a dummy input through the layers and infering layer parameters
+        """
+        
         x = torch.zeros(self.input_shape) # dummy input
         out = x
         
@@ -242,7 +265,7 @@ class CE_netG(nn.Module): # generator of a context encoder
         for i in range(self.num_layers_enc):
             
             # conv layer
-            if i < self.num_layers_enc-1: # the non-final layers of the encoder
+            if i < self.num_layers_enc-1: # the non-final layers of the encoder, uses convolution with stride 2 and padding 1, and increase the number of channels according to self.num_channels_progression_enc 
                 self.layer_dict["conv_{}".format(i)] = nn.Conv2d(in_channels=out.shape[1],
                                 out_channels=self.num_channels_enc*self.num_channels_progression_enc[i],
                                 kernel_size=self.kernel_size, stride=2, padding=1, bias=False)
@@ -268,18 +291,18 @@ class CE_netG(nn.Module): # generator of a context encoder
             ind_dec += 1
             
             # deconvolution layer
-            if i == self.num_layers_enc: # first deconv layers
+            if i == self.num_layers_enc: # first deconv layers has stride 1 and padding 0, since the feature maps of the input to this layer are of dimension 1x1
                 self.layer_dict["conv_t_{}".format(i)] = nn.ConvTranspose2d(in_channels=out.shape[1], 
                             out_channels = self.num_channels_dec*self.num_channels_progression_dec[ind_dec],
                             kernel_size=self.kernel_size, stride=1, padding=0, bias=False)
-            elif i < num_layers_total - 1: # all deconv layers that aren't the first or the last 
+            elif i < num_layers_total - 1:# all deconv layers that aren't the first or the last have stride 2 and padding 1 the double the feature map width and height after every layer
                 self.layer_dict["conv_t_{}".format(i)] = nn.ConvTranspose2d(in_channels=out.shape[1], 
                             out_channels = self.num_channels_dec*self.num_channels_progression_dec[ind_dec],
                             kernel_size=self.kernel_size, stride=2, padding=1, bias=False)
-            else: #last layer needs to go back to same number of channels as input
-                if not self.output_softmax:
+            else: # the final deconvolutional layer depends on whether we want a deterministic or a probabilistic context encoder
+                if not self.output_softmax:  # deterministic context encoder
                     out_channels = self.input_shape[1] # output pixel values directly, to be used with e.g. MSE
-                else:
+                else: # probabilistic context encoder
                     out_channels = self.input_shape[1]*256 # output units to go into softmax, to be used with likelihood based training
             
                 self.layer_dict["conv_t_{}".format(i)] = nn.ConvTranspose2d(in_channels=out.shape[1], 
@@ -292,14 +315,17 @@ class CE_netG(nn.Module): # generator of a context encoder
             if i < num_layers_total - 1: # last layer doesn't have batch norm:
                 self.layer_dict["batch_norm_dec_{}".format(i)] = nn.BatchNorm2d(out.shape[1])
                 out =  self.layer_dict["batch_norm_dec_{}".format(i)](out)
-                
+            
+            # activation layers
             if i < num_layers_total - 1: # non-final layers have ReLU:
                 self.layer_dict["ReLU_{}".format(i)] = nn.ReLU(inplace=True)
                 out = self.layer_dict["ReLU_{}".format(i)](out)
-            else:
+            else: # the final layer activation  depends on whether we want a deterministic or a probabilistic context encoder
                 if not self.output_softmax: # if the model is supposed to output the units for softmax, softmax will be applied later (during loss function)
                     self.layer_dict["tanh_{}".format(i)] = nn.Tanh()
                     out = self.layer_dict["tanh_{}".format(i)](out)
+                # probabilistic context encoder: the softmax will be applied later, to make use of PyTorch's cross_entropy loss functions that integrate softmax with NLL loss
+                    
 
     def forward(self, x):
         for layer in self.layer_dict.values():

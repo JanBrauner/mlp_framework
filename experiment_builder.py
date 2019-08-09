@@ -7,6 +7,7 @@ import tqdm
 import os
 import numpy as np
 import time
+from shutil import rmtree
 
 from misc_utils import get_aucroc
 from storage_utils import load_best_model_state_dict, save_statistics
@@ -295,12 +296,24 @@ class ExperimentBuilder(nn.Module):
             self.state['current_epoch_idx'] = epoch_idx
             self.state['best_val_model_measure'] = self.best_val_model_measure
             self.state['best_val_model_idx'] = self.best_val_model_idx
-            self.save_model(model_save_dir=self.experiment_saved_models,
-                            # save model and best val idx and best val accuracy, using the model dir, model name and model idx
-                            model_save_name="train_model", model_idx=epoch_idx, state=self.state)
+
+            ### saving models            
+            # if the current model is the best model so far, save it with its epoch number and delete the previously best model save file
+            if epoch_idx == self.best_val_model_idx:
+                file_names = os.listdir(self.experiment_saved_models)
+                for file_name in file_names:
+                    if not file_name.endswith("_last"):
+                        os.remove(os.path.join(self.experiment_saved_models, file_name))
+                self.save_model(model_save_dir=self.experiment_saved_models,
+                                # save model and best val idx and best val accuracy, using the model dir, model name and model idx
+                                model_save_name="train_model", model_idx=epoch_idx, state=self.state)
+            
+            # always save the current model as the latest model (gets overwritten with every new epoch)
             self.save_model(model_save_dir=self.experiment_saved_models,
                             # save model and best val idx and best val accuracy, using the model dir, model name and model idx
                             model_save_name="train_model", model_idx='latest', state=self.state)
+
+
         ### test set
         print("Generating test set evaluation metrics")
         self.load_model(model_save_dir=self.experiment_saved_models, model_idx=self.best_val_model_idx,
@@ -629,8 +642,8 @@ class AnomalyDetectionExperiment(nn.Module):
             anomaly_maps = torch.mean(anomaly_maps, dim=1, keepdim=True) # take the mean over the channels
             anomaly_maps = anomaly_maps.cpu().detach()
         elif self.measure_of_anomaly == "likelihood":
-#            outputs = F.log_softmax(outputs, dim=1) # outputs have shape batch_size x classes x channels x mask_height x mask_width
-            anomaly_maps = F.cross_entropy(outputs, targets, reduction="none")  # pixelwise NLL, dimensions batch_size x channels x mask_height x mask_width
+            # outputs have shape batch_size x classes x channels x mask_height x mask_width
+            anomaly_maps = F.cross_entropy(outputs, targets, reduction="none")  # pixelwise NLL, dimensions batch_size x channels x mask_height x mask_width. Softmax is included internally in cross_entropy
             anomaly_maps = torch.sum(anomaly_maps, dim=1, keepdim=True) # Sum the NLL over the channels
             anomaly_maps = anomaly_maps.cpu().detach()
         return anomaly_maps
