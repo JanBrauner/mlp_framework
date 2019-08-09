@@ -18,7 +18,7 @@ results_base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pa
 # feature_dict = parse_experiment_name(experiment_name, features)
 
 
-def summary_stats(experiment_names, features, sort_column=None, display_table=True):
+def summary_stats(experiment_names, features, sort_column=None, display_table=True, results_base_dir=results_base_dir):
     """
     Create and print DataFrame that contains the stats (mean + SD) of several measures from several experiments.
     Inputs csv is/are expected to contain columns with column names + values.
@@ -144,6 +144,18 @@ def get_features(feature_set_name):
                       "patterns": ["window_min", "window_mean", "window_max"],
                       "values": ["min", "mean", "max"]}
                       ]
+    elif feature_set_name == "r7":
+        features = [{"column_name": "output_type",
+                     "patterns": ["stand", "prob"],
+                     "values": ["stand", "prob"]},
+    
+                    {"column_name": "inpainting_setting",
+                     "patterns": ["scale_1", "scale_0p71", "scale_0p5", "scale_0p35", "scale_0p25", "scale_0p18", "scale_0p125", "small_mask", "large_context"],
+                     "values": ["scale_1", "scale_0p71", "scale_0p5", "scale_0p35", "scale_0p25", "scale_0p18", "scale_0p125", "small_mask", "large_context"]},
+                     
+                    {"column_name": "window_aggregation_method",
+                     "patterns": ["win_min", "win_mean", "win_max"],
+                     "values": ["min", "mean", "max"]}]
     return features
 
 # =============================================================================

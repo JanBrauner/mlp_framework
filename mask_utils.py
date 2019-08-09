@@ -33,7 +33,6 @@ def random_blob(img_size, num_iter, threshold, maximum_blob_size, fixed_init=Non
     # Initialize the list of seed positions
     seed_positions = [init_pos]
     # Randomly expand blob
-#    blob_size = 0
 
     for i in range(num_iter):
         next_seed_positions = []
@@ -42,7 +41,6 @@ def random_blob(img_size, num_iter, threshold, maximum_blob_size, fixed_init=Non
             prob_visible = np.random.rand(len(neighbors))
             for j, neighbor in enumerate(neighbors):
                 if prob_visible[j] > threshold:
-#                    blob_size += 1
                     current_h, current_w = seed_pos
                     shift_h, shift_w = neighbor
                     # Ensure new height stays within image boundaries
@@ -54,8 +52,6 @@ def random_blob(img_size, num_iter, threshold, maximum_blob_size, fixed_init=Non
                         mask[0, 0, new_h, new_w] = 1.
                         # Add new position to list of seeds
                         next_seed_positions.append((new_h, new_w))
-#                    if blob_size >= maximum_blob_size:
-#                        return mask
         seed_positions = next_seed_positions
     
     # Calculate stats about mask size: How far does the mask extent across dimensions 0 and 1 of the image?

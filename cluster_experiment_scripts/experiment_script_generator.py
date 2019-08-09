@@ -244,8 +244,8 @@ def cpu_theme(args):
     return args
 
 def AD_theme(args):
-    args["gpu_id"] ="0,1"
-    args["num_workers"] = 4
+    args["gpu_id"] ="0"
+    args["num_workers"] = 2
     return args
 
 def probabilistic_inpainting_theme(args):
@@ -272,6 +272,7 @@ def autoencoder_theme(args): # autoencoder on 128x128 patches
     args["num_layers_dec"] = 6
     args["num_channels_progression_dec"] = [8,4,2,1,1]
     args["data_format"] = "autoencoding"
+    args["image_padding_mode"] = None
     return args
 
 def autoencoder_small_theme(args): # autoencoder on 64x64 patches
@@ -281,6 +282,7 @@ def autoencoder_small_theme(args): # autoencoder on 64x64 patches
     args["num_layers_enc"] = 5
     args["num_channels_progression_enc"] = [1,2,4,8]
     args["data_format"] = "autoencoding"
+    args["image_padding_mode"] = None
     return args
 
 ### Dataset themes
@@ -321,52 +323,37 @@ def DescribableTextures_theme(args):
 
 #%% A list of independent experiment 
 # experiment names
-experiment_names = ["r7_CE_Mias_stand_scale_1___AD_win_max",
-					"r7_CE_Mias_stand_scale_0p71___AD_win_max",
-					"r7_CE_Mias_stand_scale_0p5___AD_win_max",
-					"r7_CE_Mias_stand_scale_0p35___AD_win_max",
-					"r7_CE_Mias_stand_scale_0p25___AD_win_max",
-					"r7_CE_Mias_stand_scale_0p18___AD_win_max",
-					"r7_CE_Mias_stand_scale_0p125___AD_win_max",
-					"r7_CE_Mias_stand_small_mask___AD_win_max",
-					"r7_CE_Mias_stand_large_context___AD_win_max",
-					"r7_CE_Mias_stand_scale_1___AD_win_mean",
-					"r7_CE_Mias_stand_scale_0p71___AD_win_mean",
-					"r7_CE_Mias_stand_scale_0p5___AD_win_mean",
-					"r7_CE_Mias_stand_scale_0p35___AD_win_mean",
-					"r7_CE_Mias_stand_scale_0p25___AD_win_mean",
-					"r7_CE_Mias_stand_scale_0p18___AD_win_mean",
-					"r7_CE_Mias_stand_scale_0p125___AD_win_mean",
-					"r7_CE_Mias_stand_small_mask___AD_win_mean",
-					"r7_CE_Mias_stand_large_context___AD_win_mean",
-					"r7_CE_Mias_stand_scale_1___AD_win_min",
-					"r7_CE_Mias_stand_scale_0p71___AD_win_min",
-					"r7_CE_Mias_stand_scale_0p5___AD_win_min",
-					"r7_CE_Mias_stand_scale_0p35___AD_win_min",
-					"r7_CE_Mias_stand_scale_0p25___AD_win_min",
-					"r7_CE_Mias_stand_scale_0p18___AD_win_min",
-					"r7_CE_Mias_stand_scale_0p125___AD_win_min",
-					"r7_CE_Mias_stand_small_mask___AD_win_min",
-					"r7_CE_Mias_stand_large_context___AD_win_min"]
+experiment_names=[
+"r8_AE_Mias_prob_bn_8192_full_image",
+"r8_AE_Mias_prob_bn_4096_full_image",
+"r8_AE_Mias_prob_bn_2048_full_image",
+"r8_AE_Mias_prob_bn_1024_full_image",
+"r8_AE_Mias_prob_bn_512_full_image",
+"r8_AE_Mias_prob_bn_256_full_image",
+"r8_AE_Mias_prob_bn_128_full_image",
+"r8_AE_Mias_prob_bn_64_full_image",
+]
+
+
 
 
 # Note: For experiments that include anomaly detection, the experiment name needs to be original_experiment_name + "___" + AD_experiment_name, where original_experiment_name is the name of the eperiment in which the model that we want to use for AD was trained.
 
 # type of experiment
-experiment_type = "AD" # options: "train" for training (including evaluation on val and test set); "AD" for anomaly detection (using the best validation model from "experiment_name"); "train+AD" for both.
+experiment_type = "train" # options: "train" for training (including evaluation on val and test set); "AD" for anomaly detection (using the best validation model from "experiment_name"); "train+AD" for both.
 
 # number of replicates
 num_replicates = 1
 
 # Commonly used themes
 cpu = False
-probabilistic_inpainting = False
+probabilistic_inpainting = True
 small_mask = False
 large_context = False
-Mias = False
+Mias = True
 DescribableTextures = False
 GoogleStreetView = False
-autoencoder = False
+autoencoder = True
 autoencoder_small = False
 
 # slurm options
@@ -376,9 +363,15 @@ time = None
 
 
 # arguments to update from default, each inner dict has the items for one experiment:
-
-
-update_dicts = [{"window_aggregation_method":"max"}]*9 + [{"window_aggregation_method":"mean"}]*9 + [{"window_aggregation_method":"min"}]*9
+update_dicts = [
+{"scale_image": None, "num_channels_bottleneck": 8192, "patch_mode": False},
+{"scale_image": None, "num_channels_bottleneck": 4096, "patch_mode": False},
+{"scale_image": None, "num_channels_bottleneck": 2048, "patch_mode": False},
+{"scale_image": None, "num_channels_bottleneck": 1024, "patch_mode": False},
+{"scale_image": None, "num_channels_bottleneck": 512, "patch_mode": False},
+{"scale_image": None, "num_channels_bottleneck": 256, "patch_mode": False},
+{"scale_image": None, "num_channels_bottleneck": 128, "patch_mode": False},
+{"scale_image": None, "num_channels_bottleneck": 64, "patch_mode": False}]
 
 
 
@@ -407,7 +400,7 @@ for idx, experiment_name in enumerate(experiment_names):
         args = small_mask_theme(args)
     if large_context:
         args = large_context_theme(args)
-    if autoencoder:
+    if autoencoder: # this is called after the dataset because it needs to overwrite e.g. the image_padding_mode from Mias_theme
         args = autoencoder_theme(args)
     if autoencoder_small:
         args = autoencoder_small_theme(args)        
