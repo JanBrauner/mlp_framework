@@ -324,16 +324,70 @@ def DescribableTextures_theme(args):
 #%% A list of independent experiment 
 # experiment names
 experiment_names=[
-"r8_AE_Mias_prob_bn_8192_full_image",
-"r8_AE_Mias_prob_bn_4096_full_image",
-"r8_AE_Mias_prob_bn_2048_full_image",
-"r8_AE_Mias_prob_bn_1024_full_image",
-"r8_AE_Mias_prob_bn_512_full_image",
-"r8_AE_Mias_prob_bn_256_full_image",
-"r8_AE_Mias_prob_bn_128_full_image",
-"r8_AE_Mias_prob_bn_64_full_image",
-]
+"r8_AE_Mias_prob_bn_8192_scale_1",
+"r8_AE_Mias_prob_bn_8192_scale_0p71",
+"r8_AE_Mias_prob_bn_8192_scale_0p5",
+"r8_AE_Mias_prob_bn_8192_scale_0p35",
+"r8_AE_Mias_prob_bn_8192_scale_0p25",
+"r8_AE_Mias_prob_bn_8192_scale_0p18",
+"r8_AE_Mias_prob_bn_8192_scale_0p125",
 
+"r8_AE_Mias_prob_bn_4096_scale_1",
+"r8_AE_Mias_prob_bn_4096_scale_0p71",
+"r8_AE_Mias_prob_bn_4096_scale_0p5",
+"r8_AE_Mias_prob_bn_4096_scale_0p35",
+"r8_AE_Mias_prob_bn_4096_scale_0p25",
+"r8_AE_Mias_prob_bn_4096_scale_0p18",
+"r8_AE_Mias_prob_bn_4096_scale_0p125",
+
+"r8_AE_Mias_prob_bn_2048_scale_1",
+"r8_AE_Mias_prob_bn_2048_scale_0p71",
+"r8_AE_Mias_prob_bn_2048_scale_0p5",
+"r8_AE_Mias_prob_bn_2048_scale_0p35",
+"r8_AE_Mias_prob_bn_2048_scale_0p25",
+"r8_AE_Mias_prob_bn_2048_scale_0p18",
+"r8_AE_Mias_prob_bn_2048_scale_0p125",
+
+"r8_AE_Mias_prob_bn_1024_scale_1",
+"r8_AE_Mias_prob_bn_1024_scale_0p71",
+"r8_AE_Mias_prob_bn_1024_scale_0p5",
+"r8_AE_Mias_prob_bn_1024_scale_0p35",
+"r8_AE_Mias_prob_bn_1024_scale_0p25",
+"r8_AE_Mias_prob_bn_1024_scale_0p18",
+"r8_AE_Mias_prob_bn_1024_scale_0p125",
+
+"r8_AE_Mias_prob_bn_512_scale_1",
+"r8_AE_Mias_prob_bn_512_scale_0p71",
+"r8_AE_Mias_prob_bn_512_scale_0p5",
+"r8_AE_Mias_prob_bn_512_scale_0p35",
+"r8_AE_Mias_prob_bn_512_scale_0p25",
+"r8_AE_Mias_prob_bn_512_scale_0p18",
+"r8_AE_Mias_prob_bn_512_scale_0p125",
+
+"r8_AE_Mias_prob_bn_256_scale_1",
+"r8_AE_Mias_prob_bn_256_scale_0p71",
+"r8_AE_Mias_prob_bn_256_scale_0p5",
+"r8_AE_Mias_prob_bn_256_scale_0p35",
+"r8_AE_Mias_prob_bn_256_scale_0p25",
+"r8_AE_Mias_prob_bn_256_scale_0p18",
+"r8_AE_Mias_prob_bn_256_scale_0p125",
+
+"r8_AE_Mias_prob_bn_128_scale_1",
+"r8_AE_Mias_prob_bn_128_scale_0p71",
+"r8_AE_Mias_prob_bn_128_scale_0p5",
+"r8_AE_Mias_prob_bn_128_scale_0p35",
+"r8_AE_Mias_prob_bn_128_scale_0p25",
+"r8_AE_Mias_prob_bn_128_scale_0p18",
+"r8_AE_Mias_prob_bn_128_scale_0p125",
+
+"r8_AE_Mias_prob_bn_64_scale_1",
+"r8_AE_Mias_prob_bn_64_scale_0p71",
+"r8_AE_Mias_prob_bn_64_scale_0p5",
+"r8_AE_Mias_prob_bn_64_scale_0p35",
+"r8_AE_Mias_prob_bn_64_scale_0p25",
+"r8_AE_Mias_prob_bn_64_scale_0p18",
+"r8_AE_Mias_prob_bn_64_scale_0p125",
+]
 
 
 
@@ -363,15 +417,72 @@ time = None
 
 
 # arguments to update from default, each inner dict has the items for one experiment:
+
 update_dicts = [
-{"scale_image": None, "num_channels_bottleneck": 8192, "patch_mode": False},
-{"scale_image": None, "num_channels_bottleneck": 4096, "patch_mode": False},
-{"scale_image": None, "num_channels_bottleneck": 2048, "patch_mode": False},
-{"scale_image": None, "num_channels_bottleneck": 1024, "patch_mode": False},
-{"scale_image": None, "num_channels_bottleneck": 512, "patch_mode": False},
-{"scale_image": None, "num_channels_bottleneck": 256, "patch_mode": False},
-{"scale_image": None, "num_channels_bottleneck": 128, "patch_mode": False},
-{"scale_image": None, "num_channels_bottleneck": 64, "patch_mode": False}]
+{"num_channels_bottleneck":8192, "scale_image":[1,1]},
+{"num_channels_bottleneck":8192, "scale_image":[0.71,0.71]},
+{"num_channels_bottleneck":8192, "scale_image":[0.5,0.5]},
+{"num_channels_bottleneck":8192, "scale_image":[0.35,0.35]},
+{"num_channels_bottleneck":8192, "scale_image":[0.25,0.25]},
+{"num_channels_bottleneck":8192, "scale_image":[0.18,0.18]},
+{"num_channels_bottleneck":8192, "scale_image":[0.125,0.125]},
+
+{"num_channels_bottleneck":4096, "scale_image":[1,1]},
+{"num_channels_bottleneck":4096, "scale_image":[0.71,0.71]},
+{"num_channels_bottleneck":4096, "scale_image":[0.5,0.5]},
+{"num_channels_bottleneck":4096, "scale_image":[0.35,0.35]},
+{"num_channels_bottleneck":4096, "scale_image":[0.25,0.25]},
+{"num_channels_bottleneck":4096, "scale_image":[0.18,0.18]},
+{"num_channels_bottleneck":4096, "scale_image":[0.125,0.125]},
+
+{"num_channels_bottleneck":2048, "scale_image":[1,1]},
+{"num_channels_bottleneck":2048, "scale_image":[0.71,0.71]},
+{"num_channels_bottleneck":2048, "scale_image":[0.5,0.5]},
+{"num_channels_bottleneck":2048, "scale_image":[0.35,0.35]},
+{"num_channels_bottleneck":2048, "scale_image":[0.25,0.25]},
+{"num_channels_bottleneck":2048, "scale_image":[0.18,0.18]},
+{"num_channels_bottleneck":2048, "scale_image":[0.125,0.125]},
+
+{"num_channels_bottleneck":1024, "scale_image":[1,1]},
+{"num_channels_bottleneck":1024, "scale_image":[0.71,0.71]},
+{"num_channels_bottleneck":1024, "scale_image":[0.5,0.5]},
+{"num_channels_bottleneck":1024, "scale_image":[0.35,0.35]},
+{"num_channels_bottleneck":1024, "scale_image":[0.25,0.25]},
+{"num_channels_bottleneck":1024, "scale_image":[0.18,0.18]},
+{"num_channels_bottleneck":1024, "scale_image":[0.125,0.125]},
+
+{"num_channels_bottleneck":512, "scale_image":[1,1]},
+{"num_channels_bottleneck":512, "scale_image":[0.71,0.71]},
+{"num_channels_bottleneck":512, "scale_image":[0.5,0.5]},
+{"num_channels_bottleneck":512, "scale_image":[0.35,0.35]},
+{"num_channels_bottleneck":512, "scale_image":[0.25,0.25]},
+{"num_channels_bottleneck":512, "scale_image":[0.18,0.18]},
+{"num_channels_bottleneck":512, "scale_image":[0.125,0.125]},
+
+{"num_channels_bottleneck":256, "scale_image":[1,1]},
+{"num_channels_bottleneck":256, "scale_image":[0.71,0.71]},
+{"num_channels_bottleneck":256, "scale_image":[0.5,0.5]},
+{"num_channels_bottleneck":256, "scale_image":[0.35,0.35]},
+{"num_channels_bottleneck":256, "scale_image":[0.25,0.25]},
+{"num_channels_bottleneck":256, "scale_image":[0.18,0.18]},
+{"num_channels_bottleneck":256, "scale_image":[0.125,0.125]},
+
+{"num_channels_bottleneck":128, "scale_image":[1,1]},
+{"num_channels_bottleneck":128, "scale_image":[0.71,0.71]},
+{"num_channels_bottleneck":128, "scale_image":[0.5,0.5]},
+{"num_channels_bottleneck":128, "scale_image":[0.35,0.35]},
+{"num_channels_bottleneck":128, "scale_image":[0.25,0.25]},
+{"num_channels_bottleneck":128, "scale_image":[0.18,0.18]},
+{"num_channels_bottleneck":128, "scale_image":[0.125,0.125]},
+
+{"num_channels_bottleneck":64, "scale_image":[1,1]},
+{"num_channels_bottleneck":64, "scale_image":[0.71,0.71]},
+{"num_channels_bottleneck":64, "scale_image":[0.5,0.5]},
+{"num_channels_bottleneck":64, "scale_image":[0.35,0.35]},
+{"num_channels_bottleneck":64, "scale_image":[0.25,0.25]},
+{"num_channels_bottleneck":64, "scale_image":[0.18,0.18]},
+{"num_channels_bottleneck":64, "scale_image":[0.125,0.125]},
+]
 
 
 
