@@ -434,7 +434,7 @@ class AnomalyDetectionExperiment(nn.Module):
         
         # Load state dict from  best epoch of that experiment
         model_dir = os.path.abspath(os.path.join("results", experiment_name, "saved_models"))
-        trained_as_parallel_AD_single_process = True if torch.cuda.device_count() < 1 else False
+        trained_as_parallel_AD_single_process = True if torch.cuda.device_count() <= 1 else False
         state_dict = load_best_model_state_dict(model_dir=model_dir, use_gpu=use_gpu, saved_as_parallel_load_as_single_process=trained_as_parallel_AD_single_process)
         self.load_state_dict(state_dict=state_dict["network"]) # Note: You need to load the state dict for the whole AnomalyDetection object, not just the model, since that is the format the state dict was saved in
         
