@@ -190,7 +190,7 @@ if target_size is not None: # if images get resized -> gridview is possible
 A problem with this visualisation is that show (which uses imshow) clips to anomaly maps to [0,1]. This is somewhat fixed with anomaly_maps_max
 """
 
-experiment_name = "r6_CE_Mias_padding_const_s1___AD_test_1"
+experiment_name = "r7_CE_Mias_prob_scale_0p35___AD_win_max"
 batch_size = 4
 target_size = None # choose image size to resize all images to (for grid view). If None, no resizing happens, and images are displayed in separate figures
 AD_margins = None # (128,128) # Tupel (x-margin,y-margin). Display only the part of the input and label images that were used for calcalating AUC and other scores (So with the "AD_margins" removed, see experiment_script_generator)

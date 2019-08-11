@@ -1,0 +1,80 @@
+{
+ "continue_from_epoch": -1,
+ "seed": 0,
+ "task": "classification",
+ "use_gpu": true,
+ "gpu_id": "0",
+ "model_name": "context_encoder",
+ "kernel_size": 4,
+ "num_layers_enc": 6,
+ "num_channels_enc": 64,
+ "num_channels_progression_enc": [
+  1,
+  1,
+  2,
+  4,
+  8
+ ],
+ "num_channels_bottleneck": 128,
+ "num_layers_dec": 6,
+ "num_channels_dec": 64,
+ "num_channels_progression_dec": [
+  8,
+  4,
+  2,
+  1,
+  1
+ ],
+ "dataset_name": "MiasHealthy",
+ "num_image_channels": 1,
+ "image_height": 128,
+ "image_width": 128,
+ "normalisation": "range-11",
+ "scale_image": [
+  0.35,
+  0.35
+ ],
+ "data_format": "autoencoding",
+ "debug_mode": false,
+ "num_workers": 2,
+ "augment": true,
+ "gamma_factor": 1,
+ "rot_angle": 15,
+ "translate_factor": [
+  0,
+  0
+ ],
+ "scale_factor": 1.2,
+ "shear_angle": 6,
+ "patch_mode": true,
+ "patch_size": [
+  128,
+  128
+ ],
+ "patch_location_during_training": "random",
+ "patch_rejection_threshold": 10,
+ "image_padding_mode": null,
+ "mask_size": [
+  64,
+  64
+ ],
+ "batch_size": 14,
+ "loss": "cross_entropy",
+ "num_epochs": 200,
+ "learning_rate": 0.0002,
+ "betas": [
+  0.5,
+  0.999
+ ],
+ "weight_decay_coefficient": 0,
+ "anomaly_dataset_name": "MiasPathological",
+ "AD_patch_stride": [
+  10,
+  10
+ ],
+ "measure_of_anomaly": "likelihood",
+ "window_aggregation_method": "max",
+ "save_anomaly_maps": true,
+ "AD_margins": null,
+ "AD_batch_size": 50
+}
