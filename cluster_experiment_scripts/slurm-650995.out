@@ -1,0 +1,28 @@
+sending incremental file list
+use 1 GPU(s)
+  0%|          | 0/37 [00:00<?, ?it/s][('continue_from_epoch', '-1'), ('seed', '0'), ('task', 'classification'), ('use_gpu', 'True'), ('gpu_id', '0'), ('model_name', 'context_encoder'), ('kernel_size', '4'), ('num_layers_enc', '6'), ('num_channels_enc', '64'), ('num_channels_progression_enc', '[1, 1, 2, 4, 8]'), ('num_channels_bottleneck', '512'), ('num_layers_dec', '6'), ('num_channels_dec', '64'), ('num_channels_progression_dec', '[8, 4, 2, 1, 1]'), ('dataset_name', 'MiasHealthy'), ('num_image_channels', '1'), ('image_height', '128'), ('image_width', '128'), ('normalisation', 'range-11'), ('scale_image', 'None'), ('data_format', 'autoencoding'), ('debug_mode', 'False'), ('num_workers', '2'), ('augment', 'True'), ('gamma_factor', '1'), ('rot_angle', '15'), ('translate_factor', '[0, 0]'), ('scale_factor', '1.2'), ('shear_angle', '6'), ('patch_mode', 'False'), ('patch_size', '[128, 128]'), ('patch_location_during_training', 'random'), ('patch_rejection_threshold', '10'), ('image_padding_mode', 'None'), ('mask_size', '[64, 64]'), ('batch_size', '14'), ('loss', 'cross_entropy'), ('num_epochs', '200'), ('learning_rate', '0.0002'), ('betas', '[0.5, 0.999]'), ('weight_decay_coefficient', '0'), ('anomaly_dataset_name', 'MiasPathological'), ('AD_patch_stride', '[10, 10]'), ('measure_of_anomaly', 'likelihood'), ('window_aggregation_method', 'mean'), ('save_anomaly_maps', 'True'), ('AD_margins', 'None'), ('AD_batch_size', '50'), ('experiment_name', 'r8_AE_Mias_prob_bn_512_full_image___AD_win_mean')]
+Loading data from:  /disk/scratch/s1890594/data/MiasPathological
+Loading data from:  /disk/scratch/s1890594/data/MiasPathological
+
+Traceback (most recent call last):
+  File "anomaly_detection.py", line 56, in <module>
+    experiment.run_experiment()
+  File "/mnt/mscteach_home/s1890594/mlp_framework/experiment_builder.py", line 523, in run_experiment
+    self.calculate_agreement_between_anomaly_score_and_labels(anomaly_map, label_image)
+  File "/mnt/mscteach_home/s1890594/mlp_framework/experiment_builder.py", line 629, in calculate_agreement_between_anomaly_score_and_labels
+    aucroc = get_aucroc(label_image, anomaly_map)            
+  File "/mnt/mscteach_home/s1890594/mlp_framework/misc_utils.py", line 12, in get_aucroc
+    aucroc = roc_auc_score(y_true,output)
+  File "/home/s1890594/miniconda3/envs/mlp/lib/python3.7/site-packages/sklearn/metrics/ranking.py", line 355, in roc_auc_score
+    sample_weight=sample_weight)
+  File "/home/s1890594/miniconda3/envs/mlp/lib/python3.7/site-packages/sklearn/metrics/base.py", line 76, in _average_binary_score
+    return binary_metric(y_true, y_score, sample_weight=sample_weight)
+  File "/home/s1890594/miniconda3/envs/mlp/lib/python3.7/site-packages/sklearn/metrics/ranking.py", line 327, in _binary_roc_auc_score
+    sample_weight=sample_weight)
+  File "/home/s1890594/miniconda3/envs/mlp/lib/python3.7/site-packages/sklearn/metrics/ranking.py", line 622, in roc_curve
+    y_true, y_score, pos_label=pos_label, sample_weight=sample_weight)
+  File "/home/s1890594/miniconda3/envs/mlp/lib/python3.7/site-packages/sklearn/metrics/ranking.py", line 398, in _binary_clf_curve
+    check_consistent_length(y_true, y_score, sample_weight)
+  File "/home/s1890594/miniconda3/envs/mlp/lib/python3.7/site-packages/sklearn/utils/validation.py", line 205, in check_consistent_length
+    " samples: %r" % [int(l) for l in lengths])
+ValueError: Found input variables with inconsistent numbers of samples: [415870, 16384]

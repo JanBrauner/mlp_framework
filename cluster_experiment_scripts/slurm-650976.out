@@ -1,0 +1,335 @@
+sending incremental file list
+Info.txt
+          9,860 100%    0.00kB/s    0:00:00            9,860 100%    0.00kB/s    0:00:00 (xfr#1, to-chk=157/159)
+table.txt
+          6,336 100%    6.04MB/s    0:00:00            6,336 100%    6.04MB/s    0:00:00 (xfr#2, to-chk=156/159)
+deleting test/images/.mdb001.pgm.CYlsAh
+deleting test/images/.mdb001.pgm.747YIh
+test/images/
+test/images/mdb001.pgm
+         32,768   8%    5.21MB/s    0:00:00          390,300 100%   41.36MB/s    0:00:00 (xfr#3, to-chk=151/159)
+test/images/mdb002.pgm
+         32,768   5%    1.56MB/s    0:00:00          648,366 100%   18.74MB/s    0:00:00 (xfr#4, to-chk=150/159)
+test/images/mdb005.pgm
+         32,768   4%  744.19kB/s    0:00:00          664,966 100%    9.61MB/s    0:00:00 (xfr#5, to-chk=149/159)
+test/images/mdb013.pgm
+         32,768   6%  385.54kB/s    0:00:01          483,155 100%    4.56MB/s    0:00:00 (xfr#6, to-chk=148/159)
+test/images/mdb019.pgm
+         32,768   4%  219.18kB/s    0:00:02          663,943 100%    3.75MB/s    0:00:00 (xfr#7, to-chk=147/159)
+test/images/mdb023.pgm
+         32,768   5%  178.77kB/s    0:00:03          594,379 100%    3.05MB/s    0:00:00 (xfr#8, to-chk=146/159)
+test/images/mdb028.pgm
+         32,768   5%  150.23kB/s    0:00:03          593,356 100%    2.50MB/s    0:00:00 (xfr#9, to-chk=145/159)
+test/images/mdb058.pgm
+         32,768   6%  131.69kB/s    0:00:03          509,417 100%    1.94MB/s    0:00:00 (xfr#10, to-chk=144/159)
+test/images/mdb063.pgm
+         32,768   7%  109.59kB/s    0:00:03          449,631 100%    1.42MB/s    0:00:00 (xfr#11, to-chk=143/159)
+test/images/mdb069.pgm
+         32,768   4%  101.91kB/s    0:00:06          659,116 100%    1.93MB/s    0:00:00 (xfr#12, to-chk=142/159)
+test/images/mdb080.pgm
+         32,768   8%   88.64kB/s    0:00:03          377,757 100% 1013.47kB/s    0:00:00 (xfr#13, to-chk=141/159)
+test/images/mdb117.pgm
+         32,768   5%   83.99kB/s    0:00:06          547,315 100%    1.34MB/s    0:00:00 (xfr#14, to-chk=140/159)
+test/images/mdb121.pgm
+         32,768   4%   76.92kB/s    0:00:08          664,966 100%    1.48MB/s    0:00:00 (xfr#15, to-chk=139/159)
+test/images/mdb125.pgm
+         32,768   5%   66.67kB/s    0:00:08          568,360 100%    1.12MB/s    0:00:00 (xfr#16, to-chk=138/159)
+test/images/mdb132.pgm
+         32,768   4%   63.24kB/s    0:00:10          711,001 100%    1.30MB/s    0:00:00 (xfr#17, to-chk=137/159)
+test/images/mdb141.pgm
+         32,768   4%   59.37kB/s    0:00:13          812,278 100%    1.40MB/s    0:00:00 (xfr#18, to-chk=136/159)
+test/images/mdb144.pgm
+         32,768   4%   54.05kB/s    0:00:14          815,347 100%    1.27MB/s    0:00:00 (xfr#19, to-chk=135/159)
+test/images/mdb150.pgm
+         32,768   4%   51.36kB/s    0:00:13          722,254 100%    1.08MB/s    0:00:00 (xfr#20, to-chk=134/159)
+test/images/mdb152.pgm
+         32,768   3%   48.93kB/s    0:00:20        1,021,993 100%    1.42MB/s    0:00:00 (xfr#21, to-chk=133/159)
+test/images/mdb155.pgm
+         32,768   5%   44.44kB/s    0:00:13          639,788 100%  852.38kB/s    0:00:00 (xfr#22, to-chk=132/159)
+test/images/mdb158.pgm
+         32,768   6%   41.03kB/s    0:00:10          482,872 100%  597.66kB/s    0:00:00 (xfr#23, to-chk=131/159)
+test/images/mdb160.pgm
+         32,768   5%   40.05kB/s    0:00:13          588,311 100%  710.16kB/s    0:00:00 (xfr#24, to-chk=130/159)
+test/images/mdb163.pgm
+         32,768   5%   38.42kB/s    0:00:14          594,379 100%  691.01kB/s    0:00:00 (xfr#25, to-chk=129/159)
+test/images/mdb165.pgm
+         32,768   5%   36.36kB/s    0:00:14          569,923 100%  623.95kB/s    0:00:00 (xfr#26, to-chk=128/159)
+test/images/mdb170.pgm
+         32,768   7%   35.13kB/s    0:00:10          413,308 100%  439.67kB/s    0:00:00 (xfr#27, to-chk=127/159)
+test/images/mdb175.pgm
+         32,768   5%   33.76kB/s    0:00:16          572,881 100%  582.76kB/s    0:00:00 (xfr#28, to-chk=126/159)
+test/images/mdb178.pgm
+         32,768   9%   32.69kB/s    0:00:10          362,158 100%  359.06kB/s    0:00:00 (xfr#29, to-chk=125/159)
+test/images/mdb179.pgm
+         32,768   8%   32.16kB/s    0:00:11          294,912  74%  287.71kB/s    0:00:00          394,415 100%  384.02kB/s    0:00:01 (xfr#30, to-chk=124/159)
+test/images/mdb186.pgm
+         32,768   8%    1.30MB/s    0:00:00          366,250 100%   12.94MB/s    0:00:00 (xfr#31, to-chk=123/159)
+test/images/mdb188.pgm
+         32,768   7%  842.11kB/s    0:00:00          466,305 100%   10.11MB/s    0:00:00 (xfr#32, to-chk=122/159)
+test/images/mdb190.pgm
+         32,768   5%  395.06kB/s    0:00:01          608,701 100%    6.18MB/s    0:00:00 (xfr#33, to-chk=121/159)
+test/images/mdb198.pgm
+         32,768   7%  266.67kB/s    0:00:01          460,366 100%    3.48MB/s    0:00:00 (xfr#34, to-chk=120/159)
+test/images/mdb264.pgm
+         32,768   6%  219.18kB/s    0:00:02          515,608 100%    3.19MB/s    0:00:00 (xfr#35, to-chk=119/159)
+test/images/mdb267.pgm
+         32,768   5%  196.32kB/s    0:00:02          615,279 100%    2.99MB/s    0:00:00 (xfr#36, to-chk=118/159)
+test/images/mdb274.pgm
+         32,768   3%  136.75kB/s    0:00:07        1,021,993 100%    3.24MB/s    0:00:00 (xfr#37, to-chk=117/159)
+test/images/mdb290.pgm
+         32,768   9%   86.72kB/s    0:00:03          331,841 100%  864.17kB/s    0:00:00 (xfr#38, to-chk=116/159)
+test/images/mdb312.pgm
+         32,768   6%   77.67kB/s    0:00:05          479,055 100%    1.08MB/s    0:00:00 (xfr#39, to-chk=115/159)
+test/images/mdb314.pgm
+         32,768   5%   71.11kB/s    0:00:08          620,977 100%    1.29MB/s    0:00:00 (xfr#40, to-chk=114/159)
+test/label_images/mdb001.pgm
+         32,768   8%   64.39kB/s    0:00:05          390,300 100%  760.78kB/s    0:00:00 (xfr#41, to-chk=113/159)
+test/label_images/mdb002.pgm
+         32,768   5%   60.72kB/s    0:00:10          648,366 100%    1.06MB/s    0:00:00 (xfr#42, to-chk=112/159)
+test/label_images/mdb005.pgm
+         32,768   4%   47.69kB/s    0:00:13          664,966 100%  930.35kB/s    0:00:00 (xfr#43, to-chk=111/159)
+test/label_images/mdb013.pgm
+         32,768   6%   41.99kB/s    0:00:10          483,155 100%  605.69kB/s    0:00:00 (xfr#44, to-chk=110/159)
+test/label_images/mdb019.pgm
+         32,768   4%   40.66kB/s    0:00:15          663,943 100%  793.61kB/s    0:00:00 (xfr#45, to-chk=109/159)
+test/label_images/mdb023.pgm
+         32,768   5%   36.74kB/s    0:00:15          594,379 100%  658.10kB/s    0:00:00 (xfr#46, to-chk=108/159)
+test/label_images/mdb028.pgm
+         32,768   5%   34.82kB/s    0:00:16          593,356 100%  619.07kB/s    0:00:00 (xfr#47, to-chk=107/159)
+test/label_images/mdb058.pgm
+         32,768   6%   32.96kB/s    0:00:14          509,417 100%  507.11kB/s    0:00:00 (xfr#48, to-chk=106/159)
+test/label_images/mdb063.pgm
+         32,768   7%   31.87kB/s    0:00:13           65,536  14%   63.75kB/s    0:00:06          449,631 100%  434.32kB/s    0:00:01 (xfr#49, to-chk=105/159)
+test/label_images/mdb069.pgm
+         32,768   4%    2.40MB/s    0:00:00          659,116 100%   25.14MB/s    0:00:00 (xfr#50, to-chk=104/159)
+test/label_images/mdb080.pgm
+         32,768   8% 1000.00kB/s    0:00:00          377,757 100%    9.48MB/s    0:00:00 (xfr#51, to-chk=103/159)
+test/label_images/mdb117.pgm
+         32,768   5%  603.77kB/s    0:00:00          547,315 100%    8.70MB/s    0:00:00 (xfr#52, to-chk=102/159)
+test/label_images/mdb121.pgm
+         32,768   4%  290.91kB/s    0:00:02          664,966 100%    4.70MB/s    0:00:00 (xfr#53, to-chk=101/159)
+test/label_images/mdb125.pgm
+         32,768   5%  193.94kB/s    0:00:02          568,360 100%    2.95MB/s    0:00:00 (xfr#54, to-chk=100/159)
+test/label_images/mdb132.pgm
+         32,768   4%  144.80kB/s    0:00:04          711,001 100%    2.69MB/s    0:00:00 (xfr#55, to-chk=99/159)
+test/label_images/mdb141.pgm
+         32,768   4%  112.68kB/s    0:00:06          812,278 100%    2.52MB/s    0:00:00 (xfr#56, to-chk=98/159)
+test/label_images/mdb144.pgm
+         32,768   4%   95.24kB/s    0:00:08          815,347 100%    2.20MB/s    0:00:00 (xfr#57, to-chk=97/159)
+test/label_images/mdb150.pgm
+         32,768   4%   84.66kB/s    0:00:08          722,254 100%    1.76MB/s    0:00:00 (xfr#58, to-chk=96/159)
+test/label_images/mdb152.pgm
+         32,768   3%   74.77kB/s    0:00:13        1,021,993 100%    2.09MB/s    0:00:00 (xfr#59, to-chk=95/159)
+test/label_images/mdb155.pgm
+         32,768   5%   67.23kB/s    0:00:09          639,788 100%    1.18MB/s    0:00:00 (xfr#60, to-chk=94/159)
+test/label_images/mdb158.pgm
+         32,768   6%   59.48kB/s    0:00:07          482,872 100%  828.74kB/s    0:00:00 (xfr#61, to-chk=93/159)
+test/label_images/mdb160.pgm
+         32,768   5%   53.96kB/s    0:00:10          588,311 100%  937.23kB/s    0:00:00 (xfr#62, to-chk=92/159)
+test/label_images/mdb163.pgm
+         32,768   5%   49.46kB/s    0:00:11          594,379 100%  872.85kB/s    0:00:00 (xfr#63, to-chk=91/159)
+test/label_images/mdb165.pgm
+         32,768   5%   45.85kB/s    0:00:11          569,923 100%  768.74kB/s    0:00:00 (xfr#64, to-chk=90/159)
+test/label_images/mdb170.pgm
+         32,768   7%   41.45kB/s    0:00:09          413,308 100%  518.79kB/s    0:00:00 (xfr#65, to-chk=89/159)
+test/label_images/mdb175.pgm
+         32,768   5%   39.36kB/s    0:00:13          572,881 100%  670.00kB/s    0:00:00 (xfr#66, to-chk=88/159)
+test/label_images/mdb178.pgm
+         32,768   9%   36.87kB/s    0:00:08          362,158 100%  404.66kB/s    0:00:00 (xfr#67, to-chk=87/159)
+test/label_images/mdb179.pgm
+         32,768   8%   35.16kB/s    0:00:10          394,415 100%  420.49kB/s    0:00:00 (xfr#68, to-chk=86/159)
+test/label_images/mdb186.pgm
+         32,768   8%   33.33kB/s    0:00:10          366,250 100%  370.64kB/s    0:00:00 (xfr#69, to-chk=85/159)
+test/label_images/mdb188.pgm
+         32,768   7%   32.00kB/s    0:00:13           65,536  14%   64.00kB/s    0:00:06          466,305 100%  453.11kB/s    0:00:01 (xfr#70, to-chk=84/159)
+test/label_images/mdb190.pgm
+         32,768   5%  744.19kB/s    0:00:00          608,701 100%    9.36MB/s    0:00:00 (xfr#71, to-chk=83/159)
+test/label_images/mdb198.pgm
+         32,768   7%  344.09kB/s    0:00:01          460,366 100%    3.07MB/s    0:00:00 (xfr#72, to-chk=82/159)
+test/label_images/mdb264.pgm
+         32,768   6%  201.26kB/s    0:00:02          515,608 100%    2.96MB/s    0:00:00 (xfr#73, to-chk=81/159)
+test/label_images/mdb267.pgm
+         32,768   5%  183.91kB/s    0:00:03          615,279 100%    3.19MB/s    0:00:00 (xfr#74, to-chk=80/159)
+test/label_images/mdb274.pgm
+         32,768   3%  146.79kB/s    0:00:06        1,021,993 100%    3.91MB/s    0:00:00 (xfr#75, to-chk=79/159)
+test/label_images/mdb290.pgm
+         32,768   9%  112.28kB/s    0:00:02          331,841 100%    1.10MB/s    0:00:00 (xfr#76, to-chk=78/159)
+test/label_images/mdb312.pgm
+         32,768   6%  107.38kB/s    0:00:04          479,055 100%    1.46MB/s    0:00:00 (xfr#77, to-chk=77/159)
+test/label_images/mdb314.pgm
+         32,768   5%   98.77kB/s    0:00:05          620,977 100%    1.72MB/s    0:00:00 (xfr#78, to-chk=76/159)
+val/images/mdb010.pgm
+         32,768   7%   85.11kB/s    0:00:04          415,885 100%    1.04MB/s    0:00:00 (xfr#79, to-chk=73/159)
+val/images/mdb012.pgm
+         32,768   6%   79.80kB/s    0:00:06          519,700 100%    1.00MB/s    0:00:00 (xfr#80, to-chk=72/159)
+val/images/mdb015.pgm
+         32,768   5%   56.74kB/s    0:00:10          604,433 100%    1.00MB/s    0:00:00 (xfr#81, to-chk=71/159)
+val/images/mdb017.pgm
+         32,768   7%   54.79kB/s    0:00:07          449,631 100%  730.60kB/s    0:00:00 (xfr#82, to-chk=70/159)
+val/images/mdb021.pgm
+         32,768   4%   49.69kB/s    0:00:12          664,966 100%  986.90kB/s    0:00:00 (xfr#83, to-chk=69/159)
+val/images/mdb025.pgm
+         32,768   5%   45.13kB/s    0:00:13          655,216 100%  888.69kB/s    0:00:00 (xfr#84, to-chk=68/159)
+val/images/mdb030.pgm
+         32,768   7%   43.54kB/s    0:00:08          422,594 100%  547.33kB/s    0:00:00 (xfr#85, to-chk=67/159)
+val/images/mdb032.pgm
+         32,768   5%   41.13kB/s    0:00:15          654,736 100%  790.35kB/s    0:00:00 (xfr#86, to-chk=66/159)
+val/images/mdb059.pgm
+         32,768   9%   38.19kB/s    0:00:08          341,403 100%  395.03kB/s    0:00:00 (xfr#87, to-chk=65/159)
+val/images/mdb091.pgm
+         32,768   8%   36.82kB/s    0:00:09          390,831 100%  436.20kB/s    0:00:00 (xfr#88, to-chk=64/159)
+val/images/mdb115.pgm
+         32,768   5%   35.36kB/s    0:00:17          640,414 100%  683.50kB/s    0:00:00 (xfr#89, to-chk=63/159)
+val/images/mdb120.pgm
+         32,768   6%   34.19kB/s    0:00:13          499,240 100%  517.56kB/s    0:00:00 (xfr#90, to-chk=62/159)
+val/images/mdb124.pgm
+         32,768   9%   32.89kB/s    0:00:09          350,905 100%  350.39kB/s    0:00:00 (xfr#91, to-chk=61/159)
+val/images/mdb126.pgm
+         32,768   5%   31.34kB/s    0:00:16           65,536  11%   62.62kB/s    0:00:07          546,575 100%  518.22kB/s    0:00:01 (xfr#92, to-chk=60/159)
+val/images/mdb127.pgm
+         32,768   5%  581.82kB/s    0:00:00          572,881 100%    7.80MB/s    0:00:00 (xfr#93, to-chk=59/159)
+val/images/mdb130.pgm
+         32,768   5%  336.84kB/s    0:00:01          585,172 100%    5.37MB/s    0:00:00 (xfr#94, to-chk=58/159)
+val/images/mdb134.pgm
+         32,768   3%  266.67kB/s    0:00:03          937,084 100%    5.92MB/s    0:00:00 (xfr#95, to-chk=57/159)
+val/images/mdb142.pgm
+         32,768   4%  184.97kB/s    0:00:04          812,278 100%    3.38MB/s    0:00:00 (xfr#96, to-chk=56/159)
+val/images/mdb145.pgm
+         32,768   4%  119.40kB/s    0:00:05          706,527 100%    2.40MB/s    0:00:00 (xfr#97, to-chk=55/159)
+val/images/mdb148.pgm
+         32,768   4%  109.22kB/s    0:00:06          718,020 100%    2.02MB/s    0:00:00 (xfr#98, to-chk=54/159)
+val/images/mdb167.pgm
+         32,768   5%   83.99kB/s    0:00:06          579,783 100%    1.41MB/s    0:00:00 (xfr#99, to-chk=53/159)
+val/images/mdb171.pgm
+         32,768   5%   78.43kB/s    0:00:07          609,624 100%    1.39MB/s    0:00:00 (xfr#100, to-chk=52/159)
+val/images/mdb181.pgm
+         32,768   7%   70.48kB/s    0:00:06          460,010 100%  976.58kB/s    0:00:00 (xfr#101, to-chk=51/159)
+val/images/mdb184.pgm
+         32,768   5%   64.00kB/s    0:00:08          605,632 100%    1.13MB/s    0:00:00 (xfr#102, to-chk=50/159)
+val/images/mdb191.pgm
+         32,768  10%   59.59kB/s    0:00:04          325,065 100%  583.54kB/s    0:00:00 (xfr#103, to-chk=49/159)
+val/images/mdb193.pgm
+         32,768   5%   53.87kB/s    0:00:09          571,350 100%  902.85kB/s    0:00:00 (xfr#104, to-chk=48/159)
+val/images/mdb195.pgm
+         32,768   5%   50.79kB/s    0:00:11          624,046 100%  952.22kB/s    0:00:00 (xfr#105, to-chk=47/159)
+val/images/mdb199.pgm
+         32,768   6%   46.92kB/s    0:00:10          523,792 100%  742.40kB/s    0:00:00 (xfr#106, to-chk=46/159)
+val/images/mdb202.pgm
+         32,768   5%   44.20kB/s    0:00:12          594,379 100%  790.80kB/s    0:00:00 (xfr#107, to-chk=45/159)
+val/images/mdb204.pgm
+         32,768   5%   42.84kB/s    0:00:13          614,839 100%  793.17kB/s    0:00:00 (xfr#108, to-chk=44/159)
+val/images/mdb206.pgm
+         32,768   5%   41.18kB/s    0:00:13          588,241 100%  729.93kB/s    0:00:00 (xfr#109, to-chk=43/159)
+val/images/mdb207.pgm
+         32,768   5%   39.22kB/s    0:00:14          588,657 100%  695.96kB/s    0:00:00 (xfr#110, to-chk=42/159)
+val/images/mdb244.pgm
+         32,768   6%   37.38kB/s    0:00:12          502,309 100%  555.53kB/s    0:00:00 (xfr#111, to-chk=41/159)
+val/images/mdb265.pgm
+         32,768   6%   35.24kB/s    0:00:13          504,847 100%  522.26kB/s    0:00:00 (xfr#112, to-chk=40/159)
+val/images/mdb270.pgm
+         32,768   7%   32.36kB/s    0:00:12          424,561 100%  417.11kB/s    0:00:00 (xfr#113, to-chk=39/159)
+val/images/mdb271.pgm
+         32,768   5%   30.22kB/s    0:00:19           65,536  10%   60.43kB/s    0:00:09          636,322 100%  580.76kB/s    0:00:01 (xfr#114, to-chk=38/159)
+val/images/mdb315.pgm
+         32,768   5%  347.83kB/s    0:00:01          565,979 100%    5.24MB/s    0:00:00 (xfr#115, to-chk=37/159)
+val/label_images/mdb010.pgm
+         32,768   7%  214.77kB/s    0:00:01          415,885 100%    2.40MB/s    0:00:00 (xfr#116, to-chk=36/159)
+val/label_images/mdb012.pgm
+         32,768   6%  157.64kB/s    0:00:03          519,700 100%    2.09MB/s    0:00:00 (xfr#117, to-chk=35/159)
+val/label_images/mdb015.pgm
+         32,768   5%  125.98kB/s    0:00:04          604,433 100%    2.18MB/s    0:00:00 (xfr#118, to-chk=34/159)
+val/label_images/mdb017.pgm
+         32,768   7%  106.31kB/s    0:00:03          449,631 100%    1.40MB/s    0:00:00 (xfr#119, to-chk=33/159)
+val/label_images/mdb021.pgm
+         32,768   4%   96.10kB/s    0:00:06          664,966 100%    1.74MB/s    0:00:00 (xfr#120, to-chk=32/159)
+val/label_images/mdb025.pgm
+         32,768   5%   78.24kB/s    0:00:07          655,216 100%    1.49MB/s    0:00:00 (xfr#121, to-chk=31/159)
+val/label_images/mdb030.pgm
+         32,768   7%   71.27kB/s    0:00:05          422,594 100%  842.22kB/s    0:00:00 (xfr#122, to-chk=30/159)
+val/label_images/mdb032.pgm
+         32,768   5%   61.54kB/s    0:00:10          654,736 100%    1.12MB/s    0:00:00 (xfr#123, to-chk=29/159)
+val/label_images/mdb059.pgm
+         32,768   9%   54.42kB/s    0:00:05          341,403 100%  561.28kB/s    0:00:00 (xfr#124, to-chk=28/159)
+val/label_images/mdb091.pgm
+         32,768   8%   53.07kB/s    0:00:06          390,831 100%  626.72kB/s    0:00:00 (xfr#125, to-chk=27/159)
+val/label_images/mdb115.pgm
+         32,768   5%   50.47kB/s    0:00:12          640,414 100%  971.12kB/s    0:00:00 (xfr#126, to-chk=26/159)
+val/label_images/mdb120.pgm
+         32,768   6%   41.94kB/s    0:00:11          499,240 100%  632.35kB/s    0:00:00 (xfr#127, to-chk=25/159)
+val/label_images/mdb124.pgm
+         32,768   9%   41.08kB/s    0:00:07          350,905 100%  437.09kB/s    0:00:00 (xfr#128, to-chk=24/159)
+val/label_images/mdb126.pgm
+         32,768   5%   38.60kB/s    0:00:13          546,575 100%  626.48kB/s    0:00:00 (xfr#129, to-chk=23/159)
+val/label_images/mdb127.pgm
+         32,768   5%   35.79kB/s    0:00:15          572,881 100%  618.18kB/s    0:00:00 (xfr#130, to-chk=22/159)
+val/label_images/mdb130.pgm
+         32,768   5%   33.97kB/s    0:00:16          585,172 100%  600.27kB/s    0:00:00 (xfr#131, to-chk=21/159)
+val/label_images/mdb134.pgm
+         32,768   3%   33.09kB/s    0:00:27          937,084 100%  924.36kB/s    0:00:00 (xfr#132, to-chk=20/159)
+val/label_images/mdb142.pgm
+         32,768   4%   32.00kB/s    0:00:24           65,536   8%   64.00kB/s    0:00:11          812,278 100%  764.94kB/s    0:00:01 (xfr#133, to-chk=19/159)
+val/label_images/mdb145.pgm
+         32,768   4%  542.37kB/s    0:00:01          706,527 100%    7.74MB/s    0:00:00 (xfr#134, to-chk=18/159)
+val/label_images/mdb148.pgm
+         32,768   4%  262.30kB/s    0:00:02          718,020 100%    4.18MB/s    0:00:00 (xfr#135, to-chk=17/159)
+val/label_images/mdb167.pgm
+         32,768   5%  172.97kB/s    0:00:03          579,783 100%    2.65MB/s    0:00:00 (xfr#136, to-chk=16/159)
+val/label_images/mdb171.pgm
+         32,768   5%  135.02kB/s    0:00:04          609,624 100%    2.35MB/s    0:00:00 (xfr#137, to-chk=15/159)
+val/label_images/mdb181.pgm
+         32,768   7%  119.85kB/s    0:00:03          460,010 100%    1.48MB/s    0:00:00 (xfr#138, to-chk=14/159)
+val/label_images/mdb184.pgm
+         32,768   5%   97.86kB/s    0:00:05          605,632 100%    1.71MB/s    0:00:00 (xfr#139, to-chk=13/159)
+val/label_images/mdb191.pgm
+         32,768  10%   91.43kB/s    0:00:03          325,065 100%  891.70kB/s    0:00:00 (xfr#140, to-chk=12/159)
+val/label_images/mdb193.pgm
+         32,768   5%   83.33kB/s    0:00:06          571,350 100%    1.39MB/s    0:00:00 (xfr#141, to-chk=11/159)
+val/label_images/mdb195.pgm
+         32,768   5%   78.05kB/s    0:00:07          624,046 100%    1.43MB/s    0:00:00 (xfr#142, to-chk=10/159)
+val/label_images/mdb199.pgm
+         32,768   6%   71.91kB/s    0:00:06          523,792 100%    1.06MB/s    0:00:00 (xfr#143, to-chk=9/159)
+val/label_images/mdb202.pgm
+         32,768   5%   65.17kB/s    0:00:08          594,379 100%    1.12MB/s    0:00:00 (xfr#144, to-chk=8/159)
+val/label_images/mdb204.pgm
+         32,768   5%   60.04kB/s    0:00:09          614,839 100%    1.08MB/s    0:00:00 (xfr#145, to-chk=7/159)
+val/label_images/mdb206.pgm
+         32,768   5%   57.55kB/s    0:00:09          588,241 100%  983.65kB/s    0:00:00 (xfr#146, to-chk=6/159)
+val/label_images/mdb207.pgm
+         32,768   5%   53.96kB/s    0:00:10          588,657 100%  956.51kB/s    0:00:00 (xfr#147, to-chk=5/159)
+val/label_images/mdb244.pgm
+         32,768   6%   50.16kB/s    0:00:09          502,309 100%  760.52kB/s    0:00:00 (xfr#148, to-chk=4/159)
+val/label_images/mdb265.pgm
+         32,768   6%   46.85kB/s    0:00:10          504,847 100%  680.02kB/s    0:00:00 (xfr#149, to-chk=3/159)
+val/label_images/mdb270.pgm
+         32,768   7%   43.30kB/s    0:00:09          424,561 100%  541.27kB/s    0:00:00 (xfr#150, to-chk=2/159)
+val/label_images/mdb271.pgm
+         32,768   5%   40.66kB/s    0:00:14          636,322 100%  751.40kB/s    0:00:00 (xfr#151, to-chk=1/159)
+val/label_images/mdb315.pgm
+         32,768   5%   36.99kB/s    0:00:14          565,979 100%  618.25kB/s    0:00:00 (xfr#152, to-chk=0/159)
+use 1 GPU(s)
+  0%|          | 0/37 [00:00<?, ?it/s][('continue_from_epoch', '-1'), ('seed', '0'), ('task', 'classification'), ('use_gpu', 'True'), ('gpu_id', '0'), ('model_name', 'context_encoder'), ('kernel_size', '4'), ('num_layers_enc', '6'), ('num_channels_enc', '64'), ('num_channels_progression_enc', '[1, 1, 2, 4, 8]'), ('num_channels_bottleneck', '4096'), ('num_layers_dec', '6'), ('num_channels_dec', '64'), ('num_channels_progression_dec', '[8, 4, 2, 1, 1]'), ('dataset_name', 'MiasHealthy'), ('num_image_channels', '1'), ('image_height', '128'), ('image_width', '128'), ('normalisation', 'range-11'), ('scale_image', 'None'), ('data_format', 'autoencoding'), ('debug_mode', 'False'), ('num_workers', '2'), ('augment', 'True'), ('gamma_factor', '1'), ('rot_angle', '15'), ('translate_factor', '[0, 0]'), ('scale_factor', '1.2'), ('shear_angle', '6'), ('patch_mode', 'False'), ('patch_size', '[128, 128]'), ('patch_location_during_training', 'random'), ('patch_rejection_threshold', '10'), ('image_padding_mode', 'None'), ('mask_size', '[64, 64]'), ('batch_size', '14'), ('loss', 'cross_entropy'), ('num_epochs', '200'), ('learning_rate', '0.0002'), ('betas', '[0.5, 0.999]'), ('weight_decay_coefficient', '0'), ('anomaly_dataset_name', 'MiasPathological'), ('AD_patch_stride', '[10, 10]'), ('measure_of_anomaly', 'likelihood'), ('window_aggregation_method', 'max'), ('save_anomaly_maps', 'True'), ('AD_margins', 'None'), ('AD_batch_size', '50'), ('experiment_name', 'r8_AE_Mias_prob_bn_4096_full_image___AD_win_max')]
+Loading data from:  /disk/scratch/s1890594/data/MiasPathological
+Loading data from:  /disk/scratch/s1890594/data/MiasPathological
+
+Traceback (most recent call last):
+  File "anomaly_detection.py", line 56, in <module>
+    experiment.run_experiment()
+  File "/mnt/mscteach_home/s1890594/mlp_framework/experiment_builder.py", line 523, in run_experiment
+    self.calculate_agreement_between_anomaly_score_and_labels(anomaly_map, label_image)
+  File "/mnt/mscteach_home/s1890594/mlp_framework/experiment_builder.py", line 629, in calculate_agreement_between_anomaly_score_and_labels
+    aucroc = get_aucroc(label_image, anomaly_map)            
+  File "/mnt/mscteach_home/s1890594/mlp_framework/misc_utils.py", line 12, in get_aucroc
+    aucroc = roc_auc_score(y_true,output)
+  File "/home/s1890594/miniconda3/envs/mlp/lib/python3.7/site-packages/sklearn/metrics/ranking.py", line 355, in roc_auc_score
+    sample_weight=sample_weight)
+  File "/home/s1890594/miniconda3/envs/mlp/lib/python3.7/site-packages/sklearn/metrics/base.py", line 76, in _average_binary_score
+    return binary_metric(y_true, y_score, sample_weight=sample_weight)
+  File "/home/s1890594/miniconda3/envs/mlp/lib/python3.7/site-packages/sklearn/metrics/ranking.py", line 327, in _binary_roc_auc_score
+    sample_weight=sample_weight)
+  File "/home/s1890594/miniconda3/envs/mlp/lib/python3.7/site-packages/sklearn/metrics/ranking.py", line 622, in roc_curve
+    y_true, y_score, pos_label=pos_label, sample_weight=sample_weight)
+  File "/home/s1890594/miniconda3/envs/mlp/lib/python3.7/site-packages/sklearn/metrics/ranking.py", line 398, in _binary_clf_curve
+    check_consistent_length(y_true, y_score, sample_weight)
+  File "/home/s1890594/miniconda3/envs/mlp/lib/python3.7/site-packages/sklearn/utils/validation.py", line 205, in check_consistent_length
+    " samples: %r" % [int(l) for l in lengths])
+ValueError: Found input variables with inconsistent numbers of samples: [415870, 16384]
