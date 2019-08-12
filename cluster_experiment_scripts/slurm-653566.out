@@ -1,0 +1,24 @@
+sending incremental file list
+deleting desktop.ini
+./
+use 6 GPU(s)
+  0%|          | 0/76 [00:00<?, ?it/s][('continue_from_epoch', '-1'), ('seed', '0'), ('task', 'classification'), ('use_gpu', 'True'), ('gpu_id', '0,1,2,3,4,5'), ('model_name', 'context_encoder'), ('kernel_size', '4'), ('num_layers_enc', '6'), ('num_channels_enc', '64'), ('num_channels_progression_enc', '[1, 1, 2, 4, 8]'), ('num_channels_bottleneck', '512'), ('num_layers_dec', '6'), ('num_channels_dec', '64'), ('num_channels_progression_dec', '[8, 4, 2, 1, 1]'), ('dataset_name', 'DescribableTextures'), ('num_image_channels', '3'), ('image_height', '128'), ('image_width', '128'), ('normalisation', 'range-11'), ('scale_image', 'None'), ('data_format', 'autoencoding'), ('debug_mode', 'False'), ('num_workers', '12'), ('augment', 'False'), ('gamma_factor', '1'), ('rot_angle', '0'), ('translate_factor', '[0, 0]'), ('scale_factor', '1'), ('shear_angle', '0'), ('patch_mode', 'True'), ('patch_size', '[128, 128]'), ('patch_location_during_training', 'random'), ('patch_rejection_threshold', '10'), ('image_padding_mode', 'None'), ('mask_size', '[64, 64]'), ('batch_size', '50'), ('loss', 'cross_entropy'), ('num_epochs', '200'), ('learning_rate', '0.0002'), ('betas', '[0.5, 0.999]'), ('weight_decay_coefficient', '0'), ('anomaly_dataset_name', 'DTPathologicalIrreg1'), ('AD_patch_stride', '[10, 10]'), ('measure_of_anomaly', 'likelihood'), ('window_aggregation_method', 'mean'), ('save_anomaly_maps', 'True'), ('AD_margins', '[128, 128]'), ('AD_batch_size', '50'), ('experiment_name', 'AE_DTD_r3_prob_patch_128_bn_512')]
+Loading data from:  /disk/scratch/s1890594/data/DescribableTextures
+Loading data from:  /disk/scratch/s1890594/data/DescribableTextures
+Loading data from:  /disk/scratch/s1890594/data/DescribableTextures
+/mnt/mscteach_home/s1890594/mlp_framework/results/AE_DTD_r3_prob_patch_128_bn_512 /mnt/mscteach_home/s1890594/mlp_framework/results/AE_DTD_r3_prob_patch_128_bn_512/result_outputs
+
+Traceback (most recent call last):
+  File "main.py", line 54, in <module>
+    experiment_metrics, test_metrics = experiment.run_experiment()  
+  File "/mnt/mscteach_home/s1890594/mlp_framework/experiment_builder.py", line 252, in run_experiment
+    loss, accuracy, map_mse_range11 = self.run_train_iter(x=x, y=y)  # take a training iter step
+  File "/mnt/mscteach_home/s1890594/mlp_framework/experiment_builder.py", line 118, in run_train_iter
+    out, loss = self.forward_prop_and_loss(x,y)
+  File "/mnt/mscteach_home/s1890594/mlp_framework/experiment_builder.py", line 188, in forward_prop_and_loss
+    loss = F.cross_entropy(out, y)  # compute loss
+  File "/home/s1890594/miniconda3/envs/mlp/lib/python3.7/site-packages/torch/nn/functional.py", line 2056, in cross_entropy
+    return nll_loss(log_softmax(input, 1), target, weight, None, ignore_index, None, reduction)
+  File "/home/s1890594/miniconda3/envs/mlp/lib/python3.7/site-packages/torch/nn/functional.py", line 1350, in log_softmax
+    ret = input.log_softmax(dim)
+RuntimeError: CUDA out of memory. Tried to allocate 2.34 GiB (GPU 0; 5.94 GiB total capacity; 2.47 GiB already allocated; 2.99 GiB free; 18.51 MiB cached)
