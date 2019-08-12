@@ -1,0 +1,16 @@
+sending incremental file list
+use 1 GPU(s)
+[('continue_from_epoch', '-1'), ('seed', '0'), ('task', 'classification'), ('use_gpu', 'True'), ('gpu_id', '0'), ('model_name', 'context_encoder'), ('kernel_size', '4'), ('num_layers_enc', '6'), ('num_channels_enc', '64'), ('num_channels_progression_enc', '[1, 1, 2, 4, 8]'), ('num_channels_bottleneck', '8192'), ('num_layers_dec', '6'), ('num_channels_dec', '64'), ('num_channels_progression_dec', '[8, 4, 2, 1, 1]'), ('dataset_name', 'MiasHealthy'), ('num_image_channels', '1'), ('image_height', '128'), ('image_width', '128'), ('normalisation', 'range-11'), ('scale_image', 'None'), ('data_format', 'autoencoding'), ('debug_mode', 'False'), ('num_workers', '2'), ('augment', 'True'), ('gamma_factor', '1'), ('rot_angle', '15'), ('translate_factor', '[0, 0]'), ('scale_factor', '1.2'), ('shear_angle', '6'), ('patch_mode', 'False'), ('patch_size', '[128, 128]'), ('patch_location_during_training', 'random'), ('patch_rejection_threshold', '10'), ('image_padding_mode', 'None'), ('mask_size', '[64, 64]'), ('batch_size', '14'), ('loss', 'cross_entropy'), ('num_epochs', '200'), ('learning_rate', '0.0002'), ('betas', '[0.5, 0.999]'), ('weight_decay_coefficient', '0'), ('anomaly_dataset_name', 'MiasPathological'), ('AD_patch_stride', '[10, 10]'), ('measure_of_anomaly', 'likelihood'), ('window_aggregation_method', 'mean'), ('save_anomaly_maps', 'True'), ('AD_margins', 'None'), ('AD_batch_size', '50'), ('experiment_name', 'r8_AE_Mias_prob_bn_8192_full_image___AD_win_mean')]
+Loading data from:  /disk/scratch/s1890594/data/MiasPathological
+Traceback (most recent call last):
+  File "anomaly_detection.py", line 38, in <module>
+    val_dataset, val_data_loader, test_dataset, test_data_loader = data_providers.create_dataset_with_anomalies(args)
+  File "/mnt/mscteach_home/s1890594/mlp_framework/data_providers.py", line 1405, in create_dataset_with_anomalies
+    val_dataset = DescribableTexturesPathological(which_set="val", **kwargs_dataset)
+  File "/mnt/mscteach_home/s1890594/mlp_framework/data_providers.py", line 1116, in __init__
+    inv_normalisation_transform=inv_normalisation_transform)
+  File "/mnt/mscteach_home/s1890594/mlp_framework/data_providers.py", line 950, in __init__
+    self.sample_list, self.num_samples, self.image_sizes = self.create_sample_list()
+  File "/mnt/mscteach_home/s1890594/mlp_framework/data_providers.py", line 988, in create_sample_list
+    assert (full_image.shape[1] > self.patch_size[0] and full_image.shape[2] > self.patch_size[1]), "Specified patch size larger than test image"
+AssertionError: Specified patch size larger than test image
