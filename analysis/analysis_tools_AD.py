@@ -58,7 +58,8 @@ def summary_stats(experiment_names, features, sort_column=None, display_table=Tr
     if sort_column is not None: # sort for displaying
         summary_df = summary_df.sort_values(by=sort_column)
     if display_table:
-        display(summary_df)
+        with pd.option_context('display.max_rows', None, 'display.max_columns', None):
+            display(summary_df)
     return summary_df
 
 ### I probably don't need this function anymore, since parse_experiment_name is much better and in the spirit of pandas. 
@@ -93,7 +94,8 @@ def summary_stats_by_train_exp(experiment_names, delimiter="___", display_table=
     summary_by_train_exp_df = summary_by_train_exp_df.set_index("train_experiment_name")
     
     if display_table:
-        display(summary_by_train_exp_df)
+        with pd.option_context('display.max_rows', None, 'display.max_columns', None):
+            display(summary_by_train_exp_df)
     return summary_by_train_exp_df
     
 
