@@ -144,7 +144,11 @@ def get_features(feature_set_name):
                       
                      {"column_name": "window_aggregation_method",
                       "patterns": ["window_min", "window_mean", "window_max"],
-                      "values": ["min", "mean", "max"]}
+                      "values": ["min", "mean", "max"]},
+                      
+                     {"column_name": "output_type",
+                     "patterns": ["prob"],
+                     "values": ["prob"]},
                       ]
     elif feature_set_name == "r7":
         features = [{"column_name": "output_type",
@@ -158,6 +162,23 @@ def get_features(feature_set_name):
                     {"column_name": "window_aggregation_method",
                      "patterns": ["win_min", "win_mean", "win_max"],
                      "values": ["min", "mean", "max"]}]
+    elif feature_set_name == "r8":
+        features = [{"column_name": "autoencoding_setting",
+                      "patterns": ["scale", "full_image"],
+                      "values": ["patch", "full_image"]},
+        
+                     {"column_name": "num_bottleneck",
+                      "patterns": ["bn_8192", "bn_4096", "bn_2048", "bn_1024", "bn_512", "bn_256", "bn_128", "bn_64"],
+                      "values": [8192, 4096, 2048, 1024, 512, 256, 128, 64]},
+                      
+                     {"column_name": "window_aggregation_method",
+                      "patterns": ["win_min", "win_mean", "win_max"],
+                      "values": ["min", "mean", "max"]},
+                      
+                     {"column_name": "scale",
+                      "patterns": ["scale_1", "scale_0p71", "scale_0p5", "scale_0p35", "scale_0p25", "scale_0p18", "scale_0p125"],
+                      "values": [1, 0.71, 0.5, 0.35, 0.25, 0.18, 0.125]}
+                      ]
     return features
 
 # =============================================================================

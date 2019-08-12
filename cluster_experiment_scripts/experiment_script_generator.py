@@ -244,8 +244,8 @@ def cpu_theme(args):
     return args
 
 def AD_theme(args):
-    args["gpu_id"] ="0"
-    args["num_workers"] = 2
+    args["gpu_id"] ="0,1"
+    args["num_workers"] = 4
     return args
 
 def probabilistic_inpainting_theme(args):
@@ -323,464 +323,34 @@ def DescribableTextures_theme(args):
 
 #%% A list of independent experiment 
 # experiment names
-experiment_names = [
-"r8_AE_Mias_stand_bn_8192_scale_1___AD_win_max",
-"r8_AE_Mias_stand_bn_8192_scale_0p71___AD_win_max",
-"r8_AE_Mias_stand_bn_8192_scale_0p5___AD_win_max",
-"r8_AE_Mias_stand_bn_8192_scale_0p35___AD_win_max",
-"r8_AE_Mias_stand_bn_8192_scale_0p25___AD_win_max",
-"r8_AE_Mias_stand_bn_8192_scale_0p18___AD_win_max",
-"r8_AE_Mias_stand_bn_8192_scale_0p125___AD_win_max",
-
-"r8_AE_Mias_stand_bn_4096_scale_1___AD_win_max",
-"r8_AE_Mias_stand_bn_4096_scale_0p71___AD_win_max",
-"r8_AE_Mias_stand_bn_4096_scale_0p5___AD_win_max",
-"r8_AE_Mias_stand_bn_4096_scale_0p35___AD_win_max",
-"r8_AE_Mias_stand_bn_4096_scale_0p25___AD_win_max",
-"r8_AE_Mias_stand_bn_4096_scale_0p18___AD_win_max",
-"r8_AE_Mias_stand_bn_4096_scale_0p125___AD_win_max",
-
-"r8_AE_Mias_stand_bn_2048_scale_1___AD_win_max",
-"r8_AE_Mias_stand_bn_2048_scale_0p71___AD_win_max",
-"r8_AE_Mias_stand_bn_2048_scale_0p5___AD_win_max",
-"r8_AE_Mias_stand_bn_2048_scale_0p35___AD_win_max",
-"r8_AE_Mias_stand_bn_2048_scale_0p25___AD_win_max",
-"r8_AE_Mias_stand_bn_2048_scale_0p18___AD_win_max",
-"r8_AE_Mias_stand_bn_2048_scale_0p125___AD_win_max",
-
-"r8_AE_Mias_stand_bn_1024_scale_1___AD_win_max",
-"r8_AE_Mias_stand_bn_1024_scale_0p71___AD_win_max",
-"r8_AE_Mias_stand_bn_1024_scale_0p5___AD_win_max",
-"r8_AE_Mias_stand_bn_1024_scale_0p35___AD_win_max",
-"r8_AE_Mias_stand_bn_1024_scale_0p25___AD_win_max",
-"r8_AE_Mias_stand_bn_1024_scale_0p18___AD_win_max",
-"r8_AE_Mias_stand_bn_1024_scale_0p125___AD_win_max",
-
-"r8_AE_Mias_stand_bn_512_scale_1___AD_win_max",
-"r8_AE_Mias_stand_bn_512_scale_0p71___AD_win_max",
-"r8_AE_Mias_stand_bn_512_scale_0p5___AD_win_max",
-"r8_AE_Mias_stand_bn_512_scale_0p35___AD_win_max",
-"r8_AE_Mias_stand_bn_512_scale_0p25___AD_win_max",
-"r8_AE_Mias_stand_bn_512_scale_0p18___AD_win_max",
-"r8_AE_Mias_stand_bn_512_scale_0p125___AD_win_max",
-
-"r8_AE_Mias_stand_bn_256_scale_1___AD_win_max",
-"r8_AE_Mias_stand_bn_256_scale_0p71___AD_win_max",
-"r8_AE_Mias_stand_bn_256_scale_0p5___AD_win_max",
-"r8_AE_Mias_stand_bn_256_scale_0p35___AD_win_max",
-"r8_AE_Mias_stand_bn_256_scale_0p25___AD_win_max",
-"r8_AE_Mias_stand_bn_256_scale_0p18___AD_win_max",
-"r8_AE_Mias_stand_bn_256_scale_0p125___AD_win_max",
-
-"r8_AE_Mias_stand_bn_128_scale_1___AD_win_max",
-"r8_AE_Mias_stand_bn_128_scale_0p71___AD_win_max",
-"r8_AE_Mias_stand_bn_128_scale_0p5___AD_win_max",
-"r8_AE_Mias_stand_bn_128_scale_0p35___AD_win_max",
-"r8_AE_Mias_stand_bn_128_scale_0p25___AD_win_max",
-"r8_AE_Mias_stand_bn_128_scale_0p18___AD_win_max",
-"r8_AE_Mias_stand_bn_128_scale_0p125___AD_win_max",
-
-"r8_AE_Mias_stand_bn_64_scale_1___AD_win_max",
-"r8_AE_Mias_stand_bn_64_scale_0p71___AD_win_max",
-"r8_AE_Mias_stand_bn_64_scale_0p5___AD_win_max",
-"r8_AE_Mias_stand_bn_64_scale_0p35___AD_win_max",
-"r8_AE_Mias_stand_bn_64_scale_0p25___AD_win_max",
-"r8_AE_Mias_stand_bn_64_scale_0p18___AD_win_max",
-"r8_AE_Mias_stand_bn_64_scale_0p125___AD_win_max",
-
-"r8_AE_Mias_prob_bn_8192_scale_1___AD_win_max",
-"r8_AE_Mias_prob_bn_8192_scale_0p71___AD_win_max",
-"r8_AE_Mias_prob_bn_8192_scale_0p5___AD_win_max",
-"r8_AE_Mias_prob_bn_8192_scale_0p35___AD_win_max",
-"r8_AE_Mias_prob_bn_8192_scale_0p25___AD_win_max",
-"r8_AE_Mias_prob_bn_8192_scale_0p18___AD_win_max",
-"r8_AE_Mias_prob_bn_8192_scale_0p125___AD_win_max",
-
-"r8_AE_Mias_prob_bn_4096_scale_1___AD_win_max",
-"r8_AE_Mias_prob_bn_4096_scale_0p71___AD_win_max",
-"r8_AE_Mias_prob_bn_4096_scale_0p5___AD_win_max",
-"r8_AE_Mias_prob_bn_4096_scale_0p35___AD_win_max",
-"r8_AE_Mias_prob_bn_4096_scale_0p25___AD_win_max",
-"r8_AE_Mias_prob_bn_4096_scale_0p18___AD_win_max",
-"r8_AE_Mias_prob_bn_4096_scale_0p125___AD_win_max",
-
-"r8_AE_Mias_prob_bn_2048_scale_1___AD_win_max",
-"r8_AE_Mias_prob_bn_2048_scale_0p71___AD_win_max",
-"r8_AE_Mias_prob_bn_2048_scale_0p5___AD_win_max",
-"r8_AE_Mias_prob_bn_2048_scale_0p35___AD_win_max",
-"r8_AE_Mias_prob_bn_2048_scale_0p25___AD_win_max",
-"r8_AE_Mias_prob_bn_2048_scale_0p18___AD_win_max",
-"r8_AE_Mias_prob_bn_2048_scale_0p125___AD_win_max",
-
-"r8_AE_Mias_prob_bn_1024_scale_1___AD_win_max",
-"r8_AE_Mias_prob_bn_1024_scale_0p71___AD_win_max",
-"r8_AE_Mias_prob_bn_1024_scale_0p5___AD_win_max",
-"r8_AE_Mias_prob_bn_1024_scale_0p35___AD_win_max",
-"r8_AE_Mias_prob_bn_1024_scale_0p25___AD_win_max",
-"r8_AE_Mias_prob_bn_1024_scale_0p18___AD_win_max",
-"r8_AE_Mias_prob_bn_1024_scale_0p125___AD_win_max",
-
-"r8_AE_Mias_prob_bn_512_scale_1___AD_win_max",
-"r8_AE_Mias_prob_bn_512_scale_0p71___AD_win_max",
-"r8_AE_Mias_prob_bn_512_scale_0p5___AD_win_max",
-"r8_AE_Mias_prob_bn_512_scale_0p35___AD_win_max",
-"r8_AE_Mias_prob_bn_512_scale_0p25___AD_win_max",
-"r8_AE_Mias_prob_bn_512_scale_0p18___AD_win_max",
-"r8_AE_Mias_prob_bn_512_scale_0p125___AD_win_max",
-
-"r8_AE_Mias_prob_bn_256_scale_1___AD_win_max",
-"r8_AE_Mias_prob_bn_256_scale_0p71___AD_win_max",
-"r8_AE_Mias_prob_bn_256_scale_0p5___AD_win_max",
-"r8_AE_Mias_prob_bn_256_scale_0p35___AD_win_max",
-"r8_AE_Mias_prob_bn_256_scale_0p25___AD_win_max",
-"r8_AE_Mias_prob_bn_256_scale_0p18___AD_win_max",
-"r8_AE_Mias_prob_bn_256_scale_0p125___AD_win_max",
-
-"r8_AE_Mias_prob_bn_128_scale_1___AD_win_max",
-"r8_AE_Mias_prob_bn_128_scale_0p71___AD_win_max",
-"r8_AE_Mias_prob_bn_128_scale_0p5___AD_win_max",
-"r8_AE_Mias_prob_bn_128_scale_0p35___AD_win_max",
-"r8_AE_Mias_prob_bn_128_scale_0p25___AD_win_max",
-"r8_AE_Mias_prob_bn_128_scale_0p18___AD_win_max",
-"r8_AE_Mias_prob_bn_128_scale_0p125___AD_win_max",
-
-"r8_AE_Mias_prob_bn_64_scale_1___AD_win_max",
-"r8_AE_Mias_prob_bn_64_scale_0p71___AD_win_max",
-"r8_AE_Mias_prob_bn_64_scale_0p5___AD_win_max",
-"r8_AE_Mias_prob_bn_64_scale_0p35___AD_win_max",
-"r8_AE_Mias_prob_bn_64_scale_0p25___AD_win_max",
-"r8_AE_Mias_prob_bn_64_scale_0p18___AD_win_max",
-"r8_AE_Mias_prob_bn_64_scale_0p125___AD_win_max",
-
-"r8_AE_Mias_stand_bn_8192_full_image___AD_win_max",
-"r8_AE_Mias_stand_bn_4096_full_image___AD_win_max",
-"r8_AE_Mias_stand_bn_2048_full_image___AD_win_max",
-"r8_AE_Mias_stand_bn_1024_full_image___AD_win_max",
-"r8_AE_Mias_stand_bn_512_full_image___AD_win_max",
-"r8_AE_Mias_stand_bn_256_full_image___AD_win_max",
-"r8_AE_Mias_stand_bn_128_full_image___AD_win_max",
-"r8_AE_Mias_stand_bn_64_full_image___AD_win_max",
-
-"r8_AE_Mias_prob_bn_8192_full_image___AD_win_max",
-"r8_AE_Mias_prob_bn_4096_full_image___AD_win_max",
-"r8_AE_Mias_prob_bn_2048_full_image___AD_win_max",
-"r8_AE_Mias_prob_bn_1024_full_image___AD_win_max",
-"r8_AE_Mias_prob_bn_512_full_image___AD_win_max",
-"r8_AE_Mias_prob_bn_256_full_image___AD_win_max",
-"r8_AE_Mias_prob_bn_128_full_image___AD_win_max",
-"r8_AE_Mias_prob_bn_64_full_image___AD_win_max",
-
-"r8_AE_Mias_stand_bn_8192_scale_1___AD_win_mean",
-"r8_AE_Mias_stand_bn_8192_scale_0p71___AD_win_mean",
-"r8_AE_Mias_stand_bn_8192_scale_0p5___AD_win_mean",
-"r8_AE_Mias_stand_bn_8192_scale_0p35___AD_win_mean",
-"r8_AE_Mias_stand_bn_8192_scale_0p25___AD_win_mean",
-"r8_AE_Mias_stand_bn_8192_scale_0p18___AD_win_mean",
-"r8_AE_Mias_stand_bn_8192_scale_0p125___AD_win_mean",
-
-"r8_AE_Mias_stand_bn_4096_scale_1___AD_win_mean",
-"r8_AE_Mias_stand_bn_4096_scale_0p71___AD_win_mean",
-"r8_AE_Mias_stand_bn_4096_scale_0p5___AD_win_mean",
-"r8_AE_Mias_stand_bn_4096_scale_0p35___AD_win_mean",
-"r8_AE_Mias_stand_bn_4096_scale_0p25___AD_win_mean",
-"r8_AE_Mias_stand_bn_4096_scale_0p18___AD_win_mean",
-"r8_AE_Mias_stand_bn_4096_scale_0p125___AD_win_mean",
-
-"r8_AE_Mias_stand_bn_2048_scale_1___AD_win_mean",
-"r8_AE_Mias_stand_bn_2048_scale_0p71___AD_win_mean",
-"r8_AE_Mias_stand_bn_2048_scale_0p5___AD_win_mean",
-"r8_AE_Mias_stand_bn_2048_scale_0p35___AD_win_mean",
-"r8_AE_Mias_stand_bn_2048_scale_0p25___AD_win_mean",
-"r8_AE_Mias_stand_bn_2048_scale_0p18___AD_win_mean",
-"r8_AE_Mias_stand_bn_2048_scale_0p125___AD_win_mean",
-
-"r8_AE_Mias_stand_bn_1024_scale_1___AD_win_mean",
-"r8_AE_Mias_stand_bn_1024_scale_0p71___AD_win_mean",
-"r8_AE_Mias_stand_bn_1024_scale_0p5___AD_win_mean",
-"r8_AE_Mias_stand_bn_1024_scale_0p35___AD_win_mean",
-"r8_AE_Mias_stand_bn_1024_scale_0p25___AD_win_mean",
-"r8_AE_Mias_stand_bn_1024_scale_0p18___AD_win_mean",
-"r8_AE_Mias_stand_bn_1024_scale_0p125___AD_win_mean",
-
-"r8_AE_Mias_stand_bn_512_scale_1___AD_win_mean",
-"r8_AE_Mias_stand_bn_512_scale_0p71___AD_win_mean",
-"r8_AE_Mias_stand_bn_512_scale_0p5___AD_win_mean",
-"r8_AE_Mias_stand_bn_512_scale_0p35___AD_win_mean",
-"r8_AE_Mias_stand_bn_512_scale_0p25___AD_win_mean",
-"r8_AE_Mias_stand_bn_512_scale_0p18___AD_win_mean",
-"r8_AE_Mias_stand_bn_512_scale_0p125___AD_win_mean",
-
-"r8_AE_Mias_stand_bn_256_scale_1___AD_win_mean",
-"r8_AE_Mias_stand_bn_256_scale_0p71___AD_win_mean",
-"r8_AE_Mias_stand_bn_256_scale_0p5___AD_win_mean",
-"r8_AE_Mias_stand_bn_256_scale_0p35___AD_win_mean",
-"r8_AE_Mias_stand_bn_256_scale_0p25___AD_win_mean",
-"r8_AE_Mias_stand_bn_256_scale_0p18___AD_win_mean",
-"r8_AE_Mias_stand_bn_256_scale_0p125___AD_win_mean",
-
-"r8_AE_Mias_stand_bn_128_scale_1___AD_win_mean",
-"r8_AE_Mias_stand_bn_128_scale_0p71___AD_win_mean",
-"r8_AE_Mias_stand_bn_128_scale_0p5___AD_win_mean",
-"r8_AE_Mias_stand_bn_128_scale_0p35___AD_win_mean",
-"r8_AE_Mias_stand_bn_128_scale_0p25___AD_win_mean",
-"r8_AE_Mias_stand_bn_128_scale_0p18___AD_win_mean",
-"r8_AE_Mias_stand_bn_128_scale_0p125___AD_win_mean",
-
-"r8_AE_Mias_stand_bn_64_scale_1___AD_win_mean",
-"r8_AE_Mias_stand_bn_64_scale_0p71___AD_win_mean",
-"r8_AE_Mias_stand_bn_64_scale_0p5___AD_win_mean",
-"r8_AE_Mias_stand_bn_64_scale_0p35___AD_win_mean",
-"r8_AE_Mias_stand_bn_64_scale_0p25___AD_win_mean",
-"r8_AE_Mias_stand_bn_64_scale_0p18___AD_win_mean",
-"r8_AE_Mias_stand_bn_64_scale_0p125___AD_win_mean",
-
-"r8_AE_Mias_prob_bn_8192_scale_1___AD_win_mean",
-"r8_AE_Mias_prob_bn_8192_scale_0p71___AD_win_mean",
-"r8_AE_Mias_prob_bn_8192_scale_0p5___AD_win_mean",
-"r8_AE_Mias_prob_bn_8192_scale_0p35___AD_win_mean",
-"r8_AE_Mias_prob_bn_8192_scale_0p25___AD_win_mean",
-"r8_AE_Mias_prob_bn_8192_scale_0p18___AD_win_mean",
-"r8_AE_Mias_prob_bn_8192_scale_0p125___AD_win_mean",
-
-"r8_AE_Mias_prob_bn_4096_scale_1___AD_win_mean",
-"r8_AE_Mias_prob_bn_4096_scale_0p71___AD_win_mean",
-"r8_AE_Mias_prob_bn_4096_scale_0p5___AD_win_mean",
-"r8_AE_Mias_prob_bn_4096_scale_0p35___AD_win_mean",
-"r8_AE_Mias_prob_bn_4096_scale_0p25___AD_win_mean",
-"r8_AE_Mias_prob_bn_4096_scale_0p18___AD_win_mean",
-"r8_AE_Mias_prob_bn_4096_scale_0p125___AD_win_mean",
-
-"r8_AE_Mias_prob_bn_2048_scale_1___AD_win_mean",
-"r8_AE_Mias_prob_bn_2048_scale_0p71___AD_win_mean",
-"r8_AE_Mias_prob_bn_2048_scale_0p5___AD_win_mean",
-"r8_AE_Mias_prob_bn_2048_scale_0p35___AD_win_mean",
-"r8_AE_Mias_prob_bn_2048_scale_0p25___AD_win_mean",
-"r8_AE_Mias_prob_bn_2048_scale_0p18___AD_win_mean",
-"r8_AE_Mias_prob_bn_2048_scale_0p125___AD_win_mean",
-
-"r8_AE_Mias_prob_bn_1024_scale_1___AD_win_mean",
-"r8_AE_Mias_prob_bn_1024_scale_0p71___AD_win_mean",
-"r8_AE_Mias_prob_bn_1024_scale_0p5___AD_win_mean",
-"r8_AE_Mias_prob_bn_1024_scale_0p35___AD_win_mean",
-"r8_AE_Mias_prob_bn_1024_scale_0p25___AD_win_mean",
-"r8_AE_Mias_prob_bn_1024_scale_0p18___AD_win_mean",
-"r8_AE_Mias_prob_bn_1024_scale_0p125___AD_win_mean",
-
-"r8_AE_Mias_prob_bn_512_scale_1___AD_win_mean",
-"r8_AE_Mias_prob_bn_512_scale_0p71___AD_win_mean",
-"r8_AE_Mias_prob_bn_512_scale_0p5___AD_win_mean",
-"r8_AE_Mias_prob_bn_512_scale_0p35___AD_win_mean",
-"r8_AE_Mias_prob_bn_512_scale_0p25___AD_win_mean",
-"r8_AE_Mias_prob_bn_512_scale_0p18___AD_win_mean",
-"r8_AE_Mias_prob_bn_512_scale_0p125___AD_win_mean",
-
-"r8_AE_Mias_prob_bn_256_scale_1___AD_win_mean",
-"r8_AE_Mias_prob_bn_256_scale_0p71___AD_win_mean",
-"r8_AE_Mias_prob_bn_256_scale_0p5___AD_win_mean",
-"r8_AE_Mias_prob_bn_256_scale_0p35___AD_win_mean",
-"r8_AE_Mias_prob_bn_256_scale_0p25___AD_win_mean",
-"r8_AE_Mias_prob_bn_256_scale_0p18___AD_win_mean",
-"r8_AE_Mias_prob_bn_256_scale_0p125___AD_win_mean",
-
-"r8_AE_Mias_prob_bn_128_scale_1___AD_win_mean",
-"r8_AE_Mias_prob_bn_128_scale_0p71___AD_win_mean",
-"r8_AE_Mias_prob_bn_128_scale_0p5___AD_win_mean",
-"r8_AE_Mias_prob_bn_128_scale_0p35___AD_win_mean",
-"r8_AE_Mias_prob_bn_128_scale_0p25___AD_win_mean",
-"r8_AE_Mias_prob_bn_128_scale_0p18___AD_win_mean",
-"r8_AE_Mias_prob_bn_128_scale_0p125___AD_win_mean",
-
-"r8_AE_Mias_prob_bn_64_scale_1___AD_win_mean",
-"r8_AE_Mias_prob_bn_64_scale_0p71___AD_win_mean",
-"r8_AE_Mias_prob_bn_64_scale_0p5___AD_win_mean",
-"r8_AE_Mias_prob_bn_64_scale_0p35___AD_win_mean",
-"r8_AE_Mias_prob_bn_64_scale_0p25___AD_win_mean",
-"r8_AE_Mias_prob_bn_64_scale_0p18___AD_win_mean",
-"r8_AE_Mias_prob_bn_64_scale_0p125___AD_win_mean",
-
-"r8_AE_Mias_stand_bn_8192_full_image___AD_win_mean",
-"r8_AE_Mias_stand_bn_4096_full_image___AD_win_mean",
-"r8_AE_Mias_stand_bn_2048_full_image___AD_win_mean",
-"r8_AE_Mias_stand_bn_1024_full_image___AD_win_mean",
-"r8_AE_Mias_stand_bn_512_full_image___AD_win_mean",
-"r8_AE_Mias_stand_bn_256_full_image___AD_win_mean",
-"r8_AE_Mias_stand_bn_128_full_image___AD_win_mean",
-"r8_AE_Mias_stand_bn_64_full_image___AD_win_mean",
-
-"r8_AE_Mias_prob_bn_8192_full_image___AD_win_mean",
-"r8_AE_Mias_prob_bn_4096_full_image___AD_win_mean",
-"r8_AE_Mias_prob_bn_2048_full_image___AD_win_mean",
-"r8_AE_Mias_prob_bn_1024_full_image___AD_win_mean",
-"r8_AE_Mias_prob_bn_512_full_image___AD_win_mean",
-"r8_AE_Mias_prob_bn_256_full_image___AD_win_mean",
-"r8_AE_Mias_prob_bn_128_full_image___AD_win_mean",
-"r8_AE_Mias_prob_bn_64_full_image___AD_win_mean",
-
-"r8_AE_Mias_stand_bn_8192_scale_1___AD_win_min",
-"r8_AE_Mias_stand_bn_8192_scale_0p71___AD_win_min",
-"r8_AE_Mias_stand_bn_8192_scale_0p5___AD_win_min",
-"r8_AE_Mias_stand_bn_8192_scale_0p35___AD_win_min",
-"r8_AE_Mias_stand_bn_8192_scale_0p25___AD_win_min",
-"r8_AE_Mias_stand_bn_8192_scale_0p18___AD_win_min",
-"r8_AE_Mias_stand_bn_8192_scale_0p125___AD_win_min",
-
-"r8_AE_Mias_stand_bn_4096_scale_1___AD_win_min",
-"r8_AE_Mias_stand_bn_4096_scale_0p71___AD_win_min",
-"r8_AE_Mias_stand_bn_4096_scale_0p5___AD_win_min",
-"r8_AE_Mias_stand_bn_4096_scale_0p35___AD_win_min",
-"r8_AE_Mias_stand_bn_4096_scale_0p25___AD_win_min",
-"r8_AE_Mias_stand_bn_4096_scale_0p18___AD_win_min",
-"r8_AE_Mias_stand_bn_4096_scale_0p125___AD_win_min",
-
-"r8_AE_Mias_stand_bn_2048_scale_1___AD_win_min",
-"r8_AE_Mias_stand_bn_2048_scale_0p71___AD_win_min",
-"r8_AE_Mias_stand_bn_2048_scale_0p5___AD_win_min",
-"r8_AE_Mias_stand_bn_2048_scale_0p35___AD_win_min",
-"r8_AE_Mias_stand_bn_2048_scale_0p25___AD_win_min",
-"r8_AE_Mias_stand_bn_2048_scale_0p18___AD_win_min",
-"r8_AE_Mias_stand_bn_2048_scale_0p125___AD_win_min",
-
-"r8_AE_Mias_stand_bn_1024_scale_1___AD_win_min",
-"r8_AE_Mias_stand_bn_1024_scale_0p71___AD_win_min",
-"r8_AE_Mias_stand_bn_1024_scale_0p5___AD_win_min",
-"r8_AE_Mias_stand_bn_1024_scale_0p35___AD_win_min",
-"r8_AE_Mias_stand_bn_1024_scale_0p25___AD_win_min",
-"r8_AE_Mias_stand_bn_1024_scale_0p18___AD_win_min",
-"r8_AE_Mias_stand_bn_1024_scale_0p125___AD_win_min",
-
-"r8_AE_Mias_stand_bn_512_scale_1___AD_win_min",
-"r8_AE_Mias_stand_bn_512_scale_0p71___AD_win_min",
-"r8_AE_Mias_stand_bn_512_scale_0p5___AD_win_min",
-"r8_AE_Mias_stand_bn_512_scale_0p35___AD_win_min",
-"r8_AE_Mias_stand_bn_512_scale_0p25___AD_win_min",
-"r8_AE_Mias_stand_bn_512_scale_0p18___AD_win_min",
-"r8_AE_Mias_stand_bn_512_scale_0p125___AD_win_min",
-
-"r8_AE_Mias_stand_bn_256_scale_1___AD_win_min",
-"r8_AE_Mias_stand_bn_256_scale_0p71___AD_win_min",
-"r8_AE_Mias_stand_bn_256_scale_0p5___AD_win_min",
-"r8_AE_Mias_stand_bn_256_scale_0p35___AD_win_min",
-"r8_AE_Mias_stand_bn_256_scale_0p25___AD_win_min",
-"r8_AE_Mias_stand_bn_256_scale_0p18___AD_win_min",
-"r8_AE_Mias_stand_bn_256_scale_0p125___AD_win_min",
-
-"r8_AE_Mias_stand_bn_128_scale_1___AD_win_min",
-"r8_AE_Mias_stand_bn_128_scale_0p71___AD_win_min",
-"r8_AE_Mias_stand_bn_128_scale_0p5___AD_win_min",
-"r8_AE_Mias_stand_bn_128_scale_0p35___AD_win_min",
-"r8_AE_Mias_stand_bn_128_scale_0p25___AD_win_min",
-"r8_AE_Mias_stand_bn_128_scale_0p18___AD_win_min",
-"r8_AE_Mias_stand_bn_128_scale_0p125___AD_win_min",
-
-"r8_AE_Mias_stand_bn_64_scale_1___AD_win_min",
-"r8_AE_Mias_stand_bn_64_scale_0p71___AD_win_min",
-"r8_AE_Mias_stand_bn_64_scale_0p5___AD_win_min",
-"r8_AE_Mias_stand_bn_64_scale_0p35___AD_win_min",
-"r8_AE_Mias_stand_bn_64_scale_0p25___AD_win_min",
-"r8_AE_Mias_stand_bn_64_scale_0p18___AD_win_min",
-"r8_AE_Mias_stand_bn_64_scale_0p125___AD_win_min",
-
-"r8_AE_Mias_prob_bn_8192_scale_1___AD_win_min",
-"r8_AE_Mias_prob_bn_8192_scale_0p71___AD_win_min",
-"r8_AE_Mias_prob_bn_8192_scale_0p5___AD_win_min",
-"r8_AE_Mias_prob_bn_8192_scale_0p35___AD_win_min",
-"r8_AE_Mias_prob_bn_8192_scale_0p25___AD_win_min",
-"r8_AE_Mias_prob_bn_8192_scale_0p18___AD_win_min",
-"r8_AE_Mias_prob_bn_8192_scale_0p125___AD_win_min",
-
-"r8_AE_Mias_prob_bn_4096_scale_1___AD_win_min",
-"r8_AE_Mias_prob_bn_4096_scale_0p71___AD_win_min",
-"r8_AE_Mias_prob_bn_4096_scale_0p5___AD_win_min",
-"r8_AE_Mias_prob_bn_4096_scale_0p35___AD_win_min",
-"r8_AE_Mias_prob_bn_4096_scale_0p25___AD_win_min",
-"r8_AE_Mias_prob_bn_4096_scale_0p18___AD_win_min",
-"r8_AE_Mias_prob_bn_4096_scale_0p125___AD_win_min",
-
-"r8_AE_Mias_prob_bn_2048_scale_1___AD_win_min",
-"r8_AE_Mias_prob_bn_2048_scale_0p71___AD_win_min",
-"r8_AE_Mias_prob_bn_2048_scale_0p5___AD_win_min",
-"r8_AE_Mias_prob_bn_2048_scale_0p35___AD_win_min",
-"r8_AE_Mias_prob_bn_2048_scale_0p25___AD_win_min",
-"r8_AE_Mias_prob_bn_2048_scale_0p18___AD_win_min",
-"r8_AE_Mias_prob_bn_2048_scale_0p125___AD_win_min",
-
-"r8_AE_Mias_prob_bn_1024_scale_1___AD_win_min",
-"r8_AE_Mias_prob_bn_1024_scale_0p71___AD_win_min",
-"r8_AE_Mias_prob_bn_1024_scale_0p5___AD_win_min",
-"r8_AE_Mias_prob_bn_1024_scale_0p35___AD_win_min",
-"r8_AE_Mias_prob_bn_1024_scale_0p25___AD_win_min",
-"r8_AE_Mias_prob_bn_1024_scale_0p18___AD_win_min",
-"r8_AE_Mias_prob_bn_1024_scale_0p125___AD_win_min",
-
-"r8_AE_Mias_prob_bn_512_scale_1___AD_win_min",
-"r8_AE_Mias_prob_bn_512_scale_0p71___AD_win_min",
-"r8_AE_Mias_prob_bn_512_scale_0p5___AD_win_min",
-"r8_AE_Mias_prob_bn_512_scale_0p35___AD_win_min",
-"r8_AE_Mias_prob_bn_512_scale_0p25___AD_win_min",
-"r8_AE_Mias_prob_bn_512_scale_0p18___AD_win_min",
-"r8_AE_Mias_prob_bn_512_scale_0p125___AD_win_min",
-
-"r8_AE_Mias_prob_bn_256_scale_1___AD_win_min",
-"r8_AE_Mias_prob_bn_256_scale_0p71___AD_win_min",
-"r8_AE_Mias_prob_bn_256_scale_0p5___AD_win_min",
-"r8_AE_Mias_prob_bn_256_scale_0p35___AD_win_min",
-"r8_AE_Mias_prob_bn_256_scale_0p25___AD_win_min",
-"r8_AE_Mias_prob_bn_256_scale_0p18___AD_win_min",
-"r8_AE_Mias_prob_bn_256_scale_0p125___AD_win_min",
-
-"r8_AE_Mias_prob_bn_128_scale_1___AD_win_min",
-"r8_AE_Mias_prob_bn_128_scale_0p71___AD_win_min",
-"r8_AE_Mias_prob_bn_128_scale_0p5___AD_win_min",
-"r8_AE_Mias_prob_bn_128_scale_0p35___AD_win_min",
-"r8_AE_Mias_prob_bn_128_scale_0p25___AD_win_min",
-"r8_AE_Mias_prob_bn_128_scale_0p18___AD_win_min",
-"r8_AE_Mias_prob_bn_128_scale_0p125___AD_win_min",
-
-"r8_AE_Mias_prob_bn_64_scale_1___AD_win_min",
-"r8_AE_Mias_prob_bn_64_scale_0p71___AD_win_min",
-"r8_AE_Mias_prob_bn_64_scale_0p5___AD_win_min",
-"r8_AE_Mias_prob_bn_64_scale_0p35___AD_win_min",
-"r8_AE_Mias_prob_bn_64_scale_0p25___AD_win_min",
-"r8_AE_Mias_prob_bn_64_scale_0p18___AD_win_min",
-"r8_AE_Mias_prob_bn_64_scale_0p125___AD_win_min",
-
-"r8_AE_Mias_stand_bn_8192_full_image___AD_win_min",
-"r8_AE_Mias_stand_bn_4096_full_image___AD_win_min",
-"r8_AE_Mias_stand_bn_2048_full_image___AD_win_min",
-"r8_AE_Mias_stand_bn_1024_full_image___AD_win_min",
-"r8_AE_Mias_stand_bn_512_full_image___AD_win_min",
-"r8_AE_Mias_stand_bn_256_full_image___AD_win_min",
-"r8_AE_Mias_stand_bn_128_full_image___AD_win_min",
-"r8_AE_Mias_stand_bn_64_full_image___AD_win_min",
-
-"r8_AE_Mias_prob_bn_8192_full_image___AD_win_min",
-"r8_AE_Mias_prob_bn_4096_full_image___AD_win_min",
-"r8_AE_Mias_prob_bn_2048_full_image___AD_win_min",
-"r8_AE_Mias_prob_bn_1024_full_image___AD_win_min",
-"r8_AE_Mias_prob_bn_512_full_image___AD_win_min",
-"r8_AE_Mias_prob_bn_256_full_image___AD_win_min",
-"r8_AE_Mias_prob_bn_128_full_image___AD_win_min",
-"r8_AE_Mias_prob_bn_64_full_image___AD_win_min",
-]
+experiment_names = ["AE_DTD_r3_prob_full_image_128_bn_8192",
+                    "AE_DTD_r3_prob_full_image_128_bn_4096",
+                    "AE_DTD_r3_prob_full_image_128_bn_2048",
+                    "AE_DTD_r3_prob_full_image_128_bn_1024",
+                    "AE_DTD_r3_prob_full_image_128_bn_512",
+                    "AE_DTD_r3_prob_full_image_128_bn_256",
+                    "AE_DTD_r3_prob_full_image_128_bn_128",
+					"AE_DTD_r3_prob_full_image_128_bn_64",
+					"AE_DTD_r3_prob_full_image_128_bn_32"]
 
 
 # Note: For experiments that include anomaly detection, the experiment name needs to be original_experiment_name + "___" + AD_experiment_name, where original_experiment_name is the name of the eperiment in which the model that we want to use for AD was trained.
 
 # type of experiment
-experiment_type = "AD" # options: "train" for training (including evaluation on val and test set); "AD" for anomaly detection (using the best validation model from "experiment_name"); "train+AD" for both.
+experiment_type = "train" # options: "train" for training (including evaluation on val and test set); "AD" for anomaly detection (using the best validation model from "experiment_name"); "train+AD" for both.
 
 # number of replicates
 num_replicates = 1
 
 # Commonly used themes
 cpu = False
-probabilistic_inpainting = False
+probabilistic_inpainting = True
 small_mask = False
 large_context = False
 Mias = False
-DescribableTextures = False
+DescribableTextures = True
 GoogleStreetView = False
-autoencoder = False
+autoencoder = True
 autoencoder_small = False
 
 # slurm options
@@ -791,9 +361,16 @@ time = None
 
 # arguments to update from default, each inner dict has the items for one experiment:
 
-update_dicts = [{"window_aggregation_method": "max"}]*128 + [{"window_aggregation_method": "mean"}]*128 + [{"window_aggregation_method": "min"}]*128
-
-
+update_dicts = [
+{"num_channels_bottleneck": 8192, "patch_mode": False},
+{"num_channels_bottleneck": 4096, "patch_mode": False},
+{"num_channels_bottleneck": 2048, "patch_mode": False},
+{"num_channels_bottleneck": 1024, "patch_mode": False},
+{"num_channels_bottleneck": 512, "patch_mode": False},
+{"num_channels_bottleneck": 256, "patch_mode": False},
+{"num_channels_bottleneck": 128, "patch_mode": False},
+{"num_channels_bottleneck": 64, "patch_mode": False},
+{"num_channels_bottleneck": 32, "patch_mode": False},]
 
 
 # for each experiment
