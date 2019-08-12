@@ -1,0 +1,8 @@
+sending incremental file list
+Traceback (most recent call last):
+  File "anomaly_detection.py", line 8, in <module>
+    from experiment_builder import AnomalyDetectionExperiment
+  File "/mnt/mscteach_home/s1890594/mlp_framework/experiment_builder.py", line 592
+    anomaly_map = nn.functional.interpolate(anomaly_map.unsqueeze(0), size=(label_image.shape[1], label_image.shape[2])) # introduce batch_size dimension (as required by interpolate) and then scale tensor
+    ^
+IndentationError: unexpected indent
