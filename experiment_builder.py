@@ -395,8 +395,13 @@ class AnomalyDetectionExperiment(nn.Module):
         self.window_aggregation_method=args.window_aggregation_method
         self.save_anomaly_maps=args.save_anomaly_maps
         use_gpu = args.use_gpu
-        self.resize_anomaly_maps = True if args.scale_image is not None else False # if images during training were scaled (mostly to be smaller), then anomaly detection automatically happens on the appropriately scaled images. However, the anomaly maps need to be reshaped to the size of the label images before calculating agreement between anomaly maps and ground truth segmentation
         
+        # if images during training were scaled (mostly to be smaller), then anomaly detection automatically happens on the appropriately scaled images. However, the anomaly maps need to be reshaped to the size of the label images before calculating agreement between anomaly maps and ground truth segmentation
+        # patch_mode and scale_image could probably be unified easily
+        if (args.scale_image is not None) or (not args.patch_mode):
+            self.resize_anomaly_maps = True 
+        else:
+            self.resize_anomaly_maps = False
         try:
             self.AD_margins = args.AD_margins # Tupel of image margins in image dimensions 1 and 2 that should not be considered for calculating agreement between anomaly map and label image
         except AttributeError: # None by default
@@ -579,10 +584,13 @@ class AnomalyDetectionExperiment(nn.Module):
                     anomaly_map = anomaly_map[slice_wo_padding]
                                 
                 # if scale_image was used during training, resize anomaly map to original image scale
+                # if patch_mode == False, then also resize anomaly maps (scale_image and patch_mode probably could get unified)
                 if self.resize_anomaly_maps:
                     anomaly_map = nn.functional.interpolate(anomaly_map.unsqueeze(0), size=(label_image.shape[1], label_image.shape[2])) # introduce batch_size dimension (as required by interpolate) and then scale tensor
                     anomaly_map = anomaly_map.squeeze(0) # remove batch-size dimension again, to shape C x H x W
                 
+                              anomaly_map = nn.functional.interpolate(anomaly_map.unsqueeze(0), size=(label_image.shape[1], label_image.shape[2])) # introduce batch_size dimension (as required by interpolate) and then scale tensor
+                    anomaly_map = anomaly_map.squeeze(0) # remove batch-size dimension again, to shape C x H x W                
                 if self.save_anomaly_maps: # save anomaly map, in same dimensions as original image
                     torch.save(anomaly_map, os.path.join(anomaly_map_dir, image_list[current_image_idx]))
                 
