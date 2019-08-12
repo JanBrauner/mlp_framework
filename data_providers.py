@@ -985,7 +985,7 @@ class DatasetWithAnomalies(InpaintingDataset): # the only thing it inherits is g
             # transform image
             full_image = self.transformer(full_image)
             full_image_sizes.append(full_image.shape)
-            assert (full_image.shape[1] > self.patch_size[0] and full_image.shape[2] > self.patch_size[1]), "Specified patch size larger than test image"
+            assert (full_image.shape[1] >= self.patch_size[0] and full_image.shape[2] >= self.patch_size[1]), "Specified patch size larger than test image"
             
             num_windows_0 = 1 + ((full_image.shape[1] - self.patch_size[0]) // self.patch_stride[0]) # number of times that the sliding window fits into image dimension 0 (tensor dimension 1)
             num_windows_1 = 1 + ((full_image.shape[2] - self.patch_size[1]) // self.patch_stride[1]) # number of times that the sliding window fits into image dimension 1 (tensor dimension 2)
