@@ -509,6 +509,7 @@ class AnomalyDetectionExperiment(nn.Module):
                                     anomaly_map = anomaly_map[slice_wo_padding]
                                     
                                 # if scale_image was used during training, resize anomaly map to original image scale
+                                # if patch_mode == False, then also resize anomaly maps (scale_image and patch_mode probably could get unified)
                                 if self.resize_anomaly_maps:
                                     anomaly_map = nn.functional.interpolate(anomaly_map.unsqueeze(0), size=(label_image.shape[1], label_image.shape[2])) # introduce batch_size dimension (as required by interpolate) and then scale tensor
                                     anomaly_map = anomaly_map.squeeze(0) # remove batch-size dimension again, to shape C x H x W
@@ -589,8 +590,6 @@ class AnomalyDetectionExperiment(nn.Module):
                     anomaly_map = nn.functional.interpolate(anomaly_map.unsqueeze(0), size=(label_image.shape[1], label_image.shape[2])) # introduce batch_size dimension (as required by interpolate) and then scale tensor
                     anomaly_map = anomaly_map.squeeze(0) # remove batch-size dimension again, to shape C x H x W
                 
-                              anomaly_map = nn.functional.interpolate(anomaly_map.unsqueeze(0), size=(label_image.shape[1], label_image.shape[2])) # introduce batch_size dimension (as required by interpolate) and then scale tensor
-                    anomaly_map = anomaly_map.squeeze(0) # remove batch-size dimension again, to shape C x H x W                
                 if self.save_anomaly_maps: # save anomaly map, in same dimensions as original image
                     torch.save(anomaly_map, os.path.join(anomaly_map_dir, image_list[current_image_idx]))
                 
