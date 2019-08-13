@@ -1,5 +1,5 @@
 {
- "continue_from_epoch": -1,
+ "continue_from_epoch": -2,
  "seed": 0,
  "task": "classification",
  "use_gpu": true,

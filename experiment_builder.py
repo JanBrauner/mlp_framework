@@ -74,8 +74,6 @@ class ExperimentBuilder(nn.Module):
 
         self.num_epochs = args.num_epochs
 
-#        # Antreas had this but I think it isn't needed if we use a functional loss anyway
-#        self.criterion = nn.CrossEntropyLoss().to(self.device)  # send the loss computation to the GPU
         
         if args.continue_from_epoch == -2:
             try:
