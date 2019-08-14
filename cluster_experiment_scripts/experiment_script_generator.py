@@ -323,34 +323,119 @@ def DescribableTextures_theme(args):
 
 #%% A list of independent experiment 
 # experiment names
-experiment_names = ["AE_DTD_r3_prob_full_image_128_bn_8192",
-                    "AE_DTD_r3_prob_full_image_128_bn_4096",
-                    "AE_DTD_r3_prob_full_image_128_bn_2048",
-                    "AE_DTD_r3_prob_full_image_128_bn_1024",
-                    "AE_DTD_r3_prob_full_image_128_bn_512",
-                    "AE_DTD_r3_prob_full_image_128_bn_256",
-                    "AE_DTD_r3_prob_full_image_128_bn_128",
-					"AE_DTD_r3_prob_full_image_128_bn_64",
-					"AE_DTD_r3_prob_full_image_128_bn_32"]
+experiment_names = ["AE_DTD_r3_patch_128_bn_64___AD_window_max",
+					"AE_DTD_r3_patch_128_bn_32___AD_window_max",
+					"AE_DTD_r3_patch_64_bn_64___AD_window_max",
+					"AE_DTD_r3_patch_64_bn_32___AD_window_max",
+					"AE_DTD_r3_prob_patch_128_bn_8192___AD_window_max",
+                    "AE_DTD_r3_prob_patch_128_bn_4096___AD_window_max",
+                    "AE_DTD_r3_prob_patch_128_bn_2048___AD_window_max",
+                    "AE_DTD_r3_prob_patch_128_bn_1024___AD_window_max",
+                    "AE_DTD_r3_prob_patch_128_bn_512___AD_window_max",
+                    "AE_DTD_r3_prob_patch_128_bn_256___AD_window_max",
+                    "AE_DTD_r3_prob_patch_128_bn_128___AD_window_max",
+					"AE_DTD_r3_prob_patch_128_bn_64___AD_window_max",
+					"AE_DTD_r3_prob_patch_128_bn_32___AD_window_max",
+					"AE_DTD_r3_prob_patch_64_bn_8192___AD_window_max",
+                    "AE_DTD_r3_prob_patch_64_bn_4096___AD_window_max",
+                    "AE_DTD_r3_prob_patch_64_bn_2048___AD_window_max",
+                    "AE_DTD_r3_prob_patch_64_bn_1024___AD_window_max",
+                    "AE_DTD_r3_prob_patch_64_bn_512___AD_window_max",
+                    "AE_DTD_r3_prob_patch_64_bn_256___AD_window_max",
+                    "AE_DTD_r3_prob_patch_64_bn_128___AD_window_max",
+					"AE_DTD_r3_prob_patch_64_bn_64___AD_window_max",
+					"AE_DTD_r3_prob_patch_64_bn_32___AD_window_max",
+					"AE_DTD_r3_prob_full_image_128_bn_8192___AD_window_max",
+                    "AE_DTD_r3_prob_full_image_128_bn_4096___AD_window_max",
+                    "AE_DTD_r3_prob_full_image_128_bn_2048___AD_window_max",
+                    "AE_DTD_r3_prob_full_image_128_bn_1024___AD_window_max",
+                    "AE_DTD_r3_prob_full_image_128_bn_512___AD_window_max",
+                    "AE_DTD_r3_prob_full_image_128_bn_256___AD_window_max",
+                    "AE_DTD_r3_prob_full_image_128_bn_128___AD_window_max",
+					"AE_DTD_r3_prob_full_image_128_bn_64___AD_window_max",
+					"AE_DTD_r3_prob_full_image_128_bn_32___AD_window_max",
+                    "AE_DTD_r3_patch_128_bn_64___AD_window_mean",
+					"AE_DTD_r3_patch_128_bn_32___AD_window_mean",
+					"AE_DTD_r3_patch_64_bn_64___AD_window_mean",
+					"AE_DTD_r3_patch_64_bn_32___AD_window_mean",
+					"AE_DTD_r3_prob_patch_128_bn_8192___AD_window_mean",
+                    "AE_DTD_r3_prob_patch_128_bn_4096___AD_window_mean",
+                    "AE_DTD_r3_prob_patch_128_bn_2048___AD_window_mean",
+                    "AE_DTD_r3_prob_patch_128_bn_1024___AD_window_mean",
+                    "AE_DTD_r3_prob_patch_128_bn_512___AD_window_mean",
+                    "AE_DTD_r3_prob_patch_128_bn_256___AD_window_mean",
+                    "AE_DTD_r3_prob_patch_128_bn_128___AD_window_mean",
+					"AE_DTD_r3_prob_patch_128_bn_64___AD_window_mean",
+					"AE_DTD_r3_prob_patch_128_bn_32___AD_window_mean",
+					"AE_DTD_r3_prob_patch_64_bn_8192___AD_window_mean",
+                    "AE_DTD_r3_prob_patch_64_bn_4096___AD_window_mean",
+                    "AE_DTD_r3_prob_patch_64_bn_2048___AD_window_mean",
+                    "AE_DTD_r3_prob_patch_64_bn_1024___AD_window_mean",
+                    "AE_DTD_r3_prob_patch_64_bn_512___AD_window_mean",
+                    "AE_DTD_r3_prob_patch_64_bn_256___AD_window_mean",
+                    "AE_DTD_r3_prob_patch_64_bn_128___AD_window_mean",
+					"AE_DTD_r3_prob_patch_64_bn_64___AD_window_mean",
+					"AE_DTD_r3_prob_patch_64_bn_32___AD_window_mean",
+					"AE_DTD_r3_prob_full_image_128_bn_8192___AD_window_mean",
+                    "AE_DTD_r3_prob_full_image_128_bn_4096___AD_window_mean",
+                    "AE_DTD_r3_prob_full_image_128_bn_2048___AD_window_mean",
+                    "AE_DTD_r3_prob_full_image_128_bn_1024___AD_window_mean",
+                    "AE_DTD_r3_prob_full_image_128_bn_512___AD_window_mean",
+                    "AE_DTD_r3_prob_full_image_128_bn_256___AD_window_mean",
+                    "AE_DTD_r3_prob_full_image_128_bn_128___AD_window_mean",
+					"AE_DTD_r3_prob_full_image_128_bn_64___AD_window_mean",
+					"AE_DTD_r3_prob_full_image_128_bn_32___AD_window_mean",
+                    "AE_DTD_r3_patch_128_bn_64___AD_window_min",
+					"AE_DTD_r3_patch_128_bn_32___AD_window_min",
+					"AE_DTD_r3_patch_64_bn_64___AD_window_min",
+					"AE_DTD_r3_patch_64_bn_32___AD_window_min",
+					"AE_DTD_r3_prob_patch_128_bn_8192___AD_window_min",
+                    "AE_DTD_r3_prob_patch_128_bn_4096___AD_window_min",
+                    "AE_DTD_r3_prob_patch_128_bn_2048___AD_window_min",
+                    "AE_DTD_r3_prob_patch_128_bn_1024___AD_window_min",
+                    "AE_DTD_r3_prob_patch_128_bn_512___AD_window_min",
+                    "AE_DTD_r3_prob_patch_128_bn_256___AD_window_min",
+                    "AE_DTD_r3_prob_patch_128_bn_128___AD_window_min",
+					"AE_DTD_r3_prob_patch_128_bn_64___AD_window_min",
+					"AE_DTD_r3_prob_patch_128_bn_32___AD_window_min",
+					"AE_DTD_r3_prob_patch_64_bn_8192___AD_window_min",
+                    "AE_DTD_r3_prob_patch_64_bn_4096___AD_window_min",
+                    "AE_DTD_r3_prob_patch_64_bn_2048___AD_window_min",
+                    "AE_DTD_r3_prob_patch_64_bn_1024___AD_window_min",
+                    "AE_DTD_r3_prob_patch_64_bn_512___AD_window_min",
+                    "AE_DTD_r3_prob_patch_64_bn_256___AD_window_min",
+                    "AE_DTD_r3_prob_patch_64_bn_128___AD_window_min",
+					"AE_DTD_r3_prob_patch_64_bn_64___AD_window_min",
+					"AE_DTD_r3_prob_patch_64_bn_32___AD_window_min",
+					"AE_DTD_r3_prob_full_image_128_bn_8192___AD_window_min",
+                    "AE_DTD_r3_prob_full_image_128_bn_4096___AD_window_min",
+                    "AE_DTD_r3_prob_full_image_128_bn_2048___AD_window_min",
+                    "AE_DTD_r3_prob_full_image_128_bn_1024___AD_window_min",
+                    "AE_DTD_r3_prob_full_image_128_bn_512___AD_window_min",
+                    "AE_DTD_r3_prob_full_image_128_bn_256___AD_window_min",
+                    "AE_DTD_r3_prob_full_image_128_bn_128___AD_window_min",
+					"AE_DTD_r3_prob_full_image_128_bn_64___AD_window_min",
+					"AE_DTD_r3_prob_full_image_128_bn_32___AD_window_min",]
+					
 
 
 # Note: For experiments that include anomaly detection, the experiment name needs to be original_experiment_name + "___" + AD_experiment_name, where original_experiment_name is the name of the eperiment in which the model that we want to use for AD was trained.
 
 # type of experiment
-experiment_type = "train" # options: "train" for training (including evaluation on val and test set); "AD" for anomaly detection (using the best validation model from "experiment_name"); "train+AD" for both.
+experiment_type = "AD" # options: "train" for training (including evaluation on val and test set); "AD" for anomaly detection (using the best validation model from "experiment_name"); "train+AD" for both.
 
 # number of replicates
 num_replicates = 1
 
 # Commonly used themes
 cpu = False
-probabilistic_inpainting = True
+probabilistic_inpainting = False
 small_mask = False
 large_context = False
 Mias = False
-DescribableTextures = True
+DescribableTextures = False
 GoogleStreetView = False
-autoencoder = True
+autoencoder = False
 autoencoder_small = False
 
 # slurm options
@@ -361,16 +446,8 @@ time = None
 
 # arguments to update from default, each inner dict has the items for one experiment:
 
-update_dicts = [
-{"num_channels_bottleneck": 8192, "patch_mode": False},
-{"num_channels_bottleneck": 4096, "patch_mode": False},
-{"num_channels_bottleneck": 2048, "patch_mode": False},
-{"num_channels_bottleneck": 1024, "patch_mode": False},
-{"num_channels_bottleneck": 512, "patch_mode": False},
-{"num_channels_bottleneck": 256, "patch_mode": False},
-{"num_channels_bottleneck": 128, "patch_mode": False},
-{"num_channels_bottleneck": 64, "patch_mode": False},
-{"num_channels_bottleneck": 32, "patch_mode": False},]
+update_dicts = [{"window_aggregation_method":"max"}]*31 + [{"window_aggregation_method":"mean"}]*31 + [{"window_aggregation_method":"min"}]*31
+
 
 
 # for each experiment
@@ -384,23 +461,24 @@ for idx, experiment_name in enumerate(experiment_names):
     args = copy.copy(default_args)
     
 
-    
-    if GoogleStreetView:
-        args = GoogleStreetView_theme(args)
-    if DescribableTextures:
-        args = DescribableTextures_theme(args)
-    if Mias:
-        args = Mias_theme(args)
-    if probabilistic_inpainting:
-        args = probabilistic_inpainting_theme(args)
-    if small_mask:
-        args = small_mask_theme(args)
-    if large_context:
-        args = large_context_theme(args)
-    if autoencoder: # this is called after the dataset because it needs to overwrite e.g. the image_padding_mode from Mias_theme
-        args = autoencoder_theme(args)
-    if autoencoder_small:
-        args = autoencoder_small_theme(args)        
+    if experiment_type != "AD":
+        if GoogleStreetView:
+            args = GoogleStreetView_theme(args)
+        if DescribableTextures:
+            args = DescribableTextures_theme(args)
+        if Mias:
+            args = Mias_theme(args)
+        if probabilistic_inpainting:
+            args = probabilistic_inpainting_theme(args)
+        if small_mask:
+            args = small_mask_theme(args)
+        if large_context:
+            args = large_context_theme(args)
+        if autoencoder: # this is called after the dataset because it needs to overwrite e.g. the image_padding_mode from Mias_theme
+            args = autoencoder_theme(args)
+        if autoencoder_small:
+            args = autoencoder_small_theme(args)
+
     if experiment_type == "AD": # load the args from the experiment that trained the model we want to use. Use that to overwrite most of the current args. (Purpose of this block is that we don't have to look up e.g. the model architecture of the model we trained, but can import from old json files)
         train_experiment_name = experiment_name.split("___")[0] # name of the experiment in which the model that we want to use for anomaly detection was trained
         anomaly_detection_experiment_name = experiment_name.split("___")[1] # name of the anomaly detection experiment
@@ -411,8 +489,10 @@ for idx, experiment_name in enumerate(experiment_names):
     
         args_to_update = {key:value for (key,value) in args_train_experiment.items() if key not in args_to_keep_from_AD_experiment}
         args.update(args_to_update)
-    if experiment_type == "AD": # you need less GPUs and workers if you don't train
+        
+        # you need less GPUs and workers if you don't train
         args = AD_theme(args)
+
     if cpu: # it's important that this one is last, because it needs to overwrite num_workers and use_gpu
         args = cpu_theme(args)
 
