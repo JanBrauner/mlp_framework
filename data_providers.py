@@ -902,12 +902,13 @@ class DatasetWithAnomalies(InpaintingDataset): # the only thing it inherits is g
         experiment_name = args.experiment_name
         anomaly_map_base_dir = os.path.abspath(os.path.join("results", "anomaly_detection"))
         anomaly_maps_dir = os.path.join(anomaly_map_base_dir, experiment_name, "anomaly_maps", which_set)
-        try:
+        if os.path.exists(anomaly_maps_dir):
+            print("{} set: Continuing anomaly detection with images that weren't processed in previous run".format(which_set))
             anomaly_maps_already_created = os.listdir(anomaly_maps_dir)
-            self.image_list = [x for x in self.image_list if not x in anomaly_maps_already_created]
-        except: # if the directory doesn't exist
-            pass
-        
+            self.image_list = [x for x in self.image_list if x not in anomaly_maps_already_created]
+        else: # if the directory doesn't exist
+            print("{} set: Starting new anomaly detection with whole dataset".format(which_set))
+            
         
         self.image_list = sorted(self.image_list)
         self.label_image_path = os.path.join(self.image_base_path, which_set, "label_images") # folder is supposed to contain the binary label images, same names as the input images

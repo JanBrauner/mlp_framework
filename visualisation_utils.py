@@ -14,6 +14,8 @@ def show(img, cax=None):
     if cax==None:
         _, cax = plt.subplots()
     cax.imshow(npimg, interpolation='nearest')
+    
+    return cax
 
 
 def image_grid_with_groups(*image_groups, grid_parameters):

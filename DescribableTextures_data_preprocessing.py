@@ -159,3 +159,20 @@ plt.hist(mask_size_1)
 # show(grid)       
 # =============================================================================
 
+#%% show mask histogram from files
+import seaborn as sns
+import numpy as np
+path = "C:\\Users\\MC JB\\Dropbox\\dt\\Edinburgh\\project\\final report\\results\\DTPathologicalIrreg1_lesions_stats\\mask_size_0.txt"
+mask_size_0 = np.loadtxt(path)
+
+
+sns.set(style='ticks', palette='Set2')
+
+
+fig = plt.figure()
+ax = fig.add_subplot(111)
+ax.hist(mask_size_0, bins= 50)
+sns.despine()
+ax.set_xlabel("Spatial extent of anomalies in image dimension 0 [pixels]")
+ax.set_ylabel("Number of anomalies")
+fig.savefig("artificial anomalies size.pdf", bbox_inches="tight")
