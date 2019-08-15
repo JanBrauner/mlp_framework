@@ -163,6 +163,7 @@ plt.hist(mask_size_1)
 import seaborn as sns
 import numpy as np
 path = "C:\\Users\\MC JB\\Dropbox\\dt\\Edinburgh\\project\\final report\\results\\DTPathologicalIrreg1_lesions_stats\\mask_size_0.txt"
+save_path = "C:\\Users\\MC JB\\Dropbox\\dt\\Edinburgh\\project\\final report\\figures\\artificial_anomalies_size.pdf
 mask_size_0 = np.loadtxt(path)
 
 
