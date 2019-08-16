@@ -55,11 +55,11 @@ from visualisation_utils import show
 batch_size = 32
 target_size = (300,300)
 random = True
-save_name = "DTD_samples.pdf"
+save_name = "DTD_with_anomalies_samples.png"
 saving = True
 
-path = os.path.join("data","DescribableTextures","test")
-#path = os.path.join("data","DTPathologicalIrreg1","test","images")
+#path = os.path.join("data","DescribableTextures","test")
+path = os.path.join("data","DTPathologicalIrreg1","test","images")
 #path = os.path.join("results","CE_DTD_random_patch_test_1","anomaly_maps")
 image_names = os.listdir(path)
 if random:
@@ -91,7 +91,7 @@ if saving:
     plt.margins(0,0)
     plt.gca().xaxis.set_major_locator(plt.NullLocator())
     plt.gca().yaxis.set_major_locator(plt.NullLocator())
-    fig.savefig(save_name, bbox_inches='tight', pad_inches=0.0)
+    fig.savefig(save_name, bbox_inches='tight', pad_inches=0.0, dpi=300)
 
 
 # =============================================================================

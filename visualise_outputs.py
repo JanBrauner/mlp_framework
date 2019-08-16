@@ -25,7 +25,7 @@ from misc_utils import create_central_region_slice
 
 #%%
 # parameters:
-experiment_name = "r4_CE_Mias_augtest_best_combo_s2" # "r6_CE_Mias_padding_const_s1" # "r4_CE_Mias_augtest_best_combo_s0" #  # "r4_CE_Mias_augtest_best_combo_s2"
+experiment_name = "CE_DTD_central_patch_test_1" #"r4_CE_Mias_augtest_best_combo_s2" # "r6_CE_Mias_padding_const_s1" # "r4_CE_Mias_augtest_best_combo_s0" #  # "r4_CE_Mias_augtest_best_combo_s2"
 batch_size = 8 # number of images per row
 image_batch_idx = 0 # use different number to see different images
 seed = 0 # to see different regions of the images
