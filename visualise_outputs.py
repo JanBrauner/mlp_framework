@@ -25,9 +25,9 @@ from misc_utils import create_central_region_slice
 
 #%%
 # parameters:
-experiment_name = "CE_DTD_random_patch_test_1" #"r4_CE_Mias_augtest_best_combo_s2" # "r6_CE_Mias_padding_const_s1" # "r4_CE_Mias_augtest_best_combo_s0" #  # "r4_CE_Mias_augtest_best_combo_s2"
+experiment_name = "CE_DTD_r2_prob_scale_1" #"r4_CE_Mias_augtest_best_combo_s2" # "r6_CE_Mias_padding_const_s1" # "r4_CE_Mias_augtest_best_combo_s0" #  # "r4_CE_Mias_augtest_best_combo_s2"
 save_image = False
-save_path = "C:\\Users\\MC JB\\Dropbox\\dt\\Edinburgh\\project\\final report\\figures\\DT_random_patch_inpainting.png"
+save_path = "C:\\Users\\MC JB\\Dropbox\\dt\\Edinburgh\\project\\final report\\figures\\DT_random_patch_prob_inpainting.png"
 batch_size = 8 # number of images per row
 image_batch_idx = 0 # use different number to see different images
 seed = 2 # to see different regions of the images
@@ -212,13 +212,17 @@ elif args.data_format == "autoencoding":
 
 #%%
 ### plot
+if args.task == "regression":
+    pad_value = 1
+elif args.task == "classification":
+    pad_value = 255
 grid_parameters = {
         "nrow":args.batch_size, 
         "padding":5, 
         "normalize":False, 
         "range":None, 
         "scale_each":False, 
-        "pad_value":1}
+        "pad_value":pad_value}
 
 if args.data_format == "inpainting":
     fig = image_grid_with_groups(inputs, original_images, filled_in_images, grid_parameters=grid_parameters)
