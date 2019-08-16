@@ -27,7 +27,7 @@ def summary_stats(experiment_names, features, sort_column=None, display_table=Tr
     """
     summary_df = pd.DataFrame(columns=["experiment_name", "val_mean_aucroc", 
                                        "val_sd", "val_sem", "test_mean_aucroc", 
-                                       "test_sd", "test_sem"]) # predefine columns to have the df in that order
+                                       "test_sd", "test_sem", "val_images_analysed", "test_images_analysed"]) # predefine columns to have the df in that order
     
     for experiment_name in experiment_names:
         curr_exp_stats = {"experiment_name": experiment_name} # stats dicts
@@ -44,11 +44,14 @@ def summary_stats(experiment_names, features, sort_column=None, display_table=Tr
             mn = df.loc[:,"aucroc"].mean()
             sd = df.loc[:,"aucroc"].std()
             sem = df.loc[:,"aucroc"].sem()
+            num = len(df)
             
             # update stats_dict
             curr_exp_stats["{}_mean_aucroc".format(which_set)] = mn
             curr_exp_stats["{}_sd".format(which_set)] = sd
             curr_exp_stats["{}_sem".format(which_set)] = sem
+            curr_exp_stats["{}_images_analysed".format(which_set)] = num
+            
 
         
         summary_df = summary_df.append(curr_exp_stats, ignore_index=True)    
@@ -61,6 +64,8 @@ def summary_stats(experiment_names, features, sort_column=None, display_table=Tr
         with pd.option_context('display.max_rows', None, 'display.max_columns', None):
             display(summary_df)
     return summary_df
+
+
 
 ### I probably don't need this function anymore, since parse_experiment_name is much better and in the spirit of pandas. 
 ### If you just create additional columns, you can use pd functionality like filtering, pivoting, ...
