@@ -29,12 +29,26 @@ def image_grid_with_groups(*image_groups, grid_parameters):
     image_groups: 4-D Tensor (0-th dimension is used to split into images), or list of PIL images/Tensors
     grid_parameters: parameters as passed into make_grid
     """
-    fig, ax = plt.subplots(nrows=len(image_groups))
-    for idx, images in enumerate(image_groups):
-        grid = torchvision.utils.make_grid(images, **grid_parameters)
-#        grids.append(grid)
-        if len(image_groups) > 1:
-            cax = ax[idx]
-        else:
-            cax = ax
-        show(grid, cax)
+    
+    fig = plt.figure()
+    cax = fig.add_subplot(111)
+    images = torch.cat(image_groups, dim=0)
+    grid = torchvision.utils.make_grid(images, **grid_parameters)
+    cax.axis("off")
+    show(grid, cax)
+
+# =============================================================================
+    # This is the old version, maybe I will eventually need this again
+#     for idx, images in enumerate(image_groups):
+#         grid = torchvision.utils.make_grid(images, **grid_parameters)
+# #        grids.append(grid)
+#         if len(image_groups) > 1:
+#             cax = ax[idx]
+#         else:
+#             cax = ax
+#         cax.axis("off")
+#         show(grid, cax)
+#     fig.tight_layout()
+# =============================================================================
+
+    return fig

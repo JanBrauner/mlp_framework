@@ -25,19 +25,22 @@ from misc_utils import create_central_region_slice
 
 #%%
 # parameters:
-experiment_name = "CE_DTD_central_patch_test_1" #"r4_CE_Mias_augtest_best_combo_s2" # "r6_CE_Mias_padding_const_s1" # "r4_CE_Mias_augtest_best_combo_s0" #  # "r4_CE_Mias_augtest_best_combo_s2"
+experiment_name = "CE_DTD_random_patch_test_1" #"r4_CE_Mias_augtest_best_combo_s2" # "r6_CE_Mias_padding_const_s1" # "r4_CE_Mias_augtest_best_combo_s0" #  # "r4_CE_Mias_augtest_best_combo_s2"
+save_image = False
+save_path = "C:\\Users\\MC JB\\Dropbox\\dt\\Edinburgh\\project\\final report\\figures\\DT_random_patch_inpainting.png"
 batch_size = 8 # number of images per row
 image_batch_idx = 0 # use different number to see different images
-seed = 0 # to see different regions of the images
+seed = 2 # to see different regions of the images
 set_to_visualise = "test"
-force_patch_location = False # "False": every model gets visualised with patches from the location it was trained with. Otherwise, specify the patch_location the models should be tested with
+force_patch_location = "central" # "False": every model gets visualised with patches from the location it was trained with. Otherwise, specify the patch_location the models should be tested with
 force_dataset = False # "False": every model gets visualised with dataset it was trained. Otherwise, specify the dataset the models should be tested with. !Of course, you can't force a model that was trained on gray-scale images to work on RGB images
 
 # add new parameters to older experiments that were run when that argument didn't yet exist and thus don't hove that argument in their config files
 default_args = {
 "patch_mode" : True,
 "scale_image" : None,
-"data_format": "inpainting"}
+"data_format": "inpainting",
+"image_padding_mode": None}
 
 # paths
 results_path = os.path.join("results")
@@ -211,13 +214,22 @@ elif args.data_format == "autoencoding":
 ### plot
 grid_parameters = {
         "nrow":args.batch_size, 
-        "padding":10, 
+        "padding":5, 
         "normalize":False, 
         "range":None, 
         "scale_each":False, 
-        "pad_value":0}
+        "pad_value":1}
 
 if args.data_format == "inpainting":
-    image_grid_with_groups(inputs, filled_in_images, original_images, grid_parameters=grid_parameters)
+    fig = image_grid_with_groups(inputs, original_images, filled_in_images, grid_parameters=grid_parameters)
 elif args.data_format == "autoencoding":
-    image_grid_with_groups(inputs, outputs, grid_parameters=grid_parameters)
+    fig = image_grid_with_groups(inputs, outputs, grid_parameters=grid_parameters)
+
+if save_image:
+    plt.subplots_adjust(top = 1, bottom = 0, right = 1, left = 0, 
+                        hspace = 0, wspace = 0)
+    plt.margins(0,0)
+    plt.gca().xaxis.set_major_locator(plt.NullLocator())
+    plt.gca().yaxis.set_major_locator(plt.NullLocator())
+#    fig.tight_layout()
+    fig.savefig(save_path, bbox_inches="tight", pad_inches=0, dpi=300)
