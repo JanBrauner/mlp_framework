@@ -323,117 +323,25 @@ def DescribableTextures_theme(args):
 
 #%% A list of independent experiment 
 # experiment names
-experiment_names = ["AE_DTD_r3_patch_128_bn_64___AD_window_max",
-					"AE_DTD_r3_patch_128_bn_32___AD_window_max",
-					"AE_DTD_r3_patch_64_bn_64___AD_window_max",
-					"AE_DTD_r3_patch_64_bn_32___AD_window_max",
-					"AE_DTD_r3_prob_patch_128_bn_8192___AD_window_max",
-                    "AE_DTD_r3_prob_patch_128_bn_4096___AD_window_max",
-                    "AE_DTD_r3_prob_patch_128_bn_2048___AD_window_max",
-                    "AE_DTD_r3_prob_patch_128_bn_1024___AD_window_max",
-                    "AE_DTD_r3_prob_patch_128_bn_512___AD_window_max",
-                    "AE_DTD_r3_prob_patch_128_bn_256___AD_window_max",
-                    "AE_DTD_r3_prob_patch_128_bn_128___AD_window_max",
-					"AE_DTD_r3_prob_patch_128_bn_64___AD_window_max",
-					"AE_DTD_r3_prob_patch_128_bn_32___AD_window_max",
-					"AE_DTD_r3_prob_patch_64_bn_8192___AD_window_max",
-                    "AE_DTD_r3_prob_patch_64_bn_4096___AD_window_max",
-                    "AE_DTD_r3_prob_patch_64_bn_2048___AD_window_max",
-                    "AE_DTD_r3_prob_patch_64_bn_1024___AD_window_max",
-                    "AE_DTD_r3_prob_patch_64_bn_512___AD_window_max",
-                    "AE_DTD_r3_prob_patch_64_bn_256___AD_window_max",
-                    "AE_DTD_r3_prob_patch_64_bn_128___AD_window_max",
-					"AE_DTD_r3_prob_patch_64_bn_64___AD_window_max",
-					"AE_DTD_r3_prob_patch_64_bn_32___AD_window_max",
-					"AE_DTD_r3_prob_full_image_128_bn_8192___AD_window_max",
-                    "AE_DTD_r3_prob_full_image_128_bn_4096___AD_window_max",
-                    "AE_DTD_r3_prob_full_image_128_bn_2048___AD_window_max",
-                    "AE_DTD_r3_prob_full_image_128_bn_1024___AD_window_max",
-                    "AE_DTD_r3_prob_full_image_128_bn_512___AD_window_max",
-                    "AE_DTD_r3_prob_full_image_128_bn_256___AD_window_max",
-                    "AE_DTD_r3_prob_full_image_128_bn_128___AD_window_max",
-					"AE_DTD_r3_prob_full_image_128_bn_64___AD_window_max",
-					"AE_DTD_r3_prob_full_image_128_bn_32___AD_window_max",
-                    "AE_DTD_r3_patch_128_bn_64___AD_window_mean",
-					"AE_DTD_r3_patch_128_bn_32___AD_window_mean",
-					"AE_DTD_r3_patch_64_bn_64___AD_window_mean",
-					"AE_DTD_r3_patch_64_bn_32___AD_window_mean",
-					"AE_DTD_r3_prob_patch_128_bn_8192___AD_window_mean",
-                    "AE_DTD_r3_prob_patch_128_bn_4096___AD_window_mean",
-                    "AE_DTD_r3_prob_patch_128_bn_2048___AD_window_mean",
-                    "AE_DTD_r3_prob_patch_128_bn_1024___AD_window_mean",
-                    "AE_DTD_r3_prob_patch_128_bn_512___AD_window_mean",
-                    "AE_DTD_r3_prob_patch_128_bn_256___AD_window_mean",
-                    "AE_DTD_r3_prob_patch_128_bn_128___AD_window_mean",
-					"AE_DTD_r3_prob_patch_128_bn_64___AD_window_mean",
-					"AE_DTD_r3_prob_patch_128_bn_32___AD_window_mean",
-					"AE_DTD_r3_prob_patch_64_bn_8192___AD_window_mean",
-                    "AE_DTD_r3_prob_patch_64_bn_4096___AD_window_mean",
-                    "AE_DTD_r3_prob_patch_64_bn_2048___AD_window_mean",
-                    "AE_DTD_r3_prob_patch_64_bn_1024___AD_window_mean",
-                    "AE_DTD_r3_prob_patch_64_bn_512___AD_window_mean",
-                    "AE_DTD_r3_prob_patch_64_bn_256___AD_window_mean",
-                    "AE_DTD_r3_prob_patch_64_bn_128___AD_window_mean",
-					"AE_DTD_r3_prob_patch_64_bn_64___AD_window_mean",
-					"AE_DTD_r3_prob_patch_64_bn_32___AD_window_mean",
-					"AE_DTD_r3_prob_full_image_128_bn_8192___AD_window_mean",
-                    "AE_DTD_r3_prob_full_image_128_bn_4096___AD_window_mean",
-                    "AE_DTD_r3_prob_full_image_128_bn_2048___AD_window_mean",
-                    "AE_DTD_r3_prob_full_image_128_bn_1024___AD_window_mean",
-                    "AE_DTD_r3_prob_full_image_128_bn_512___AD_window_mean",
-                    "AE_DTD_r3_prob_full_image_128_bn_256___AD_window_mean",
-                    "AE_DTD_r3_prob_full_image_128_bn_128___AD_window_mean",
-					"AE_DTD_r3_prob_full_image_128_bn_64___AD_window_mean",
-					"AE_DTD_r3_prob_full_image_128_bn_32___AD_window_mean",
-                    "AE_DTD_r3_patch_128_bn_64___AD_window_min",
-					"AE_DTD_r3_patch_128_bn_32___AD_window_min",
-					"AE_DTD_r3_patch_64_bn_64___AD_window_min",
-					"AE_DTD_r3_patch_64_bn_32___AD_window_min",
-					"AE_DTD_r3_prob_patch_128_bn_8192___AD_window_min",
-                    "AE_DTD_r3_prob_patch_128_bn_4096___AD_window_min",
-                    "AE_DTD_r3_prob_patch_128_bn_2048___AD_window_min",
-                    "AE_DTD_r3_prob_patch_128_bn_1024___AD_window_min",
-                    "AE_DTD_r3_prob_patch_128_bn_512___AD_window_min",
-                    "AE_DTD_r3_prob_patch_128_bn_256___AD_window_min",
-                    "AE_DTD_r3_prob_patch_128_bn_128___AD_window_min",
-					"AE_DTD_r3_prob_patch_128_bn_64___AD_window_min",
-					"AE_DTD_r3_prob_patch_128_bn_32___AD_window_min",
-					"AE_DTD_r3_prob_patch_64_bn_8192___AD_window_min",
-                    "AE_DTD_r3_prob_patch_64_bn_4096___AD_window_min",
-                    "AE_DTD_r3_prob_patch_64_bn_2048___AD_window_min",
-                    "AE_DTD_r3_prob_patch_64_bn_1024___AD_window_min",
-                    "AE_DTD_r3_prob_patch_64_bn_512___AD_window_min",
-                    "AE_DTD_r3_prob_patch_64_bn_256___AD_window_min",
-                    "AE_DTD_r3_prob_patch_64_bn_128___AD_window_min",
-					"AE_DTD_r3_prob_patch_64_bn_64___AD_window_min",
-					"AE_DTD_r3_prob_patch_64_bn_32___AD_window_min",
-					"AE_DTD_r3_prob_full_image_128_bn_8192___AD_window_min",
-                    "AE_DTD_r3_prob_full_image_128_bn_4096___AD_window_min",
-                    "AE_DTD_r3_prob_full_image_128_bn_2048___AD_window_min",
-                    "AE_DTD_r3_prob_full_image_128_bn_1024___AD_window_min",
-                    "AE_DTD_r3_prob_full_image_128_bn_512___AD_window_min",
-                    "AE_DTD_r3_prob_full_image_128_bn_256___AD_window_min",
-                    "AE_DTD_r3_prob_full_image_128_bn_128___AD_window_min",
-					"AE_DTD_r3_prob_full_image_128_bn_64___AD_window_min",
-					"AE_DTD_r3_prob_full_image_128_bn_32___AD_window_min",]
+experiment_names = ["CE_DTD_r2_prob_central_patch_scale_1"]
 					
 
 
 # Note: For experiments that include anomaly detection, the experiment name needs to be original_experiment_name + "___" + AD_experiment_name, where original_experiment_name is the name of the eperiment in which the model that we want to use for AD was trained.
 
 # type of experiment
-experiment_type = "AD" # options: "train" for training (including evaluation on val and test set); "AD" for anomaly detection (using the best validation model from "experiment_name"); "train+AD" for both.
+experiment_type = "train" # options: "train" for training (including evaluation on val and test set); "AD" for anomaly detection (using the best validation model from "experiment_name"); "train+AD" for both.
 
 # number of replicates
 num_replicates = 1
 
 # Commonly used themes
 cpu = False
-probabilistic_inpainting = False
+probabilistic_inpainting = True
 small_mask = False
 large_context = False
 Mias = False
-DescribableTextures = False
+DescribableTextures = True
 GoogleStreetView = False
 autoencoder = False
 autoencoder_small = False
@@ -446,7 +354,7 @@ time = None
 
 # arguments to update from default, each inner dict has the items for one experiment:
 
-update_dicts = [{"window_aggregation_method":"max"}]*31 + [{"window_aggregation_method":"mean"}]*31 + [{"window_aggregation_method":"min"}]*31
+update_dicts = [{"patch_location_during_training":"central"}]
 
 
 

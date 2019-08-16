@@ -59,7 +59,7 @@ def summary_stats(experiment_names, features, sort_column=None, display_table=Tr
     summary_df = summary_df.set_index("experiment_name")
     
     if sort_column is not None: # sort for displaying
-        summary_df = summary_df.sort_values(by=sort_column)
+        summary_df = summary_df.sort_values(by=sort_column, ascending=False)
     if display_table:
         with pd.option_context('display.max_rows', None, 'display.max_columns', None):
             display(summary_df)
