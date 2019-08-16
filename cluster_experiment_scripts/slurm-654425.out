@@ -1,0 +1,11 @@
+sending incremental file list
+use 2 GPU(s)
+  0%|          | 0/5 [00:00<?, ?it/s][('continue_from_epoch', '-1'), ('seed', '0'), ('task', 'classification'), ('use_gpu', 'True'), ('gpu_id', '0,1'), ('model_name', 'context_encoder'), ('kernel_size', '4'), ('num_layers_enc', '5'), ('num_channels_enc', '64'), ('num_channels_progression_enc', '[1, 2, 4, 8]'), ('num_channels_bottleneck', '32'), ('num_layers_dec', '5'), ('num_channels_dec', '64'), ('num_channels_progression_dec', '[8, 4, 2, 1]'), ('dataset_name', 'DescribableTextures'), ('num_image_channels', '3'), ('image_height', '64'), ('image_width', '64'), ('normalisation', 'range-11'), ('scale_image', 'None'), ('data_format', 'autoencoding'), ('debug_mode', 'False'), ('num_workers', '4'), ('augment', 'False'), ('gamma_factor', '1'), ('rot_angle', '0'), ('translate_factor', '[0, 0]'), ('scale_factor', '1'), ('shear_angle', '0'), ('patch_mode', 'True'), ('patch_size', '[64, 64]'), ('patch_location_during_training', 'random'), ('patch_rejection_threshold', '10'), ('image_padding_mode', 'None'), ('mask_size', '[64, 64]'), ('batch_size', '14'), ('loss', 'cross_entropy'), ('num_epochs', '200'), ('learning_rate', '0.0002'), ('betas', '[0.5, 0.999]'), ('weight_decay_coefficient', '0'), ('anomaly_dataset_name', 'DTPathologicalIrreg1'), ('AD_patch_stride', '[10, 10]'), ('measure_of_anomaly', 'likelihood'), ('window_aggregation_method', 'mean'), ('save_anomaly_maps', 'True'), ('AD_margins', '[128, 128]'), ('AD_batch_size', '50'), ('experiment_name', 'AE_DTD_r3_prob_patch_64_bn_32___AD_window_mean')]
+Loading data from:  /disk/scratch/s1890594/data/DTPathologicalIrreg1
+val set: Continuing anomaly detection with images that weren't processed in previous run
+Loading data from:  /disk/scratch/s1890594/data/DTPathologicalIrreg1
+test set: Continuing anomaly detection with images that weren't processed in previous run
+val set: All images already have corresponding anomaly maps. No new anomaly maps created.
+ 20%|██        | 1/5 [01:32<06:11, 92.98s/it] 40%|████      | 2/5 [02:17<03:54, 78.33s/it] 60%|██████    | 3/5 [03:16<02:25, 72.56s/it] 80%|████████  | 4/5 [04:14<01:08, 68.38s/it]100%|██████████| 5/5 [04:41<00:00, 55.76s/it]
+test set results:
+Mean  aucroc :  0.6377
