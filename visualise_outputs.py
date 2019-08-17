@@ -26,7 +26,7 @@ from misc_utils import create_central_region_slice
 #%%
 # parameters:
 experiment_name = "CE_DTD_r2_prob_scale_1" #"r4_CE_Mias_augtest_best_combo_s2" # "r6_CE_Mias_padding_const_s1" # "r4_CE_Mias_augtest_best_combo_s0" #  # "r4_CE_Mias_augtest_best_combo_s2"
-save_image = False
+save_image = True
 save_path = "C:\\Users\\MC JB\\Dropbox\\dt\\Edinburgh\\project\\final report\\figures\\DT_random_patch_prob_inpainting.png"
 batch_size = 8 # number of images per row
 image_batch_idx = 0 # use different number to see different images
