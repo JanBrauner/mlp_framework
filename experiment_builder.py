@@ -300,7 +300,7 @@ class ExperimentBuilder(nn.Module):
             if epoch_idx == self.best_val_model_idx:
                 file_names = os.listdir(self.experiment_saved_models)
                 for file_name in file_names:
-                    if not file_name.endswith("_last"):
+                    if not file_name.endswith("_latest"):
                         os.remove(os.path.join(self.experiment_saved_models, file_name))
                 self.save_model(model_save_dir=self.experiment_saved_models,
                                 # save model and best val idx and best val accuracy, using the model dir, model name and model idx

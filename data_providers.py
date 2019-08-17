@@ -699,26 +699,36 @@ class InpaintingDataset(data.Dataset):
             full_image = Image.open(os.path.join(self.image_path, image_name))
             
             # potentially scale image (this could be done much more nicely with a lambda transform)
-            if self.scale_image != None:
+            if self.scale_image is not None:
                 scaled_image_size = tuple(int(x*self.scale_image[dim]) for dim, x in enumerate(full_image.size))
-                full_image = full_image.resize(scaled_image_size)
                 
+                # if full image is too small now to house even one patch, make it bigger again.
+                if self.padding_mode is None: # If there is no padding, the remaining image needs to be larger than the patch size
+                    min_ratio_full_image_to_patch = min(scaled_image_size[0]/self.patch_size[0], scaled_image_size[1]/self.patch_size[1])
+                else: # if there is padding, the remaining image only needs to be larger than the mask size
+                    min_ratio_full_image_to_patch = min(scaled_image_size[0]/self.mask_size[0], scaled_image_size[1]/self.mask_size[1])
+                
+                if min_ratio_full_image_to_patch <= 1:
+                    scaled_image_size = tuple(int(x/min_ratio_full_image_to_patch + 1) for x in scaled_image_size)
+                
+                full_image = full_image.resize(scaled_image_size)
 # =============================================================================
+#               ## this is the old version were I first downscaled the image and then upscaled it again if it was too small
+#               # potentially scale image (this could be done much more nicely with a lambda transform)
+#             if self.scale_image != None:
+#                 scaled_image_size = tuple(int(x*self.scale_image[dim]) for dim, x in enumerate(full_image.size))
+#                 full_image = full_image.resize(scaled_image_size)
+#                 
 #                 # if full image is too small now to house even one patch, make it bigger again: This shouldn't happen as long as the images have a certain size, but I saw a bug on the cluster that indicated that is does happen....
-#                 min_ratio_full_image_to_patch = min(full_image.size[0]/self.patch_size[0], full_image.size[1]/self.patch_size[1])
+#                 if self.padding_mode is None: # If there is no padding, the remaining image needs to be larger than the patch size
+#                     min_ratio_full_image_to_patch = min(full_image.size[0]/self.patch_size[0], full_image.size[1]/self.patch_size[1])
+#                 else: # if there is padding, the remaining image only needs to be larger than the mask size
+#                     min_ratio_full_image_to_patch = min(full_image.size[0]/self.mask_size[0], full_image.size[1]/self.mask_size[1])
+#                 
 #                 if min_ratio_full_image_to_patch <= 1:
 #                     scaled_image_size = tuple(int(x/min_ratio_full_image_to_patch + 1) for x in full_image.size)
 #                     full_image = full_image.resize(scaled_image_size)
 # =============================================================================
-                # if full image is too small now to house even one patch, make it bigger again: This shouldn't happen as long as the images have a certain size, but I saw a bug on the cluster that indicated that is does happen....
-                if self.padding_mode is None: # If there is no padding, the remaining image needs to be larger than the patch size
-                    min_ratio_full_image_to_patch = min(full_image.size[0]/self.patch_size[0], full_image.size[1]/self.patch_size[1])
-                else: # if there is padding, the remaining image only needs to be larger than the mask size
-                    min_ratio_full_image_to_patch = min(full_image.size[0]/self.mask_size[0], full_image.size[1]/self.mask_size[1])
-                
-                if min_ratio_full_image_to_patch <= 1:
-                    scaled_image_size = tuple(int(x/min_ratio_full_image_to_patch + 1) for x in full_image.size)
-                    full_image = full_image.resize(scaled_image_size)
                 
             # transform image            
             full_image = self.transformer(full_image)
@@ -739,27 +749,19 @@ class InpaintingDataset(data.Dataset):
         full_image = Image.open(os.path.join(self.image_path, self.image_list[index]))
         
         # potentially scale image (this could be done much more nicely with a lambda transform)
-        if self.scale_image != None:
+        if self.scale_image is not None:
             scaled_image_size = tuple(int(x*self.scale_image[dim]) for dim, x in enumerate(full_image.size))
-            full_image = full_image.resize(scaled_image_size)
-        
-# =============================================================================
-#             # if full image is too small now to house even one patch, make it bigger again: This shouldn't happen as long as the images have a certain size, but I saw a bug on the cluster that indicated that is does happen....
-#             min_ratio_full_image_to_patch = min(full_image.size[0]/self.patch_size[0], full_image.size[1]/self.patch_size[1])
-#             if min_ratio_full_image_to_patch <= 1:
-#                 scaled_image_size = tuple(int(x/min_ratio_full_image_to_patch + 1) for x in full_image.size)
-#                 full_image = full_image.resize(scaled_image_size)           
-# 
-# =============================================================================
-            # if full image is too small now to house even one patch, make it bigger again: This shouldn't happen as long as the images have a certain size, but I saw a bug on the cluster that indicated that is does happen....
+            
+            # if full image is too small now to house even one patch, make it bigger again.
             if self.padding_mode is None: # If there is no padding, the remaining image needs to be larger than the patch size
-                min_ratio_full_image_to_patch = min(full_image.size[0]/self.patch_size[0], full_image.size[1]/self.patch_size[1])
+                min_ratio_full_image_to_patch = min(scaled_image_size[0]/self.patch_size[0], scaled_image_size[1]/self.patch_size[1])
             else: # if there is padding, the remaining image only needs to be larger than the mask size
-                min_ratio_full_image_to_patch = min(full_image.size[0]/self.mask_size[0], full_image.size[1]/self.mask_size[1])
+                min_ratio_full_image_to_patch = min(scaled_image_size[0]/self.mask_size[0], scaled_image_size[1]/self.mask_size[1])
             
             if min_ratio_full_image_to_patch <= 1:
-                scaled_image_size = tuple(int(x/min_ratio_full_image_to_patch + 1) for x in full_image.size)
-                full_image = full_image.resize(scaled_image_size)
+                scaled_image_size = tuple(int(x/min_ratio_full_image_to_patch + 1) for x in scaled_image_size)
+            
+            full_image = full_image.resize(scaled_image_size)
 
         # transform image
         full_image = self.transformer(full_image)
@@ -967,21 +969,20 @@ class DatasetWithAnomalies(InpaintingDataset): # the only thing it inherits is g
             # load image
             full_image = Image.open(os.path.join(self.image_path, image_name))
 
-            # potentially scale image
-            if self.scale_image != None:
+            # potentially scale image (this could be done much more nicely with a lambda transform)
+            if self.scale_image is not None:
                 scaled_image_size = tuple(int(x*self.scale_image[dim]) for dim, x in enumerate(full_image.size))
-                full_image = full_image.resize(scaled_image_size)
                 
-                # if full image is too small now to house even one patch, make it bigger again: This shouldn't happen as long as the images have a certain size, but I saw a bug on the cluster that indicated that is does happen....
+                # if full image is too small now to house even one patch, make it bigger again.
                 if self.padding_mode is None: # If there is no padding, the remaining image needs to be larger than the patch size
-                    min_ratio_full_image_to_patch = min(full_image.size[0]/self.patch_size[0], full_image.size[1]/self.patch_size[1])
+                    min_ratio_full_image_to_patch = min(scaled_image_size[0]/self.patch_size[0], scaled_image_size[1]/self.patch_size[1])
                 else: # if there is padding, the remaining image only needs to be larger than the mask size
-                    min_ratio_full_image_to_patch = min(full_image.size[0]/self.mask_size[0], full_image.size[1]/self.mask_size[1])
+                    min_ratio_full_image_to_patch = min(scaled_image_size[0]/self.mask_size[0], scaled_image_size[1]/self.mask_size[1])
                 
                 if min_ratio_full_image_to_patch <= 1:
-                    scaled_image_size = tuple(int(x/min_ratio_full_image_to_patch + 1) for x in full_image.size)
-                    full_image = full_image.resize(scaled_image_size)
-                    
+                    scaled_image_size = tuple(int(x/min_ratio_full_image_to_patch + 1) for x in scaled_image_size)
+                
+                full_image = full_image.resize(scaled_image_size)                  
 
             # transform image
             full_image = self.transformer(full_image)
@@ -1020,27 +1021,20 @@ class DatasetWithAnomalies(InpaintingDataset): # the only thing it inherits is g
         # load image
         full_image = Image.open(os.path.join(self.image_path, sample_info["image_name"]))
 
-        # potentially scale image
-        if self.scale_image != None:
+        # potentially scale image (this could be done much more nicely with a lambda transform)
+        if self.scale_image is not None:
             scaled_image_size = tuple(int(x*self.scale_image[dim]) for dim, x in enumerate(full_image.size))
-            full_image = full_image.resize(scaled_image_size)
-
-# =============================================================================
-#             # if full image is too small now to house even one patch, make it bigger again: This shouldn't happen as long as the images have a certain size, but I saw a bug on the cluster that indicated that is does happen....
-#             min_ratio_full_image_to_patch = min(full_image.size[0]/self.patch_size[0], full_image.size[1]/self.patch_size[1])
-#             if min_ratio_full_image_to_patch <= 1:
-#                 scaled_image_size = tuple(int(x/min_ratio_full_image_to_patch + 1) for x in full_image.size)
-#                 full_image = full_image.resize(scaled_image_size)  
-# =============================================================================
-            # if full image is too small now to house even one patch, make it bigger again: This shouldn't happen as long as the images have a certain size, but I saw a bug on the cluster that indicated that is does happen....
+            
+            # if full image is too small now to house even one patch, make it bigger again.
             if self.padding_mode is None: # If there is no padding, the remaining image needs to be larger than the patch size
-                min_ratio_full_image_to_patch = min(full_image.size[0]/self.patch_size[0], full_image.size[1]/self.patch_size[1])
+                min_ratio_full_image_to_patch = min(scaled_image_size[0]/self.patch_size[0], scaled_image_size[1]/self.patch_size[1])
             else: # if there is padding, the remaining image only needs to be larger than the mask size
-                min_ratio_full_image_to_patch = min(full_image.size[0]/self.mask_size[0], full_image.size[1]/self.mask_size[1])
+                min_ratio_full_image_to_patch = min(scaled_image_size[0]/self.mask_size[0], scaled_image_size[1]/self.mask_size[1])
             
             if min_ratio_full_image_to_patch <= 1:
-                scaled_image_size = tuple(int(x/min_ratio_full_image_to_patch + 1) for x in full_image.size)
-                full_image = full_image.resize(scaled_image_size)
+                scaled_image_size = tuple(int(x/min_ratio_full_image_to_patch + 1) for x in scaled_image_size)
+            
+            full_image = full_image.resize(scaled_image_size)
                 
                 
         # transform image
