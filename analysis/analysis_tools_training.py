@@ -3,7 +3,9 @@ import numpy as np
 import os 
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
+import seaborn as sns
 
+sns.set(style='ticks', palette='Set2')
 
 # =============================================================================
 # #%% parameters for dev

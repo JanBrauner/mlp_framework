@@ -2,15 +2,20 @@ import os
 
 import pandas as pd
 import matplotlib.pyplot as plt
+import seaborn as sns
+
+sns.set(style='ticks', palette='Set2')
 
 # parameters
 
-# for dev
-experiment_names = ['CE_DTD_r2_stand_scale_1___AD_window_mean',
-'CE_DTD_r2_stand_scale_1___AD_window_min']
-
-experiment_name = 'CE_DTD_r2_stand_scale_1___AD_window_mean'
-
+# =============================================================================
+# # for dev
+# experiment_names = ['CE_DTD_r2_stand_scale_1___AD_window_mean',
+# 'CE_DTD_r2_stand_scale_1___AD_window_min']
+# 
+# experiment_name = 'CE_DTD_r2_stand_scale_1___AD_window_mean'
+# 
+# =============================================================================
 
 # paths
 results_base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, "results", "anomaly_detection"))
@@ -108,17 +113,35 @@ def summary_stats_by_train_exp(experiment_names, delimiter="___", display_table=
 
 def get_features(feature_set_name):
     if feature_set_name == "r2":
-        features = [{"column_name": "output_type",
+        features = [{"column_name": "Output type",
                      "patterns": ["stand", "prob"],
-                     "values": ["stand", "prob"]},
+                     "values": ["deterministic", "probabilistic"]},
     
-                    {"column_name": "inpainting_setting",
+                    {"column_name": "Inpainting setting",
                      "patterns": ["scale_1", "scale_0p5", "small_mask", "large_context"],
-                     "values": ["scale_1", "scale_0p5", "small_mask", "large_context"]},
+                     "values": ["standard", "large mask", "small mask", "large patch"]},
                      
-                    {"column_name": "window_aggregation_method",
+                    {"column_name": "Anomaly value aggregation function",
                      "patterns": ["window_min", "window_mean", "window_max"],
-                     "values": ["min", "mean", "max"]}
+                     "values": ["minimum", "mean", "maximum"]},
+                    
+                    {"column_name": "Model",
+                     "patterns": ['CE_DTD_r2_stand_scale',
+                                  'CE_DTD_r2_stand_scale_0p5',
+                                  'CE_DTD_r2_stand_small_mask',
+                                  'CE_DTD_r2_stand_large_context',
+                                  'CE_DTD_r2_prob_scale_1',
+                                  'CE_DTD_r2_prob_scale_0p5',
+                                  'CE_DTD_r2_prob_small_mask',
+                                  'CE_DTD_r2_prob_large_context',],
+                     "values": ["determ. standard", 
+                                "determ. large mask", 
+                                "determ. small mask", 
+                                "determ. large patch", 
+                                "probab. standard", 
+                                "probab. large mask", 
+                                "probab. small mask", 
+                                "probab. large patch",]}
                     ]
     elif feature_set_name == "r2_comb":
         features = [{"column_name": "output_type",

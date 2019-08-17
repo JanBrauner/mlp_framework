@@ -7,6 +7,7 @@ import numpy as np
 import math
 from data_providers import DescribableTexturesPathological
 import matplotlib.pyplot as plt
+from matplotlib import patches
 import os
 from PIL import Image
 import cv2
@@ -208,19 +209,18 @@ from visualisation_utils import show
 #%% visualise anomaly maps, ground truth segmentations, and original images
 
 """
-A problem with this visualisation is that show (which uses imshow) clips to anomaly maps to [0,1]. This is somewhat fixed with anomaly_maps_max
 """
 # you can use several experiments in a list for "experiment_name"
-experiment_name = ["CE_DTD_r2_stand_scale_1___AD_window_mean" , "CE_DTD_r2_prob_scale_1___AD_window_mean"]
+experiment_name = ["CE_DTD_r2_stand_scale_1___AD_window_mean" , "CE_DTD_r2_stand_scale_0p5___AD_window_mean"]# "CE_DTD_r2_stand_large_context___AD_window_mean"]
 save_figure = False
 save_path = "C:\\Users\\MC JB\\Dropbox\\dt\\Edinburgh\\project\\final report\\figures\\DTD_anomaly_maps_scale_1_win_mean.png"
 # "r7_CE_Mias_prob_scale_0p35___AD_win_max"
-batch_size = 8
-target_size = (300,300) # choose image size to resize all images to (for grid view). If None, no resizing happens, and images are displayed in separate figures
-AD_margins = (43,43) # None # (128,128) # Tupel (x-margin,y-margin). Display only the part of the input and label images that were used for calcalating AUC and other scores (So with the "AD_margins" removed, see experiment_script_generator)
+batch_size = 2
+target_size = None #(300,300) # choose image size to resize all images to (for grid view). If None, no resizing happens, and images are displayed in separate figures
+AD_margins = (80,80) # None # (128,128) # Tupel (x-margin,y-margin). Display only the part of the input and label images that were used for calcalating AUC and other scores (So with the "AD_margins" removed, see experiment_script_generator)
 random = True
 seed = 2
-which_AD_set = "val"
+which_AD_set = "test"
 anomaly_dataset_name = "DTPathologicalIrreg1"
 normalise_each_image_individually = True
 
@@ -288,7 +288,7 @@ def prepare_anomaly_map_list(path, image_names_to_load, AD_margins, target_size,
         if normalise_each_image_individually:
             anomaly_map = anomaly_map - anomaly_map.min()
             anomaly_map = anomaly_map/anomaly_map.max()
-            
+#            
 # =============================================================================
 #             # histogram equilibrisation. If not required any more just delete
 #             anomaly_map = anomaly_map*255
@@ -367,14 +367,20 @@ def display_one_figure_several_anomaly_maps(experiment_names, batch_size, target
     
     if random:
         rng = np.random.RandomState(seed=seed)
+        st0 = rng.get_state()
         image_names_to_load = rng.choice(image_names, batch_size)
+        rng.set_state(st0)
     else:
         image_names_to_load = image_names[:batch_size]
       
     if index is not None:
         image_names_to_load = [image_names_to_load[index]]
     
-#    image_names_to_load = ["crosshatched_0100.jpg"]*8
+# =============================================================================
+#     # if you want to force a certain image, that's how you do it
+#     image_names_to_load = ["perforated_0155.jpg"]*batch_size
+#     image_names_to_load = ["polka-dotted_0192.jpg"]*batch_size
+# =============================================================================
     input_images = prepare_image_list(input_path, image_names_to_load, AD_margins, target_size)
     label_images = prepare_image_list(label_path, image_names_to_load, AD_margins, target_size)
     anomaly_mapss = []
@@ -404,6 +410,30 @@ def display_one_figure_several_anomaly_maps(experiment_names, batch_size, target
     show(inputs_grid,cax)
     cax.axis("off")
     
+# =============================================================================
+#     # If you want to add patches to the figure, that's how you do it (the two examples are for the figures in the report)
+#     
+# #    rect1 = patches.Rectangle((2,50), 128, 128, fill=False, linewidth=2,edgecolor='k',facecolor='none')
+# #    rect2 = patches.Rectangle((35,82), 64, 64, fill=True, linewidth=2, edgecolor='k', facecolor="k")
+# #    rect3 = patches.Rectangle((135,5), 220, 220, fill=False, linewidth=2,edgecolor='k',facecolor='none')
+# #    rect4 = patches.Rectangle((213,83), 64, 64, fill=True, linewidth=2, edgecolor='k', facecolor="k")
+# #    cax.add_patch(rect1)
+# #    cax.add_patch(rect2)
+# #    cax.add_patch(rect3)
+# #    cax.add_patch(rect4)
+#     
+# #    rect5 = patches.Rectangle((230,183), 64, 64, fill=False, linewidth=2, edgecolor='k', facecolor="k")
+# #    rect6 = patches.Rectangle((370,163), 64, 64, fill=False, linewidth=2, edgecolor='k', facecolor="k")
+# #    rect7 = patches.Rectangle((198,151), 128, 128, fill=False, linewidth=2, edgecolor='k', facecolor="k")
+# #    rect8 = patches.Rectangle((338,131), 128, 128, fill=False, linewidth=2, edgecolor='k', facecolor="k")
+# #    cax.add_patch(rect5)
+# #    cax.add_patch(rect6)
+# #    cax.add_patch(rect7)
+# #    cax.add_patch(rect8)
+# =============================================================================
+
+
+
     cax = fig.add_subplot(412)
     show(label_images_grid,cax)
     cax.axis("off")
@@ -447,9 +477,9 @@ if target_size is not None: # display all in one figure
 else: # display batch_size separate figures
     for i in range(batch_size):
         if type(experiment_name) == str:
-            fig = display_one_figure(experiment_name, batch_size, target_size, random=False, seed=seed, AD_margins=AD_margins, which_AD_set=which_AD_set, index=i, anomaly_dataset_name=anomaly_dataset_name, normalise_each_image_individually=normalise_each_image_individually)
+            fig = display_one_figure(experiment_name, batch_size, target_size, random=random, seed=seed, AD_margins=AD_margins, which_AD_set=which_AD_set, index=i, anomaly_dataset_name=anomaly_dataset_name, normalise_each_image_individually=normalise_each_image_individually)
         elif type(experiment_name) == list:
-            fig = display_one_figure_several_anomaly_maps(experiment_name, batch_size, target_size, random=False, seed=seed, AD_margins=AD_margins, which_AD_set=which_AD_set, index=i, anomaly_dataset_name=anomaly_dataset_name, normalise_each_image_individually=normalise_each_image_individually)
+            fig = display_one_figure_several_anomaly_maps(experiment_name, batch_size, target_size, random=random, seed=seed, AD_margins=AD_margins, which_AD_set=which_AD_set, index=i, anomaly_dataset_name=anomaly_dataset_name, normalise_each_image_individually=normalise_each_image_individually)
 
 if save_figure:
     fig.savefig(save_path, bbox_inches="tight", pad_inches=0, dpi=300) 
