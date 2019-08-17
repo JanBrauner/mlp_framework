@@ -152,8 +152,8 @@ def get_features(feature_set_name):
                       "values": ["min", "mean", "max"]},
                       
                      {"column_name": "output_type",
-                     "patterns": ["prob"],
-                     "values": ["prob"]},
+                     "patterns": ["prob", "r3_patch", "r3_full"],
+                     "values": ["prob", "stand", "stand"]},
                       ]
     elif feature_set_name == "r7":
         features = [{"column_name": "output_type",
