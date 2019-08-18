@@ -323,25 +323,45 @@ def DescribableTextures_theme(args):
 
 #%% A list of independent experiment 
 # experiment names
-experiment_names = ["CE_DTD_r2_prob_central_patch_scale_1"]
-					
+experiment_names = [
+"r7_CE_Mias_stand_scale_0p35_s0___AD_window_max",
+"r7_CE_Mias_prob_scale_0p35_s0___AD_window_max",
+"r8_AE_Mias_stand_bn_512_full_image_s0___AD_window_max",
+"r8_AE_Mias_stand_bn_128_scale_0p125_s0___AD_window_max",
+"r8_AE_Mias_prob_bn_8192_full_image_s0___AD_window_max",
+"r8_AE_Mias_prob_bn_512_scale_0p25_s0___AD_window_max",
+
+"r7_CE_Mias_stand_scale_0p35_s1___AD_window_max",
+"r7_CE_Mias_prob_scale_0p35_s1___AD_window_max",
+"r8_AE_Mias_stand_bn_512_full_image_s1___AD_window_max",
+"r8_AE_Mias_stand_bn_128_scale_0p125_s1___AD_window_max",
+"r8_AE_Mias_prob_bn_8192_full_image_s1___AD_window_max",
+"r8_AE_Mias_prob_bn_512_scale_0p25_s1___AD_window_max",
+
+"r7_CE_Mias_stand_scale_0p35_s2___AD_window_max",
+"r7_CE_Mias_prob_scale_0p35_s2___AD_window_max",
+"r8_AE_Mias_stand_bn_512_full_image_s2___AD_window_max",
+"r8_AE_Mias_stand_bn_128_scale_0p125_s2___AD_window_max",
+"r8_AE_Mias_prob_bn_8192_full_image_s2___AD_window_max",
+"r8_AE_Mias_prob_bn_512_scale_0p25_s2___AD_window_max",
+]
 
 
 # Note: For experiments that include anomaly detection, the experiment name needs to be original_experiment_name + "___" + AD_experiment_name, where original_experiment_name is the name of the eperiment in which the model that we want to use for AD was trained.
 
 # type of experiment
-experiment_type = "train" # options: "train" for training (including evaluation on val and test set); "AD" for anomaly detection (using the best validation model from "experiment_name"); "train+AD" for both.
+experiment_type = "AD" # options: "train" for training (including evaluation on val and test set); "AD" for anomaly detection (using the best validation model from "experiment_name"); "train+AD" for both.
 
 # number of replicates
 num_replicates = 1
 
 # Commonly used themes
 cpu = False
-probabilistic_inpainting = True
+probabilistic_inpainting = False
 small_mask = False
 large_context = False
 Mias = False
-DescribableTextures = True
+DescribableTextures = False
 GoogleStreetView = False
 autoencoder = False
 autoencoder_small = False
@@ -354,9 +374,7 @@ time = None
 
 # arguments to update from default, each inner dict has the items for one experiment:
 
-update_dicts = [{"patch_location_during_training":"central"}]
-
-
+update_dicts = [{"window_aggregation_method":"max"}]*18
 
 # for each experiment
 if num_replicates == 1:

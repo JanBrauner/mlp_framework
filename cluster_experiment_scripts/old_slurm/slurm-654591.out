@@ -1,0 +1,34 @@
+sending incremental file list
+use 6 GPU(s)
+  0%|          | 0/76 [00:00<?, ?it/s][('continue_from_epoch', '-1'), ('seed', '0'), ('task', 'regression'), ('use_gpu', 'True'), ('gpu_id', '0,1,2,3,4,5'), ('model_name', 'context_encoder'), ('kernel_size', '4'), ('num_layers_enc', '6'), ('num_channels_enc', '64'), ('num_channels_progression_enc', '[1, 1, 2, 4, 8]'), ('num_channels_bottleneck', '8'), ('num_layers_dec', '6'), ('num_channels_dec', '64'), ('num_channels_progression_dec', '[8, 4, 2, 1, 1]'), ('dataset_name', 'DescribableTextures'), ('num_image_channels', '3'), ('image_height', '128'), ('image_width', '128'), ('normalisation', 'range-11'), ('scale_image', 'None'), ('data_format', 'autoencoding'), ('debug_mode', 'False'), ('num_workers', '12'), ('augment', 'False'), ('gamma_factor', '1'), ('rot_angle', '0'), ('translate_factor', '[0, 0]'), ('scale_factor', '1'), ('shear_angle', '0'), ('patch_mode', 'True'), ('patch_size', '[128, 128]'), ('patch_location_during_training', 'random'), ('patch_rejection_threshold', '10'), ('image_padding_mode', 'None'), ('mask_size', '[64, 64]'), ('batch_size', '50'), ('loss', 'L2'), ('num_epochs', '200'), ('learning_rate', '0.0002'), ('betas', '[0.5, 0.999]'), ('weight_decay_coefficient', '0'), ('anomaly_dataset_name', 'DTPathologicalIrreg1'), ('AD_patch_stride', '[10, 10]'), ('measure_of_anomaly', 'absolute distance'), ('window_aggregation_method', 'mean'), ('save_anomaly_maps', 'True'), ('AD_margins', '[128, 128]'), ('AD_batch_size', '50'), ('experiment_name', 'AE_DTD_r3_patch_128_bn_8')]
+Loading data from:  /disk/scratch/s1890594/data/DescribableTextures
+Loading data from:  /disk/scratch/s1890594/data/DescribableTextures
+Loading data from:  /disk/scratch/s1890594/data/DescribableTextures
+/mnt/mscteach_home/s1890594/mlp_framework/results/AE_DTD_r3_patch_128_bn_8 /mnt/mscteach_home/s1890594/mlp_framework/results/AE_DTD_r3_patch_128_bn_8/result_outputs
+
+Traceback (most recent call last):
+  File "main.py", line 54, in <module>
+    experiment_metrics, test_metrics = experiment.run_experiment()  
+  File "/mnt/mscteach_home/s1890594/mlp_framework/experiment_builder.py", line 255, in run_experiment
+    loss = self.run_train_iter(x=x, y=y)  # take a training iter step
+  File "/mnt/mscteach_home/s1890594/mlp_framework/experiment_builder.py", line 116, in run_train_iter
+    out, loss = self.forward_prop_and_loss(x,y)
+  File "/mnt/mscteach_home/s1890594/mlp_framework/experiment_builder.py", line 182, in forward_prop_and_loss
+    out = self.model.forward(x)  # forward the data in the model
+  File "/home/s1890594/miniconda3/envs/mlp/lib/python3.7/site-packages/torch/nn/parallel/data_parallel.py", line 152, in forward
+    outputs = self.parallel_apply(replicas, inputs, kwargs)
+  File "/home/s1890594/miniconda3/envs/mlp/lib/python3.7/site-packages/torch/nn/parallel/data_parallel.py", line 162, in parallel_apply
+    return parallel_apply(replicas, inputs, kwargs, self.device_ids[:len(replicas)])
+  File "/home/s1890594/miniconda3/envs/mlp/lib/python3.7/site-packages/torch/nn/parallel/parallel_apply.py", line 83, in parallel_apply
+    raise output
+  File "/home/s1890594/miniconda3/envs/mlp/lib/python3.7/site-packages/torch/nn/parallel/parallel_apply.py", line 59, in _worker
+    output = module(*input, **kwargs)
+  File "/home/s1890594/miniconda3/envs/mlp/lib/python3.7/site-packages/torch/nn/modules/module.py", line 493, in __call__
+    result = self.forward(*input, **kwargs)
+  File "/mnt/mscteach_home/s1890594/mlp_framework/model_architectures.py", line 332, in forward
+    x = layer(x)
+  File "/home/s1890594/miniconda3/envs/mlp/lib/python3.7/site-packages/torch/nn/modules/module.py", line 493, in __call__
+    result = self.forward(*input, **kwargs)
+  File "/home/s1890594/miniconda3/envs/mlp/lib/python3.7/site-packages/torch/nn/modules/conv.py", line 338, in forward
+    self.padding, self.dilation, self.groups)
+RuntimeError: cuDNN error: CUDNN_STATUS_NOT_INITIALIZED
