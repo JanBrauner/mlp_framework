@@ -1,0 +1,11 @@
+sending incremental file list
+use 6 GPU(s)
+[('continue_from_epoch', '-1'), ('seed', '0'), ('task', 'classification'), ('use_gpu', 'True'), ('gpu_id', '0,1,2,3,4,5'), ('model_name', 'context_encoder'), ('kernel_size', '4'), ('num_layers_enc', '6'), ('num_channels_enc', '64'), ('num_channels_progression_enc', '[1, 1, 2, 4, 8]'), ('num_channels_bottleneck', '4000'), ('num_layers_dec', '5'), ('num_channels_dec', '64'), ('num_channels_progression_dec', '[8, 4, 2, 1]'), ('dataset_name', 'DescribableTextures'), ('num_image_channels', '3'), ('image_height', '128'), ('image_width', '128'), ('normalisation', 'range-11'), ('scale_image', '[0.5, 0.5]'), ('debug_mode', 'False'), ('num_workers', '6'), ('augment', 'False'), ('gamma_factor', '1'), ('rot_angle', '0'), ('translate_factor', '[0, 0]'), ('scale_factor', '1'), ('shear_angle', '0'), ('patch_mode', 'True'), ('patch_size', '[128, 128]'), ('patch_location_during_training', 'random'), ('patch_rejection_threshold', '10'), ('mask_size', '[64, 64]'), ('batch_size', '50'), ('loss', 'cross_entropy'), ('num_epochs', '200'), ('learning_rate', '0.0002'), ('betas', '[0.5, 0.999]'), ('weight_decay_coefficient', '0'), ('anomaly_dataset_name', 'DTPathologicalIrreg1'), ('AD_patch_stride', '[10, 10]'), ('measure_of_anomaly', 'likelihood'), ('window_aggregation_method', 'mean'), ('save_anomaly_maps', 'True'), ('AD_batch_size', '50'), ('experiment_name', 'CE_DTD_r2_prob_scale_0p5_s0')]
+Traceback (most recent call last):
+  File "main.py", line 40, in <module>
+    train_data, val_data, test_data, num_output_classes = data_providers.create_dataset(args, augmentations, rng)
+  File "/mnt/mscteach_home/s1890594/mlp_framework/data_providers.py", line 1326, in create_dataset
+    transform_train, transform_test = create_transforms(mn, sd, augmentations, args)
+  File "/mnt/mscteach_home/s1890594/mlp_framework/data_providers.py", line 1132, in create_transforms
+    padding_mode = args.image_padding_mode
+AttributeError: 'AttributeAccessibleDict' object has no attribute 'image_padding_mode'
