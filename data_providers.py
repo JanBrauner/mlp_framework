@@ -1129,7 +1129,10 @@ def create_transforms(mn, sd, augmentations, args):
     patch_mode = args.patch_mode
     image_height = args.image_height
     image_width = args.image_width
-    padding_mode = args.image_padding_mode
+    try:
+        padding_mode = args.image_padding_mode
+    except AttributeError:
+        padding_mode = None
     padding = max((args.patch_size[0] - args.mask_size[0])//2, (args.patch_size[1] - args.mask_size[1])//2) #automatically infer padding from patch and mask size
 
     
