@@ -80,9 +80,13 @@ def summary_stats_multi_replicates(experiment_names, ns, features, sort_column=N
             experiment_names_with_seeds.append(experiment_name.replace("___AD", "_s{}___AD".format(seed)))
             seeds.append(seed)
     
-    df = summary_stats(experiment_names_with_seeds, features, sort_column=None, display_table=display_table, results_base_dir=results_base_dir)
+    df = summary_stats(experiment_names_with_seeds, features, sort_column=None, display_table=None, results_base_dir=results_base_dir)
     df["Experiment name"] = experiment_names_wo_seeds
     df["Seed"] = seeds
+    if display_table:
+        display(df)
+    
+    return df
 # =============================================================================
 #     experiment_wo_seed = []
 #     seed = []
