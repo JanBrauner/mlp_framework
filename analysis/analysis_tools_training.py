@@ -163,6 +163,7 @@ def print_table_peak_values(experiment_names, ns, variables_to_show="all", sort_
     
     display(peak_values_df.loc[:,variables_to_show])
 
+    return peak_values_df
 def print_table_test_results(experiment_names, ns, variables_to_show="all", sort_column=None, results_base_dir=results_base_dir):
     test_results_df = pd.DataFrame()
     for experiment_name, n in zip(experiment_names, ns):
@@ -185,6 +186,8 @@ def print_table_test_results(experiment_names, ns, variables_to_show="all", sort
         test_results_df = test_results_df.sort_values(by=sort_column)
 
     display(test_results_df.loc[:, variables_to_show])
+    
+    return test_results_df
 #%% helpers
 def create_peak_value_df(df, min_keywords=min_keywords, max_keywords=max_keywords):
     peak_value_df = pd.DataFrame(columns=list(df.columns))
