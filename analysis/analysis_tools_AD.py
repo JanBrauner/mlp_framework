@@ -70,44 +70,73 @@ def summary_stats(experiment_names, features, sort_column=None, display_table=Tr
             display(summary_df)
     return summary_df
 
+def summary_stats_multi_replicates(experiment_names, ns, features, sort_column=None, display_table=True, results_base_dir=results_base_dir):
+    experiment_names_wo_seeds = []
+    experiment_names_with_seeds = []
+    seeds = []
+    for experiment_name, n in zip(experiment_names, ns):
+        for seed in range(n):
+            experiment_names_wo_seeds.append(experiment_name)
+            experiment_names_with_seeds.append(experiment_name.replace("___AD", "_s{}___AD".format(seed)))
+            seeds.append(seed)
+    
+    df = summary_stats(experiment_names_with_seeds, features, sort_column=None, display_table=display_table, results_base_dir=results_base_dir)
+    df["Experiment name"] = experiment_names_wo_seeds
+    df["Seed"] = seeds
+# =============================================================================
+#     experiment_wo_seed = []
+#     seed = []
+#     for experiment_name in df.index:
+#         for seed_num, seed_name in enumerate(["_s0", "_s1", "_s2", "_s3", "_s4", "_s5", "_s6", "_s7", ]):
+#             if seed_name in experiment_name:
+#                 experiment_wo_seed.append(experiment_name.replace(seed_name, ""))
+#                 seed.append(seed_num)
+#     df["seed"] = seed
+#     df["experiment_without_seed"] = experiment_wo_seed
+# =============================================================================
+    
 
 
-### I probably don't need this function anymore, since parse_experiment_name is much better and in the spirit of pandas. 
-### If you just create additional columns, you can use pd functionality like filtering, pivoting, ...
-### But let's keep this function around for now
-def summary_stats_by_train_exp(experiment_names, delimiter="___", display_table=True):
-    """
-    Summary table over multiple experiments, but all AD experiments that go back to the same train experiment are in one row.
-    Note: 
-        this could be made much more flexible, so that results could be grouped by other parts of the experiment_name as well.
-        !! But a much better solution would be to read out the experiment_name strings at the beginning and transfer into columns
-    """
-    summary_df = summary_stats(experiment_names, display_table=False)
-    
-    train_experiment_names = get_train_experiment_names(summary_df.index, delimiter=delimiter)
-    
-    # not sure if this is important...
-    summary_by_train_exp_df = pd.DataFrame(columns=["train_experiment_name"])
-    summary_by_train_exp_df.set_index("train_experiment_name")
-    
-    
-    for train_experiment_name in train_experiment_names:
-        dict_to_append = {"train_experiment_name":train_experiment_name}
-    
-        for row in summary_df.itertuples(): # note that row is returned as a namedtuple
-            if train_experiment_name in row.Index: # update the stats_dict with the stats of taht experiment, prepended by the AD experiment name. E.g. val_loss becomes <AD_experiment_val_loss>
-                AD_experiment_name = row.Index.split(delimiter)[1]
-                dict_to_append.update({(AD_experiment_name +"_" + k): v for k,v in row._asdict().items() if not "Index" in k})
-
-        summary_by_train_exp_df = summary_by_train_exp_df.append(dict_to_append, ignore_index=True)
-    
-    summary_by_train_exp_df = summary_by_train_exp_df.set_index("train_experiment_name")
-    
-    if display_table:
-        with pd.option_context('display.max_rows', None, 'display.max_columns', None):
-            display(summary_by_train_exp_df)
-    return summary_by_train_exp_df
-    
+                
+# =============================================================================
+# 
+# ### I probably don't need this function anymore, since parse_experiment_name is much better and in the spirit of pandas. 
+# ### If you just create additional columns, you can use pd functionality like filtering, pivoting, ...
+# ### But let's keep this function around for now
+# def summary_stats_by_train_exp(experiment_names, delimiter="___", display_table=True):
+#     """
+#     Summary table over multiple experiments, but all AD experiments that go back to the same train experiment are in one row.
+#     Note: 
+#         this could be made much more flexible, so that results could be grouped by other parts of the experiment_name as well.
+#         !! But a much better solution would be to read out the experiment_name strings at the beginning and transfer into columns
+#     """
+#     summary_df = summary_stats(experiment_names, display_table=False)
+#     
+#     train_experiment_names = get_train_experiment_names(summary_df.index, delimiter=delimiter)
+#     
+#     # not sure if this is important...
+#     summary_by_train_exp_df = pd.DataFrame(columns=["train_experiment_name"])
+#     summary_by_train_exp_df.set_index("train_experiment_name")
+#     
+#     
+#     for train_experiment_name in train_experiment_names:
+#         dict_to_append = {"train_experiment_name":train_experiment_name}
+#     
+#         for row in summary_df.itertuples(): # note that row is returned as a namedtuple
+#             if train_experiment_name in row.Index: # update the stats_dict with the stats of taht experiment, prepended by the AD experiment name. E.g. val_loss becomes <AD_experiment_val_loss>
+#                 AD_experiment_name = row.Index.split(delimiter)[1]
+#                 dict_to_append.update({(AD_experiment_name +"_" + k): v for k,v in row._asdict().items() if not "Index" in k})
+# 
+#         summary_by_train_exp_df = summary_by_train_exp_df.append(dict_to_append, ignore_index=True)
+#     
+#     summary_by_train_exp_df = summary_by_train_exp_df.set_index("train_experiment_name")
+#     
+#     if display_table:
+#         with pd.option_context('display.max_rows', None, 'display.max_columns', None):
+#             display(summary_by_train_exp_df)
+#     return summary_by_train_exp_df
+#     
+# =============================================================================
 
 #%% Misc helpers
 
@@ -179,17 +208,29 @@ def get_features(feature_set_name):
                      "values": ["prob", "stand", "stand"]},
                       ]
     elif feature_set_name == "r7":
-        features = [{"column_name": "output_type",
+        features = [{"column_name": "Output type",
                      "patterns": ["stand", "prob"],
-                     "values": ["stand", "prob"]},
-    
-                    {"column_name": "inpainting_setting",
+                     "values": ["deterministic", "probabilistic"]},
+            
+                    {"column_name": "Inpainting setting",
                      "patterns": ["scale_1", "scale_0p71", "scale_0p5", "scale_0p35", "scale_0p25", "scale_0p18", "scale_0p125", "small_mask", "large_context"],
-                     "values": ["scale_1", "scale_0p71", "scale_0p5", "scale_0p35", "scale_0p25", "scale_0p18", "scale_0p125", "small_mask", "large_context"]},
+                     "values": ["mask area 1", "mask area 2", "mask area 4", "mask area 8", "mask area 16", "mask area 32", "mask area 64", "mask area 1, large patch", "mask area 4, large patch"]},
                      
-                    {"column_name": "window_aggregation_method",
+                    {"column_name": "Anomaly value aggregation function",
                      "patterns": ["win_min", "win_mean", "win_max"],
-                     "values": ["min", "mean", "max"]}]
+                     "values": ["minimum", "mean", "maximum"]},
+                     
+                     {"column_name": "Mask area",
+                     "patterns": ["scale_1", "scale_0p71", "scale_0p5", "scale_0p35", "scale_0p25", "scale_0p18", "scale_0p125", "small_mask", "large_context"],
+                     "values": [1, 2, 4, 8, 16, 32, 64, 1, 4]},
+                     
+                     
+                     {"column_name": "Model",
+                      "patterns": ["stand_scale_1", "stand_scale_0p71", "stand_scale_0p5", "stand_scale_0p35", "stand_scale_0p25", "stand_scale_0p18", "stand_scale_0p125", "stand_small_mask", "stand_large_context",
+                                   "prob_scale_1", "prob_scale_0p71", "prob_scale_0p5", "prob_scale_0p35", "prob_scale_0p25", "prob_scale_0p18", "prob_scale_0p125", "prob_small_mask", "prob_large_context",],
+                     "values": ["determ. mask area 1", "determ. mask area 2", "determ. mask area 4", "determ. mask area 8", "determ. mask area 16", "determ. mask area 32", "determ. mask area 64", "determ. mask area 1, large patch", "determ. mask area 4, large patch",
+                                "probab. mask area 1", "probab. mask area 2", "probab. mask area 4", "probab. mask area 8", "probab. mask area 16", "probab. mask area 32", "probab. mask area 64", "probab. mask area 1, large patch", "probab. mask area 4, large patch"]},
+                     ]
     elif feature_set_name == "r8":
         features = [{"column_name": "autoencoding_setting",
                       "patterns": ["scale", "full_image"],
