@@ -144,21 +144,21 @@ def get_features(feature_set_name):
                                 "probab. large patch",]}
                     ]
     elif feature_set_name == "r2_comb":
-        features = [{"column_name": "output_type",
+        features = [{"column_name": "Output type",
                      "patterns": ["stand", "prob"],
-                     "values": ["stand", "prob"]},
-    
-                    {"column_name": "inpainting_setting",
+                     "values": ["deterministic", "probabilistic"]},
+                        
+                    {"column_name": "Models",
                      "patterns": ["Sc1Sc05", "Sc1Sm", "Sc1Lc", "Sc05Sm", "Sc05Lc", "SmLc", "Sc1Sc05Sm", "Sc1Sc05Lc", "Sc1SmLc", "Sc05SmLc", "Sc1Sc05SmLc"],
-                     "values": ["Sc1Sc05", "Sc1Sm", "Sc1Lc", "Sc05Sm", "Sc05Lc", "SmLc", "Sc1Sc05Sm", "Sc1Sc05Lc", "Sc1SmLc", "Sc05SmLc", "Sc1Sc05SmLc"]},
+                     "values": ["StLm", "StSm", "StLp", "LmSm", "LmLp", "SmLp", "StLmSm", "StLmLp", "StSmLp", "LmSmLp", "StLmSmLp"],},
                      
-                    {"column_name": "window_aggregation_method",
+                    {"column_name": "Anomaly value aggregation function",
                      "patterns": ["win_min", "win_mean", "win_max"],
-                     "values": ["min", "mean", "max"]},
+                     "values": ["minimum", "mean", "maximum"]},
                     
-                    {"column_name": "model_combination_method",
+                    {"column_name": "Anomaly map aggregation function",
                      "patterns": ["comb_min", "comb_mean", "comb_max"],
-                     "values": ["min", "mean", "max"]}
+                     "values": ["minimum", "mean", "maximum"]}
                     
                     ]
     elif feature_set_name == "r3":
