@@ -150,7 +150,7 @@ def get_features(feature_set_name):
                      "patterns": ["stand", "prob"],
                      "values": ["deterministic", "probabilistic"]},
     
-                    {"column_name": "Inpainting setting",
+                    {"column_name": "Patch/mask size setting",
                      "patterns": ["scale_1", "scale_0p5", "small_mask", "large_context"],
                      "values": ["standard", "large mask", "small mask", "large patch"]},
                      
@@ -216,7 +216,7 @@ def get_features(feature_set_name):
                      "patterns": ["stand", "prob"],
                      "values": ["deterministic", "probabilistic"]},
             
-                    {"column_name": "Inpainting setting",
+                    {"column_name": "Patch/mask size setting",
                      "patterns": ["scale_1", "scale_0p71", "scale_0p5", "scale_0p35", "scale_0p25", "scale_0p18", "scale_0p125", "small_mask", "large_context"],
                      "values": ["mask area 1", "mask area 2", "mask area 4", "mask area 8", "mask area 16", "mask area 32", "mask area 64", "mask area 1, large patch", "mask area 4, large patch"]},
                      

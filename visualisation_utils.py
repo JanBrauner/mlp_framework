@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import torch
 import torchvision
 
-def show(img, cax=None):
+def show(img, cax=None, cmap=None):
     # show PIL image or torch Tensor
     if type(img) == torch.Tensor:
         npimg = img.detach().numpy()
@@ -13,8 +13,11 @@ def show(img, cax=None):
     npimg = np.squeeze(npimg)
     if cax==None:
         _, cax = plt.subplots()
-    cax.imshow(npimg, interpolation='nearest')
-    
+    if cmap is not None:
+        cax.imshow(npimg, interpolation='nearest')
+        plt.set_cmap("hot")
+    else:
+        cax.imshow(npimg, interpolation='nearest')
     return cax
 
 

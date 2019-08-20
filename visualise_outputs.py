@@ -25,13 +25,15 @@ from misc_utils import create_central_region_slice
 
 #%%
 # parameters:
-experiment_name = "CE_DTD_r2_prob_central_patch_scale_1" #"r4_CE_Mias_augtest_best_combo_s2" # "r6_CE_Mias_padding_const_s1" # "r4_CE_Mias_augtest_best_combo_s0" #  # "r4_CE_Mias_augtest_best_combo_s2"
-save_image = False
-save_path = "C:\\Users\\MC JB\\Dropbox\\dt\\Edinburgh\\project\\final report\\figures\\DT_central_patch_prob_inpainting.png"
+experiment_name = "r7_CE_Mias_prob_scale_0p35" #"r4_CE_Mias_augtest_best_combo_s2" # "r6_CE_Mias_padding_const_s1" # "r4_CE_Mias_augtest_best_combo_s0" #  # "r4_CE_Mias_augtest_best_combo_s2"
+save_image = True
+save_dir = "C:\\Users\\MC JB\\Dropbox\\dt\\Edinburgh\\project\\final report\\figures\\"
+save_name = "MIAS_best_stand_AD_model_inpainting.png"
+save_path = save_dir + save_name
 batch_size = 8 # number of images per row
 image_batch_idx = 0 # use different number to see different images
 seed = 1 # to see different regions of the images
-set_to_visualise = "train"
+set_to_visualise = "test"
 force_patch_location = "central" # "False": every model gets visualised with patches from the location it was trained with. Otherwise, specify the patch_location the models should be tested with
 force_dataset = False # "False": every model gets visualised with dataset it was trained. Otherwise, specify the dataset the models should be tested with. !Of course, you can't force a model that was trained on gray-scale images to work on RGB images
 
@@ -103,6 +105,7 @@ else:
 
 # set random seeds
 rng = np.random.RandomState(seed=args.seed)
+st0 = rng.get_state()
 torch.manual_seed(seed=args.seed)
 
 
@@ -127,6 +130,7 @@ for inputs, targets in data_loader:
         break
 
 # randomise images shown (*1)
+rng.set_state(st0)
 image_idx = rng.choice(inputs.shape[0], args.batch_size, replace=False)
 inputs = inputs[image_idx,:,:,:]
 targets = targets[image_idx,:,:,:]
