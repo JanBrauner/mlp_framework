@@ -324,26 +324,32 @@ def DescribableTextures_theme(args):
 #%% A list of independent experiment 
 # experiment names
 experiment_names = [
-"r7_CE_Mias_stand_scale_0p35_s0___AD_window_max",
-"r7_CE_Mias_prob_scale_0p35_s0___AD_window_max",
-"r8_AE_Mias_stand_bn_512_full_image_s0___AD_window_max",
-"r8_AE_Mias_stand_bn_128_scale_0p125_s0___AD_window_max",
-"r8_AE_Mias_prob_bn_8192_full_image_s0___AD_window_max",
-"r8_AE_Mias_prob_bn_512_scale_0p25_s0___AD_window_max",
+"CE_DTD_r2_stand_scale_1_s0___AD_window_max",
+"CE_DTD_r2_prob_scale_0p5_s0___AD_window_max",
+"AE_DTD_r3_full_image_128_bn_1024_s0___AD_window_mean",
+"AE_DTD_r3_patch_128_bn_32_s0___AD_window_mean",
+"AE_DTD_r3_patch_64_bn_8_s0___AD_window_max",
+"AE_DTD_r3_prob_full_image_128_bn_4096_s0___AD_window_max",
+"AE_DTD_r3_prob_patch_128_bn_64_s0___AD_window_max",
+"AE_DTD_r3_prob_patch_64_bn_16_s0___AD_window_max",
 
-"r7_CE_Mias_stand_scale_0p35_s1___AD_window_max",
-"r7_CE_Mias_prob_scale_0p35_s1___AD_window_max",
-"r8_AE_Mias_stand_bn_512_full_image_s1___AD_window_max",
-"r8_AE_Mias_stand_bn_128_scale_0p125_s1___AD_window_max",
-"r8_AE_Mias_prob_bn_8192_full_image_s1___AD_window_max",
-"r8_AE_Mias_prob_bn_512_scale_0p25_s1___AD_window_max",
+"CE_DTD_r2_stand_scale_1_s1___AD_window_max",
+"CE_DTD_r2_prob_scale_0p5_s1___AD_window_max",
+"AE_DTD_r3_full_image_128_bn_1024_s1___AD_window_mean",
+"AE_DTD_r3_patch_128_bn_32_s1___AD_window_mean",
+"AE_DTD_r3_patch_64_bn_8_s1___AD_window_max",
+"AE_DTD_r3_prob_full_image_128_bn_4096_s1___AD_window_max",
+"AE_DTD_r3_prob_patch_128_bn_64_s1___AD_window_max",
+"AE_DTD_r3_prob_patch_64_bn_16_s1___AD_window_max",
 
-"r7_CE_Mias_stand_scale_0p35_s2___AD_window_max",
-"r7_CE_Mias_prob_scale_0p35_s2___AD_window_max",
-"r8_AE_Mias_stand_bn_512_full_image_s2___AD_window_max",
-"r8_AE_Mias_stand_bn_128_scale_0p125_s2___AD_window_max",
-"r8_AE_Mias_prob_bn_8192_full_image_s2___AD_window_max",
-"r8_AE_Mias_prob_bn_512_scale_0p25_s2___AD_window_max",
+"CE_DTD_r2_stand_scale_1_s2___AD_window_max",
+"CE_DTD_r2_prob_scale_0p5_s2___AD_window_max",
+"AE_DTD_r3_full_image_128_bn_1024_s2___AD_window_mean",
+"AE_DTD_r3_patch_128_bn_32_s2___AD_window_mean",
+"AE_DTD_r3_patch_64_bn_8_s2___AD_window_max",
+"AE_DTD_r3_prob_full_image_128_bn_4096_s2___AD_window_max",
+"AE_DTD_r3_prob_patch_128_bn_64_s2___AD_window_max",
+"AE_DTD_r3_prob_patch_64_bn_16_s2___AD_window_max",
 ]
 
 
@@ -374,7 +380,7 @@ time = None
 
 # arguments to update from default, each inner dict has the items for one experiment:
 
-update_dicts = [{"window_aggregation_method":"max"}]*18
+update_dicts = ([{"window_aggregation_method": "max"}]*2 + [{"window_aggregation_method": "mean"}]*2 + [{"window_aggregation_method": "max"}]*4)*3
 
 # for each experiment
 if num_replicates == 1:
