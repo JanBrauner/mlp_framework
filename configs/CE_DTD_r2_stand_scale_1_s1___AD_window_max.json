@@ -71,6 +71,9 @@
  "measure_of_anomaly": "absolute distance",
  "window_aggregation_method": "max",
  "save_anomaly_maps": true,
- "AD_margins": null,
+ "AD_margins": [
+  128,
+  128
+ ],
  "AD_batch_size": 50
 }
